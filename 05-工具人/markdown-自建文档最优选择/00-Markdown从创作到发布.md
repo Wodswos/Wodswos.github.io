@@ -245,13 +245,13 @@ Openwrite
 
 [阿里云对象存储服务官方文档](https://help.aliyun.com/product/31815.html)
 
-![image-20201003145947185](C:\Users\Five\Desktop\book\img\00-01.png)
+![image-20201003145947185](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/00-01.png)
 
 
 
 ### PicGo
 
-![image-20201003160022102](C:\Users\Five\Desktop\book\img\00-02.png)
+![image-20201003160022102](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/00-02.png)
 
 
 

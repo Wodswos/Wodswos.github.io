@@ -56,8 +56,18 @@
 
 # UCore
 
-![image-20201014143744361](C:\Users\Five\Desktop\book\img\image-20201014143744361.png)
+![image-20201014143744361](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201014143744361.png)
 
 uCore，清华大学教学实验操作系统
 
-![](C:/Users/Five/Desktop/book/img/3-01.png)
+![](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/3-01.png)
+
+以下为由代码自动生成的索引
+* [00-ucore实验笔记](00-ucore实验笔记.html)
+* [01-启动、中断、异常和系统调用](01-启动、中断、异常和系统调用.html)
+* [03-内存管理](03-内存管理.html)
+* [04-进程和线程](04-进程和线程.html)
+* [05-处理机调度](05-处理机调度.html)
+* [06-文件系统](06-文件系统.html)
+* [07-IO模型](07-IO模型.html)
+* [08-GUI](08-GUI.html)

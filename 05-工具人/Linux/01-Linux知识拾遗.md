@@ -35,7 +35,7 @@
 
 ##### 正常模式：初始模式
 
-![Vi/Vim键盘图](C:\Users\Five\Desktop\book\img\01-01.png)
+![Vi/Vim键盘图](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/01-01.png)
 
 ##### 编辑模式：正常输入
 

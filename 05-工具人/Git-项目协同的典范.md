@@ -20,7 +20,7 @@ git config --scope_level config_name config_value
 git config --list --scope_level
 ```
 
-![image-20201017170334504](C:\Users\Five\Desktop\book\img\image-20201017170334504.png)
+![image-20201017170334504](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201017170334504.png)
 
 如果scope设为global，则会显示特定用户目录下.gitconfig文件的内容。
 
@@ -28,7 +28,7 @@ git config --list --scope_level
 
 不配置name和Email后续将无法commit，出现如下所示报错
 
-![image-20201017182330102](C:\Users\Five\Desktop\book\img\image-20201017182330102.png)
+![image-20201017182330102](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201017182330102.png)
 
 所以需要执行如下命令进行配置
 
@@ -72,7 +72,7 @@ git config --global user.email "youremailaddress"
 
 ### git提交流程
 
-![640](C:\Users\Five\Desktop\book\img\640.png)
+![640](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/640.png)
 
 > 图并不完全准确，如果是clone会在workspace和Repository克隆两份一样的。然后修改workspace的内容。
 

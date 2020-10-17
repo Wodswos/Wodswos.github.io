@@ -58,7 +58,7 @@
 
 不过Intel可不只有芯片，看似在芯片领域被后期之秀AMD攻城略地（移动端更是被ARM一家独大），Intel早已逐渐开拓新的战场——智能科学和云服务。
 
-![Intel CPU命名](C:\Users\Five\Desktop\book\img\1-02.jpg)
+![Intel CPU命名](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/1-02.jpg)
 
 
 

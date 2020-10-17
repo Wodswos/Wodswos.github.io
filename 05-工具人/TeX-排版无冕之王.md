@@ -2,5 +2,5 @@
 
 ## 和Python生态对比
 
-![image-20201017122915996](C:\Users\Five\Desktop\book\img\image-20201017122915996.png)
+![image-20201017122915996](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201017122915996.png)
 

@@ -147,13 +147,13 @@ EFLAGS，标志寄存器
 
 x86寄存器初始值：
 
-![image-20201016083943958](C:\Users\Five\Desktop\book\img\image-20201016083943958.png)
+![image-20201016083943958](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201016083943958.png)
 
 其中CS:EIP（CS<<4+EIP）决定了从哪个地址开始取得相应的指令去执行。
 
 即第一个实际地址是$Base + EIP = FFFF0000H + 0000FFF0H = FFFFFFF0H$，这是BIOS的EPROM（Erasable Programmable Read Only Memory）所在地。
 
-![image-20201016084657613](C:\Users\Five\Desktop\book\img\image-20201016084657613.png)
+![image-20201016084657613](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20201016084657613.png)
 
 所以其实段寄存器在表示地址时的最小单位是$2^4=16$字节。而一个段最大长度也就是Offset的最大值$2^{16}=64KB$
 

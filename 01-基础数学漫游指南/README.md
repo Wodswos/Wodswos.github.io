@@ -1,6 +1,6 @@
 # Introduction
 
-![](C:\Users\Five\Desktop\book\img\0-01.jpg)
+![](https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/0-01.jpg)
 
 
 
@@ -10,3 +10,11 @@
 
 也因此仅仅只记录和计算科学相关的数学基础知识的学习笔记。
 
+
+
+以下为由代码自动生成的索引
+* [01-基础与哲学](01-基础与哲学/index.html)
+* [02-变化和分析](02-变化和分析/index.html)
+* [03-结构和代数](03-结构和代数/index.html)
+* [04-应用数学](04-应用数学/index.html)
+* [05-混入一点点物理](05-混入一点点物理/index.html)
