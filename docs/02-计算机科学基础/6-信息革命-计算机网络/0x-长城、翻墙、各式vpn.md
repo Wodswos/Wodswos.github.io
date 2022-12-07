@@ -36,7 +36,17 @@ git bash 中 clone 依旧是 time out。
 
 ## 代理模式
 
-* 全局代理
+
+
+* HTTP 代理
+* Socks5 代理
+* 透明代理
+
+
+
+
+
+全局代理：指的便是**设备上所有支持代理协议的浏览器、程序/APP的IP均使用代理**
 
 
 
@@ -46,17 +56,23 @@ git bash 中 clone 依旧是 time out。
 
 # VPN
 
+https://tonydeng.github.io/sdn-handbook/secure/vpn/
+
 VPN的隧道协议主要有四种，[PPTP](https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol)、[L2TP](https://en.wikipedia.org/wiki/Layer_2_Tunneling_Protocol)、[IPSec](https://en.wikipedia.org/wiki/IPsec)和[SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security)，其中`PPTP`和`L2TP`协议工作在OSI模型的第二层，又称为二层隧道协议；`IPSec`是第三层隧道协议；而`SSL`是工作在OSI会话层之上的协议，如果按照TCP/IP协议模型划分，即工作在应用层。
 
-
+![](C:/Users/Five/Desktop/note/img/OSI-VPN-protocol.svg)
 
 ## 代理 vs vpn
 
 
 
-代理工作在 OSI 模型的应用层，或者更狭义地来讲，就是管浏览器（或者说 web，或者说 HTTP，或者说 tcp/udp:80/443）的那点流量。
+代理工作在 OSI 模型的应用层，往往就管浏览器（或者说 web，或者说 HTTP，或者说 tcp/udp:80/443）的那点流量，即 HTTP 代理。
 
 VPN 在操作系统级别工作（PPTP 和 L2TP 协议工作在数据链路层，IPSec 工作在网络层，SSL 工作在会话层），
+
+
+
+VPN 会加密发送或接收的任何数据，而代理不会。许多代理是免费的，但很少有免费的 vpn——因为那往往意味着你的数据会被服务提供商利用，也就失去了使用 vpn 的意义。
 
 
 
@@ -66,7 +82,7 @@ VPN 在操作系统级别工作（PPTP 和 L2TP 协议工作在数据链路层�
 >
 > **The main difference between a VPN and a VPS is that a VPN is a privacy technology, and a VPS is a server you can rent for hosting.**
 >
-> 即 vps 是云服务器，而不是一种网络连接技术。这个词中文倒是比英文歧义小得多。
+> 即 vps 是云服务器，而不是一种网络连接技术，就像老婆饼和老婆。这个词中文倒是比英文歧义小得多。
 
 
 
@@ -87,12 +103,6 @@ OpenVPN is a full-featured SSL VPN which implements OSI layer 2 or 3 secure netw
 
 
 ## OpenVPN Cloud
-
-
-
-
-
-## 
 
 
 
