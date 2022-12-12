@@ -66,8 +66,7 @@ jobs:
 name: Deploy Gatsby site to Pages
 'on':
   push:
-    branches:
-    - $default-branch
+    branches: main
   workflow_dispatch: null
 permissions:
   contents: read
