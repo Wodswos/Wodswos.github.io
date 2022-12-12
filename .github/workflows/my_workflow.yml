@@ -14,8 +14,7 @@ jobs:
       run: ls -lR
     - name: npm install
       uses: actions/setup-node@v3
-    - run: npm ci
-    - run: npm test
+    - run: npm --version
     - id: detect-package-manager
       name: Detect package manager
       run: "if [ -f \"${{ github.workspace }}/yarn.lock\" ]; then\n  echo \"manager=yarn\"\
