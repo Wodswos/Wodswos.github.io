@@ -2,6 +2,8 @@ https://docs.github.com/en/actions
 
 读官方文档，顺便摘录一下，不然总感觉啥也没干没学进去——虽然 copy 一下也依旧没学进去。
 
+阮一峰 GitHub Actions 入门教程 http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html
+
 # 概述
 
 Github Actions  是 Github 于 2018年 10 月推出的持续集成服务。Jenkins 就是常用的持续集成平台工具。
@@ -136,6 +138,10 @@ https://docs.github.com/en/actions/creating-actions
 
 
 
+## 其他
+
+
+
 # Learn Github Actions
 
 https://docs.github.com/en/actions/learn-github-actions/
@@ -155,6 +161,42 @@ GitHub Actions is a continuous integration and continuous delivery (CI/CD) platf
 ## Find and customize actions
 
 
+
+## Expression
+
+https://docs.github.com/en/actions/learn-github-actions/expressions
+
+You can use expressions to programmatically set environment variables in workflow files and access contexts.
+
+
+
+## Context
+
+Contexts are a way to access information about workflow runs, runner environments, jobs, and steps. Each context is an object that contains properties, which can be strings or other objects.
+
+| Context name | Type     | Description                                                  |
+| :----------- | :------- | :----------------------------------------------------------- |
+| `github`     | `object` | Information about the workflow run. For more information, see [`github` context](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context). |
+| `env`        | `object` | Contains environment variables set in a workflow, job, or step. For more information, see [`env` context](https://docs.github.com/en/actions/learn-github-actions/contexts#env-context). |
+| `job`        | `object` | Information about the currently running job. For more information, see [`job` context](https://docs.github.com/en/actions/learn-github-actions/contexts#job-context). |
+| `jobs`       | `object` | For reusable workflows only, contains outputs of jobs from the reusable workflow. For more information, see [`jobs` context](https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context). |
+| `steps`      | `object` | Information about the steps that have been run in the current job. For more information, see [`steps` context](https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context). |
+| `runner`     | `object` | Information about the runner that is running the current job. For more information, see [`runner` context](https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context). |
+| `secrets`    | `object` | Contains the names and values of secrets that are available to a workflow run. For more information, see [`secrets` context](https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context). |
+| `strategy`   | `object` | Information about the matrix execution strategy for the current job. For more information, see [`strategy` context](https://docs.github.com/en/actions/learn-github-actions/contexts#strategy-context). |
+| `matrix`     | `object` | Contains the matrix properties defined in the workflow that apply to the current job. For more information, see [`matrix` context](https://docs.github.com/en/actions/learn-github-actions/contexts#matrix-context). |
+| `needs`      | `object` | Contains the outputs of all jobs that are defined as a dependency of the current job. For more information, see [`needs` context](https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context). |
+| `inputs`     | `object` | Contains the inputs of a reusable or manually triggered workflow. For more information, see [`inputs` context](https://docs.github.com/en/actions/learn-github-actions/contexts#inputs-context). |
+
+
+
+## 环境变量 Environment Variable
+
+`github.workspace`：`/home/runner/work/Wodswos.github.io/Wodswos.github.io`
+
+
+
+`job.status`
 
 
 
