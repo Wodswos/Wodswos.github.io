@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   语法
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/07-技多不压身/index.html">
+     07-技多不压身
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/0x-哲学.html">
+         0x-哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/More is different - Anderson.html">
+         More is different - Anderson.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/关于人的认知.html">
+         关于人的认知.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/科研.html">
+         科研.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-奖赏机制：多巴胺及其基本规律.html">
+         人类篇-奖赏机制：多巴胺及其基本规律.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-自然选择的不完美产物.html">
+         人类篇-自然选择的不完美产物.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-有性生殖的意义.html">
+         生命篇-有性生殖的意义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生命是一种催化剂，或是一种桥梁吗？.html">
+         生命篇-生命是一种催化剂，或是一种桥梁吗？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生物信息学.html">
+         生命篇-生物信息学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/社会篇-关于社交网络.html">
+         社会篇-关于社交网络.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-商业模式-被我忽视的驱动力.html">
+         0x-商业模式-被我忽视的驱动力.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-我的政治倾向.html">
+         0x-我的政治倾向.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-史纲.html">
+         考研政治-史纲.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-思修.html">
+         考研政治-思修.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-毛中特.html">
+         考研政治-毛中特.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-马原.html">
+         考研政治-马原.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词性和词汇辨析.html">
+         01-词汇-词性和词汇辨析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词缀词根词源.html">
+         01-词汇-词缀词根词源.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-语料库.html">
+         01-词汇-语料库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/02-语法.html">
+         02-语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《The craft of Research》.html">
+         03-写作-《The craft of Research》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《Writing in Enligsh at University》.html">
+         03-写作-《Writing in Enligsh at University》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《从计算理论到大数据图灵机》.html">
+         《从计算理论到大数据图灵机》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《数学简史》蔡天新.html">
+         《数学简史》蔡天新.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《理想国》.html">
+         《理想国》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《相变》.html">
+         《相变》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/0-基础理论知识：解剖学，生理学，营养学.html">
+         0-基础理论知识：解剖学，生理学，营养学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/1-训练计划.html">
+         1-训练计划.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/2-训练记录.html">
+         2-训练记录.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/量化健身-阅读笔记.html">
+         量化健身-阅读笔记.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01A-食材基础认知：理论.html">
+         01A-食材基础认知：理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01B-厨艺基本操作：食材的处理.html">
+         01B-厨艺基本操作：食材的处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-主食面点.html">
+         02-实例-主食面点.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-家常小炒.html">
+         02-实例-家常小炒.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-西式篇.html">
+         02-实例-西式篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/03-Trick.html">
+         03-Trick.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/炼丹日志.html">
+         炼丹日志.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/关于搞笑&amp;幽默.html">
+         关于搞笑&amp;幽默.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/有趣的文字.html">
+         有趣的文字.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/出行篇.html">
+         出行篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/衣物篇.html">
+         衣物篇.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/游戏篇.html">
+         游戏篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/踏出海口1.html">
+         踏出海口1.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/s-IDEA.html">
+         s-IDEA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于写作.html">
+         关于写作.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于曜的幻想.html">
+         关于曜的幻想.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/社会猜想：理智vs盲目.html">
+         社会猜想：理智vs盲目.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/负了如来也负卿.html">
+         负了如来也负卿.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    语法
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#常规句式" id="toc-常规句式">
+      常规句式
+     </a>
+     <ul>
+      <li>
+       <a href="#简单句和句子的基本成分" id="toc-简单句和句子的基本成分">
+        简单句和句子的基本成分
+       </a>
+       <ul>
+        <li>
+         <a href="#五大基本句型" id="toc-五大基本句型">
+          五大基本句型
+         </a>
+        </li>
+        <li>
+         <a href="#句子成分" id="toc-句子成分">
+          句子成分
+         </a>
+        </li>
+        <li>
+         <a href="#词性和语句成分" id="toc-词性和语句成分">
+          词性和语句成分
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#并列句" id="toc-并列句">
+        并列句
+       </a>
+      </li>
+      <li>
+       <a href="#复合句" id="toc-复合句">
+        复合句
+       </a>
+       <ul>
+        <li>
+         <a href="#名词性从句" id="toc-名词性从句">
+          名词性从句
+         </a>
+        </li>
+        <li>
+         <a href="#形容词性定语从句1" id="toc-形容词性定语从句1">
+          形容词性（定语）从句
+         </a>
+        </li>
+        <li>
+         <a href="#副词性状语从句" id="toc-副词性状语从句">
+          副词性（状语）从句
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#特殊句式" id="toc-特殊句式">
+      特殊句式
+     </a>
+    </li>
+    <li>
+     <a href="#句子的语气" id="toc-句子的语气">
+      句子的语气
+     </a>
+     <ul>
+      <li>
+       <a href="#祈使语气" id="toc-祈使语气">
+        祈使语气
+       </a>
+      </li>
+      <li>
+       <a href="#虚拟语气" id="toc-虚拟语气">
+        虚拟语气
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#其他" id="toc-其他">
+      其他
+     </a>
+     <ul>
+      <li>
+       <a href="#省略句" id="toc-省略句">
+        省略句
+       </a>
+      </li>
+      <li>
+       <a href="#时态2" id="toc-时态2">
+        时态
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    显然，语法不该是为了为难人而生的，恰恰相反，是为了方便人的沟通、强化人的沟通而生的。
+   </p>
+   <p>
+    所以当面对一种新的、基于简单句扩展而来的语法的时候，可以想想，如果没有这样的语法，语言在表述上会不会有阻碍？会不会有麻烦？
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    https://www.youtube.com/watch?v=is7vn5URVcc
+   </p>
+   <p>
+    和王垠的观点类似，动词是句子的核心，围绕着动词，出现五种基本句式。
+   </p>
+  </blockquote>
+  <h1 id="常规句式">
+   常规句式
+  </h1>
+  <p>
+   简单句五种基本句型：主系表，主谓，主谓宾，主谓双宾和主谓宾宾补。
+  </p>
+  <h2 id="简单句和句子的基本成分">
+   简单句和句子的基本成分
+  </h2>
+  <h3 id="五大基本句型">
+   五大基本句型
+  </h3>
+  <p>
+   主谓、主谓宾、主谓宾宾、主谓宾宾补、主系表。
+  </p>
+  <h3 id="句子成分">
+   句子成分
+  </h3>
+  <h4 id="表语">
+   表语
+  </h4>
+  <p>
+   表语，属于主语补足语，语法名词，是指说明主语的身份、性质、品性、特征和状态的词或从句，
+   <strong>
+    表语常由名词、形容词、介词短语、动名词、不定式、副词来充当
+   </strong>
+   ，它常位于系动词之后。
+  </p>
+  <h3 id="词性和语句成分">
+   词性和语句成分
+  </h3>
+  <h4 id="代词-vs-副词">
+   代词 vs 副词
+  </h4>
+  <blockquote>
+   <p>
+    代词 vs 副词
+   </p>
+   <p>
+    为啥疑问词有代词和副词之分？个人理解有的疑问句去掉疑问词还是结构完整的句子（如主谓宾），故其疑问词是副词；有的疑问句去掉后疑问词会成分残缺，而疑问词问的就是残缺的成分（如主语）。
+   </p>
+   <p>
+    一般来说人物都是作主语或宾语，所以who一般都是代词；时间地点等都是状语，不影响句子结构，故when、where一般都是副词。
+   </p>
+  </blockquote>
+  <p>
+   连接代词和连接副词同理。
+  </p>
+  <h4 id="名词修饰名词名词定语">
+   名词修饰名词：名词定语
+  </h4>
+  <p>
+   如 educational problem 和 education problem 都很常用，优先队列也不是
+prior queue 而是 priority queue。
+  </p>
+  <p>
+   名词作修饰语时，与同词根的形容词或分词作修饰语，区别在于:
+前者强调
+   <strong>
+    内容
+   </strong>
+   或
+   <strong>
+    类别
+   </strong>
+   ；后者侧重
+   <strong>
+    属性
+   </strong>
+   和
+   <strong>
+    特征
+   </strong>
+   。
+  </p>
+  <p>
+   即 education problem 类似于 problem of/about education，a grammar
+book 类似于 a book of/about grammar ？
+  </p>
+  <h2 id="并列句">
+   并列句
+  </h2>
+  <p>
+   but和yet表转折，for表原因，or表选择，whereas和while表对比，so表结果
+  </p>
+  <p>
+   冒号连接两个关系非常密切的并列分句，第二个分句是第一个的再述或结果。
+  </p>
+  <p>
+   破折号连接两个并列分句，表示第二个分句对第一个分句的补充说明或总结。
+  </p>
+  <h2 id="复合句">
+   复合句
+  </h2>
+  <p>
+   复合句是由一个主句和一个或一个以上的从句构成的句子。
+  </p>
+  <p>
+   从句含有一套主谓结构，在主句中可作为主语、宾语、表语、定语、宾语补足语、同位语或状语，但不能单独存在。
+  </p>
+  <p>
+   复合句按从句性质可分为名词性从句、形容词性从句（定语从句）和副词性从句（状语从句）
+  </p>
+  <blockquote>
+   <p>
+    从句类型由主句需要的成分决定，引导词类型由从句需要的成分决定。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    连词、代词、副词，指的是在从句中扮演的成分。
+   </p>
+   <p>
+    从句中缺少主语（名词），那就是连接代词，从句中不缺少成分，那就是连词或副词。
+   </p>
+   <p>
+    连词和副词的区分需要具体到主句和从句的内容。
+   </p>
+  </blockquote>
+  <h3 id="名词性从句">
+   名词性从句
+  </h3>
+  <p>
+   名词性从句通常包括主语从句、表语从句、宾语从句
+  </p>
+  <h4 id="主语从句">
+   主语从句
+  </h4>
+  <table>
+   <colgroup>
+    <col style="width: 11%"/>
+    <col style="width: 88%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      类别
+     </th>
+     <th>
+      引导词
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      从属连词
+     </td>
+     <td>
+      that, whether/if
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      连接代词
+     </td>
+     <td>
+      who, whom, whose, what ,which, whoever, whatever, whichever
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      连接副词
+     </td>
+     <td>
+      when, where, how, why, whenever, wherever
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   that引导主语从句时，在句中不作任何成分，一般不省略。
+  </p>
+  <p>
+   whether引导的主语从句可置于句首或句末，if引导的主语从句只能置于句末。两者均可用it作形式主语。
+  </p>
+  <blockquote>
+   <p>
+    无论主句是陈述句还是疑问句，主语从句都应使用陈述语序，且时态不受主句时态的限制。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    当句子的主语是从句是，通常用it作形式主语，把真正的主语从句置于句末，以避免”头重脚轻“。
+   </p>
+   <p>
+    从AST的角度来看，有点像哈夫曼编码的实现中做的那样，将多个节点（从句）合成一个虚拟节点（形式主语it），该虚拟节点的权重就是所有节点的权重之和。
+   </p>
+   <p>
+    如：It remains to be seen how weather conditions affect the air flows
+that make formation flight more efficient.
+   </p>
+   <p>
+    如下图所示，主语的具体内容当然也很重要，但不能，至少不该喧宾夺主（主句的主），故可以用形式主语将主句结构简单勾勒。
+   </p>
+   <p>
+    <img src="C:/Users/Five/Desktop/note/img/formal_subject.png"/>
+   </p>
+  </blockquote>
+  <h4 id="表语从句">
+   表语从句
+  </h4>
+  <h4 id="宾语从句">
+   宾语从句
+  </h4>
+  <h3 id="形容词性定语从句1">
+   形容词性（定语）从句
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+  </h3>
+  <p>
+   限制性定语从句和非限制性定语从句
+  </p>
+  <blockquote>
+   <p>
+    She despised people
+    <strong>
+     <em>
+      who flattered her
+     </em>
+    </strong>
+    .
+   </p>
+   <p>
+    I made a card for mom
+    <em>
+     <strong>
+      who loves me
+most
+     </strong>
+     .
+    </em>
+   </p>
+  </blockquote>
+  <p>
+   上述第一句中指定 people 和 people who flattered her
+两者范围明显是不一样的，定语从句将范围缩小了，因此是限制性定语从句；
+  </p>
+  <p>
+   第二句中不管有无 who loves me most 指向的都是唯一的
+mom，定语从句并没有起到限制范围的作用，只是提供一些额外的信息，因此是非限制性定语从句。
+  </p>
+  <p>
+   一般来说，去掉限制性定语从句会使得句子的意义改变——很可能变成一个喷子、地图炮。
+  </p>
+  <h4 id="关于省略">
+   关于省略
+  </h4>
+  <p>
+   当that在从句中扮演宾语时，这个that就可以省略，无需改变原句子结构，这个原则同样适用于关系代词who和which。
+  </p>
+  <blockquote>
+   <p>
+    在从句中扮演主语时，也可以用现在分词改写为省略句。
+   </p>
+  </blockquote>
+  <h3 id="副词性状语从句">
+   副词性（状语）从句
+  </h3>
+  <p>
+   包括时间状语从句、地点状语从句、原因状语从句、条件状语从句、结果状语从句、目的状语从句、让步状语从句、方式状语从句、比较状语从句
+  </p>
+  <h1 id="特殊句式">
+   特殊句式
+  </h1>
+  <h1 id="句子的语气">
+   句子的语气
+  </h1>
+  <h2 id="祈使语气">
+   祈使语气
+  </h2>
+  <h2 id="虚拟语气">
+   虚拟语气
+  </h2>
+  <h1 id="其他">
+   其他
+  </h1>
+  <h2 id="省略句">
+   省略句
+  </h2>
+  <p>
+   一般来说省略的对象往往是主语和be动词（中文也是吧，比如“吃了吗”）。
+  </p>
+  <ul>
+   <li>
+    状语从句，当从句主语和主句主语一致，且从句谓语中含有be动词时，可以将主语和be动词省略
+   </li>
+   <li>
+   </li>
+  </ul>
+  <h2 id="时态2">
+   时态
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+  </h2>
+  <table>
+   <colgroup>
+    <col style="width: 36%"/>
+    <col style="width: 16%"/>
+    <col style="width: 22%"/>
+    <col style="width: 23%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+     </th>
+     <th>
+      Past 过去
+     </th>
+     <th>
+      Present 现在
+     </th>
+     <th>
+      Future 将来
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      <strong>
+       Simple 一般
+      </strong>
+     </td>
+     <td>
+      did
+     </td>
+     <td>
+      do
+     </td>
+     <td>
+      will do
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <strong>
+       Continuous/Progressive 进行
+      </strong>
+     </td>
+     <td>
+      was doing
+     </td>
+     <td>
+      is doing
+     </td>
+     <td>
+      will be doing
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <strong>
+       Perfect 完成
+      </strong>
+     </td>
+     <td>
+      had done
+     </td>
+     <td>
+      has done/ have done
+     </td>
+     <td>
+      will have done
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <strong>
+       Perfect continuous 完成进行
+      </strong>
+     </td>
+     <td>
+      had been doing
+     </td>
+     <td>
+      have been done
+     </td>
+     <td>
+      will have been doing
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   还有过去将来完成时等较为少用的时态。
+  </p>
+  <p>
+   其中，完成进行这一种“态”不代表现在还在进行这一种动作，只是说这种动作在过去持续过（已完成，但同时强调持续性continuous）。
+  </p>
+  <p>
+   完成进行时 vs 完成时：如 I have been reading since morning. ( Focus
+on continuity ) 和 I have read two books since morning.( Focus on
+completion)
+  </p>
+  <blockquote>
+   <p>
+    但不一定完全遵循时态规则，如在 The Hunger Games
+中，明明是讲述一个故事，却用第一人称和现在时更好地吸引读者并制造悬念。
+   </p>
+  </blockquote>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      能不能用最简单的方式和例子来解释下限制性定语从句、非限制性定语从句的区别？
+- 阿丁的猫的回答 - 知乎
+https://www.zhihu.com/question/35335499/answer/204682098
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      b站up主 就是这个刘安妮
+10分钟搞定英语12个时态（横扫故事讲述和学术论文写作）https://www.bilibili.com/video/BV1u64y1u78S?share_source=copy_web
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

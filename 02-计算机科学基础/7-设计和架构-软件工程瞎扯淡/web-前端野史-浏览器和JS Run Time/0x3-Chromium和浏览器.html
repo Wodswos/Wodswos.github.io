@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   Chromium和浏览器
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+     02-计算机科学基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的机器-有限自动机.html">
+         01-最简单的机器-有限自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的语言-正则表达式.html">
+         01-最简单的语言-正则表达式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-从lambda演算到可定义函数.html">
+         02-更强的计算能力-从lambda演算到可定义函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-图灵和图灵机.html">
+         02-更强的计算能力-图灵和图灵机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-递归函数和可定义函数的等价性.html">
+         02-更强的计算能力-递归函数和可定义函数的等价性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-BlooP、FlooP、GlooP.html">
+         03-BlooP、FlooP、GlooP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-文法和语言.html">
+         03-文法和语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-计算与可计算性.html">
+         03-计算与可计算性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-元胞自动机和生命游戏.html">
+         0x-元胞自动机和生命游戏.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-图灵完备.html">
+         0x-图灵完备.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-标签系统.html">
+         0x-标签系统.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算和信息的物理极限.html">
+         0x-计算和信息的物理极限.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算图or数据流图.html">
+         0x-计算图or数据流图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/《自动机理论、语言和计算导论》.html">
+         《自动机理论、语言和计算导论》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html">
+         时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       0x-《Crash Course Computer Science》笔记.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       0x-从半导体萌芽到互联网时代的所有巨头.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       0x-模拟计算机会卷土重来吗？.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/00-数字电路基础.html">
+         00-数字电路基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-“开关”史诗：晶体管的前世今生.html">
+         01-“开关”史诗：晶体管的前世今生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-从开关到逻辑门.html">
+         01-从开关到逻辑门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-从逻辑门到ALU.html">
+         02-从逻辑门到ALU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-时序电路.html">
+         02-时序电路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-x86指令集和处理器.html">
+         03-x86指令集和处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-其他指令集及其处理器.html">
+         03-其他指令集及其处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-单周期处理器.html">
+         04-单周期处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-流水线处理器.html">
+         04-流水线处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/05-从CPU到通用计算机结构.html">
+         05-从CPU到通用计算机结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-主存储器和缓存机制.html">
+         06-层次存储-主存储器和缓存机制.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-辅助存储器.html">
+         06-层次存储-辅助存储器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/07-中断和异常.html">
+         07-中断和异常.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-DMA.html">
+         08-输入输出-DMA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-接口和总线.html">
+         08-输入输出-接口和总线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-计算机体系的其他配角.html">
+         08-输入输出-计算机体系的其他配角.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/09-其他补充-GPU基础常识.html">
+         09-其他补充-GPU基础常识.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-Verilog HDL.html">
+         0x-Verilog HDL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-一段指令的完整执行.html">
+         0x-一段指令的完整执行.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-单片机概述.html">
+         0x-单片机概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言先验和工具.html">
+         01-汇编语言先验和工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言基础语法.html">
+         01-汇编语言基础语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/02-汇编语言实战.html">
+         02-汇编语言实战.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/04-编译原理基础.html">
+         04-编译原理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-一些犄角旮旯的事.html">
+         0x-一些犄角旮旯的事.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-不同语境下的堆栈.html">
+         0x-不同语境下的堆栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-保护模式.html">
+         0x-保护模式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-无心插柳柳成荫-LLVM.html">
+         0x-无心插柳柳成荫-LLVM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-重定位和链接.html">
+         0x-重定位和链接.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-GNU.html">
+         从汇编到C-GNU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-核心内容.html">
+         从汇编到C-核心内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-概述.html">
+         从汇编到C-概述.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/01-权限管理和内核交互.html">
+         01-权限管理和内核交互.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-内存和地址.html">
+         02-存储管理-内存和地址.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-分页机制和MMU.html">
+         02-存储管理-分页机制和MMU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-文件系统和IO.html">
+         02-存储管理-文件系统和IO.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/03-算力管理-线程和进程.html">
+         03-算力管理-线程和进程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-Harmony.html">
+         0x-Harmony.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-mycore实验笔记.html">
+         0x-mycore实验笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-POSIX.html">
+         0x-POSIX.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-兼容和虚拟机.html">
+         0x-兼容和虚拟机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-常见概念杂谈.html">
+         0x-常见概念杂谈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part1.html">
+         0x-按下开机键后电脑经历了什么-part1.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part2.html">
+         0x-按下开机键后电脑经历了什么-part2.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-软件管理.html">
+         0x-软件管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第1篇-概述.html">
+         0-从C到C++第1篇-概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第2篇-基础.html">
+         0-从C到C++第2篇-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第3篇-实战笔记.html">
+         0-从C到C++第3篇-实战笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/DSL和GPL.html">
+         DSL和GPL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Go.html">
+         Go.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Groovy.html">
+         Groovy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Haskell.html">
+         Haskell.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-基础内容.html">
+         Java-基础内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-模块化和工程实践.html">
+         Java-模块化和工程实践.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Kotlin.html">
+         Kotlin.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lisp.html">
+         Lisp.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lua.html">
+         Lua.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Perl.html">
+         Perl.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Prolog.html">
+         Prolog.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-五花八门的库.html">
+         Python-五花八门的库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-基础.html">
+         Python-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-多线程、GIL和PyPy.html">
+         Python-多线程、GIL和PyPy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-杂记.html">
+         Python-杂记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-社区和项目管理.html">
+         Python-社区和项目管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Ruby.html">
+         Ruby.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/脚本语言.html">
+         脚本语言.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/index.html">
+         LeetCode刷题笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/1-10.html">
+           1-10.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/基本概念和方法.html">
+         基本概念和方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
+         数据结构-哈希表.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
+         数据结构-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
+         数据结构-并查集.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-树.html">
+         数据结构-树.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-线性数据结构.html">
+         数据结构-线性数据结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
+         算法-AC自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
+         算法-排序和查找.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-一份软工狗的通信基础笔记.html">
+         01-物理层-一份软工狗的通信基础笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-网络的诞生.html">
+         01-物理层-网络的诞生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/02-数据链路层.html">
+         02-数据链路层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/03-网络层-关于IP地址的一切.html">
+         03-网络层-关于IP地址的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-TCP.html">
+         04-传输层-TCP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-UDP.html">
+         04-传输层-UDP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-DNS.html">
+         05-应用层-DNS.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-关于HTTP的一切.html">
+         05-应用层-关于HTTP的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层.html">
+         05-应用层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-Tor和BitTorrent.html">
+         0x-Tor和BitTorrent.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-域名和备案.html">
+         0x-域名和备案.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-局域网和虚拟机网络.html">
+         0x-局域网和虚拟机网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-经典问题-输入网址按下回车后发生了些啥.html">
+         0x-经典问题-输入网址按下回车后发生了些啥.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-长城、翻墙、各式vpn.html">
+         0x-长城、翻墙、各式vpn.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-非对称加密和PKI.html">
+         0x-非对称加密和PKI.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/01-软件工程理论.html">
+         01-软件工程理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-UML和C4.html">
+         0x-UML和C4.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-安卓入门.html">
+         0x-安卓入门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-嵌入式软件设计.html">
+         0x-嵌入式软件设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-技术栈.html">
+         0x-技术栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x1-产品设计.html">
+         0x1-产品设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/Axure.html">
+         Axure.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+         web-前端实践
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-CSS摸爬滚打.html">
+           0.1-web基础-CSS摸爬滚打.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-HTML DOM.html">
+           0.1-web基础-HTML DOM.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-JavaScript 和 ECMAScript.html">
+           0.1-web基础-JavaScript 和 ECMAScript.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-EasyUI.html">
+           0.2-web 1.0-EasyUI.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-JQuery.html">
+           0.2-web 1.0-JQuery.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 1.Hello Node.js.html">
+           1-Node.js - 1.Hello Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 2.进一步认识 Node.js.html">
+           1-Node.js - 2.进一步认识 Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/2.1-构建-Webpack&amp;Vite.html">
+           2.1-构建-Webpack&amp;Vite.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.0-Vue-Hello Vue.html">
+           3.0-Vue-Hello Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.1-Vue-进一步认识 Vue.html">
+           3.1-Vue-进一步认识 Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React 基础知识.html">
+           3.2-React 基础知识.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React- 简单实战之 Gatsby.html">
+           3.2-React- 简单实战之 Gatsby.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.x-Bootstrap简述.html">
+           3.x-Bootstrap简述.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.1-ES6 和 Babel.html">
+           4.1-ES6 和 Babel.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.2ESlint.html">
+           4.2ESlint.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/x-Electron试试就逝世.html">
+           x-Electron试试就逝世.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/index.html">
+         web-前端野史-浏览器和JS Run Time
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x1-v8 JS引擎.html">
+           0x1-v8 JS引擎.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x2-Blink.html">
+           0x2-Blink.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x3-Chromium和浏览器.html">
+           0x3-Chromium和浏览器.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x4-浏览器衍生生态.html">
+           0x4-浏览器衍生生态.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x5-互联网规范.html">
+           0x5-互联网规范.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/《设计原本》.html">
+         《设计原本》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-关于技术路径的交汇.html">
+         0x-关于技术路径的交汇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-计算机标准.html">
+         0x-计算机标准.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/序列化和反序列化.html">
+         序列化和反序列化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/index.html">
+         数据库杂记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/00-关系和ER.html">
+           00-关系和ER.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/01-T-SQL.html">
+           01-T-SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/02-不止SQL.html">
+           02-不止SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/03-数据库和SQL Server.html">
+           03-数据库和SQL Server.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/MongoDB.html">
+           MongoDB.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/index.html">
+         文件格式
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/图片.html">
+           图片.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/多媒体格式.html">
+           多媒体格式.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/常见标记语言和配置文件格式.html">
+           常见标记语言和配置文件格式.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/index.html">
+         读书笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/Section1-A Tour of Computer System.html">
+           Section1-A Tour of Computer System.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《CS：APP》阅读笔记part2-dynamic.html">
+           《CS：APP》阅读笔记part2-dynamic.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《计算机离散数学基础》.html">
+           《计算机离散数学基础》.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    Chromium和浏览器
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#浏览器发家史56" id="toc-浏览器发家史56">
+      浏览器发家史
+     </a>
+     <ul>
+      <li>
+       <a href="#蛮荒mosaicnetscape" id="toc-蛮荒mosaicnetscape">
+        蛮荒：Mosaic、Netscape
+       </a>
+      </li>
+      <li>
+       <a href="#巨龙ie" id="toc-巨龙ie">
+        巨龙：IE
+       </a>
+      </li>
+      <li>
+       <a href="#屠龙firefoxsafari" id="toc-屠龙firefoxsafari">
+        屠龙：FireFox、Safari
+       </a>
+      </li>
+      <li>
+       <a href="#行业新标杆chromium" id="toc-行业新标杆chromium">
+        行业新标杆：Chromium
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#chromium概述4" id="toc-chromium概述4">
+      Chromium概述
+     </a>
+    </li>
+    <li>
+     <a href="#chrome架构" id="toc-chrome架构">
+      Chrome架构
+     </a>
+     <ul>
+      <li>
+       <a href="#多进程架构" id="toc-多进程架构">
+        多进程架构
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#页面循环系统" id="toc-页面循环系统">
+      页面循环系统
+     </a>
+    </li>
+    <li>
+     <a href="#页面" id="toc-页面">
+      页面
+     </a>
+    </li>
+    <li>
+     <a href="#网络" id="toc-网络">
+      网络
+     </a>
+    </li>
+    <li>
+     <a href="#安全" id="toc-安全">
+      安全
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <p>
+   http://www.evolutionoftheweb.com/ 一个宝藏网站。
+  </p>
+  <p>
+   以图的方式记录了互联网发展的历程。
+  </p>
+  <h1 id="浏览器发家史56">
+   浏览器发家史
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+  </h1>
+  <p>
+   1990年，万维网之父 Tim Berners-Lee 开发出第一个浏览器（后改名为
+Nexus）。1993年4月30日，公布源码，1994年停止开发。
+  </p>
+  <blockquote>
+   <p>
+    本来一直想自己动手对浏览器市场份额的变化做个可视化，但一致拖啊拖，终于，一次在知乎看到一个很有意思的回答（核心观点大致是商业模式的重要性，甚至决定性，对俺这样工科生而言确实算是一课），更巧的是，回答里还有一张浏览器市场份额的可视化图，赶紧copy了事（这是属于拖延症的胜利！）
+   </p>
+   <p>
+    原图出处：
+   </p>
+   <p>
+    如何看待开源中国中一片唱衰鸿蒙 OS？ - 炸弹团的回答 - 知乎
+https://www.zhihu.com/question/339615503/answer/788951102
+   </p>
+  </blockquote>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/v2-7cdc4f5efef2f40e9e71daebb7b00031_1440w.jpg"/>
+  </p>
+  <h2 id="蛮荒mosaicnetscape">
+   蛮荒：Mosaic、Netscape
+  </h2>
+  <p>
+   1992年底， 伊利诺大学的NCSA组织认为，浏览器无图无真相，于是
+   <a href="https://en.wikipedia.org/wiki/Marc_Andreessen">
+    Marc Andreessen
+   </a>
+   领导团队开发出第一个被广泛使用、支持图像显示的浏览器
+   <code>
+    Mosaic
+   </code>
+   （马赛克），于1993年发布。
+  </p>
+  <blockquote>
+   <p>
+    Mosaic支持图片，但前辈Nexus不支持图片显示，网站开发者该如何平衡呢？UserAgent应运而生。
+   </p>
+   <p>
+    通过UserAgent字段告诉服务器自己的浏览器类型，服务器可以据此决定HTML的具体内容。如果UserAgent为包括Mosaic则表示支持图片现实，服务器可以返回图片内容。
+   </p>
+  </blockquote>
+  <p>
+   Mosaic的中心人物在加州设立了“MOSIAIC Communication
+Corp”。但此时由伊利诺伊大学所拥有的Mosaic已经转让给了Spyglass
+Entertainment公司。
+  </p>
+  <p>
+   开发团队从头开始攥写浏览器代码，1994年10月发布Mosaic Netscape
+0.9取名Mozilla，后为了避免商标版权问题，公司改名为Netscape Communication
+Corporation。
+  </p>
+  <p>
+   同年12月，该公司正式推出浏览器1.0，命名为Netscape
+Navigator。（内部代号：Mozilla）
+  </p>
+  <blockquote>
+   <p>
+    内部代号Mozilla更能体现出该浏览器的特质，一是谐音
+    <code>
+     Mosaic Killer
+    </code>
+    ，二是谐音猛兽
+    <code>
+     Godzilla
+    </code>
+    （哥斯拉）。
+   </p>
+   <p>
+    NetScape上市第一天市值从28刀飙涨刀75刀（有点夸张，没具体考证，百度百科抄的）。1995年该公司的收入每季度翻一倍（跟它一比其他独角兽公司都不算啥了）。
+   </p>
+  </blockquote>
+  <p>
+   世界上第一款 JavaScript 引擎是伴随第一个能运行 JavaScript
+程序的浏览器出现的，也就是 Netscape Navigator.
+  </p>
+  <p>
+   很快，NetScape凭借着其更优的展示效果，战胜了Mosaic，成为了新的霸主。
+  </p>
+  <blockquote>
+   <p>
+    NetScape最先支持html框架显示，如简单的Table布局、内外边距等。
+   </p>
+   <p>
+    虽然Mozilla改名为Netscape
+Navigator，但其UserAgent还是使用Mozilla，至今Mozilla也依旧作为UserAgent如雷贯耳。
+   </p>
+   <p>
+    对于服务器而言，如果UserAgent中存在Mozilla，则表示可以发送带有HTML框架的页面。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    因为Netscape与Sun合作，Netscape管理层希望它外观看起来像Java，因此取名为JavaScript。但实际上它的语法风格与Self及Scheme较为接近。
+   </p>
+  </blockquote>
+  <p>
+   1994年，Opera作为一个研究项目启动。
+  </p>
+  <blockquote>
+   <p>
+    Opera是现存主要浏览器中发布最早的，却一路陪跑，没有淘汰，也没有成为领导者。就像自己开了一条支线。
+   </p>
+  </blockquote>
+  <p>
+   1996年，Opera 2.10发布。
+  </p>
+  <h2 id="巨龙ie">
+   巨龙：IE
+  </h2>
+  <p>
+   之前提到Mosaic的版权由伊利诺伊大学转让给了Spyglass
+Entertainment公司，随后微软从Spyglass
+Entertainment公司手中买下Mosaic的授权。
+  </p>
+  <p>
+   1995年，巨头微软基于Mosaic发布IE，凭借着和Windows的绑定销售，逐渐在市场份额上乱杀。
+  </p>
+  <p>
+   1997年7月7日Mosaic停止开发。
+  </p>
+  <p>
+   1997年，IE采用Trident引擎。
+  </p>
+  <p>
+   有一段时间，Internet Explorer 6
+垄断了市场，几乎没有人使用任何其他浏览器。但……微软在浏览器上的傲慢终究会带来报应。
+  </p>
+  <p>
+   1998年，Netscape
+Navigator终究无法阻止拉下脸的巨头微软。随后网景公司宣布旗下所有软件免费，并开源了Netscape
+Communicator 4.0的代码。
+  </p>
+  <blockquote>
+   <p>
+    程序员传统艺能：开源
+   </p>
+  </blockquote>
+  <p>
+   Netscape
+Navigator成立了非正式组织Mozilla（与浏览器的内部代号同名）。组织开发出了更出色的新一代网络应用软件套装“Mozilla
+Application Suite”。
+  </p>
+  <p>
+   它所采用的排版引擎被命名为“Gecko”。
+  </p>
+  <blockquote>
+   <p>
+    Mozilla组织声称他们主要开发用于测试目的的Mozilla浏览器，这个浏览器不适合直接为最终用户使用。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    Mozilla Develop Network
+   </p>
+   <p>
+    主要内容包括 HTML, Java, CSS
+以及其它项目内容的参考文档和教程，内容由社区开发者和技术文档工程师(Technical
+Writer)维护。很早以前便成为事实上的开发者 Web 技术参考平台。
+   </p>
+   <p>
+    <img src="C:/Users/Five/Desktop/note/img/0bc9115926dd43c9afcf4ce170432c56.jpg"/>
+   </p>
+   <p>
+    2017年10月18日， Mozilla 携手 Google、微软、三星、W3C 同时宣布将 MDN
+作为 Web
+文档的中心，共同为开发者创建一个统一的、跨浏览器的权威参考文档。微软宣布将超过
+7700 个 MSDN 页面重定向到 MDN web docs ，Google 表示过去几年 Chrome 已将
+Web 文档方面的努力转移到 MDN 。
+   </p>
+  </blockquote>
+  <h2 id="屠龙firefoxsafari">
+   屠龙：FireFox、Safari
+  </h2>
+  <p>
+   2002年，
+  </p>
+  <p>
+   2003年，苹果发布Safari。
+  </p>
+  <p>
+   在2007年之前，所有的浏览器都采用单进程架构。
+  </p>
+  <p>
+   明面上，IE和Edge还有着极其可观的市场占有量，但大家都心知肚明，微软大势已去，不再是标准的制定者了。
+  </p>
+  <h2 id="行业新标杆chromium">
+   行业新标杆：Chromium
+  </h2>
+  <p>
+   Chrome 浏览器先使用 WebKit 引擎后使用 Blink 引擎。
+  </p>
+  <blockquote>
+   <p>
+    在现在的Chrome浏览器控制台输入
+    <code>
+     navigtor.userAgent
+    </code>
+    会返回类似如下内容：
+   </p>
+   <p>
+    <code>
+     Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
+    </code>
+   </p>
+   <p>
+    从某种程度上UserAgent字段也是浏览器发展历史的一个见证者。
+   </p>
+   <p>
+    在Edge浏览器中UserAgent还会有一条
+    <code>
+     Edg/88.0.705.68
+    </code>
+    ，在Opera浏览器中UserAgent还会有一条
+    <code>
+     OPR/74.0.3911.107
+    </code>
+    。但大家都有的同类项就是
+    <code>
+     Mozilla
+    </code>
+    、
+    <code>
+     AppleWebKit
+    </code>
+    和
+    <code>
+     Chrome
+    </code>
+    。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    2016年，Opera确定被奇虎360和昆仑万维收购。
+   </p>
+  </blockquote>
+  <h1 id="chromium概述4">
+   Chromium概述
+   <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+    <sup>
+     3
+    </sup>
+   </a>
+  </h1>
+  <blockquote>
+   <p>
+    Chromium is an open-source browser project that aims to build a
+safer, faster, and more stable way for all users to experience the
+web.
+    <a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref">
+     <sup>
+      4
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <p>
+   对于很多人而言，提到浏览器基本上就默认火狐、Chrome、Safari了，IE已经逐渐成为历史，Edge也难以力挽狂澜，虽然IE和Edge占了很大的市场，但显然标准已经不是巨硬说了算了。
+  </p>
+  <p>
+   Chromium是Chrome的开源版，某种程度上的行业标准。
+  </p>
+  <p>
+   Github上的Chromium Project
+   <a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref">
+    <sup>
+     5
+    </sup>
+   </a>
+   主要有如下目录
+   <a class="footnote-ref" href="#fn6" id="fnref6" role="doc-noteref">
+    <sup>
+     6
+    </sup>
+   </a>
+   ：
+  </p>
+  <ul>
+   <li>
+    base：通用代码，基础组件，包含字符串、文件、线程、消息队列等工具类集合
+   </li>
+   <li>
+    cc：Chromium Compositor，负责渲染合成
+   </li>
+   <li>
+    chorme：Chromium浏览器外壳实现
+   </li>
+   <li>
+    content：多进程沙盒浏览器的核心代码，管理进程架构和线程架构
+   </li>
+   <li>
+    v8：V8 JavaScript引擎库
+    <ul>
+     <li>
+      包括字节码解析器，JIT 编译器，多代GC，inspector (调试支持)，内存和
+CPU 的 profiler（性能统计），WebAssembly 支持，两种 post-mortem
+diagnostics 的支持，启动快照，代码缓存、代码热点分析
+     </li>
+     <li>
+      内容几乎覆盖整个《编译原理》
+     </li>
+    </ul>
+   </li>
+   <li>
+    net：网络栈实现
+    <ul>
+     <li>
+      包含主机解析，cookies，网络改变探测，SSL，资源缓存，ftp，HTTP，
+OCSP实现，代理 (SOCKS和HTTP)
+配置，解析，脚本获取（包括各种不同系统下实现），QUIC，socket池，SPDY，WebSockets等等等等。
+     </li>
+     <li>
+      内容几乎覆盖整个《计算机网络》
+     </li>
+    </ul>
+   </li>
+   <li>
+    ipc：进程间消息通信实现
+   </li>
+   <li>
+    mojo：类似于Android的AIDL，提供了跨语言（C++/Java/JavaScript）跨平台的进程间对象通信机制
+   </li>
+   <li>
+    media：多媒体封装代码，包含媒体内容捕获和播放的组件集合
+   </li>
+   <li>
+    gpu：OpenGL封装代码，包含CommandBuffer和OpenGL兼容性支持
+   </li>
+   <li>
+    skia：图形库，存放的是Chromium对skia的配置和扩展代码
+    <ul>
+     <li>
+      包括十几种矢量的绘制，文字绘制、GPU加速、矢量的指令录制以及回放（还要能支持线程安全）、各种图像格式的编解码……
+     </li>
+     <li>
+      更多的，包括PDF的生成（Skia支持把矢量图绘制成pdf）、GPU渲染优化（即以上部分功能需要用gpu来渲染）
+     </li>
+     <li>
+      skia是Google收购的
+     </li>
+    </ul>
+   </li>
+   <li>
+    third_party：网页排版引擎，第三方库
+   </li>
+   <li>
+    ui：UI框架
+   </li>
+  </ul>
+  <p>
+   还有一些其他次重要的目录：
+  </p>
+  <ul>
+   <li>
+    android_webview：适合集成在安卓平台，但不适合单个apk使用
+   </li>
+   <li>
+    apps：Chrome打包的应用
+   </li>
+   <li>
+   </li>
+  </ul>
+  <p>
+   <img src="C:\Users\Five\Desktop\note\img\Content.png"/>
+  </p>
+  <ul>
+   <li>
+    <p>
+     <strong>
+      android_webview:
+     </strong>
+     Provides a facade over
+src/content suitable for integration into the android platform. NOT
+intended for usage in individual android applications (APK).
+     <a href="https://docs.google.com/document/d/1a_cUP1dGIlRQFUSic8bhAOxfclj4Xzw-yRDljVk1wB0/edit?usp=sharing">
+      More
+information
+     </a>
+     about the Android WebView source code
+organization.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      apps
+     </strong>
+     :
+     <a href="http://developer.chrome.com/apps/about_apps.html">
+      Chrome packaged
+apps
+     </a>
+     .
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      base
+     </strong>
+     : Common code shared between all
+sub-projects. This contains things like string manipulation, generic
+utilities, etc. Add things here only if it must be shared between more
+than one other top-level project.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      breakpad
+     </strong>
+     : Google’s open source crash reporting
+project. This is pulled directly from Google Code’s Subversion
+repository.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      build
+     </strong>
+     : Build-related configuration shared by all
+projects.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      cc
+     </strong>
+     : The Chromium compositor
+implementation.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      chrome
+     </strong>
+     : The Chromium browser (see
+below).
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      chrome/test/data
+     </strong>
+     : Data files for running certain
+tests.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      components
+     </strong>
+     : directory for components that have
+the Content Module as the uppermost layer they depend on.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      content:
+     </strong>
+     The core code needed for a
+multi-process sandboxed browser (see below).
+     <a href="https://www.chromium.org/developers/content-module">
+      More
+information
+     </a>
+     about why we have separated out this code.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      device:
+     </strong>
+     Cross-platform abstractions of common
+low-level hardware APIs.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      net
+     </strong>
+     : The networking library developed for
+Chromium. This can be used separately from Chromium when running our
+simple test_shell in the
+     <code>
+      webkit
+     </code>
+     repository. See also
+     <code>
+      chrome/common/net
+     </code>
+     .
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      sandbox
+     </strong>
+     : The sandbox project which tries to
+prevent a hacked renderer from modifying the system.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      skia + third_party/skia
+     </strong>
+     : Google’s Skia graphics
+library. Our additional classes in ui/gfx wrap Skia.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      sql:
+     </strong>
+     Our wrap around sqlite.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      testing
+     </strong>
+     : Contains Google’s open-sourced GTest
+code which we use for unit testing.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      third_party
+     </strong>
+     : 200+ small and large “external”
+libraries such as image decoders, compression libraries and the web
+engine Blink (here because it inherits license limitations from WebKit).
+     <a href="https://www.chromium.org/developers/adding-3rd-party-libraries">
+      Adding
+new packages
+     </a>
+     .
+    </p>
+   </li>
+   <li>
+    <ul>
+     <li>
+      <strong>
+       …/blink/renderer
+      </strong>
+      : The web engine responsible for
+turning HTML, CSS and scripts into paint commands and other state
+changes.
+     </li>
+    </ul>
+   </li>
+   <li>
+    <p>
+     <strong>
+      tools
+     </strong>
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      ui/gfx
+     </strong>
+     : Shared graphics classes. These form the
+base of Chromium’s UI graphics.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      ui/views
+     </strong>
+     : A simple framework for doing UI
+development, providing rendering, layout and event handling. Most of the
+browser UI is implemented in this system. This directory contains the
+base objects. Some more browser-specific objects are in
+chrome/browser/ui/views.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      url
+     </strong>
+     : Google’s open source URL parsing and
+canonicalization library.
+    </p>
+   </li>
+   <li>
+    <p>
+     <strong>
+      v8
+     </strong>
+     : The V8 Javascript library. This is pulled
+directly from Google Code’s Subversion repository.
+    </p>
+   </li>
+  </ul>
+  <p>
+   Chromium主要分为两部分，即浏览器Browser和渲染器Render。
+  </p>
+  <blockquote>
+   <p>
+    Chromium is separated into two main parts (excluding other
+libraries): the browser and the renderer (which includes Blink, the web
+engine).
+    <a class="footnote-ref" href="#fn7" id="fnref7" role="doc-noteref">
+     <sup>
+      7
+     </sup>
+    </a>
+   </p>
+   <p>
+    The browser is the main process and represents all the UI and I/O.
+The renderer is the (often) per-tab sub-process that is driven by the
+browser. It embeds Blink to do layout and rendering.
+   </p>
+  </blockquote>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/v2-a87ce6a5a1a46717d3e2185eafbe77d4_1440w.png"/>
+  </p>
+  <blockquote>
+   <p>
+    神奇的syzygy优化。是的，谷歌也嫌chrome太大了、加载太慢了。于是他们开发了一套工具链，优化重排布PE二进制文件的算法来达到优化程序。Chrome浏览器应用了Syzygy优化之后，程序冷启动的页面调度（paging
+traffic）优化了80%，加载的Image的Working Set优化了40%。
+   </p>
+   <p>
+    简单的说，谷歌为了优化启动性能，从编译器上对exe、dll开始做手脚了。
+    <a class="footnote-ref" href="#fn8" id="fnref8" role="doc-noteref">
+     <sup>
+      8
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    gn、gyp、ninja。chromium为了更方便的管理编译，自己撸了三套轮子。类似makefile、cmake，然后底层调用ninja再到vs或者clang负责具体编译
+   </p>
+  </blockquote>
+  <h1 id="chrome架构">
+   Chrome架构
+  </h1>
+  <h2 id="多进程架构">
+   多进程架构
+  </h2>
+  <p>
+   关于进程（process）和线程（thread）：
+  </p>
+  <ul>
+   <li>
+    操作系统管理进程，进程管理线程
+    <ul>
+     <li>
+      任一线程的出错会导致整个进程的中断、报错
+     </li>
+    </ul>
+   </li>
+   <li>
+   </li>
+  </ul>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/process_and_thread.png"/>
+  </p>
+  <h1 id="页面循环系统">
+   页面循环系统
+  </h1>
+  <h1 id="页面">
+   页面
+  </h1>
+  <h1 id="网络">
+   网络
+  </h1>
+  <h1 id="安全">
+   安全
+  </h1>
+  <ul>
+   <li>
+    通过浏览器漏洞攻击系统
+   </li>
+   <li>
+    网络传输过程中篡改或窃取页面数据
+   </li>
+   <li>
+    通过XSS等手段获取页面信息
+   </li>
+  </ul>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      http://litten.me/2014/09/26/history-of-browser-useragent/
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      http://litten.me/2014/10/05/history-of-browser-useragent2/
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      https://www.chromium.org
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn4">
+     <p>
+      据报道称“浏览器内核有上千万行代码”，浏览器内核真的很复杂吗？
+- 龙泉寺扫地僧的回答 - 知乎
+https://www.zhihu.com/question/290767285/answer/1200063036
+      <a class="footnote-back" href="#fnref4" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn5">
+     <p>
+      https://github.com/chromium/chromium
+      <a class="footnote-back" href="#fnref5" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn6">
+     <p>
+      据报道称“浏览器内核有上千万行代码”，浏览器内核真的很复杂吗？
+- 龙泉寺扫地僧的回答 - 知乎
+https://www.zhihu.com/question/290767285/answer/1200063036
+      <a class="footnote-back" href="#fnref6" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn7">
+     <p>
+      https://github.com/chromium/chromium
+      <a class="footnote-back" href="#fnref7" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn8">
+     <p>
+      据报道称“浏览器内核有上千万行代码”，浏览器内核真的很复杂吗？
+- 龙泉寺扫地僧的回答 - 知乎
+https://www.zhihu.com/question/290767285/answer/1200063036
+      <a class="footnote-back" href="#fnref8" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

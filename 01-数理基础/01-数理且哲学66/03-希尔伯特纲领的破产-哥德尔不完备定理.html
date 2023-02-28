@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   希尔伯特纲领的破产-哥德尔不完备定理
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/01-数理基础/index.html">
+     01-数理基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       00-数学史概要.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-数理逻辑.html">
+         00-数理逻辑.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-测度理论.html">
+         00-测度理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-直觉主义和构造主义.html">
+         00-直觉主义和构造主义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-集合论-所谓的数学基础.html">
+         00-集合论-所谓的数学基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/01-实数的定义-柯西序列和戴德金分割.html">
+         01-实数的定义-柯西序列和戴德金分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/02-第三次数学危机全史--永恒的金色对角线.html">
+         02-第三次数学危机全史--永恒的金色对角线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-可判定性.html">
+         03-希尔伯特纲领的破产-可判定性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-哥德尔不完备定理.html">
+         03-希尔伯特纲领的破产-哥德尔不完备定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/04-类型论.html">
+         04-类型论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-关于数学的哲学.html">
+         0x-关于数学的哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-范畴论.html">
+         0x-范畴论.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.0-先验知识篇-函数.html">
+         0.0-先验知识篇-函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.1-脚手架和技巧篇.html">
+         0.1-脚手架和技巧篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/1.1-极限-分析之本.html">
+         1.1-极限-分析之本.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.1-从导数到微分-导数的定义、计算、性质和应用.html">
+         2.1-从导数到微分-导数的定义、计算、性质和应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.2-从导数到微分-深入理解微分.html">
+         2.2-从导数到微分-深入理解微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.3-从导数到微分-多元函数的导数和微分.html">
+         2.3-从导数到微分-多元函数的导数和微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.1-积分-积分的定义、计算和基本应用.html">
+         3.1-积分-积分的定义、计算和基本应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.2-积分-Stieltjes和Lebesgue.html">
+         3.2-积分-Stieltjes和Lebesgue.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.3-积分-多元函数和重积分.html">
+         3.3-积分-多元函数和重积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.4-积分-反常积分和级数.html">
+         3.4-积分-反常积分和级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/4.1-微分方程-从积分到微分方程.html">
+         4.1-微分方程-从积分到微分方程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/5-无穷级数.html">
+         5-无穷级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.1-傅里叶级数.html">
+         6.1-傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.2-傅里叶变换和快速傅里叶变换.html">
+         6.2-傅里叶变换和快速傅里叶变换.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-《Principles of mathematical analysis》.html">
+         supplement-《Principles of mathematical analysis》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-换个视角重新认识分析-Transformational visual.html">
+         supplement-换个视角重新认识分析-Transformational visual.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html">
+         supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-非标准分析.html">
+         supplement-非标准分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/x-错题（甚至没思路的题）本.html">
+         x-错题（甚至没思路的题）本.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-Group Theory-群论.html">
+         00-Group Theory-群论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-关系和函数.html">
+         00-关系和函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-格与布尔代数.html">
+         01-代数结构-格与布尔代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-群环域.html">
+         01-代数结构-群环域.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-序结构.html">
+         01-序结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-拓扑结构.html">
+         01-拓扑结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-初等数论.html">
+         02-初等数论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-图论.html">
+         02-图论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-形式语言.html">
+         02-形式语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/03-组合数学.html">
+         03-组合数学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-对称性.html">
+         0x-对称性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-魔群.html">
+         0x-魔群.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-代数的源头-方程求根史.html">
+         supplement-代数的源头-方程求根史.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-几何和代数.html">
+         supplement-几何和代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-复数.html">
+         supplement-复数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+         线性空间和线性代数
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/1-行列式和初等变换.html">
+           1-行列式和初等变换.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/2-线性.html">
+           2-线性.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/4-二次型.html">
+           4-二次型.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-矩阵编程.html">
+           supplement-矩阵编程.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-线性代数的应用.html">
+           supplement-线性代数的应用.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-卷积.html">
+         0x-卷积.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-组合数学-计数的学问.html">
+         0x-组合数学-计数的学问.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html">
+         1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.2-概率论-随机变量.html">
+         1.2-概率论-随机变量.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.3-概率论-随机过程.html">
+         1.3-概率论-随机过程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.4-概率论-大数定律和中心极限定理.html">
+         1.4-概率论-大数定律和中心极限定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.1-数理统计-基本概念.html">
+         2.1-数理统计-基本概念.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.2-C.R.Rao和回归.html">
+         2.2-C.R.Rao和回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.x-各种差、相关性和矩.html">
+         2.x-各种差、相关性和矩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/p值.html">
+         p值.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/supplement-概率论-贝叶斯方法.html">
+         supplement-概率论-贝叶斯方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/从麦克斯韦速度分布率到玻尔兹曼分布律.html">
+         从麦克斯韦速度分布率到玻尔兹曼分布律.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/index.html">
+         几何
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/微分流形.html">
+           微分流形.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/单陷门函数.html">
+         单陷门函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/海岸线有多长？分析是panacea吗？——分形的世界.html">
+         海岸线有多长？分析是panacea吗？——分形的世界.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/牛顿迭代法和分形.html">
+         牛顿迭代法和分形.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Hamming码.html">
+         0x-纠错码-Hamming码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Reed-Solomon码.html">
+         0x-纠错码-Reed-Solomon码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-不可能的棋盘谜题.html">
+         0x-编码-不可能的棋盘谜题.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-其他.html">
+         0x-编码-其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-字符的表示和处理.html">
+         0x-编码-字符的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-指令的表示和处理.html">
+         0x-编码-指令的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-数字的表示和处理.html">
+         0x-编码-数字的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-调制解调.html">
+         0x-编码-调制解调.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典力学.html">
+         00-经典力学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典电磁学.html">
+         00-经典电磁学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/0x-时间之箭.html">
+         0x-时间之箭.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/什么是波.html">
+         什么是波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/混沌和蝴蝶效应？.html">
+         混沌和蝴蝶效应？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/熵.html">
+         熵.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子物理基础.html">
+         量子物理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子计算.html">
+         量子计算.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       supplement-关于数学符号.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       supplement-关于追问本质和追问直观.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    希尔伯特纲领的破产-哥德尔不完备定理
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#历史背景" id="toc-历史背景">
+      历史背景
+     </a>
+     <ul>
+      <li>
+       <a href="#先驱康托尔希尔伯特" id="toc-先驱康托尔希尔伯特">
+        先驱康托尔、希尔伯特
+       </a>
+      </li>
+      <li>
+       <a href="#逻辑实证主义" id="toc-逻辑实证主义">
+        逻辑实证主义
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#先验" id="toc-先验">
+      先验
+     </a>
+     <ul>
+      <li>
+       <a href="#形式系统" id="toc-形式系统">
+        形式系统
+       </a>
+      </li>
+      <li>
+       <a href="#简单的形式系统例子" id="toc-简单的形式系统例子">
+        简单的形式系统例子
+       </a>
+      </li>
+      <li>
+       <a href="#完全性和可靠性" id="toc-完全性和可靠性">
+        完全性和可靠性
+       </a>
+      </li>
+      <li>
+       <a href="#内定理和元定理" id="toc-内定理和元定理">
+        内定理和元定理
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#哥德尔编码" id="toc-哥德尔编码">
+      哥德尔编码
+     </a>
+     <ul>
+      <li>
+       <a href="#映射" id="toc-映射">
+        映射
+       </a>
+      </li>
+      <li>
+       <a href="#哥德尔数和编码" id="toc-哥德尔数和编码">
+        哥德尔数和编码
+       </a>
+       <ul>
+        <li>
+         <a href="#符号的哥德尔数" id="toc-符号的哥德尔数">
+          符号的哥德尔数
+         </a>
+        </li>
+        <li>
+         <a href="#定理符号串的哥德尔数" id="toc-定理符号串的哥德尔数">
+          定理/符号串的哥德尔数
+         </a>
+        </li>
+        <li>
+         <a href="#证明的哥德尔数" id="toc-证明的哥德尔数">
+          “证明”的哥德尔数
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#元定理的哥德尔数" id="toc-元定理的哥德尔数">
+        元定理的哥德尔数
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#哥德尔第一定理" id="toc-哥德尔第一定理">
+      哥德尔第一定理
+     </a>
+     <ul>
+      <li>
+       <a href="#函数和g" id="toc-函数和g">
+        函数和G
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#哥德尔第二定理" id="toc-哥德尔第二定理">
+      哥德尔第二定理
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <ol type="1">
+    <li>
+     数学系统可证的内容depends on their starting assumptions, not on any
+fundamental ground truth
+    </li>
+    <li>
+     数学意义上“真”和“可证”是两个不完全重叠(no unification)的概念。
+    </li>
+   </ol>
+  </blockquote>
+  <p>
+   数学系统中总存在一些不可证的真命题，而数学系统是人为构造的，这说明没有一个系统是绝对正确的，没有一个系统能力压其他系统。
+  </p>
+  <h1 id="历史背景">
+   历史背景
+  </h1>
+  <h2 id="先驱康托尔希尔伯特">
+   先驱康托尔、希尔伯特
+  </h2>
+  <p>
+   希尔伯特23问，其中和哥德尔不完备定理比较扯得上关系主要有这两个：
+  </p>
+  <ul>
+   <li>
+    连续统假设
+    <ul>
+     <li>
+      康托猜测在可列集基数和实数基数之间没有别的基数
+     </li>
+     <li>
+      哥德尔证明了连续统假设和ZFC无矛盾性
+     </li>
+     <li>
+      柯亨证明连续统假设和ZFC彼此独立，因此无法证明
+     </li>
+    </ul>
+   </li>
+   <li>
+    算数公理的相容性
+    <ul>
+     <li>
+      曾提出形式主义计划的证明论方法加以证明
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   希尔伯特纲领
+  </p>
+  <ul>
+   <li>
+    完备性：一切数学命题原则上都可由此经有限步推定真伪
+   </li>
+   <li>
+    可靠性：
+   </li>
+  </ul>
+  <h2 id="逻辑实证主义">
+   逻辑实证主义
+  </h2>
+  <h1 id="先验">
+   先验
+  </h1>
+  <h2 id="形式系统">
+   形式系统
+  </h2>
+  <blockquote>
+   <p>
+    Mathematicians of the era sought a solid foundation for mathematics:
+a set of basic mathematical facts, or axioms, that was both consistent —
+never leading to contradictions — and complete, serving as the building
+blocks of all mathematical truths.
+    <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+     <sup>
+      1
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <p>
+   数学工作是靠数学证明来完成的，每个证明都得有出发点，因此，整个数学必然要有一些不证自明的出发点，由它们出发来构建整个数学大厦。
+  </p>
+  <p>
+   这些出发点就是数学公理——他们足够直观，以至于几乎不可能是错的。比如欧式几何的五大公理（修改第五公理会得到黎曼几何）。
+  </p>
+  <p>
+   20世纪初，为克服朴素集合论悖论，构建坚实的数学基础，形式主义者提出了宏伟的“希尔伯特纲领”，哥德尔不完全性定理的发表使得形式主义的整体目标以失败告终。
+  </p>
+  <p>
+   形式系统简单来说，有三部分：符号、公理、推导规则。公理是由符合组成的公式，形式系统做的事就是从公理出发，根据推理规则，机械地推导一个又一个的公式。
+  </p>
+  <h2 id="简单的形式系统例子">
+   简单的形式系统例子
+  </h2>
+  <p>
+   ep系统（某种程度上表达了加法）
+  </p>
+  <ul>
+   <li>
+    符号：-,e,p
+   </li>
+   <li>
+    公理：x-exp-，其中x代表任意一串”-”
+   </li>
+   <li>
+    推导规则：从xeypz可以推出x-eypz-，其中xyz都代表了一串”-”
+   </li>
+  </ul>
+  <h2 id="完全性和可靠性">
+   完全性和可靠性
+  </h2>
+  <p>
+   关于ep系统其可靠性和完全性（完备性）描述如下
+  </p>
+  <ul>
+   <li>
+    ep系统的完全性：所有正确的加法式都能在ep系统中推出
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    哥德尔不完全性定理所涉及的完全性是“句法完全性/否定完全性(syntactic
+completeness/negation completeness)”: 对于任意语句P,
+系统可证P或者系统可证~P.
+   </p>
+   <p>
+    通过构造“A &lt;-&gt; UNPROVABLE(A)”,
+哥德尔否定的是PA(或者任何包含PA的系统)的否定完全性.
+哥德尔不完全性定理的证明中并没有提及“真”这个语义概念,
+而是完全从句法证明上出发论证的.
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    ep系统的可靠性：所有ep系统能推出的公式，都表达的是正确的而不是错误的加法算式。
+   </li>
+  </ul>
+  <p>
+   而哥德尔证明了，即使是ep这样简单的系统，也存在一个公式，形式系统既不能推出它，也不能推出它的否定，即形式系统无法判定它
+  </p>
+  <h2 id="内定理和元定理">
+   内定理和元定理
+  </h2>
+  <p>
+   系统内定理就是形式系统能推导出的公式。以PM为例，“
+   <span class="math inline">
+    \(\forall x (x=x)\)
+   </span>
+   ”就是PM内定理。
+  </p>
+  <p>
+   元定理是关于系统本身的定理。以PM为例，“$x(x=x)的首字符是
+   <span class="math inline">
+    \("、"\)
+   </span>
+   x(x=x)在系统内可证$”等关系到系统本身的都是元定理。
+  </p>
+  <p>
+   元定理陈述了一些关于内定理的事情，但内定理无法陈述关于元定理的事情。
+  </p>
+  <p>
+   如果内定理也能陈述关于元定理的事情呢？在系统内部用字符串表达”xxx公式不可证”，“xxx公式的首字符是xx”这种元定理。甚至有一个公式表达了“本公式不可证”。
+  </p>
+  <p>
+   将表达了“本公式不可由形式系统推导得到”的系统内公式记作G。
+  </p>
+  <ul>
+   <li>
+    若G为假命题
+    <span class="math inline">
+     \(\Leftrightarrow\)
+    </span>
+    此公式可由形式系统推导，显然此时形式系统推导出了相互矛盾的命题，系统是不可靠的。
+   </li>
+   <li>
+    若G为真命题，说明存在不可推导的真公式，即系统不完全。
+   </li>
+  </ul>
+  <p>
+   那该如何构造G呢。即如何发现PM系统能表达关于它自身的元定理。
+  </p>
+  <h1 id="哥德尔编码">
+   哥德尔编码
+  </h1>
+  <p>
+   PM系统能够表达算术命题。如果算术能表达PM的原定理，岂不就说明了PM能表达PM的原定理。
+  </p>
+  <blockquote>
+   <p>
+    哥德尔编码并不是公理系统的一部分，而是为了公理系统能够描述自身而引入的。
+   </p>
+  </blockquote>
+  <h2 id="映射">
+   映射
+  </h2>
+  <blockquote>
+   <p>
+    Gödel’s main maneuver was to map statements
+    <em>
+     about
+    </em>
+    a system
+of axioms onto statements
+    <em>
+     within
+    </em>
+    the system — that is, onto
+statements about numbers.
+    <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+     <sup>
+      2
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <p>
+   通过这种映射在公理系统内部论证自己相关的定理。
+  </p>
+  <p>
+   将公理系统内一切可能出现的东西（符号、定理、证明）唯一映射到一个数字。
+  </p>
+  <blockquote>
+   <p>
+    而数字本身的表示，则巧妙地通过类似皮亚诺算数公理的形式给出，即定义0和后继。
+   </p>
+  </blockquote>
+  <h2 id="哥德尔数和编码">
+   哥德尔数和编码
+  </h2>
+  <h3 id="符号的哥德尔数">
+   符号的哥德尔数
+  </h3>
+  <table>
+   <thead>
+    <tr class="header">
+     <th>
+      <strong>
+       Constant sign
+      </strong>
+     </th>
+     <th>
+      <strong>
+       Gödel number
+      </strong>
+     </th>
+     <th>
+      <strong>
+       Usual Meaning
+      </strong>
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      <span class="math inline">
+       \(\neg\)
+      </span>
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      not
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <span class="math inline">
+       \(\or\)
+      </span>
+     </td>
+     <td>
+      2
+     </td>
+     <td>
+      or
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <span class="math inline">
+       \(\subset\)
+      </span>
+     </td>
+     <td>
+      3
+     </td>
+     <td>
+      if…then…
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <span class="math inline">
+       \(\exist\)
+      </span>
+     </td>
+     <td>
+      4
+     </td>
+     <td>
+      there is an…
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <span class="math inline">
+       \(=\)
+      </span>
+     </td>
+     <td>
+      5
+     </td>
+     <td>
+      equals
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <span class="math inline">
+       \(0\)
+      </span>
+     </td>
+     <td>
+      6
+     </td>
+     <td>
+      zero
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <span class="math inline">
+       \(s\)
+      </span>
+     </td>
+     <td>
+      7
+     </td>
+     <td>
+      the successor of
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <span class="math inline">
+       \((\)
+      </span>
+     </td>
+     <td>
+      8
+     </td>
+     <td>
+      punctuation mark
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <span class="math inline">
+       \()\)
+      </span>
+     </td>
+     <td>
+      9
+     </td>
+     <td>
+      punctuation mark
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      ,
+     </td>
+     <td>
+      10
+     </td>
+     <td>
+      punctuation mark
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      +
+     </td>
+     <td>
+      11
+     </td>
+     <td>
+      plus
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <span class="math inline">
+       \(\times\)
+      </span>
+     </td>
+     <td>
+      12
+     </td>
+     <td>
+      times
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   变量
+   <span class="math inline">
+    \(x,y,z.\dots\)
+   </span>
+   可以依次映射到比12大的质数。
+  </p>
+  <h3 id="定理符号串的哥德尔数">
+   定理/符号串的哥德尔数
+  </h3>
+  <p>
+   则符号串（内定理）
+   <span class="math inline">
+    \(\neg
+(0=0)\)
+   </span>
+   对应的哥德尔数记为
+   <span class="math inline">
+    \(n=2^1 \times
+3^8 \times 5^6 \times 7^5 \times 11^6 \times 13^9\)
+   </span>
+   。
+  </p>
+  <p>
+   类似地，
+   <span class="math inline">
+    \(n=2^8 \times 3^1 \times 5^6
+\times 7^5 \times 11^6 \times13^9\)
+   </span>
+   对应的符号串就是
+   <span class="math inline">
+    \((\neg 0 = 0)\)
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    每个符号串对应的这种素数指数的分解形式是唯一的，根据算术基本定理（详见初等数论），每个符号串对应的自然数也是不同的。
+   </p>
+   <p>
+    这编码，有点康托尔证可列集映射那味儿了。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    不对啊，那0的哥德尔数是6，定理
+    <span class="math inline">
+     \(\neg
+\neg\)
+    </span>
+    的哥德尔数也是
+    <span class="math inline">
+     \(2^1 \times
+3^1=6\)
+    </span>
+    ，这不会歧义吗。
+   </p>
+   <p>
+    还是说，0的哥德尔数不是6，而是
+    <span class="math inline">
+     \(2^6\)
+    </span>
+    ？那前面也叫Godel
+Number？还是说符号层面的Godel Number和定理层面的Godel
+Number不是一码事？
+   </p>
+  </blockquote>
+  <h3 id="证明的哥德尔数">
+   “证明”的哥德尔数
+  </h3>
+  <p>
+   公式可以被哥德尔数表示，而推导是公式组成的序列，自然也可以被一个哥德尔数表示。若这一推导中的公式的哥德尔数分别记为
+   <span class="math inline">
+    \(a,b,c,\dots\)
+   </span>
+   则这个推导对应哥德尔数
+   <span class="math inline">
+    \(2^a \times 3^b \times 5^c \times
+\dots\)
+   </span>
+   ，记为
+   <span class="math inline">
+    \(x\)
+   </span>
+   。
+  </p>
+  <p>
+   推导有个最终的结论符号串（公式），设这个符号串对应的哥德尔数为
+   <span class="math inline">
+    \(z\)
+   </span>
+   。prove
+   <span class="math inline">
+    \((x,z)\)
+   </span>
+   表示
+   <span class="math inline">
+    \(x\)
+   </span>
+   是
+   <span class="math inline">
+    \(z\)
+   </span>
+   的证明。
+  </p>
+  <p>
+   符号串
+   <span class="math inline">
+    \(\exist x(\)
+   </span>
+   prove
+   <span class="math inline">
+    \((x,z))\)
+   </span>
+   就表示数
+   <span class="math inline">
+    \(z\)
+   </span>
+   对应的那个命题可证，当然，该符号串也有一个哥德尔数对应。（把“可证性”这个元层面的性质也用算术表达出来了。）
+  </p>
+  <h2 id="元定理的哥德尔数">
+   元定理的哥德尔数
+  </h2>
+  <blockquote>
+   <p>
+    在这个系统里是用0和后继表示自然数（哥德尔数）的，即
+    <span class="math inline">
+     \(\neg\)
+    </span>
+    的哥德尔数是
+    <span class="math inline">
+     \(2^1=ss0\)
+    </span>
+    ，那这个哥德尔数（
+    <span class="math inline">
+     \(ss0\)
+    </span>
+    ），它自己也有个哥德尔数
+    <span class="math inline">
+     \(2^7 \times 3^7 \times
+5^6\)
+    </span>
+    ，这不就套娃了吗？
+   </p>
+   <p>
+    不对不对，我理解错了哥德尔编码的目的，哥德尔编码是为了将对定理的讨论，转换为对哥德尔数的讨论。
+   </p>
+   <p>
+    进而说明，应该存在某个哥德尔数为
+    <span class="math inline">
+     \(x\)
+    </span>
+    的公式序列，可以证明哥德尔数为
+    <span class="math inline">
+     \(k\)
+    </span>
+    的公式。
+   </p>
+  </blockquote>
+  <p>
+   对于哥德尔数为
+   <span class="math inline">
+    \(n = 2^1 \times 3^8 \times
+5^6 \times 7^5 \times 11^6 \times 13^9\)
+   </span>
+   的定理
+   <span class="math inline">
+    \(\neg(0=0)\)
+   </span>
+   ，可以有这样一个元定理：该定理的开头为
+   <span class="math inline">
+    \(\neg\)
+   </span>
+   。
+  </p>
+  <p>
+   然后可以有如下推导过程：
+  </p>
+  <p>
+   该定理的开头为
+   <span class="math inline">
+    \(\neg\)
+   </span>
+  </p>
+  <p>
+   <span class="math inline">
+    \(\Leftrightarrow
+n\)
+   </span>
+   的质因数分解结果2的幂为1
+  </p>
+  <p>
+   $( 2|n )(2^2|n) $
+  </p>
+  <p>
+   <span class="math inline">
+    \(\Leftrightarrow \exist x(x \times ss0 =
+\underbrace {sss\dots sss}0)\and \neg(\exist x(x \times
+ssss0=\underbrace{sss\dots sss}0))\)
+   </span>
+   ，其中
+   <span class="math inline">
+    \(\underbrace{sss\dots sss}\)
+   </span>
+   为n个
+   <span class="math inline">
+    \(s\)
+   </span>
+   。
+  </p>
+  <p>
+   最后得到的表达式也会对应一个哥德尔数，尽管这个哥德尔数会非常大但确确实实地存在。
+  </p>
+  <p>
+   至此，意味着该定理系统能够描述元定理——用唯一的哥德尔数。
+  </p>
+  <blockquote>
+   <p>
+    This example, Nagel and Newman wrote, “exemplifies a very general and
+deep insight that lies at the heart of Gödel’s discovery: typographical
+properties of long chains of symbols can be talked about in an indirect
+but perfectly accurate manner by instead talking about the properties of
+prime factorizations of large integers.”
+    <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+     <sup>
+      3
+     </sup>
+    </a>
+   </p>
+   <p>
+    不是很理解这句话。
+   </p>
+  </blockquote>
+  <h1 id="哥德尔第一定理">
+   哥德尔第一定理
+  </h1>
+  <p>
+   We’ve learned that if a set of axioms is consistent, then it is
+incomplete. That’s Gödel’s first incompleteness theorem. The second —
+that no set of axioms can prove its own consistency — easily
+follows.
+  </p>
+  <blockquote>
+   <p>
+    The first incompleteness theorem states that no
+    <a href="https://en.wikipedia.org/wiki/Consistency">
+     consistent system
+    </a>
+    of
+    <a href="https://en.wikipedia.org/wiki/Axiom">
+     axioms
+    </a>
+    whose
+theorems can be listed by an
+    <a href="https://en.wikipedia.org/wiki/Effective_procedure">
+     effective
+procedure
+    </a>
+    (i.e., an
+    <a href="https://en.wikipedia.org/wiki/Algorithm">
+     algorithm
+    </a>
+    ) is capable
+of proving all truths about the arithmetic of
+    <a href="https://en.wikipedia.org/wiki/Natural_number">
+     natural
+numbers
+    </a>
+    .
+   </p>
+   <p>
+    For any such consistent formal system, there will always be
+statements about natural numbers that are true, but that are unprovable
+within the system.[^9]
+   </p>
+  </blockquote>
+  <p>
+   哥德尔第一定理的通俗理解：没有一个公理系统能有效证明所有关于自然数算术的为真的命题。
+  </p>
+  <h2 id="函数和g">
+   函数和G
+  </h2>
+  <p>
+   将公式本身的哥德尔数带入到公式中去。
+  </p>
+  <blockquote>
+   <p>
+    这合理吗？哥德尔数是公理系统的一部分吗？如果哥德尔数表示是公理系统的一部分，那哥德尔数
+    <span class="math inline">
+     \(n\)
+    </span>
+    自己不也对应一个哥德尔数
+    <span class="math inline">
+     \(m = \underbrace{2^7 \times 3^7 \times \dots \times
+a^7}\times
+b^8\)
+    </span>
+    吗（其中a为第n个质数，b为第n+1个质数）？那不就套娃了吗？
+   </p>
+  </blockquote>
+  <h1 id="哥德尔第二定理">
+   哥德尔第二定理
+  </h1>
+  <blockquote>
+   <p>
+    The second incompleteness theorem, an extension of the first, shows
+that the system cannot demonstrate its own consistency.
+   </p>
+  </blockquote>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      《How Gödel’s Proof
+Works》https://www.quantamagazine.org/how-godels-incompleteness-theorems-work-20200714#
+By Natalie Wolchover July 14, 2020
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      《How Gödel’s Proof
+Works》https://www.quantamagazine.org/how-godels-incompleteness-theorems-work-20200714#
+By Natalie Wolchover July 14, 2020
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      《How Gödel’s Proof
+Works》https://www.quantamagazine.org/how-godels-incompleteness-theorems-work-20200714#
+By Natalie Wolchover July 14, 2020
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

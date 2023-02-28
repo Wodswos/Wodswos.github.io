@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   应用数学-信息论和编码
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/01-数理基础/index.html">
+     01-数理基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       00-数学史概要.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-数理逻辑.html">
+         00-数理逻辑.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-测度理论.html">
+         00-测度理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-直觉主义和构造主义.html">
+         00-直觉主义和构造主义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-集合论-所谓的数学基础.html">
+         00-集合论-所谓的数学基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/01-实数的定义-柯西序列和戴德金分割.html">
+         01-实数的定义-柯西序列和戴德金分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/02-第三次数学危机全史--永恒的金色对角线.html">
+         02-第三次数学危机全史--永恒的金色对角线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-可判定性.html">
+         03-希尔伯特纲领的破产-可判定性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-哥德尔不完备定理.html">
+         03-希尔伯特纲领的破产-哥德尔不完备定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/04-类型论.html">
+         04-类型论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-关于数学的哲学.html">
+         0x-关于数学的哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-范畴论.html">
+         0x-范畴论.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.0-先验知识篇-函数.html">
+         0.0-先验知识篇-函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.1-脚手架和技巧篇.html">
+         0.1-脚手架和技巧篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/1.1-极限-分析之本.html">
+         1.1-极限-分析之本.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.1-从导数到微分-导数的定义、计算、性质和应用.html">
+         2.1-从导数到微分-导数的定义、计算、性质和应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.2-从导数到微分-深入理解微分.html">
+         2.2-从导数到微分-深入理解微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.3-从导数到微分-多元函数的导数和微分.html">
+         2.3-从导数到微分-多元函数的导数和微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.1-积分-积分的定义、计算和基本应用.html">
+         3.1-积分-积分的定义、计算和基本应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.2-积分-Stieltjes和Lebesgue.html">
+         3.2-积分-Stieltjes和Lebesgue.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.3-积分-多元函数和重积分.html">
+         3.3-积分-多元函数和重积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.4-积分-反常积分和级数.html">
+         3.4-积分-反常积分和级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/4.1-微分方程-从积分到微分方程.html">
+         4.1-微分方程-从积分到微分方程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/5-无穷级数.html">
+         5-无穷级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.1-傅里叶级数.html">
+         6.1-傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.2-傅里叶变换和快速傅里叶变换.html">
+         6.2-傅里叶变换和快速傅里叶变换.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-《Principles of mathematical analysis》.html">
+         supplement-《Principles of mathematical analysis》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-换个视角重新认识分析-Transformational visual.html">
+         supplement-换个视角重新认识分析-Transformational visual.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html">
+         supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-非标准分析.html">
+         supplement-非标准分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/x-错题（甚至没思路的题）本.html">
+         x-错题（甚至没思路的题）本.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-Group Theory-群论.html">
+         00-Group Theory-群论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-关系和函数.html">
+         00-关系和函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-格与布尔代数.html">
+         01-代数结构-格与布尔代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-群环域.html">
+         01-代数结构-群环域.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-序结构.html">
+         01-序结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-拓扑结构.html">
+         01-拓扑结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-初等数论.html">
+         02-初等数论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-图论.html">
+         02-图论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-形式语言.html">
+         02-形式语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/03-组合数学.html">
+         03-组合数学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-对称性.html">
+         0x-对称性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-魔群.html">
+         0x-魔群.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-代数的源头-方程求根史.html">
+         supplement-代数的源头-方程求根史.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-几何和代数.html">
+         supplement-几何和代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-复数.html">
+         supplement-复数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+         线性空间和线性代数
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/1-行列式和初等变换.html">
+           1-行列式和初等变换.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/2-线性.html">
+           2-线性.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/4-二次型.html">
+           4-二次型.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-矩阵编程.html">
+           supplement-矩阵编程.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-线性代数的应用.html">
+           supplement-线性代数的应用.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-卷积.html">
+         0x-卷积.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-组合数学-计数的学问.html">
+         0x-组合数学-计数的学问.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html">
+         1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.2-概率论-随机变量.html">
+         1.2-概率论-随机变量.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.3-概率论-随机过程.html">
+         1.3-概率论-随机过程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.4-概率论-大数定律和中心极限定理.html">
+         1.4-概率论-大数定律和中心极限定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.1-数理统计-基本概念.html">
+         2.1-数理统计-基本概念.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.2-C.R.Rao和回归.html">
+         2.2-C.R.Rao和回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.x-各种差、相关性和矩.html">
+         2.x-各种差、相关性和矩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/p值.html">
+         p值.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/supplement-概率论-贝叶斯方法.html">
+         supplement-概率论-贝叶斯方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/从麦克斯韦速度分布率到玻尔兹曼分布律.html">
+         从麦克斯韦速度分布率到玻尔兹曼分布律.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/index.html">
+         几何
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/微分流形.html">
+           微分流形.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/单陷门函数.html">
+         单陷门函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/海岸线有多长？分析是panacea吗？——分形的世界.html">
+         海岸线有多长？分析是panacea吗？——分形的世界.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/牛顿迭代法和分形.html">
+         牛顿迭代法和分形.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Hamming码.html">
+         0x-纠错码-Hamming码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Reed-Solomon码.html">
+         0x-纠错码-Reed-Solomon码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-不可能的棋盘谜题.html">
+         0x-编码-不可能的棋盘谜题.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-其他.html">
+         0x-编码-其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-字符的表示和处理.html">
+         0x-编码-字符的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-指令的表示和处理.html">
+         0x-编码-指令的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-数字的表示和处理.html">
+         0x-编码-数字的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-调制解调.html">
+         0x-编码-调制解调.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典力学.html">
+         00-经典力学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典电磁学.html">
+         00-经典电磁学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/0x-时间之箭.html">
+         0x-时间之箭.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/什么是波.html">
+         什么是波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/混沌和蝴蝶效应？.html">
+         混沌和蝴蝶效应？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/熵.html">
+         熵.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子物理基础.html">
+         量子物理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子计算.html">
+         量子计算.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       supplement-关于数学符号.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       supplement-关于追问本质和追问直观.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    应用数学-信息论和编码
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#熵不确定性和信息" id="toc-熵不确定性和信息">
+      熵、不确定性和信息
+     </a>
+     <ul>
+      <li>
+       <a href="#不确定性的度量" id="toc-不确定性的度量">
+        不确定性的度量
+       </a>
+       <ul>
+        <li>
+         <a href="#热力学的熵" id="toc-热力学的熵">
+          热力学的熵
+         </a>
+        </li>
+        <li>
+         <a href="#条件熵" id="toc-条件熵">
+          条件熵
+         </a>
+        </li>
+        <li>
+         <a href="#互信息" id="toc-互信息">
+          互信息
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#信息消除不确定性" id="toc-信息消除不确定性">
+        信息：消除不确定性
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#香农三大定理" id="toc-香农三大定理">
+      香农三大定理
+     </a>
+    </li>
+    <li>
+     <a href="#经典问题" id="toc-经典问题">
+      经典问题
+     </a>
+     <ul>
+      <li>
+       <a href="#毒水和猪" id="toc-毒水和猪">
+        毒水和猪
+       </a>
+      </li>
+      <li>
+       <a href="#天平称球" id="toc-天平称球">
+        天平称球
+       </a>
+       <ul>
+        <li>
+         <a href="#只知不同但不知轻还是重的球" id="toc-只知不同但不知轻还是重的球">
+          只知不同，但不知轻还是重的球
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#应用之编码" id="toc-应用之编码">
+      应用之编码
+     </a>
+     <ul>
+      <li>
+       <a href="#压缩" id="toc-压缩">
+        压缩
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#应用之分类特征的选择" id="toc-应用之分类特征的选择">
+      应用之分类特征的选择
+     </a>
+     <ul>
+      <li>
+       <a href="#kl-散度" id="toc-kl-散度">
+        KL 散度
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#学习资料-路径规划" id="toc-学习资料-路径规划">
+      学习资料
+&amp; 路径规划
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    香农通过《A Mathematical Theory of
+Communication》开创了信息论，严格度量了一个物理量（信息），给出了一个全新的认知世界的视角。
+   </p>
+   <p>
+    香农的硕士论文与信息论关系不大，但也是极有意义的工作：继电器与开关电路的符号分析（也许可以理解为
+A Mathematical Theory of relay switch circuit？）。
+   </p>
+   <p>
+    从中可以看到香农有很强的从复杂工程（通信、电路）中提取通用抽象逻辑（Mathematical
+Theory）天赋和能力。
+   </p>
+   <p>
+    后续还有《A Mathematical Theory of
+Cryptography》开辟了用信息论来研究密码学的新思路。
+   </p>
+   <p>
+    十年前，香农将电路开关抽象成0和1，让电路的设计工作变成了利用布尔代数求解的问题；十年后，香农又把信息抽象成了0和1，让改进通讯质量的工作也变成了求解数学题。从这可以看到香农超强的抽象能力，它能够抽丝剥茧，将万千信息的表象过滤掉，直接找到信息的本质，用数学的方式表示出来，并且能够度量大小。
+   </p>
+   <p>
+    香农的信息论究竟牛在哪里？ - 苗华栋的回答 - 知乎
+https://www.zhihu.com/question/27068465/answer/1367210750
+   </p>
+  </blockquote>
+  <h1 id="熵不确定性和信息">
+   熵、不确定性和信息
+  </h1>
+  <h2 id="不确定性的度量">
+   不确定性的度量
+  </h2>
+  <blockquote>
+   <p>
+    如果看字面意思的话，无序性或者混乱度指的是系统的某种「排列」有多么混乱，有多么无序。可是谁来规定哪种排列更无序呢？这就是无法规定的。而使用这两个词的人，想表达的意思其实是系统的「不确定性」。
+   </p>
+   <p>
+    因此，我希望大家能够别用「无序性」、「混乱度」，而是改用「不确定性」。
+   </p>
+   <p>
+    熵与不确定性 - 会钟意的文章 - 知乎
+https://zhuanlan.zhihu.com/p/380224743
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    不确定性
+    <span class="math inline">
+     \(H\)
+    </span>
+    应该完全由概率分布
+    <span class="math inline">
+     \(\{p_i\}\)
+    </span>
+    描述，且不确定性应关于
+    <span class="math inline">
+     \(p_j\)
+    </span>
+    连续
+   </li>
+   <li>
+    不确定性
+    <span class="math inline">
+     \(H\)
+    </span>
+    最小的概率分布应该是某个
+    <span class="math inline">
+     \(p_i = 1\)
+    </span>
+    .
+即此时没有不确定性。
+   </li>
+   <li>
+    不确定性
+    <span class="math inline">
+     \(H\)
+    </span>
+    最大的概率分布应该是所有的
+    <span class="math inline">
+     \(p_i = \frac 1
+\Omega\)
+    </span>
+    ，即所有可能情况等概率。
+   </li>
+   <li>
+    复合系统的不确定性应为各个子系统不确定性的加权和，即
+    <span class="math inline">
+     \(H = p_1H_1 + p_2H_2\)
+    </span>
+   </li>
+  </ul>
+  <p>
+   最后发现，满足这些条件的，有且只有如下形式（不提供证明，因为不会，也没看香农原文）：
+   <span class="math display">
+    \[
+H(X) = -k\sum _{i=1} p_i \log p_i \\
+\]
+   </span>
+  </p>
+  <p>
+   即对于一个离散型随机变量
+   <span class="math inline">
+    \(X \sim
+p(x)\)
+   </span>
+   ，其离散熵可以定义为：
+   <span class="math display">
+    \[
+H(X) = - \sum _{i=1} p_i \log_2 p_i
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    理论上熵中的对数函数可以采用任何底数，并且采用不同底数，其对应的单位也不同。
+   </p>
+   <p>
+    熵中如采用 2 为底数（即
+    <span class="math inline">
+     \(\log _2\)
+    </span>
+    ），则对应的单位为比特（bit）；如果采用 3 为底数（即
+    <span class="math inline">
+     \(\log _3\)
+    </span>
+    ），则对应的单位为Tet，如果采用 e
+为底数（即
+    <span class="math inline">
+     \(\ln\)
+    </span>
+    ），对应单位为奈特（nat）；采用 10
+为底数（即
+    <span class="math inline">
+     \(\lg\)
+    </span>
+    ），则对应单位为Hart。
+   </p>
+   <p>
+    为什么信息熵的底数是2？ - 李sir的回答 - 知乎
+https://www.zhihu.com/question/514755014/answer/2334948044
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    Counting bits, information theory tends to be interested in how many
+bits of information are involved. Other bases will be ok too.
+   </p>
+   <p>
+    为什么信息熵的底数是2？ - 搞AI的哈士奇的回答 - 知乎
+https://www.zhihu.com/question/514755014/answer/2335345722
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    熵是平均意义上对随机变量的编码长度（熵的计算以 k 为底数，编码系统也以
+k 为进制，通常 k = 2）
+   </p>
+  </blockquote>
+  <h3 id="热力学的熵">
+   热力学的熵
+  </h3>
+  <p>
+   对于热力学系统，显然
+   <span class="math inline">
+    \(p_i\)
+   </span>
+   均相等，
+   <span class="math inline">
+    \(k\)
+   </span>
+   为玻尔兹曼常数 $$ H =
+-k_B
+   <em>
+    {i=1} ^n p_i p_i = -k_B
+   </em>
+   {i=1} ^n p_i \
+  </p>
+  <p>
+   S = k $$
+  </p>
+  <p>
+   先略，以后可能填坑。
+  </p>
+  <h3 id="条件熵">
+   条件熵
+  </h3>
+  <p>
+   很显然，熵的度量就是基于概率论中的概率分布而来。在概率论中有条件概率的概念，将其应用于信息论中，就可以得到条件熵的概念。
+   <span class="math display">
+    \[
+H(Y|X) = \sum _{i=1} ^n p(x_i) H(Y|X=x_i)
+\]
+   </span>
+  </p>
+  <h3 id="互信息">
+   互信息
+  </h3>
+  <p>
+   <span class="math display">
+    \[
+I(X;Y) = H(Y) - H(Y|X)
+\]
+   </span>
+  </p>
+  <p>
+   也可以看成 X 给 Y
+带来的信息增益。互信息这个名称在通信领域经常使用，信息增益则在机器学习领域中经常使用。
+  </p>
+  <h2 id="信息消除不确定性">
+   信息：消除不确定性
+  </h2>
+  <blockquote>
+   <p>
+    举个例子，「中国男子足球队获得世界杯冠军」的信息显然要比「中国男子乒乓球队获得世界杯冠军」的信息要大得多。
+   </p>
+   <p>
+    究其原因，国足勇夺世界杯相对于国乒是如假包换的小概率事件（如果不是不可能事件的话）。
+   </p>
+   <p>
+    —— 极客时间 人工智能基础课 王天一
+   </p>
+  </blockquote>
+  <p>
+   显然，信息量即「加入信息前的概率分布不确定性」和「加入信息后的概率分布不确定性」之差。
+  </p>
+  <p>
+   假设概率均为
+   <span class="math inline">
+    \(\frac 1
+n\)
+   </span>
+   ，则对二分这一行为提供的信息：
+   <span class="math display">
+    \[
+H(Z_2) -H(Z_1) = -  n \log_2 \frac 1{n} - (- \frac n 2  \log_2 \frac 2
+n)  \\
+=-n \log_2 \frac 1 n - \frac n 2  (1 +\log_2 \frac 1 n)) \\
+=\frac n 2 - \frac n 2 \log_2 \frac 1 n
+\]
+   </span>
+  </p>
+  <h1 id="香农三大定理">
+   香农三大定理
+  </h1>
+  <p>
+   香农的信息论究竟牛在哪里？ - 科言君的回答 - 知乎
+https://www.zhihu.com/question/27068465/answer/96502561
+  </p>
+  <p>
+   1）临界数据压缩的值？答案：信息熵H。实用的编码平均码长的理论下界就是信息熵。
+  </p>
+  <p>
+   2）临界通信速率的值？答案：信道容量C。
+  </p>
+  <p>
+   如何连贯地理解香农三大定理？ - BeyondSelf的回答 - 知乎
+https://www.zhihu.com/question/39296849/answer/1467262363
+  </p>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/v2-e1ae0c48e065069fc31d5fed142ef681_720w.webp"/>
+  </p>
+  <p>
+   <span class="math display">
+    \[
+C = W \log (1 + \frac P N)
+\]
+   </span>
+  </p>
+  <h1 id="经典问题">
+   经典问题
+  </h1>
+  <p>
+   通用步骤：
+  </p>
+  <ul>
+   <li>
+    明确「问题对应的样本空间」、「能带来信息的（往往是独立的）随机实验」以及每次实验能带来多少「信息」（随机试验可能出现的情况/状态）
+    <ul>
+     <li>
+      在毒水和猪的问题里，样本空间是1000桶水，随机试验是能喝4次水机会的猪，带来信息
+      <span class="math inline">
+       \(\log _2 5 \approx 2.322
+\mathrm{bit}\)
+      </span>
+      （ 5 为猪的 5 种状态）
+     </li>
+     <li>
+      在天平称球的问题里，样本空间是 N 个球，随机试验是天平称重，带来信息
+      <span class="math inline">
+       \(\log_2 3\approx 1.585
+\mathrm{bit}\)
+      </span>
+      （ 3 为称重的 3 种可能结果/状态）
+     </li>
+    </ul>
+   </li>
+   <li>
+    以状态数作为进制，给样本空间内的「每一个可能性（elements）」编号
+   </li>
+   <li>
+    细化实验，使得每个独立实验都能确定目标 elements
+在某个「位」上的值。
+   </li>
+  </ul>
+  <h2 id="毒水和猪">
+   毒水和猪
+  </h2>
+  <p>
+   1000桶水，其中一桶有毒，猪喝毒水后会在15分钟内死去，想用一个小时找到这桶毒水，至少需要几头猪？
+- 苗华栋的回答 - 知乎
+https://www.zhihu.com/question/60227816/answer/1274071217
+  </p>
+  <h2 id="天平称球">
+   天平称球
+  </h2>
+  <blockquote>
+   <p>
+    香农的信息论究竟牛在哪里？ - 苗华栋的回答 - 知乎
+https://www.zhihu.com/question/27068465/answer/1367210750
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    有 N
+个小球，其中存在且仅存在（这也是一个很强的条件）一个小球的重量更轻（或更重），现有一台没有砝码的天平，问至少称几次能确保找出这个特殊的小球。
+   </p>
+  </blockquote>
+  <p>
+   一个天平称量1次后会有3种结果：
+  </p>
+  <ol type="1">
+   <li>
+    左轻右重
+   </li>
+   <li>
+    左重右轻
+   </li>
+   <li>
+    左右一样重
+   </li>
+  </ol>
+  <p>
+   即一次称量带来的信息（减少的信息熵/不确定性）为：
+   <span class="math display">
+    \[
+H(Z) = -(\frac 1 3 \log_2 \frac 1 3 + \frac 1 3 \log _2 \frac 1 3 +
+\frac 1 3 \log \frac 1 3) = - \log_2 \frac 1 3 = 1.585
+\]
+   </span>
+  </p>
+  <p>
+   以 N 取 12 为例，此时的信息熵为：
+   <span class="math display">
+    \[
+H(X) = -\log_2 \frac 1 {12} = 3.585
+\]
+   </span>
+  </p>
+  <h3 id="只知不同但不知轻还是重的球">
+   只知不同，但不知轻还是重的球
+  </h3>
+  <p>
+   知乎高赞给的思路是，「样本空间里找一个
+element」这个随机变量X的信息熵增加了，变成
+   <span class="math inline">
+    \(H(X) = -\log_2 \frac 1 {24} =
+4.585\)
+   </span>
+   ，但「称量实验」这个随机变量Y的信息熵没有变。
+  </p>
+  <blockquote>
+   <p>
+    个人一开始的想法是，「样本空间里找一个
+element」的信息熵还是没变，但「称量实验」能带来的信息变了，只有在称上和不在称上两种情况，即变成了
+    <span class="math inline">
+     \(H(Y) = \log _2 2 = 1
+\mathrm{bit}\)
+    </span>
+    。但这样实际上丢失了信息。
+   </p>
+  </blockquote>
+  <h1 id="应用之编码">
+   应用之编码
+  </h1>
+  <p>
+   编码导致了通用图灵机（Universal Turing
+Machines）概念的产生——一个能够输入程序和数据，并在数据上运行程序的机器。
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+  </p>
+  <h2 id="压缩">
+   压缩
+  </h2>
+  <blockquote>
+   <p>
+    瓜 保熟；篮球 背带裤；
+   </p>
+   <p>
+    什么叫视频的极限压缩啊。
+   </p>
+  </blockquote>
+  <h1 id="应用之分类特征的选择">
+   应用之分类特征的选择
+  </h1>
+  <p>
+   利用信息增益的概念可以选择分类的特征，显然，信息增益更大的特征具有更强的分类能力。
+  </p>
+  <p>
+   信息增益比
+   <span class="math display">
+    \[
+g(X,Y) = \frac {I(X;Y)} {H(Y)}
+\]
+   </span>
+  </p>
+  <h2 id="kl-散度">
+   KL 散度
+  </h2>
+  <p>
+   Kullback-Leibler 散度
+   <span class="math display">
+    \[
+D_{KL} (P||Q) = \sum _{i=1} ^ n p(x_i) \log_2 \frac {p(x_i)}{q(x_i)}
+\]
+   </span>
+   KL 散度有非负性和非对称性。
+  </p>
+  <h1 id="学习资料-路径规划">
+   学习资料 &amp; 路径规划
+  </h1>
+  <ul>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     《信息熵
+理论与应用》
+    </p>
+   </li>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     《信息论与编码》田枫
+    </p>
+   </li>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     zip炸弹
+    </p>
+   </li>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     世界上最大的文件压缩率是多少？ - 何先森饭扫光的回答 - 知乎
+https://www.zhihu.com/question/20583075/answer/26673424
+    </p>
+   </li>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     香农的信息论究竟牛在哪里？ -
+科言君的回答 - 知乎
+https://www.zhihu.com/question/27068465/answer/96502561
+    </p>
+   </li>
+   <li>
+    <p>
+     <input disabled="" type="checkbox"/>
+     如何连贯地理解香农三大定理？
+- BeyondSelf的回答 - 知乎
+https://www.zhihu.com/question/39296849/answer/1467262363
+    </p>
+   </li>
+   <li>
+    <p>
+     [ ]
+    </p>
+   </li>
+  </ul>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      《论可计算数：图灵与现代计算的诞生》[美] Chris Bernhardt
+著，雪曼 译
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

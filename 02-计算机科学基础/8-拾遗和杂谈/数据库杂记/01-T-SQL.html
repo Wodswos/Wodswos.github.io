@@ -1,0 +1,3562 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   T-SQL
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+     02-计算机科学基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的机器-有限自动机.html">
+         01-最简单的机器-有限自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的语言-正则表达式.html">
+         01-最简单的语言-正则表达式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-从lambda演算到可定义函数.html">
+         02-更强的计算能力-从lambda演算到可定义函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-图灵和图灵机.html">
+         02-更强的计算能力-图灵和图灵机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-递归函数和可定义函数的等价性.html">
+         02-更强的计算能力-递归函数和可定义函数的等价性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-BlooP、FlooP、GlooP.html">
+         03-BlooP、FlooP、GlooP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-文法和语言.html">
+         03-文法和语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-计算与可计算性.html">
+         03-计算与可计算性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-元胞自动机和生命游戏.html">
+         0x-元胞自动机和生命游戏.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-图灵完备.html">
+         0x-图灵完备.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-标签系统.html">
+         0x-标签系统.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算和信息的物理极限.html">
+         0x-计算和信息的物理极限.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算图or数据流图.html">
+         0x-计算图or数据流图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/《自动机理论、语言和计算导论》.html">
+         《自动机理论、语言和计算导论》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html">
+         时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       0x-《Crash Course Computer Science》笔记.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       0x-从半导体萌芽到互联网时代的所有巨头.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       0x-模拟计算机会卷土重来吗？.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/00-数字电路基础.html">
+         00-数字电路基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-“开关”史诗：晶体管的前世今生.html">
+         01-“开关”史诗：晶体管的前世今生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-从开关到逻辑门.html">
+         01-从开关到逻辑门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-从逻辑门到ALU.html">
+         02-从逻辑门到ALU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-时序电路.html">
+         02-时序电路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-x86指令集和处理器.html">
+         03-x86指令集和处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-其他指令集及其处理器.html">
+         03-其他指令集及其处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-单周期处理器.html">
+         04-单周期处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-流水线处理器.html">
+         04-流水线处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/05-从CPU到通用计算机结构.html">
+         05-从CPU到通用计算机结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-主存储器和缓存机制.html">
+         06-层次存储-主存储器和缓存机制.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-辅助存储器.html">
+         06-层次存储-辅助存储器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/07-中断和异常.html">
+         07-中断和异常.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-DMA.html">
+         08-输入输出-DMA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-接口和总线.html">
+         08-输入输出-接口和总线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-计算机体系的其他配角.html">
+         08-输入输出-计算机体系的其他配角.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/09-其他补充-GPU基础常识.html">
+         09-其他补充-GPU基础常识.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-Verilog HDL.html">
+         0x-Verilog HDL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-一段指令的完整执行.html">
+         0x-一段指令的完整执行.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-单片机概述.html">
+         0x-单片机概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言先验和工具.html">
+         01-汇编语言先验和工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言基础语法.html">
+         01-汇编语言基础语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/02-汇编语言实战.html">
+         02-汇编语言实战.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/04-编译原理基础.html">
+         04-编译原理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-一些犄角旮旯的事.html">
+         0x-一些犄角旮旯的事.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-不同语境下的堆栈.html">
+         0x-不同语境下的堆栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-保护模式.html">
+         0x-保护模式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-无心插柳柳成荫-LLVM.html">
+         0x-无心插柳柳成荫-LLVM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-重定位和链接.html">
+         0x-重定位和链接.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-GNU.html">
+         从汇编到C-GNU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-核心内容.html">
+         从汇编到C-核心内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-概述.html">
+         从汇编到C-概述.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/01-权限管理和内核交互.html">
+         01-权限管理和内核交互.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-内存和地址.html">
+         02-存储管理-内存和地址.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-分页机制和MMU.html">
+         02-存储管理-分页机制和MMU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-文件系统和IO.html">
+         02-存储管理-文件系统和IO.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/03-算力管理-线程和进程.html">
+         03-算力管理-线程和进程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-Harmony.html">
+         0x-Harmony.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-mycore实验笔记.html">
+         0x-mycore实验笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-POSIX.html">
+         0x-POSIX.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-兼容和虚拟机.html">
+         0x-兼容和虚拟机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-常见概念杂谈.html">
+         0x-常见概念杂谈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part1.html">
+         0x-按下开机键后电脑经历了什么-part1.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part2.html">
+         0x-按下开机键后电脑经历了什么-part2.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-软件管理.html">
+         0x-软件管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第1篇-概述.html">
+         0-从C到C++第1篇-概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第2篇-基础.html">
+         0-从C到C++第2篇-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第3篇-实战笔记.html">
+         0-从C到C++第3篇-实战笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/DSL和GPL.html">
+         DSL和GPL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Go.html">
+         Go.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Groovy.html">
+         Groovy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Haskell.html">
+         Haskell.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-基础内容.html">
+         Java-基础内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-模块化和工程实践.html">
+         Java-模块化和工程实践.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Kotlin.html">
+         Kotlin.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lisp.html">
+         Lisp.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lua.html">
+         Lua.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Perl.html">
+         Perl.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Prolog.html">
+         Prolog.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-五花八门的库.html">
+         Python-五花八门的库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-基础.html">
+         Python-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-多线程、GIL和PyPy.html">
+         Python-多线程、GIL和PyPy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-杂记.html">
+         Python-杂记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-社区和项目管理.html">
+         Python-社区和项目管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Ruby.html">
+         Ruby.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/脚本语言.html">
+         脚本语言.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/index.html">
+         LeetCode刷题笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/1-10.html">
+           1-10.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/基本概念和方法.html">
+         基本概念和方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
+         数据结构-哈希表.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
+         数据结构-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
+         数据结构-并查集.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-树.html">
+         数据结构-树.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-线性数据结构.html">
+         数据结构-线性数据结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
+         算法-AC自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
+         算法-排序和查找.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-一份软工狗的通信基础笔记.html">
+         01-物理层-一份软工狗的通信基础笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-网络的诞生.html">
+         01-物理层-网络的诞生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/02-数据链路层.html">
+         02-数据链路层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/03-网络层-关于IP地址的一切.html">
+         03-网络层-关于IP地址的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-TCP.html">
+         04-传输层-TCP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-UDP.html">
+         04-传输层-UDP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-DNS.html">
+         05-应用层-DNS.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-关于HTTP的一切.html">
+         05-应用层-关于HTTP的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层.html">
+         05-应用层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-Tor和BitTorrent.html">
+         0x-Tor和BitTorrent.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-域名和备案.html">
+         0x-域名和备案.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-局域网和虚拟机网络.html">
+         0x-局域网和虚拟机网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-经典问题-输入网址按下回车后发生了些啥.html">
+         0x-经典问题-输入网址按下回车后发生了些啥.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-长城、翻墙、各式vpn.html">
+         0x-长城、翻墙、各式vpn.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-非对称加密和PKI.html">
+         0x-非对称加密和PKI.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/01-软件工程理论.html">
+         01-软件工程理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-UML和C4.html">
+         0x-UML和C4.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-安卓入门.html">
+         0x-安卓入门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-嵌入式软件设计.html">
+         0x-嵌入式软件设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-技术栈.html">
+         0x-技术栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x1-产品设计.html">
+         0x1-产品设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/Axure.html">
+         Axure.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+         web-前端实践
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-CSS摸爬滚打.html">
+           0.1-web基础-CSS摸爬滚打.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-HTML DOM.html">
+           0.1-web基础-HTML DOM.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-JavaScript 和 ECMAScript.html">
+           0.1-web基础-JavaScript 和 ECMAScript.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-EasyUI.html">
+           0.2-web 1.0-EasyUI.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-JQuery.html">
+           0.2-web 1.0-JQuery.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 1.Hello Node.js.html">
+           1-Node.js - 1.Hello Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 2.进一步认识 Node.js.html">
+           1-Node.js - 2.进一步认识 Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/2.1-构建-Webpack&amp;Vite.html">
+           2.1-构建-Webpack&amp;Vite.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.0-Vue-Hello Vue.html">
+           3.0-Vue-Hello Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.1-Vue-进一步认识 Vue.html">
+           3.1-Vue-进一步认识 Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React 基础知识.html">
+           3.2-React 基础知识.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React- 简单实战之 Gatsby.html">
+           3.2-React- 简单实战之 Gatsby.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.x-Bootstrap简述.html">
+           3.x-Bootstrap简述.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.1-ES6 和 Babel.html">
+           4.1-ES6 和 Babel.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.2ESlint.html">
+           4.2ESlint.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/x-Electron试试就逝世.html">
+           x-Electron试试就逝世.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/index.html">
+         web-前端野史-浏览器和JS Run Time
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x1-v8 JS引擎.html">
+           0x1-v8 JS引擎.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x2-Blink.html">
+           0x2-Blink.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x3-Chromium和浏览器.html">
+           0x3-Chromium和浏览器.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x4-浏览器衍生生态.html">
+           0x4-浏览器衍生生态.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x5-互联网规范.html">
+           0x5-互联网规范.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/《设计原本》.html">
+         《设计原本》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-关于技术路径的交汇.html">
+         0x-关于技术路径的交汇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-计算机标准.html">
+         0x-计算机标准.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/序列化和反序列化.html">
+         序列化和反序列化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/index.html">
+         数据库杂记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/00-关系和ER.html">
+           00-关系和ER.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/01-T-SQL.html">
+           01-T-SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/02-不止SQL.html">
+           02-不止SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/03-数据库和SQL Server.html">
+           03-数据库和SQL Server.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/MongoDB.html">
+           MongoDB.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/index.html">
+         文件格式
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/图片.html">
+           图片.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/多媒体格式.html">
+           多媒体格式.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/常见标记语言和配置文件格式.html">
+           常见标记语言和配置文件格式.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/index.html">
+         读书笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/Section1-A Tour of Computer System.html">
+           Section1-A Tour of Computer System.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《CS：APP》阅读笔记part2-dynamic.html">
+           《CS：APP》阅读笔记part2-dynamic.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《计算机离散数学基础》.html">
+           《计算机离散数学基础》.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    T-SQL
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#语法规范" id="toc-语法规范">
+      语法规范
+     </a>
+     <ul>
+      <li>
+       <a href="#语法约定" id="toc-语法约定">
+        语法约定
+       </a>
+      </li>
+      <li>
+       <a href="#书写规范" id="toc-书写规范">
+        书写规范
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#语言元素" id="toc-语言元素">
+      语言元素
+     </a>
+     <ul>
+      <li>
+       <a href="#常规" id="toc-常规">
+        常规
+       </a>
+       <ul>
+        <li>
+         <a href="#execute" id="toc-execute">
+          EXECUTE
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#控制流" id="toc-控制流">
+        控制流
+       </a>
+      </li>
+      <li>
+       <a href="#游标" id="toc-游标">
+        游标
+       </a>
+      </li>
+      <li>
+       <a href="#表达式" id="toc-表达式">
+        表达式
+       </a>
+      </li>
+      <li>
+       <a href="#运算符" id="toc-运算符">
+        运算符
+       </a>
+      </li>
+      <li>
+       <a href="#变量" id="toc-变量">
+        变量
+       </a>
+       <ul>
+        <li>
+         <a href="#语法" id="toc-语法">
+          语法
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#事务" id="toc-事务">
+        事务
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#数据类型" id="toc-数据类型">
+      数据类型
+     </a>
+     <ul>
+      <li>
+       <a href="#其他数据类型" id="toc-其他数据类型">
+        其他数据类型
+       </a>
+       <ul>
+        <li>
+         <a href="#hierarchyid" id="toc-hierarchyid">
+          HierarchyID
+         </a>
+        </li>
+        <li>
+         <a href="#空间几何" id="toc-空间几何">
+          空间几何
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#示例" id="toc-示例">
+        示例
+       </a>
+       <ul>
+        <li>
+         <a href="#数据类型测试" id="toc-数据类型测试">
+          数据类型测试
+         </a>
+        </li>
+        <li>
+         <a href="#和odbc对接" id="toc-和odbc对接">
+          和ODBC对接
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#基础语句" id="toc-基础语句">
+      基础语句
+     </a>
+     <ul>
+      <li>
+       <a href="#create" id="toc-create">
+        CREATE
+       </a>
+       <ul>
+        <li>
+         <a href="#crate-database" id="toc-crate-database">
+          CRATE
+DATABASE
+         </a>
+        </li>
+        <li>
+         <a href="#crate-table" id="toc-crate-table">
+          CRATE TABLE
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#alter" id="toc-alter">
+        ALTER
+       </a>
+       <ul>
+        <li>
+         <a href="#alter-table" id="toc-alter-table">
+          ALTER TABLE
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#insert" id="toc-insert">
+        INSERT
+       </a>
+       <ul>
+        <li>
+         <a href="#bulk-insert" id="toc-bulk-insert">
+          BULK INSERT
+         </a>
+        </li>
+        <li>
+         <a href="#gui" id="toc-gui">
+          GUI
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#update" id="toc-update">
+        UPDATE
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#查询和select" id="toc-查询和select">
+      查询和SELECT
+     </a>
+     <ul>
+      <li>
+       <a href="#select子句" id="toc-select子句">
+        SELECT子句
+       </a>
+       <ul>
+        <li>
+         <a href="#从已有数据创建新表" id="toc-从已有数据创建新表">
+          从已有数据创建新表
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#函数" id="toc-函数">
+      函数
+     </a>
+     <ul>
+      <li>
+       <a href="#聚合函数" id="toc-聚合函数">
+        聚合函数
+       </a>
+      </li>
+      <li>
+       <a href="#分析函数" id="toc-分析函数">
+        分析函数
+       </a>
+      </li>
+      <li>
+       <a href="#转换" id="toc-转换">
+        转换
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#存储过程" id="toc-存储过程">
+      存储过程
+     </a>
+     <ul>
+      <li>
+       <a href="#系统存储过程" id="toc-系统存储过程">
+        系统存储过程
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#sql-server和t-sql实战" id="toc-sql-server和t-sql实战">
+      SQL
+Server和T-SQL实战
+     </a>
+     <ul>
+      <li>
+       <a href="#安装sql-server并连接server" id="toc-安装sql-server并连接server">
+        安装SQL Server并连接Server
+       </a>
+       <ul>
+        <li>
+         <a href="#install-rules" id="toc-install-rules">
+          Install
+Rules
+         </a>
+        </li>
+        <li>
+         <a href="#feature-selection" id="toc-feature-selection">
+          Feature
+Selection
+         </a>
+        </li>
+        <li>
+         <a href="#configuration" id="toc-configuration">
+          Configuration
+         </a>
+        </li>
+        <li>
+         <a href="#连接数据库" id="toc-连接数据库">
+          连接数据库
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#创建和管理数据库" id="toc-创建和管理数据库">
+        创建和管理数据库
+       </a>
+       <ul>
+        <li>
+         <a href="#移动数据库" id="toc-移动数据库">
+          移动数据库
+         </a>
+        </li>
+        <li>
+         <a href="#数据库元信息查询" id="toc-数据库元信息查询">
+          数据库元信息查询
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#创建和管理表" id="toc-创建和管理表">
+        创建和管理表
+       </a>
+       <ul>
+        <li>
+         <a href="#drop-table" id="toc-drop-table">
+          DROP TABLE
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#创建和管理视图" id="toc-创建和管理视图">
+        创建和管理视图
+       </a>
+      </li>
+      <li>
+       <a href="#数据录入和管理" id="toc-数据录入和管理">
+        数据录入和管理
+       </a>
+       <ul>
+        <li>
+         <a href="#insert-1" id="toc-insert-1">
+          INSERT
+         </a>
+        </li>
+        <li>
+         <a href="#update-1" id="toc-update-1">
+          UPDATE
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#创建和管理过程" id="toc-创建和管理过程">
+        创建和管理过程
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#note" id="toc-note">
+      NOTE
+     </a>
+     <ul>
+      <li>
+       <a href="#osqlsqlcmd" id="toc-osqlsqlcmd">
+        OSQL&amp;SQLCMD
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <p>
+   T-SQL 即 Transact-SQL，是 SQL 在 Microsoft SQL Server
+上的增强版，它是用来让应用程序与 SQL Server 沟通的主要语言。
+  </p>
+  <p>
+   T-SQL 提供标准 SQL 的 DDL 和 DML
+功能，加上延伸的函数、系统预存程序以及程式设计结构(例如 IF 和
+WHILE)让程式设计更有弹性。
+  </p>
+  <blockquote>
+   <p>
+    在SSMS总，选中词语如
+    <code>
+     CREATE DATABASE
+    </code>
+    ，再按
+    <code>
+     F1
+    </code>
+    。 会打开该主题（
+    <code>
+     CEATE DATABASE
+    </code>
+    ）的 SQL
+Server 联机帮助文档。
+   </p>
+  </blockquote>
+  <h1 id="语法规范">
+   语法规范
+  </h1>
+  <h2 id="语法约定">
+   语法约定
+  </h2>
+  <table>
+   <colgroup>
+    <col style="width: 20%"/>
+    <col style="width: 80%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th style="text-align: left;">
+      约定
+     </th>
+     <th style="text-align: left;">
+      用于
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td style="text-align: left;">
+      大写
+     </td>
+     <td style="text-align: left;">
+      Transact-SQL 关键字。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      <em>
+       斜体
+      </em>
+     </td>
+     <td style="text-align: left;">
+      用户提供的 Transact-SQL 语法的参数。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      <strong>
+       粗体
+      </strong>
+     </td>
+     <td style="text-align: left;">
+      完全按显示原样键入数据库名称、表名称、列名、索引名称、存储过程、实用工具、数据类型名称和文本。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      下划线
+     </td>
+     <td style="text-align: left;">
+      指示当语句中省略了包含带下划线的值的子句时应用的默认值。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      | （垂直条）
+     </td>
+     <td style="text-align: left;">
+      分隔括号或大括号中的语法项。
+只能使用其中一项。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      <code>
+       [ ]
+      </code>
+      （方括号）
+     </td>
+     <td style="text-align: left;">
+      可选语法项。 不要键入方括号。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      {}（大括号）
+     </td>
+     <td style="text-align: left;">
+      必选语法项。 不要键入大括号。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      [ …
+      <em>
+       n
+      </em>
+      ]
+     </td>
+     <td style="text-align: left;">
+      指示前面的项可以重复
+      <em>
+       n
+      </em>
+      次。
+匹配项由逗号分隔。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      […n ]
+     </td>
+     <td style="text-align: left;">
+      指示前面的项可以重复
+      <em>
+       n
+      </em>
+      次。
+每一项由空格分隔。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      ;
+     </td>
+     <td style="text-align: left;">
+      Transact-SQL 语句终止符。 虽然此版本的 SQL
+Server 中大部分语句都不需要分号，但今后发布的版本需要分号。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      <code>
+       &lt;label&gt; ::=
+      </code>
+     </td>
+     <td style="text-align: left;">
+      语法块的名称。
+使用此约定，可以对能在一条语句中的多个位置使用的过长语法段或语法单元进行分组和标记。
+可使用语法块的各个位置用括在尖括号内的标签指明：
+      <code>
+       &lt;label&gt;
+      </code>
+      。
+集是表达式的集合，例如
+      <code>
+       &lt;grouping set&gt;
+      </code>
+      ；列表是集的集合，例如
+      <code>
+       &lt;composite element list&gt;
+      </code>
+      。
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h2 id="书写规范">
+   书写规范
+  </h2>
+  <h1 id="语言元素">
+   语言元素
+  </h1>
+  <h2 id="常规">
+   常规
+  </h2>
+  <h3 id="execute">
+   EXECUTE
+  </h3>
+  <pre class="mssql"><code>-- Syntax for SQL Server 2019
+
+Execute a stored procedure or function  
+[ { EXEC | EXECUTE } ]  
+    {   
+      [ @return_status = ]  
+      { module_name [ ;number ] | @module_name_var }   
+        [ [ @parameter = ] { value   
+                           | @variable [ OUTPUT ]   
+                           | [ DEFAULT ]   
+                           }  
+        ]  
+      [ ,...n ]  
+      [ WITH &lt;execute_option&gt; [ ,...n ] ]  
+    }  
+[;]  
+
+Execute a character string  
+{ EXEC | EXECUTE }   
+    ( { @string_variable | [ N ]'tsql_string' } [ + ...n ] )  
+    [ AS { LOGIN | USER } = ' name ' ]  
+[;]  
+
+Execute a pass-through command against a linked server  
+{ EXEC | EXECUTE }  
+    ( { @string_variable | [ N ] 'command_string [ ? ]' } [ + ...n ]  
+        [ { , { value | @variable [ OUTPUT ] } } [ ...n ] ]  
+    )   
+    [ AS { LOGIN | USER } = ' name ' ]  
+    [ AT linked_server_name ]  
+    [ AT DATA_SOURCE data_source_name ]  
+[;]  
+
+&lt;execute_option&gt;::=  
+{  
+        RECOMPILE   
+    | { RESULT SETS UNDEFINED }   
+    | { RESULT SETS NONE }   
+    | { RESULT SETS ( &lt;result_sets_definition&gt; [,...n ] ) }  
+}   
+
+&lt;result_sets_definition&gt; ::=   
+{  
+    (  
+         { column_name   
+           data_type   
+         [ COLLATE collation_name ]   
+         [ NULL | NOT NULL ] }  
+         [,...n ]  
+    )  
+    | AS OBJECT   
+        [ db_name . [ schema_name ] . | schema_name . ]   
+        {table_name | view_name | table_valued_function_name }  
+    | AS TYPE [ schema_name.]table_type_name  
+    | AS FOR XML   
+}  </code></pre>
+  <ul>
+   <li>
+    CHECKPOINT
+   </li>
+  </ul>
+  <div class="sourceCode" id="cb2">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">CHECKPOINT</span> [ checkpoint_duration ]</span></code></pre>
+  </div>
+  <h2 id="控制流">
+   控制流
+  </h2>
+  <h2 id="游标">
+   游标
+  </h2>
+  <h2 id="表达式">
+   表达式
+  </h2>
+  <h2 id="运算符">
+   运算符
+  </h2>
+  <h2 id="变量">
+   变量
+  </h2>
+  <p>
+   Transact-SQL 局部变量是可以保存单个特定类型数据值的对象。
+  </p>
+  <blockquote>
+   <ul>
+    <li>
+     一些 Transact-SQL 系统函数的名称以两个 at 符号 (@@) 开头。
+尽管在旧版 SQL Server 中，@@ 函数称为全局变量，但 @@
+函数不是变量，不具有等同于变量的行为。 @
+     <span class="citation" data-cites="函数是系统函数">
+      @函数是系统函数
+     </span>
+     ，语法遵循函数规则。
+    </li>
+    <li>
+     不能在视图中使用变量。
+    </li>
+    <li>
+     事务回滚不影响对变量所做的更改。
+    </li>
+   </ul>
+  </blockquote>
+  <h3 id="语法">
+   语法
+  </h3>
+  <h4 id="声明变量">
+   声明变量
+  </h4>
+  <p>
+   指定一个名称。 名称的首字符必须为一个 @。
+  </p>
+  <pre class="mssql"><code>DECLARE @LastName NVARCHAR(30), @FirstName NVARCHAR(20), @StateProvince NCHAR(2);</code></pre>
+  <h4 id="设置变量">
+   设置变量
+  </h4>
+  <pre class="mssql"><code>-- Set their values.
+SET @FirstNameVariable = N'Amy';
+SET @PostalCodeVariable = N'BA5 3HX';
+
+-- Use them in the WHERE clause of a SELECT statement.
+SELECT LastName, FirstName, JobTitle, City, StateProvinceName, CountryRegionName
+FROM HumanResources.vEmployee
+WHERE FirstName = @FirstNameVariable
+   OR PostalCode = @PostalCodeVariable;
+GO</code></pre>
+  <h4 id="在脚本中应用变量">
+   在脚本中应用变量
+  </h4>
+  <ul>
+   <li>
+    作为计数器计算循环执行的次数或控制循环执行的次数。
+   </li>
+   <li>
+    保存数据值以供控制流语句测试。
+   </li>
+   <li>
+    保存存储过程返回代码要返回的数据值或函数返回值。
+   </li>
+  </ul>
+  <pre class="mssql"><code>-- Create the table.
+CREATE TABLE TestTable (cola INT, colb CHAR(3));
+GO
+SET NOCOUNT ON;
+GO
+-- Declare the variable to be used.
+DECLARE @MyCounter INT;
+
+-- Initialize the variable.
+SET @MyCounter = 0;
+
+-- Test the variable to see if the loop is finished.
+WHILE (@MyCounter &lt; 26)
+BEGIN;
+   -- Insert a row into the table.
+   INSERT INTO TestTable VALUES
+       -- Use the variable to provide the integer value
+       -- for cola. Also use it to generate a unique letter
+       -- for each row. Use the ASCII function to get the
+       -- integer value of 'a'. Add @MyCounter. Use CHAR to
+       -- convert the sum back to the character @MyCounter
+       -- characters after 'a'.
+       (@MyCounter,
+        CHAR( ( @MyCounter + ASCII('a') ) )
+       );
+   -- Increment the variable to count this iteration
+   -- of the loop.
+   SET @MyCounter = @MyCounter + 1;
+END;
+GO
+SET NOCOUNT OFF;
+GO
+-- View the data.
+SELECT cola, colb
+FROM TestTable;
+GO
+DROP TABLE TestTable;
+GO</code></pre>
+  <h2 id="事务">
+   事务
+  </h2>
+  <h1 id="数据类型">
+   数据类型
+  </h1>
+  <ul>
+   <li>
+    <a href="https://docs.microsoft.com/zh-cn/sql/t-sql/data-types/date-and-time-types">
+     日期和时间
+    </a>
+    <ul>
+     <li>
+      DATE，精度为天，0001-01-01 到 9999-12-31
+     </li>
+     <li>
+      DATETIME，3.33毫秒精度，1753 年 1 月 1 日到 9999 年 12 月 31 日
+     </li>
+     <li>
+      DATETIME2，DATETIME升级版，100纳秒精度
+     </li>
+     <li>
+      DATETIMEOFFSET，100纳秒的精度，范围公元1年1月1日到公元9999年12月31日
+     </li>
+    </ul>
+   </li>
+   <li>
+    精确数值
+    <ul>
+     <li>
+      即整数，MONEY数据类型就是BIGINT小数点前移四位
+     </li>
+    </ul>
+   </li>
+   <li>
+    近似数
+    <ul>
+     <li>
+      即非常大但不要求极度精确的数，往往以浮点数的形式保存。
+     </li>
+    </ul>
+   </li>
+   <li>
+    字符串
+    <ul>
+     <li>
+      非UNICODE字符串
+      <ul>
+       <li>
+        CHAR、VARCHAR、VARCHAR(MAX)、TEXT
+       </li>
+       <li>
+        前两者最大能存储8000个字符，后两者最多能存储
+        <span class="math inline">
+         \(2^{31}\)
+        </span>
+        个字符
+       </li>
+      </ul>
+     </li>
+     <li>
+      UNICODE字符串
+      <ul>
+       <li>
+        在非UNICODE字符串类型前加上N表示Unicode
+       </li>
+       <li>
+        比相对应的非UNICODE字符串类型存储的字符要少一半。
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    二进制字符串
+    <ul>
+     <li>
+      BINARY、VARBINARY、VARBINARY(MAX)、IMG
+     </li>
+     <li>
+      相对于字符串而言，单位从字符变成了字节（对ASCII码而言是一样的）
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="其他数据类型">
+   其他数据类型
+  </h2>
+  <h3 id="hierarchyid">
+   HierarchyID
+  </h3>
+  <p>
+   树形层次结构（Hierarchy）经常出现在有结构的数据中，T-SQL新增数据类型HierarchyID，
+其长度可变，用于存储层次结构中的路径。HierarchyID表示的层次结构是树形的，由应用程序来生成和分配
+HierarchyID的值，建立父子节点之间的关系。
+  </p>
+  <p>
+   HierarchyID数据类型支持深度优先顺序的比较，对于两个HierarchyID值
+a和b，a&lt;b意味着，在深度优先遍历时，先遍历到a，后遍历到b，也就是说，值越小，越接近根节点。
+  </p>
+  <p>
+   对Hierarchy数据类型创建索引，是按照深度优先，先左后右的顺序来排序的。左和右是根据节点的值来判断的，在同一深度上，值较小的节点在父节点的左边。
+  </p>
+  <h3 id="空间几何">
+   空间几何
+  </h3>
+  <p>
+   平面空间数据类型
+   <strong>
+    geometry
+   </strong>
+   在 SQL Server
+中作为公共语言运行时 (CLR) 数据类型实现。
+此类型表示欧几里得（平面）坐标系中的数据。
+  </p>
+  <p>
+   SQL Server 支持
+   <strong>
+    geometry
+   </strong>
+   空间数据类型的一组方法。
+这些方法包括开放地理空间信息联盟 (OGC) 标准和对该标准的一组 Microsoft
+扩展所定义的
+   <strong>
+    geometry
+   </strong>
+   方法。
+  </p>
+  <p>
+   除此之外还有UNIQUEIDENTIFIER、CUROSR、XML、空间地理等其他数据类型
+  </p>
+  <h2 id="示例">
+   示例
+  </h2>
+  <h3 id="数据类型测试">
+   数据类型测试
+  </h3>
+  <div class="sourceCode" id="cb6">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="kw">SELECT</span>   </span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>     <span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29. 1234567 +12:15'</span> <span class="kw">AS</span> <span class="dt">time</span>(<span class="dv">7</span>)) <span class="kw">AS</span> <span class="st">'time'</span>   </span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29. 1234567 +12:15'</span> <span class="kw">AS</span> <span class="dt">date</span>) <span class="kw">AS</span> <span class="st">'date'</span>   </span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29.123'</span> <span class="kw">AS</span> smalldatetime) <span class="kw">AS</span>   </span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a>        <span class="st">'smalldatetime'</span>   </span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29.123'</span> <span class="kw">AS</span> datetime) <span class="kw">AS</span> <span class="st">'datetime'</span>   </span>
+<span id="cb6-7"><a aria-hidden="true" href="#cb6-7" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29.1234567+12:15'</span> <span class="kw">AS</span> datetime2(<span class="dv">7</span>)) <span class="kw">AS</span>   </span>
+<span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a>        <span class="st">'datetime2'</span>  </span>
+<span id="cb6-9"><a aria-hidden="true" href="#cb6-9" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29.1234567 +12:15'</span> <span class="kw">AS</span> datetimeoffset(<span class="dv">7</span>)) <span class="kw">AS</span>   </span>
+<span id="cb6-10"><a aria-hidden="true" href="#cb6-10" tabindex="-1"></a>        <span class="st">'datetimeoffset'</span>  </span>
+<span id="cb6-11"><a aria-hidden="true" href="#cb6-11" tabindex="-1"></a>    ,<span class="fu">CAST</span>(<span class="st">'2007-05-08 12:35:29.1234567+12:15'</span> <span class="kw">AS</span> datetimeoffset(<span class="dv">7</span>)) <span class="kw">AS</span>  </span>
+<span id="cb6-12"><a aria-hidden="true" href="#cb6-12" tabindex="-1"></a>        <span class="st">'datetimeoffset IS08601'</span>;  </span></code></pre>
+  </div>
+  <div class="sourceCode" id="cb7">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a><span class="kw">DECLARE</span> @datetimeoffset datetimeoffset(<span class="dv">4</span>) <span class="op">=</span> <span class="st">'12-10-25 12:32:10 +01:00'</span>;  </span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a><span class="kw">DECLARE</span> @date <span class="dt">date</span><span class="op">=</span> @datetimeoffset;  </span>
+<span id="cb7-3"><a aria-hidden="true" href="#cb7-3" tabindex="-1"></a><span class="kw">SELECT</span> @datetimeoffset <span class="kw">AS</span> <span class="st">'@datetimeoffset '</span>, @date <span class="kw">AS</span> <span class="st">'date'</span>;  </span>
+<span id="cb7-4"><a aria-hidden="true" href="#cb7-4" tabindex="-1"></a><span class="co">--Result  </span></span>
+<span id="cb7-5"><a aria-hidden="true" href="#cb7-5" tabindex="-1"></a><span class="ot">@datetimeoffset                    @datetime2  </span></span>
+<span id="cb7-6"><a aria-hidden="true" href="#cb7-6" tabindex="-1"></a><span class="co">---------------------------------- ----------------------  </span></span>
+<span id="cb7-7"><a aria-hidden="true" href="#cb7-7" tabindex="-1"></a><span class="dv">1912</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">25</span> <span class="dv">12</span><span class="ch">:24:32</span><span class="fl">.1277</span> <span class="op">+</span><span class="dv">10</span><span class="ch">:00</span>    <span class="dv">1912</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">25</span> <span class="dv">12</span><span class="ch">:24:32</span><span class="fl">.12</span>  </span>
+<span id="cb7-8"><a aria-hidden="true" href="#cb7-8" tabindex="-1"></a>  </span>
+<span id="cb7-9"><a aria-hidden="true" href="#cb7-9" tabindex="-1"></a><span class="co">--(1 row(s) affected)  </span></span></code></pre>
+  </div>
+  <h3 id="和odbc对接">
+   和ODBC对接
+  </h3>
+  <h1 id="基础语句">
+   基础语句
+  </h1>
+  <h2 id="create">
+   CREATE
+  </h2>
+  <p>
+   可以通过create语句创建的对象很多很多，
+   <a href="https://docs.microsoft.com/zh-cn/sql/t-sql/statements/create-aggregate-transact-sql">
+    参见MS官方文档
+   </a>
+  </p>
+  <p>
+   常用的有Database，table等
+  </p>
+  <h3 id="crate-database">
+   CRATE DATABASE
+  </h3>
+  <pre class="mssql"><code>CREATE DATABASE database_name
+[ CONTAINMENT = { NONE | PARTIAL } ]
+[ ON
+      [ PRIMARY ] &lt;filespec&gt; [ ,...n ]
+      [ , &lt;filegroup&gt; [ ,...n ] ]
+      [ LOG ON &lt;filespec&gt; [ ,...n ] ]
+]
+[ COLLATE collation_name ]
+[ WITH &lt;option&gt; [,...n ] ]
+[;]</code></pre>
+  <ul>
+   <li>
+    <code>
+     ON
+    </code>
+    显式指定用来存储数据库数据部分的磁盘文件
+    <ul>
+     <li>
+      <code>
+       PRIMARY
+      </code>
+      指定关联的
+      <code>
+       &lt;filespec&gt;
+      </code>
+      列表定义主文件。如果没有指定
+      <code>
+       PRIMARY
+      </code>
+      ，那么
+      <code>
+       CREATE DATABASE
+      </code>
+      语句中列出的第一个文件将成为主文件。
+     </li>
+     <li>
+      <code>
+       LOG ON
+      </code>
+      指定显式定义用来存储数据库日志的磁盘文件（日志文件），如果没有指定
+      <code>
+       LOG ON
+      </code>
+      ，将自动创建一个日志文件，其大小为该数据库的所有数据文件大小总和的
+25% 或 512 KB，取两者之中的较大者。
+     </li>
+    </ul>
+   </li>
+   <li>
+    COLLATE collation_name 指定数据库的默认排序规则。
+如果没有指定排序规则，则将 SQL Server
+实例的默认排序规则分配为数据库的排序规则。
+   </li>
+  </ul>
+  <p>
+   关于
+   <code>
+    filespec
+   </code>
+   和
+   <code>
+    filegroup
+   </code>
+   描述如下
+  </p>
+  <pre class="mssql"><code>&lt;filespec&gt; ::=
+{
+(
+    NAME = logical_file_name ,
+    FILENAME = { 'os_file_name' | 'filestream_path' }
+    [ , SIZE = size [ KB | MB | GB | TB ] ]
+    [ , MAXSIZE = { max_size [ KB | MB | GB | TB ] | UNLIMITED } ]
+    [ , FILEGROWTH = growth_increment [ KB | MB | GB | TB | % ] ]
+)
+}
+
+&lt;filegroup&gt; ::=
+{
+FILEGROUP filegroup name [ [ CONTAINS FILESTREAM ] [ DEFAULT ] | CONTAINS MEMORY_OPTIMIZED_DATA ]
+    &lt;filespec&gt; [ ,...n ]
+}</code></pre>
+  <p>
+   其他可选项：
+  </p>
+  <pre class="mssql"><code>&lt;option&gt; ::=
+{
+      FILESTREAM ( &lt;filestream_option&gt; [,...n ] )
+    | DEFAULT_FULLTEXT_LANGUAGE = { lcid | language_name | language_alias }
+    | DEFAULT_LANGUAGE = { lcid | language_name | language_alias }
+    | NESTED_TRIGGERS = { OFF | ON }
+    | TRANSFORM_NOISE_WORDS = { OFF | ON}
+    | TWO_DIGIT_YEAR_CUTOFF = &lt;two_digit_year_cutoff&gt;
+    | DB_CHAINING { OFF | ON }
+    | TRUSTWORTHY { OFF | ON }
+    | PERSISTENT_LOG_BUFFER=ON ( DIRECTORY_NAME='&lt;Filepath to folder on DAX formatted volume&gt;' )
+}</code></pre>
+  <h3 id="crate-table">
+   CRATE TABLE
+  </h3>
+  <pre class="mssql"><code>CREATE TABLE
+    { database_name.schema_name.table_name | schema_name.table_name | table_name }
+    [ AS FileTable ]
+    ( {   &lt;column_definition&gt;
+        | &lt;computed_column_definition&gt;
+        | &lt;column_set_definition&gt;
+        | [ &lt;table_constraint&gt; ] [ ,... n ]
+        | [ &lt;table_index&gt; ] }
+          [ ,...n ]
+          [ PERIOD FOR SYSTEM_TIME ( system_start_time_column_name
+             , system_end_time_column_name ) ]
+      )
+    [ ON { partition_scheme_name ( partition_column_name )
+           | filegroup
+           | "default" } ]
+    [ TEXTIMAGE_ON { filegroup | "default" } ]
+    [ FILESTREAM_ON { partition_scheme_name
+           | filegroup
+           | "default" } ]
+    [ WITH ( &lt;table_option&gt; [ ,...n ] ) ]
+[ ; ]
+  
+</code></pre>
+  <p>
+   其中：
+  </p>
+  <pre class="mssql"><code>&lt;column_definition&gt; ::=
+column_name &lt;data_type&gt;
+    [ FILESTREAM ]
+    [ COLLATE collation_name ]
+    [ SPARSE ]
+    [ MASKED WITH ( FUNCTION = ' mask_function ') ]
+    [ [ CONSTRAINT constraint_name ] DEFAULT constant_expression ]
+    [ IDENTITY [ ( seed,increment ) ]
+    [ NOT FOR REPLICATION ]
+    [ GENERATED ALWAYS AS ROW { START | END } [ HIDDEN ] ]
+    [ NULL | NOT NULL ]
+    [ ROWGUIDCOL ]
+    [ ENCRYPTED WITH
+        ( COLUMN_ENCRYPTION_KEY = key_name ,
+          ENCRYPTION_TYPE = { DETERMINISTIC | RANDOMIZED } ,
+          ALGORITHM = 'AEAD_AES_256_CBC_HMAC_SHA_256'
+        ) ]
+    [ &lt;column_constraint&gt; [, ...n ] ]
+    [ &lt;column_index&gt; ]
+  
+&lt;data_type&gt; ::=
+[ type_schema_name . ] type_name
+    [ ( precision [ , scale ] | max |
+        [ { CONTENT | DOCUMENT } ] xml_schema_collection ) ]
+  
+&lt;column_constraint&gt; ::=
+[ CONSTRAINT constraint_name ]
+{     { PRIMARY KEY | UNIQUE }
+        [ CLUSTERED | NONCLUSTERED ]
+        [
+            WITH FILLFACTOR = fillfactor
+          | WITH ( &lt; index_option &gt; [ , ...n ] )
+        ]
+        [ ON { partition_scheme_name ( partition_column_name )
+            | filegroup | "default" } ]
+  
+  | [ FOREIGN KEY ]
+        REFERENCES [ schema_name . ] referenced_table_name [ ( ref_column ) ]
+        [ ON DELETE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+        [ ON UPDATE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+        [ NOT FOR REPLICATION ]
+  
+  | CHECK [ NOT FOR REPLICATION ] ( logical_expression )
+}
+  
+&lt;column_index&gt; ::=
+ INDEX index_name [ CLUSTERED | NONCLUSTERED ]
+    [ WITH ( &lt;index_option&gt; [ ,... n ] ) ]
+    [ ON { partition_scheme_name (column_name )
+         | filegroup_name
+         | default
+         }
+    ]
+    [ FILESTREAM_ON { filestream_filegroup_name | partition_scheme_name | "NULL" } ]
+  
+&lt;computed_column_definition&gt; ::=
+column_name AS computed_column_expression
+[ PERSISTED [ NOT NULL ] ]
+[
+    [ CONSTRAINT constraint_name ]
+    { PRIMARY KEY | UNIQUE }
+        [ CLUSTERED | NONCLUSTERED ]
+        [
+            WITH FILLFACTOR = fillfactor
+          | WITH ( &lt;index_option&gt; [ , ...n ] )
+        ]
+        [ ON { partition_scheme_name ( partition_column_name )
+        | filegroup | "default" } ]
+  
+    | [ FOREIGN KEY ]
+        REFERENCES referenced_table_name [ ( ref_column ) ]
+        [ ON DELETE { NO ACTION | CASCADE } ]
+        [ ON UPDATE { NO ACTION } ]
+        [ NOT FOR REPLICATION ]
+  
+    | CHECK [ NOT FOR REPLICATION ] ( logical_expression )
+]
+  
+&lt;column_set_definition&gt; ::=
+column_set_name XML COLUMN_SET FOR ALL_SPARSE_COLUMNS
+  
+&lt; table_constraint &gt; ::=
+[ CONSTRAINT constraint_name ]
+{
+    { PRIMARY KEY | UNIQUE }
+        [ CLUSTERED | NONCLUSTERED ]
+        (column [ ASC | DESC ] [ ,...n ] )
+        [
+            WITH FILLFACTOR = fillfactor
+           |WITH ( &lt;index_option&gt; [ , ...n ] )
+        ]
+        [ ON { partition_scheme_name (partition_column_name)
+            | filegroup | "default" } ]
+    | FOREIGN KEY
+        ( column [ ,...n ] )
+        REFERENCES referenced_table_name [ ( ref_column [ ,...n ] ) ]
+        [ ON DELETE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+        [ ON UPDATE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+        [ NOT FOR REPLICATION ]
+    | CHECK [ NOT FOR REPLICATION ] ( logical_expression )
+
+&lt; table_index &gt; ::=
+{  
+    {  
+      INDEX index_name  [ UNIQUE ] [ CLUSTERED | NONCLUSTERED ]
+         (column_name [ ASC | DESC ] [ ,... n ] )
+    | INDEX index_name CLUSTERED COLUMNSTORE
+    | INDEX index_name [ NONCLUSTERED ] COLUMNSTORE (column_name [ ,... n ] )
+    }
+    [ WITH ( &lt;index_option&gt; [ ,... n ] ) ]
+    [ ON { partition_scheme_name (column_name )
+         | filegroup_name
+         | default
+         }
+    ]
+    [ FILESTREAM_ON { filestream_filegroup_name | partition_scheme_name | "NULL" } ]
+  
+}
+
+&lt;table_option&gt; ::=
+{  
+    [DATA_COMPRESSION = { NONE | ROW | PAGE }
+      [ ON PARTITIONS ( { &lt;partition_number_expression&gt; | &lt;range&gt; }
+      [ , ...n ] ) ]]
+    [ FILETABLE_DIRECTORY = &lt;directory_name&gt; ]
+    [ FILETABLE_COLLATE_FILENAME = { &lt;collation_name&gt; | database_default } ]
+    [ FILETABLE_PRIMARY_KEY_CONSTRAINT_NAME = &lt;constraint_name&gt; ]
+    [ FILETABLE_STREAMID_UNIQUE_CONSTRAINT_NAME = &lt;constraint_name&gt; ]
+    [ FILETABLE_FULLPATH_UNIQUE_CONSTRAINT_NAME = &lt;constraint_name&gt; ]
+    [ SYSTEM_VERSIONING = ON [ ( HISTORY_TABLE = schema_name . history_table_name
+        [, DATA_CONSISTENCY_CHECK = { ON | OFF } ] ) ] ]
+    [ REMOTE_DATA_ARCHIVE =
+      {
+          ON [ ( &lt;table_stretch_options&gt; [,...n] ) ]
+        | OFF ( MIGRATION_STATE = PAUSED )
+      }
+    ]   
+    [ DATA_DELETION = ON  
+          {( 
+             FILTER_COLUMN = column_name,   
+             RETENTION_PERIOD = { INFINITE | number {DAY | DAYS | WEEK | WEEKS 
+                              | MONTH | MONTHS | YEAR | YEARS }
+        )}  
+     ]
+}
+  
+&lt;table_stretch_options&gt; ::=
+{  
+    [ FILTER_PREDICATE = { null | table_predicate_function } , ]
+      MIGRATION_STATE = { OUTBOUND | INBOUND | PAUSED }
+ }   
+  
+&lt;index_option&gt; ::=
+{
+    PAD_INDEX = { ON | OFF }
+  | FILLFACTOR = fillfactor
+  | IGNORE_DUP_KEY = { ON | OFF }
+  | STATISTICS_NORECOMPUTE = { ON | OFF }
+  | STATISTICS_INCREMENTAL = { ON | OFF }
+  | ALLOW_ROW_LOCKS = { ON | OFF }
+  | ALLOW_PAGE_LOCKS = { ON | OFF }
+  | OPTIMIZE_FOR_SEQUENTIAL_KEY = { ON | OFF }
+  | COMPRESSION_DELAY= {0 | delay [Minutes]}
+  | DATA_COMPRESSION = { NONE | ROW | PAGE | COLUMNSTORE | COLUMNSTORE_ARCHIVE }
+       [ ON PARTITIONS ( { &lt;partition_number_expression&gt; | &lt;range&gt; }
+       [ , ...n ] ) ]
+}
+&lt;range&gt; ::=
+&lt;partition_number_expression&gt; TO &lt;partition_number_expression&gt;</code></pre>
+  <h2 id="alter">
+   ALTER
+  </h2>
+  <h3 id="alter-table">
+   ALTER TABLE
+  </h3>
+  <pre class="mssql"><code>ALTER TABLE { database_name.schema_name.table_name | schema_name.table_name | table_name }
+{
+    ALTER COLUMN column_name
+    {
+        [ type_schema_name. ] type_name
+            [ (
+                {
+                   precision [ , scale ]
+                 | max
+                 | xml_schema_collection
+                }
+            ) ]
+        [ COLLATE collation_name ]
+        [ NULL | NOT NULL ] [ SPARSE ]
+      | { ADD | DROP }
+          { ROWGUIDCOL | PERSISTED | NOT FOR REPLICATION | SPARSE | HIDDEN }
+      | { ADD | DROP } MASKED [ WITH ( FUNCTION = ' mask_function ') ]
+    }
+    [ WITH ( ONLINE = ON | OFF ) ]
+    | [ WITH { CHECK | NOCHECK } ]
+  
+    | ADD
+    {
+        &lt;column_definition&gt;
+      | &lt;computed_column_definition&gt;
+      | &lt;table_constraint&gt;
+      | &lt;column_set_definition&gt;
+    } [ ,...n ]
+      | [ system_start_time_column_name datetime2 GENERATED ALWAYS AS ROW START
+                [ HIDDEN ] [ NOT NULL ] [ CONSTRAINT constraint_name ]
+            DEFAULT constant_expression [WITH VALUES] ,
+                system_end_time_column_name datetime2 GENERATED ALWAYS AS ROW END
+                   [ HIDDEN ] [ NOT NULL ][ CONSTRAINT constraint_name ]
+            DEFAULT constant_expression [WITH VALUES] ,
+        ]
+       PERIOD FOR SYSTEM_TIME ( system_start_time_column_name, system_end_time_column_name )
+    | DROP
+     [ {
+         [ CONSTRAINT ][ IF EXISTS ]
+         {
+              constraint_name
+              [ WITH
+               ( &lt;drop_clustered_constraint_option&gt; [ ,...n ] )
+              ]
+          } [ ,...n ]
+          | COLUMN [ IF EXISTS ]
+          {
+              column_name
+          } [ ,...n ]
+          | PERIOD FOR SYSTEM_TIME
+     } [ ,...n ]
+    | [ WITH { CHECK | NOCHECK } ] { CHECK | NOCHECK } CONSTRAINT
+        { ALL | constraint_name [ ,...n ] }
+  
+    | { ENABLE | DISABLE } TRIGGER
+        { ALL | trigger_name [ ,...n ] }
+  
+    | { ENABLE | DISABLE } CHANGE_TRACKING
+        [ WITH ( TRACK_COLUMNS_UPDATED = { ON | OFF } ) ]
+  
+    | SWITCH [ PARTITION source_partition_number_expression ]
+        TO target_table
+        [ PARTITION target_partition_number_expression ]
+        [ WITH ( &lt;low_priority_lock_wait&gt; ) ]
+
+    | SET
+        (
+            [ FILESTREAM_ON =
+                { partition_scheme_name | filegroup | "default" | "NULL" } ]
+            | SYSTEM_VERSIONING =
+                  {
+                      OFF
+                  | ON
+                      [ ( HISTORY_TABLE = schema_name . history_table_name
+                          [, DATA_CONSISTENCY_CHECK = { ON | OFF } ]
+                          [, HISTORY_RETENTION_PERIOD =
+                          {
+                              INFINITE | number {DAY | DAYS | WEEK | WEEKS
+                  | MONTH | MONTHS | YEAR | YEARS }
+                          }
+                          ]
+                        )
+                      ]
+                  }
+            | DATA_DELETION =  
+                {
+                      OFF 
+                    | ON  
+                        [(  [ FILTER_COLUMN = column_name ]   
+                            [, RETENTION_PERIOD = { INFINITE | number {DAY | DAYS | WEEK | WEEKS 
+                                    | MONTH | MONTHS | YEAR | YEARS }}]   
+                        )]
+                   }
+    | REBUILD
+      [ [PARTITION = ALL]
+        [ WITH ( &lt;rebuild_option&gt; [ ,...n ] ) ]
+      | [ PARTITION = partition_number
+           [ WITH ( &lt;single_partition_rebuild_option&gt; [ ,...n ] ) ]
+        ]
+      ]
+  
+    | &lt;table_option&gt;
+    | &lt;filetable_option&gt;
+    | &lt;stretch_configuration&gt;
+}
+[ ; ]
+  </code></pre>
+  <h2 id="insert">
+   INSERT
+  </h2>
+  <pre class="mssql"><code>[ WITH &lt;common_table_expression&gt; [ ,...n ] ]  
+INSERT   
+{  
+        [ TOP ( expression ) [ PERCENT ] ]   
+        [ INTO ]   
+        { &lt;object&gt; | rowset_function_limited   
+          [ WITH ( &lt;Table_Hint_Limited&gt; [ ...n ] ) ]  
+        }  
+    {  
+        [ ( column_list ) ]   
+        [ &lt;OUTPUT Clause&gt; ]  
+        { VALUES ( { DEFAULT | NULL | expression } [ ,...n ] ) [ ,...n     ]   
+        | derived_table   
+        | execute_statement  
+        | &lt;dml_table_source&gt;  
+        | DEFAULT VALUES   
+        }  
+    }  
+}  
+[;]  
+  
+&lt;object&gt; ::=  
+{   
+    [ server_name . database_name . schema_name .   
+      | database_name .[ schema_name ] .   
+      | schema_name .   
+    ]  
+  table_or_view_name  
+}  
+  
+&lt;dml_table_source&gt; ::=  
+    SELECT &lt;select_list&gt;  
+    FROM ( &lt;dml_statement_with_output_clause&gt; )   
+      [AS] table_alias [ ( column_alias [ ,...n ] ) ]  
+    [ WHERE &lt;search_condition&gt; ]  
+        [ OPTION ( &lt;query_hint&gt; [ ,...n ] ) ]  </code></pre>
+  <h3 id="bulk-insert">
+   BULK INSERT
+  </h3>
+  <p>
+   在 SQL Server 中以用户指定的格式将数据文件导入到数据库表或视图中
+  </p>
+  <pre class="mssql"><code>BULK INSERT
+   { database_name.schema_name.table_or_view_name | schema_name.table_or_view_name | table_or_view_name }
+      FROM 'data_file'
+     [ WITH
+    (
+   [ [ , ] BATCHSIZE = batch_size ]
+   [ [ , ] CHECK_CONSTRAINTS ]
+   [ [ , ] CODEPAGE = { 'ACP' | 'OEM' | 'RAW' | 'code_page' } ]
+   [ [ , ] DATAFILETYPE =
+      { 'char' | 'native'| 'widechar' | 'widenative' } ]
+   [ [ , ] DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] ERRORFILE = 'file_name' ]
+   [ [ , ] ERRORFILE_DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] FIRSTROW = first_row ]
+   [ [ , ] FIRE_TRIGGERS ]
+   [ [ , ] FORMATFILE_DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] KEEPIDENTITY ]
+   [ [ , ] KEEPNULLS ]
+   [ [ , ] KILOBYTES_PER_BATCH = kilobytes_per_batch ]
+   [ [ , ] LASTROW = last_row ]
+   [ [ , ] MAXERRORS = max_errors ]
+   [ [ , ] ORDER ( { column [ ASC | DESC ] } [ ,...n ] ) ]
+   [ [ , ] ROWS_PER_BATCH = rows_per_batch ]
+   [ [ , ] ROWTERMINATOR = 'row_terminator' ]
+   [ [ , ] TABLOCK ]
+
+   -- input file format options
+   [ [ , ] FORMAT = 'CSV' ]
+   [ [ , ] FIELDQUOTE = 'quote_characters']
+   [ [ , ] FORMATFILE = 'format_file_path' ]
+   [ [ , ] FIELDTERMINATOR = 'field_terminator' ]
+   [ [ , ] ROWTERMINATOR = 'row_terminator' ]
+    )]</code></pre>
+  <h3 id="gui">
+   GUI
+  </h3>
+  <h2 id="update">
+   UPDATE
+  </h2>
+  <pre class="mssql"><code>-- Syntax for SQL Server and Azure SQL Database  
+
+[ WITH &lt;common_table_expression&gt; [...n] ]  
+UPDATE   
+    [ TOP ( expression ) [ PERCENT ] ]   
+    { { table_alias | &lt;object&gt; | rowset_function_limited   
+         [ WITH ( &lt;Table_Hint_Limited&gt; [ ...n ] ) ]  
+      }  
+      | @table_variable      
+    }  
+    SET  
+        { column_name = { expression | DEFAULT | NULL }  
+          | { udt_column_name.{ { property_name = expression  
+                                | field_name = expression }  
+                                | method_name ( argument [ ,...n ] )  
+                              }  
+          }  
+          | column_name { .WRITE ( expression , @Offset , @Length ) }  
+          | @variable = expression  
+          | @variable = column = expression  
+          | column_name { += | -= | *= | /= | %= | &amp;= | ^= | |= } expression  
+          | @variable { += | -= | *= | /= | %= | &amp;= | ^= | |= } expression  
+          | @variable = column { += | -= | *= | /= | %= | &amp;= | ^= | |= } expression  
+        } [ ,...n ]   
+  
+    [ &lt;OUTPUT Clause&gt; ]  
+    [ FROM{ &lt;table_source&gt; } [ ,...n ] ]   
+    [ WHERE { &lt;search_condition&gt;   
+            | { [ CURRENT OF   
+                  { { [ GLOBAL ] cursor_name }   
+                      | cursor_variable_name   
+                  }   
+                ]  
+              }  
+            }   
+    ]   
+    [ OPTION ( &lt;query_hint&gt; [ ,...n ] ) ]  
+[ ; ]  
+  
+&lt;object&gt; ::=  
+{   
+    [ server_name . database_name . schema_name .   
+    | database_name .[ schema_name ] .   
+    | schema_name .  
+    ]  
+    table_or_view_name}  </code></pre>
+  <h1 id="查询和select">
+   查询和SELECT
+  </h1>
+  <p>
+   select配得上单独一节
+  </p>
+  <h2 id="select子句">
+   SELECT子句
+  </h2>
+  <h3 id="从已有数据创建新表">
+   从已有数据创建新表
+  </h3>
+  <pre class="mssql"><code>select * into new_table from source_table [condition]</code></pre>
+  <h1 id="函数">
+   函数
+  </h1>
+  <h2 id="聚合函数">
+   聚合函数
+  </h2>
+  <h2 id="分析函数">
+   分析函数
+  </h2>
+  <h2 id="转换">
+   转换
+  </h2>
+  <p>
+   CAST和CONVERT，将表达式由一种数据类型转换为另一种数据类型。
+  </p>
+  <div class="sourceCode" id="cb18">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a aria-hidden="true" href="#cb18-1" tabindex="-1"></a><span class="co">-- CAST Syntax:  </span></span>
+<span id="cb18-2"><a aria-hidden="true" href="#cb18-2" tabindex="-1"></a><span class="fu">CAST</span> ( expression <span class="kw">AS</span> data_type [ ( <span class="fu">length</span> ) ] )  </span>
+<span id="cb18-3"><a aria-hidden="true" href="#cb18-3" tabindex="-1"></a>  </span>
+<span id="cb18-4"><a aria-hidden="true" href="#cb18-4" tabindex="-1"></a><span class="co">-- CONVERT Syntax:  </span></span>
+<span id="cb18-5"><a aria-hidden="true" href="#cb18-5" tabindex="-1"></a><span class="fu">CONVERT</span> ( data_type [ ( <span class="fu">length</span> ) ] , expression [ , style ] )</span></code></pre>
+  </div>
+  <h1 id="存储过程">
+   存储过程
+  </h1>
+  <h2 id="系统存储过程">
+   系统存储过程
+  </h2>
+  <ul>
+   <li>
+    活动异地复制
+    <code>
+     sp_wait_for_database_copy_sync
+    </code>
+   </li>
+   <li>
+    数据库引擎存储过程
+    <ul>
+     <li>
+      <code>
+       sp_help
+      </code>
+     </li>
+     <li>
+      <code>
+       sp_attach_db
+      </code>
+     </li>
+     <li>
+      <code>
+       sp_execute
+      </code>
+     </li>
+     <li>
+      等等
+     </li>
+    </ul>
+   </li>
+   <li>
+    分布式查询存储过程
+   </li>
+   <li>
+    全文搜索存储过程
+   </li>
+   <li>
+    管理数据库存储过程
+   </li>
+  </ul>
+  <h1 id="sql-server和t-sql实战">
+   SQL Server和T-SQL实战
+  </h1>
+  <h2 id="安装sql-server并连接server">
+   安装SQL Server并连接Server
+  </h2>
+  <h3 id="install-rules">
+   Install Rules
+  </h3>
+  <figure>
+   <img alt="image-20201110202158766" src="C:\Users\Five\Desktop\note\img\image-20201110202158766.png"/>
+   <figcaption aria-hidden="true">
+    image-20201110202158766
+   </figcaption>
+  </figure>
+  <p>
+   选择版本，确认条款
+  </p>
+  <h3 id="feature-selection">
+   Feature Selection
+  </h3>
+  <figure>
+   <img alt="image-20201110202341475" src="C:\Users\Five\Desktop\note\img\image-20201110202341475.png"/>
+   <figcaption aria-hidden="true">
+    image-20201110202341475
+   </figcaption>
+  </figure>
+  <p>
+   关于这些Features的具体介绍，详见后文，可按需选择。
+  </p>
+  <h3 id="configuration">
+   Configuration
+  </h3>
+  <p>
+   需要配置Instance、PolyBase、Java Install Location、Server、Database
+Engine、Analysis Services、Integration Services、Distributed
+Replay等信息。
+  </p>
+  <figure>
+   <img alt="image-20201111125852043" src="C:\Users\Five\Desktop\note\img\image-20201111125852043.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111125852043
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="image-20201111130507082" src="C:\Users\Five\Desktop\note\img\image-20201111130507082.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111130507082
+   </figcaption>
+  </figure>
+  <p>
+   除了Database Engine基本都是直接next了。
+  </p>
+  <figure>
+   <img alt="image-20201111131912457" src="C:\Users\Five\Desktop\note\img\image-20201111131912457.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111131912457
+   </figcaption>
+  </figure>
+  <h3 id="连接数据库">
+   连接数据库
+  </h3>
+  <figure>
+   <img alt="image-20201111142735472" src="C:\Users\Five\Desktop\note\img\image-20201111142735472.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111142735472
+   </figcaption>
+  </figure>
+  <p>
+   （Server Type如果是数据库应该选Database Engine）
+  </p>
+  <p>
+   这里的Server name好像指的是host，也就是Computer
+Name，而不是实例名称MSSQLSERVER。直接输localhost也可。
+  </p>
+  <h2 id="创建和管理数据库">
+   创建和管理数据库
+  </h2>
+  <div class="sourceCode" id="cb19">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a aria-hidden="true" href="#cb19-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> TestData  </span>
+<span id="cb19-2"><a aria-hidden="true" href="#cb19-2" tabindex="-1"></a>GO</span></code></pre>
+  </div>
+  <p>
+   默认以
+   <code>
+    System Database
+   </code>
+   中的
+   <code>
+    model
+   </code>
+   数据库为模板，创建新的数据库。
+  </p>
+  <pre class="mssql"><code>CREATE DATABASE database_name
+[ CONTAINMENT = { NONE | PARTIAL } ]
+[ ON
+      [ PRIMARY ] &lt;filespec&gt; [ ,...n ]
+      [ , &lt;filegroup&gt; [ ,...n ] ]
+      [ LOG ON &lt;filespec&gt; [ ,...n ] ]
+]
+[ COLLATE collation_name ]
+[ WITH &lt;option&gt; [,...n ] ]
+[;]</code></pre>
+  <h3 id="移动数据库">
+   移动数据库
+  </h3>
+  <h4 id="分离数据库">
+   分离数据库
+  </h4>
+  <p>
+   分离数据库是指将数据库从 SQL Server
+实例中删除，但使数据库在其数据文件和事务日志文件中保持不变。
+之后，就可以使用这些文件将数据库附加到任何 SQL
+Server实例，包括分离该数据库的服务器。
+  </p>
+  <ul>
+   <li>
+    如果进行复制，数据库必须是未发布的
+   </li>
+   <li>
+    删除所有数据库快照，才能分离数据库
+   </li>
+   <li>
+    不可以分离系统数据库
+   </li>
+   <li>
+    无法分离可疑状态的数据库
+   </li>
+  </ul>
+  <pre class="mssql"><code>EXEC sp_detach_db 'DatabaseName', 'true';  </code></pre>
+  <h4 id="附加数据库">
+   附加数据库
+  </h4>
+  <pre class="mssql"><code>EXEC master.dbo.sp_attach_db @filename1 = N'path/database.mdf' , @dbname = N'DatabaseName'
+</code></pre>
+  <h3 id="数据库元信息查询">
+   数据库元信息查询
+  </h3>
+  <div class="sourceCode" id="cb23">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a aria-hidden="true" href="#cb23-1" tabindex="-1"></a> <span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> sys.databases</span></code></pre>
+  </div>
+  <figure>
+   <img alt="image-20201111155858811" src="C:\Users\Five\Desktop\note\img\image-20201111155858811.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111155858811
+   </figcaption>
+  </figure>
+  <h2 id="创建和管理表">
+   创建和管理表
+  </h2>
+  <pre class="mssql"><code>USE TestDatabase
+go
+
+-- Create Database
+CREATE TABLE dbo.Products  
+   (ProductID int PRIMARY KEY NOT NULL,  
+   ProductName varchar(25) NOT NULL,  
+   Price money NULL,  
+   ProductDescription varchar(max) NULL)  
+GO  
+
+-- 插入记录Standard syntax  
+-- 可以不指定column，只要keep the values in order，但不推荐，因为不太符合代码易读性原则
+INSERT dbo.Products (ProductID, ProductName, Price, ProductDescription)  
+    VALUES (1, 'Clamp', 12.48, 'Workbench clamp')  
+GO
+
+-- 删除表中所有行
+TRUNCATE TABLE TestData.dbo.Products;
+GO
+
+-- Returns ProductName and the Price including a 7% tax  
+-- Provides the name CustomerPays for the calculated column  
+SELECT ProductName, Price * 1.07 AS CustomerPays  
+    FROM dbo.Products  
+GO</code></pre>
+  <p>
+   此语句包含称为架构的可选元素 (
+   <code>
+    dbo.
+   </code>
+   )。
+架构是拥有表的数据库对象。 如果您是管理员，则
+   <code>
+    dbo
+   </code>
+   是默认架构。
+   <code>
+    dbo
+   </code>
+   代表数据库所有者。
+  </p>
+  <h4 id="alter-table-1">
+   ALTER TABLE
+  </h4>
+  <h5 id="添加新列和约束">
+   添加新列和约束
+  </h5>
+  <pre class="mssql"><code>ALTER TABLE dbo.doc_exa ADD column_b VARCHAR(20) NULL ;</code></pre>
+  <p>
+   添加带约束的列
+  </p>
+  <pre class="mssql"><code>ALTER TABLE dbo.doc_exc ADD column_b VARCHAR(20) NULL
+    CONSTRAINT exb_unique UNIQUE ;</code></pre>
+  <h5 id="删除列和约束">
+   删除列和约束
+  </h5>
+  <pre class="mssql"><code>-- Remove a single column.
+ALTER TABLE dbo.doc_exb DROP COLUMN column_b ;
+GO
+-- Remove multiple columns.
+ALTER TABLE dbo.doc_exb DROP COLUMN column_c, column_d;</code></pre>
+  <h5 id="更改列定义">
+   更改列定义
+  </h5>
+  <p>
+   更改数据类型
+  </p>
+  <pre class="mssql"><code>ALTER TABLE dbo.doc_exy ALTER COLUMN column_a DECIMAL (5, 2) ;</code></pre>
+  <p>
+   更改列名
+  </p>
+  <pre class="mssql"><code>EXEC sp_rename 'DATABASE.OLD_COLUMN_NAME', 'DATABASE.NEW_COLUMN_NAME'</code></pre>
+  <p>
+   删除列
+  </p>
+  <pre class="mssql"><code>ALTER TABLE dbo.doc_exb DROP COLUMN column_b ;</code></pre>
+  <h5 id="更改表定义">
+   更改表定义
+  </h5>
+  <h3 id="drop-table">
+   DROP TABLE
+  </h3>
+  <pre class="mssql"><code>DROP TABLE { database_name.schema_name.table_name | schema_name.table_name | table_name }
+[;]  </code></pre>
+  <h2 id="创建和管理视图">
+   创建和管理视图
+  </h2>
+  <div class="sourceCode" id="cb32">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb32-1"><a aria-hidden="true" href="#cb32-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> vw_Names  </span>
+<span id="cb32-2"><a aria-hidden="true" href="#cb32-2" tabindex="-1"></a>   <span class="kw">AS</span>  </span>
+<span id="cb32-3"><a aria-hidden="true" href="#cb32-3" tabindex="-1"></a>   <span class="kw">SELECT</span> ProductName, Price <span class="kw">FROM</span> Products;  </span>
+<span id="cb32-4"><a aria-hidden="true" href="#cb32-4" tabindex="-1"></a>GO   </span></code></pre>
+  </div>
+  <p>
+   一个视图大概就对应一个预执行的
+   <code>
+    SELECT
+   </code>
+   语句。
+  </p>
+  <h2 id="数据录入和管理">
+   数据录入和管理
+  </h2>
+  <h3 id="insert-1">
+   INSERT
+  </h3>
+  <pre class="mssql"><code>INSERT INTO Production.UnitMeasure  
+VALUES (N'FT2', N'Square Feet ', '20080923'), (N'Y', N'Yards', '20080923')
+    , (N'Y3', N'Cubic Yards', '20080923');  </code></pre>
+  <h4 id="最佳实践">
+   最佳实践
+  </h4>
+  <p>
+   使用 @
+   <span class="citation" data-cites="ROWCOUNT">
+    @ROWCOUNT
+   </span>
+   函数返回插入到客户端应用程序的行数。
+  </p>
+  <p>
+   可以使用
+   <code>
+    INSERT INTO &lt;target_table&gt; SELECT &lt;columns&gt; FROM &lt;source_table&gt;
+   </code>
+   高效地将大量行从一个表（例如临时表）传输到按最小方式记录日志的其他表中。
+按最小方式记录日志可以提高语句的性能，减少在事务期间此操作填充可用事务日志空间的可能性。
+  </p>
+  <h3 id="update-1">
+   UPDATE
+  </h3>
+  <h2 id="创建和管理过程">
+   创建和管理过程
+  </h2>
+  <div class="sourceCode" id="cb34">
+   <pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb34-1"><a aria-hidden="true" href="#cb34-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> pr_Names @VarPrice money  </span>
+<span id="cb34-2"><a aria-hidden="true" href="#cb34-2" tabindex="-1"></a>   <span class="kw">AS</span>  </span>
+<span id="cb34-3"><a aria-hidden="true" href="#cb34-3" tabindex="-1"></a>   <span class="cf">BEGIN</span>  </span>
+<span id="cb34-4"><a aria-hidden="true" href="#cb34-4" tabindex="-1"></a>      <span class="co">-- The print statement returns text to the user  </span></span>
+<span id="cb34-5"><a aria-hidden="true" href="#cb34-5" tabindex="-1"></a>      PRINT <span class="st">'Products less than '</span> <span class="op">+</span> <span class="fu">CAST</span>(@VarPrice <span class="kw">AS</span> <span class="dt">varchar</span>(<span class="dv">10</span>));  </span>
+<span id="cb34-6"><a aria-hidden="true" href="#cb34-6" tabindex="-1"></a>      <span class="co">-- A second statement starts here  </span></span>
+<span id="cb34-7"><a aria-hidden="true" href="#cb34-7" tabindex="-1"></a>      <span class="kw">SELECT</span> ProductName, Price <span class="kw">FROM</span> vw_Names  </span>
+<span id="cb34-8"><a aria-hidden="true" href="#cb34-8" tabindex="-1"></a>            <span class="kw">WHERE</span> Price <span class="op">&lt;</span> @varPrice;  </span>
+<span id="cb34-9"><a aria-hidden="true" href="#cb34-9" tabindex="-1"></a>   <span class="cf">END</span>  </span>
+<span id="cb34-10"><a aria-hidden="true" href="#cb34-10" tabindex="-1"></a>GO</span>
+<span id="cb34-11"><a aria-hidden="true" href="#cb34-11" tabindex="-1"></a></span>
+<span id="cb34-12"><a aria-hidden="true" href="#cb34-12" tabindex="-1"></a><span class="kw">EXECUTE</span> pr_Names <span class="fl">10.00</span>;  </span>
+<span id="cb34-13"><a aria-hidden="true" href="#cb34-13" tabindex="-1"></a>GO  </span></code></pre>
+  </div>
+  <h1 id="note">
+   NOTE
+  </h1>
+  <blockquote>
+   <p>
+    在单个批处理中提交多条语句时，可以用关键字 GO 分隔各语句。
+当批处理只包含一条语句时，GO 是可选的。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    <code>
+     DatabaseEngine
+    </code>
+    可安装为区分大小写或不区分大小写。
+   </p>
+   <p>
+    如果
+    <code>
+     DatabaseEngine
+    </code>
+    区分大小写进行安装，则对象名必须始终具有相同的大小写。
+   </p>
+   <p>
+    如果
+    <code>
+     DatabaseEngine
+    </code>
+    按不区分大小写进行安装，则不同大小写的两个表名被视为同一个表。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    在sysobjects系统表中，在数据库中创建的每个对象（例如约束、默认值、日志、规则以及存储过程）都有对应一行，
+    <code>
+     select * from sysobjects where xtype='U'
+    </code>
+    就为数据库中的表了。
+   </p>
+   <p>
+    或者
+    <code>
+     select * from sys.tables
+    </code>
+   </p>
+  </blockquote>
+  <h2 id="osqlsqlcmd">
+   OSQL&amp;SQLCMD
+  </h2>
+  <p>
+   SQL Server命令行工具
+  </p>
+  <figure>
+   <img alt="image-20201111143342556" src="C:\Users\Five\Desktop\note\img\image-20201111143342556.png"/>
+   <figcaption aria-hidden="true">
+    image-20201111143342556
+   </figcaption>
+  </figure>
+  <p>
+   连接成功后会显示
+   <code>
+    1&gt;
+   </code>
+   ，好像连
+   <code>
+    show databases
+   </code>
+   的命令也没有。提示
+   <code>
+    could not find stored procedure 'show'
+   </code>
+  </p>
+  <p>
+   用
+   <code>
+    go
+   </code>
+   结束语句并执行。
+  </p>
+ </body>
+</html>

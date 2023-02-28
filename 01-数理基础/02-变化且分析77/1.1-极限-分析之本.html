@@ -1,0 +1,4557 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   极限-分析之本
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/01-数理基础/index.html">
+     01-数理基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       00-数学史概要.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-数理逻辑.html">
+         00-数理逻辑.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-测度理论.html">
+         00-测度理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-直觉主义和构造主义.html">
+         00-直觉主义和构造主义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-集合论-所谓的数学基础.html">
+         00-集合论-所谓的数学基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/01-实数的定义-柯西序列和戴德金分割.html">
+         01-实数的定义-柯西序列和戴德金分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/02-第三次数学危机全史--永恒的金色对角线.html">
+         02-第三次数学危机全史--永恒的金色对角线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-可判定性.html">
+         03-希尔伯特纲领的破产-可判定性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-哥德尔不完备定理.html">
+         03-希尔伯特纲领的破产-哥德尔不完备定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/04-类型论.html">
+         04-类型论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-关于数学的哲学.html">
+         0x-关于数学的哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-范畴论.html">
+         0x-范畴论.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.0-先验知识篇-函数.html">
+         0.0-先验知识篇-函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.1-脚手架和技巧篇.html">
+         0.1-脚手架和技巧篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/1.1-极限-分析之本.html">
+         1.1-极限-分析之本.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.1-从导数到微分-导数的定义、计算、性质和应用.html">
+         2.1-从导数到微分-导数的定义、计算、性质和应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.2-从导数到微分-深入理解微分.html">
+         2.2-从导数到微分-深入理解微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.3-从导数到微分-多元函数的导数和微分.html">
+         2.3-从导数到微分-多元函数的导数和微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.1-积分-积分的定义、计算和基本应用.html">
+         3.1-积分-积分的定义、计算和基本应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.2-积分-Stieltjes和Lebesgue.html">
+         3.2-积分-Stieltjes和Lebesgue.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.3-积分-多元函数和重积分.html">
+         3.3-积分-多元函数和重积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.4-积分-反常积分和级数.html">
+         3.4-积分-反常积分和级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/4.1-微分方程-从积分到微分方程.html">
+         4.1-微分方程-从积分到微分方程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/5-无穷级数.html">
+         5-无穷级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.1-傅里叶级数.html">
+         6.1-傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.2-傅里叶变换和快速傅里叶变换.html">
+         6.2-傅里叶变换和快速傅里叶变换.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-《Principles of mathematical analysis》.html">
+         supplement-《Principles of mathematical analysis》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-换个视角重新认识分析-Transformational visual.html">
+         supplement-换个视角重新认识分析-Transformational visual.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html">
+         supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-非标准分析.html">
+         supplement-非标准分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/x-错题（甚至没思路的题）本.html">
+         x-错题（甚至没思路的题）本.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-Group Theory-群论.html">
+         00-Group Theory-群论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-关系和函数.html">
+         00-关系和函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-格与布尔代数.html">
+         01-代数结构-格与布尔代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-群环域.html">
+         01-代数结构-群环域.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-序结构.html">
+         01-序结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-拓扑结构.html">
+         01-拓扑结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-初等数论.html">
+         02-初等数论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-图论.html">
+         02-图论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-形式语言.html">
+         02-形式语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/03-组合数学.html">
+         03-组合数学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-对称性.html">
+         0x-对称性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-魔群.html">
+         0x-魔群.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-代数的源头-方程求根史.html">
+         supplement-代数的源头-方程求根史.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-几何和代数.html">
+         supplement-几何和代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-复数.html">
+         supplement-复数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+         线性空间和线性代数
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/1-行列式和初等变换.html">
+           1-行列式和初等变换.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/2-线性.html">
+           2-线性.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/4-二次型.html">
+           4-二次型.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-矩阵编程.html">
+           supplement-矩阵编程.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-线性代数的应用.html">
+           supplement-线性代数的应用.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-卷积.html">
+         0x-卷积.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-组合数学-计数的学问.html">
+         0x-组合数学-计数的学问.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html">
+         1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.2-概率论-随机变量.html">
+         1.2-概率论-随机变量.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.3-概率论-随机过程.html">
+         1.3-概率论-随机过程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.4-概率论-大数定律和中心极限定理.html">
+         1.4-概率论-大数定律和中心极限定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.1-数理统计-基本概念.html">
+         2.1-数理统计-基本概念.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.2-C.R.Rao和回归.html">
+         2.2-C.R.Rao和回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.x-各种差、相关性和矩.html">
+         2.x-各种差、相关性和矩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/p值.html">
+         p值.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/supplement-概率论-贝叶斯方法.html">
+         supplement-概率论-贝叶斯方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/从麦克斯韦速度分布率到玻尔兹曼分布律.html">
+         从麦克斯韦速度分布率到玻尔兹曼分布律.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/index.html">
+         几何
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/微分流形.html">
+           微分流形.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/单陷门函数.html">
+         单陷门函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/海岸线有多长？分析是panacea吗？——分形的世界.html">
+         海岸线有多长？分析是panacea吗？——分形的世界.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/牛顿迭代法和分形.html">
+         牛顿迭代法和分形.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Hamming码.html">
+         0x-纠错码-Hamming码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Reed-Solomon码.html">
+         0x-纠错码-Reed-Solomon码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-不可能的棋盘谜题.html">
+         0x-编码-不可能的棋盘谜题.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-其他.html">
+         0x-编码-其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-字符的表示和处理.html">
+         0x-编码-字符的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-指令的表示和处理.html">
+         0x-编码-指令的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-数字的表示和处理.html">
+         0x-编码-数字的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-调制解调.html">
+         0x-编码-调制解调.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典力学.html">
+         00-经典力学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典电磁学.html">
+         00-经典电磁学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/0x-时间之箭.html">
+         0x-时间之箭.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/什么是波.html">
+         什么是波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/混沌和蝴蝶效应？.html">
+         混沌和蝴蝶效应？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/熵.html">
+         熵.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子物理基础.html">
+         量子物理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子计算.html">
+         量子计算.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       supplement-关于数学符号.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       supplement-关于追问本质和追问直观.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    极限-分析之本
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#连续统分析的土壤" id="toc-连续统分析的土壤">
+      连续统：分析的土壤
+     </a>
+     <ul>
+      <li>
+       <a href="#从有理数开始" id="toc-从有理数开始">
+        从有理数开始
+       </a>
+       <ul>
+        <li>
+         <a href="#关于小数" id="toc-关于小数">
+          关于“小数”
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#第一次数学危机" id="toc-第一次数学危机">
+        第一次数学危机
+       </a>
+       <ul>
+        <li>
+         <a href="#代数数" id="toc-代数数">
+          代数数
+         </a>
+        </li>
+        <li>
+         <a href="#超越数4" id="toc-超越数4">
+          超越数
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#连续统和实分析" id="toc-连续统和实分析">
+        连续统和实分析
+       </a>
+       <ul>
+        <li>
+         <a href="#连续统对分析的意义" id="toc-连续统对分析的意义">
+          连续统对分析的意义
+         </a>
+        </li>
+        <li>
+         <a href="#基本引理" id="toc-基本引理">
+          基本引理
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#微积分的萌芽" id="toc-微积分的萌芽">
+      微积分的萌芽
+     </a>
+     <ul>
+      <li>
+       <a href="#以直代曲和无穷小量" id="toc-以直代曲和无穷小量">
+        以直代曲和无穷小量
+       </a>
+       <ul>
+        <li>
+         <a href="#第二次数学危机" id="toc-第二次数学危机">
+          第二次数学危机
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#微积分的早期探索" id="toc-微积分的早期探索">
+        微积分的早期探索
+       </a>
+       <ul>
+        <li>
+         <a href="#柯西的探索" id="toc-柯西的探索">
+          柯西的探索
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#极限的精确定义和微积分的新生" id="toc-极限的精确定义和微积分的新生">
+      极限的精确定义和微积分的新生
+     </a>
+     <ul>
+      <li>
+       <a href="#魏尔斯特拉斯和分析算术化" id="toc-魏尔斯特拉斯和分析算术化">
+        魏尔斯特拉斯和分析算术化
+       </a>
+       <ul>
+        <li>
+         <a href="#精确定义极限epsilon---delta-语言" id="toc-精确定义极限epsilon---delta-语言">
+          精确定义极限：
+          <span class="math inline">
+           \(\epsilon - \delta\)
+          </span>
+          语言
+         </a>
+        </li>
+        <li>
+         <a href="#实数理论和自然数理论" id="toc-实数理论和自然数理论">
+          实数理论和自然数理论
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#极限存在性" id="toc-极限存在性">
+        极限存在性
+       </a>
+       <ul>
+        <li>
+         <a href="#三明治定理-aka-夹逼定理" id="toc-三明治定理-aka-夹逼定理">
+          三明治定理 aka 夹逼定理
+         </a>
+        </li>
+        <li>
+         <a href="#单调有界准则" id="toc-单调有界准则">
+          单调有界准则
+         </a>
+        </li>
+        <li>
+         <a href="#柯西准则" id="toc-柯西准则">
+          柯西准则
+         </a>
+        </li>
+        <li>
+         <a href="#一些其他判定方法" id="toc-一些其他判定方法">
+          一些其他判定方法
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#无穷小量和微分" id="toc-无穷小量和微分">
+        无穷小量和微分
+       </a>
+       <ul>
+        <li>
+         <a href="#重新定义无穷小量极限为0的变量" id="toc-重新定义无穷小量极限为0的变量">
+          重新定义无穷小量：极限为0的变量
+         </a>
+        </li>
+        <li>
+         <a href="#无穷小量的阶" id="toc-无穷小量的阶">
+          无穷小量的阶
+         </a>
+        </li>
+        <li>
+         <a href="#微分" id="toc-微分">
+          微分
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#极限的计算" id="toc-极限的计算">
+      极限的计算
+     </a>
+     <ul>
+      <li>
+       <a href="#基本方法" id="toc-基本方法">
+        基本方法
+       </a>
+       <ul>
+        <li>
+         <a href="#化简和恒等变形" id="toc-化简和恒等变形">
+          化简和恒等变形
+         </a>
+        </li>
+        <li>
+         <a href="#基础运算法则" id="toc-基础运算法则">
+          基础运算法则
+         </a>
+        </li>
+        <li>
+         <a href="#变量替换法极限的复合法则" id="toc-变量替换法极限的复合法则">
+          变量替换法（极限的复合法则？）
+         </a>
+        </li>
+        <li>
+         <a href="#七种未定式" id="toc-七种未定式">
+          七种未定式
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#泰勒展开和等量代换" id="toc-泰勒展开和等量代换">
+        泰勒展开和等量代换
+       </a>
+      </li>
+      <li>
+       <a href="#洛必达法则" id="toc-洛必达法则">
+        洛必达法则
+       </a>
+       <ul>
+        <li>
+         <a href="#洛必达法则失效" id="toc-洛必达法则失效">
+          洛必达法则失效
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#其他技巧和注意事项" id="toc-其他技巧和注意事项">
+        其他技巧和注意事项
+       </a>
+       <ul>
+        <li>
+         <a href="#需要左右分别求极限得到该点极限的情况" id="toc-需要左右分别求极限得到该点极限的情况">
+          需要左右分别求极限得到该点极限的情况
+         </a>
+        </li>
+        <li>
+         <a href="#夹逼定理应用适当放缩求极限" id="toc-夹逼定理应用适当放缩求极限">
+          夹逼定理应用：适当放缩求极限
+         </a>
+        </li>
+        <li>
+         <a href="#有理化" id="toc-有理化">
+          有理化
+         </a>
+        </li>
+        <li>
+         <a href="#利用定积分定义求某些和式的极限" id="toc-利用定积分定义求某些和式的极限">
+          利用定积分定义求某些和式的极限
+         </a>
+        </li>
+        <li>
+         <a href="#趋于无穷的极限处理" id="toc-趋于无穷的极限处理">
+          趋于无穷的极限处理
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#极限的性质和应用" id="toc-极限的性质和应用">
+      极限的性质和应用
+     </a>
+     <ul>
+      <li>
+       <a href="#性质" id="toc-性质">
+        性质
+       </a>
+      </li>
+      <li>
+       <a href="#函数的连续性" id="toc-函数的连续性">
+        函数的连续性
+       </a>
+       <ul>
+        <li>
+         <a href="#间断点" id="toc-间断点">
+          间断点
+         </a>
+        </li>
+        <li>
+         <a href="#连续函数的性质" id="toc-连续函数的性质">
+          连续函数的性质
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#海涅定理和数列极限" id="toc-海涅定理和数列极限">
+      海涅定理和数列极限
+     </a>
+     <ul>
+      <li>
+       <a href="#数列极限的定义" id="toc-数列极限的定义">
+        数列极限的定义
+       </a>
+       <ul>
+        <li>
+         <a href="#函数极限的海涅定义" id="toc-函数极限的海涅定义">
+          函数极限的海涅定义
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#函数和数列连续和离散" id="toc-函数和数列连续和离散">
+        函数和数列，连续和离散
+       </a>
+       <ul>
+        <li>
+         <a href="#同函数极限的性质" id="toc-同函数极限的性质">
+          同函数极限的性质
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#存在性和计算" id="toc-存在性和计算">
+        存在性和计算
+       </a>
+       <ul>
+        <li>
+         <a href="#归结原则将数列极限转化为函数极限" id="toc-归结原则将数列极限转化为函数极限">
+          归结原则：将数列极限转化为函数极限
+         </a>
+        </li>
+        <li>
+         <a href="#直接对数列进行分析和计算" id="toc-直接对数列进行分析和计算">
+          直接对数列进行分析和计算
+         </a>
+        </li>
+        <li>
+         <a href="#从极限定义着手常见于递推" id="toc-从极限定义着手常见于递推">
+          从极限定义着手（常见于递推）
+         </a>
+        </li>
+        <li>
+         <a href="#判定准则1单调有界准则常见于递推" id="toc-判定准则1单调有界准则常见于递推">
+          判定准则1：单调有界准则（常见于递推）
+         </a>
+        </li>
+        <li>
+         <a href="#判定准则2夹逼准则" id="toc-判定准则2夹逼准则">
+          判定准则2：夹逼准则
+         </a>
+        </li>
+        <li>
+         <a href="#详解递推数列和不动点" id="toc-详解递推数列和不动点">
+          详解：递推数列和不动点
+         </a>
+        </li>
+        <li>
+         <a href="#利用定积分定义" id="toc-利用定积分定义">
+          利用定积分定义
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#题型6" id="toc-题型6">
+      题型
+     </a>
+     <ul>
+      <li>
+       <a href="#数列" id="toc-数列">
+        数列
+       </a>
+      </li>
+      <li>
+       <a href="#方程列区间列相关问题" id="toc-方程列区间列相关问题">
+        方程列、区间列相关问题
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="连续统分析的土壤">
+   连续统：分析的土壤
+  </h1>
+  <p>
+   直接引入连续统，其实多少有些上帝视角，在数学的发展过程中，连续统的建立也经历了很漫长的过程，比微积分的早期探索要晚些，或者说，连续统的发展和微积分的发展是互相促进的。
+  </p>
+  <h2 id="从有理数开始">
+   从有理数开始
+  </h2>
+  <h3 id="关于小数">
+   关于“小数”
+  </h3>
+  <p>
+   小时候刚学到小数的时候一直有个疑惑，有限小数和无限循环小数长得也太不一样了——毕竟无限循环小数真要写出来是无限长的呀！但为啥所有老师好像都默认有限小数和无限循环小数都作为有理数，而不做区分，认为他们没啥本质差别呢？
+  </p>
+  <p>
+   当然后来意识到了有理数相对接近本质的定义是分数（Rational
+Number，所以有理数也许可以考虑直译为“比值数”？）之后，也算能接受有限小数和无限循环小数没有本质区别的事实了。
+  </p>
+  <p>
+   再后来知道了进制，就意识到三进制可以精确存储
+   <span class="math inline">
+    \(\frac 1 3\)
+   </span>
+   ​这种分数的小数形式，用 n
+进制也可以精确存储形如
+   <span class="math inline">
+    \(\frac 1 {n^k}(k\in
+Z)\)
+   </span>
+   ​​​​​这种分数的小数形式，而没有精度损失。就更加意识到“有限”和“无限循环”仅仅是因为进制的选取不同而带来的表象差异。
+  </p>
+  <blockquote>
+   <p>
+    可惜了，很容易证明质数有无限多个，否则所有质数相乘的进制就能精确存储所有有理数。
+   </p>
+  </blockquote>
+  <h2 id="第一次数学危机">
+   第一次数学危机
+  </h2>
+  <p>
+   既然有理数是稠密的，那么为什么存在无理数？ - 知乎
+https://www.zhihu.com/question/453846157/
+  </p>
+  <h3 id="代数数">
+   代数数
+  </h3>
+  <h3 id="超越数4">
+   超越数
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+  </h3>
+  <p>
+   <span class="math inline">
+    \(\pi,e\)
+   </span>
+   是最知名的超越数，除此以外还有刘维尔数、钱珀瑙恩数等。
+  </p>
+  <h2 id="连续统和实分析">
+   连续统和实分析
+  </h2>
+  <blockquote>
+   <p>
+    在探讨“点集大小”这个问题的过程中，数学家发现实数轴——这个他们曾经以为已经充分理解的东西——有着许多他们没有想到的特性。在极限思想的支持下，实数理论在这个时候被建立起来，它的标志是对实数完备性进行刻画的几条等价的定理
+（确界定理，区间套定理，柯西收敛定理，Bolzano-Weierstrass
+Theorem和Heine-Borel
+Theorem等等）——这些定理明确表达出实数和有理数的根本区别：完备性（很不严格的说，就是对极限运算封闭）。随着对实数认识的深入，如何测量“点
+集大小”的问题也取得了突破，勒贝格创造性地把关于集合的代数，和Outer
+content（就是“外测度”的一个雏形）的概念结合起来，建立了测度理论(Measure
+Theory)，并且进一步建立了以测度为基础的积分——勒贝格(Lebesgue
+Integral)。在这个新的积分概念的支持下，可积性问题变得一目了然。
+   </p>
+   <p>
+    上面说到的实数理论，测度理论和勒贝格积分，构成了我们现在称为实分析
+(Real Analysis)的数学分支，有些书也叫实变函数论。
+    <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+     <sup>
+      2
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <h3 id="连续统对分析的意义">
+   连续统对分析的意义
+  </h3>
+  <h3 id="基本引理">
+   基本引理
+  </h3>
+  <h1 id="微积分的萌芽">
+   微积分的萌芽
+  </h1>
+  <h2 id="以直代曲和无穷小量">
+   以直代曲和无穷小量
+  </h2>
+  <ul>
+   <li>
+    求圆的面积转为对圆的内接正N边形的面积的求解，如此一来当N越来越大，正N边形和圆的面积会越来越接近
+   </li>
+   <li>
+    曲边梯形的面积问题，也是定积分的一种直观理解
+    <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+     <sup>
+      3
+     </sup>
+    </a>
+   </li>
+  </ul>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/Curved_trapezoid.gif"/>
+  </p>
+  <p>
+   类似曲边梯形面积问题的还有瞬时速度的求解
+   <span class="math display">
+    \[
+f(x)' = \lim_{\Delta x \rightarrow 0} \frac {f(x+\Delta x) - f(x) }
+{\Delta x}
+\]
+   </span>
+  </p>
+  <h3 id="第二次数学危机">
+   第二次数学危机
+  </h3>
+  <p>
+   在上述早期的微积分应用案例中，都出现了用类似
+   <span class="math inline">
+    \(\Delta x\)
+   </span>
+   的方法表示的无穷小量的概念。
+  </p>
+  <p>
+   可以发现无穷小量
+   <span class="math inline">
+    \(\Delta
+x\)
+   </span>
+   ​有如下基本性质
+   <a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref">
+    <sup>
+     4
+    </sup>
+   </a>
+   ​
+  </p>
+  <ul>
+   <li>
+    <span class="math inline">
+     \(\Delta x\)
+    </span>
+    无限接近于0，但
+    <span class="math inline">
+     \(\Delta x \ne 0\)
+    </span>
+    ，
+否则以0为底边长的矩形面积为0，无穷多个0相加仍然为0
+   </li>
+   <li>
+    <span class="math inline">
+     \(\Delta
+x\)
+    </span>
+    无限接近于0，又必须最接近0， 不可能有什么实数比更
+    <span class="math inline">
+     \(\Delta x\)
+    </span>
+    接近于0
+   </li>
+   <li>
+    <span class="math inline">
+     \(\Delta x\)
+    </span>
+    最接近于0，所以
+    <span class="math inline">
+     \(\Delta x\)
+    </span>
+    一定不能为实数，否则就会
+    <span class="math inline">
+     \(\frac {\Delta x} 2\)
+    </span>
+    比更
+    <span class="math inline">
+     \(\Delta x\)
+    </span>
+    接近于0
+   </li>
+  </ul>
+  <p>
+   这就很奇怪了，所谓的无穷小量（
+   <span class="math inline">
+    \(\Delta
+x\)
+   </span>
+   ）到底是什么东西呢？
+  </p>
+  <h2 id="微积分的早期探索">
+   微积分的早期探索
+  </h2>
+  <p>
+   就之前所提到的微积分运算，基本都还是建立在几何“以直代曲”和物理运动的基础之上，所以可以说早期的微积分是根植于现实中的物理运动图景的。
+  </p>
+  <p>
+   以下是微积分早期发展过程中对极限的一些定义
+   <a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref">
+    <sup>
+     5
+    </sup>
+   </a>
+  </p>
+  <ul>
+   <li>
+    莱布尼兹（1684）：如果任何一个连续变迁以一个极限为终结，那么就能够形成一种普遍的推理，它也能适用于最终的极限。
+   </li>
+   <li>
+    牛顿（1687）：逐渐变小的量之间的最终比值…（是）极限，即数量比值无限减小却总是收敛于它；它们比任何事先给定的差值更接近地趋向于它，但永远也不超过也不达到它，直到这些量减到无穷小。
+   </li>
+   <li>
+    麦克劳林（1742）：2x+o与a的比率当o减小时连续地减小，并当o是任意实增量时总是大于2x与a的比，而这显示了它连续趋向于2x与a的比，并以其为极限。
+   </li>
+   <li>
+    达朗贝尔（1754）：比值[a:2y+z]总是小于a:2y，但是z越小，这个比值就越大，并且由于人们可选取任意小的z，比值a:2y+z就可按我们希望的那样靠近比值a:2y，因此a:2y是比值a:2y+z的极限。
+   </li>
+   <li>
+    拉克鲁瓦（1806）：比值（μ1-μ）/h的极限…是这样一个值，当量h减小时这个比值按比例趋向于它并且可按我们作出的选择来接近于它。
+   </li>
+  </ul>
+  <h3 id="柯西的探索">
+   柯西的探索
+  </h3>
+  <p>
+   微积分早期起源于对运动的研究，也深深扎根于此，因此在早期对微积分的研究中难免将极限和运动牢牢挂钩，并借此给极限找到直观的物理图景。
+  </p>
+  <p>
+   柯西的成就在于认识到，只要涉及数学概念，
+   <strong>
+    任何关于连续运动的先验的直观观念，是能够避免甚至必须避免的
+   </strong>
+   。如经常见到的那样，由于放弃了形而上学方向上的努力，转而只采用那些在原则上相应于“可观测到的”现象的观念，从而开辟了科学进步的途径。
+  </p>
+  <p>
+   借此，柯西给出了自己对极限的定义：如果赋予同一变量的连续不断的一系列数值使其无限地趋向于一个固定的值，使得最终它们与固定值的差按人们所希望的那样小，则后者称为所有其他数值的极限。
+  </p>
+  <h1 id="极限的精确定义和微积分的新生">
+   极限的精确定义和微积分的新生
+  </h1>
+  <h2 id="魏尔斯特拉斯和分析算术化">
+   魏尔斯特拉斯和分析算术化
+  </h2>
+  <p>
+   早期对极限的认识不够深入，对极限的刻画自然也难以简洁深刻，只能通过自然语言对极限做出一些直观但又不够彻底的定义。但自然语言终究是不够严谨。
+  </p>
+  <p>
+   魏尔斯特拉斯，Karl Theodor Wilhelm
+Weierstrass，被誉为现代分析之父。魏尔斯特拉斯在1861年举出一个处处连续却处处不可微的函数例子——魏尔斯特拉斯函数。
+   <span class="math display">
+    \[
+f(x) = \sum _{i=0} ^\infty a^n \cos(b^n \pi x)
+\]
+   </span>
+   上式中b为正奇数，
+   <span class="math inline">
+    \(0&lt;a&lt;1,ab&gt;1+\frac 3 2
+\pi\)
+   </span>
+   ​。函数的图像类似下图。
+  </p>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/20200625100229.png"/>
+  </p>
+  <h3 id="精确定义极限epsilon---delta-语言">
+   精确定义极限：
+   <span class="math inline">
+    \(\epsilon - \delta\)
+   </span>
+   语言
+  </h3>
+  <p>
+   什么是无限趋近？什么是任意小？用这样含糊的词语定义极限——这个数学最基本的概念之一——显然是不合适的。于是魏尔斯特拉斯重新定义了极限，即著名的
+   <span class="math inline">
+    \(\epsilon - \delta\)
+   </span>
+   ​语言定义：
+  </p>
+  <p>
+   <strong>
+    <span class="math inline">
+     \(\forall \epsilon &gt; 0, \exist
+\delta &gt; 0\)
+    </span>
+    ​ 使得
+    <span class="math inline">
+     \(\forall x
+(0&lt;|{x-a}| &lt;\epsilon)\)
+    </span>
+    ​ 都有
+    <span class="math inline">
+     \(f(x)-A&lt; \delta\)
+    </span>
+    ​​，则称
+    <span class="math inline">
+     \(\lim _{x\to a}= A\)
+    </span>
+    ​​​
+   </strong>
+  </p>
+  <p>
+   在上述的定义中，几乎完全不需要任何自然语言的描述，只使用一阶逻辑语言即完成了对极限的定义。而这一定义也被写入了目前的教科书中，作为主流定义。
+  </p>
+  <blockquote>
+   <p>
+    如何能更好地理解（ε-δ）语言极限的定义？ - LLLBK的回答 - 知乎
+https://www.zhihu.com/question/35804945/answer/581702196
+   </p>
+   <p>
+    如类似于极限定义的一个命题：“对每个实数，都有比它更大的数。”可以用形式语言写成
+    <span class="math inline">
+     \(\forall x \exist y, y &gt;
+x\)
+    </span>
+    ，对其的理解类似于如下过程（一阶逻辑博弈语义）
+   </p>
+   <p>
+    A：有比100更大的数吗？ B：101
+   </p>
+   <p>
+    A：有比1000更大的数吗？ B：1001
+   </p>
+   <p>
+    A：有比10000更大的数吗？B：10001
+   </p>
+   <p>
+    ……循环往复
+   </p>
+   <p>
+    A：我服了。
+   </p>
+   <p>
+    某天又偶然看到的一篇文章：理工男日常 | 甲方让我读懂了极限的ε-N语言 -
+PeiLingX的文章 - 知乎 https://zhuanlan.zhihu.com/p/453589676
+   </p>
+  </blockquote>
+  <p>
+   还有一种等价的极限定义：
+  </p>
+  <p>
+   <strong>
+    无论数
+    <span class="math inline">
+     \(b\)
+    </span>
+    ​的邻域
+    <span class="math inline">
+     \(V\)
+    </span>
+    是怎样的，总存在数a的一个邻域
+    <span class="math inline">
+     \(U\)
+    </span>
+    ，使得对除
+    <span class="math inline">
+     \(x=a\)
+    </span>
+    以外的任何
+    <span class="math inline">
+     \(x \in U\)
+    </span>
+    ，总有
+    <span class="math inline">
+     \(y \in V\)
+    </span>
+    ，则称
+    <span class="math inline">
+     \(y=f(x)\)
+    </span>
+    在点
+    <span class="math inline">
+     \(x=a\)
+    </span>
+    处的极限为 $b $.
+   </strong>
+  </p>
+  <p>
+   对于多元函数的极限而言，这种定义能毫不费力地套用，相比于前一种定义似乎更为简洁精炼。
+  </p>
+  <h3 id="实数理论和自然数理论">
+   实数理论和自然数理论
+  </h3>
+  <blockquote>
+   <p>
+    实数赋予我们极限与连续性等概念从而成为全部分析的本源，要使分析严格化，首先就要使实数系本身严格化。
+   </p>
+   <p>
+    因此，后来证明了实数系是完备系之后，长期围绕着实数概念的逻辑循环彻底消除，分析算术化运动大致宣告完成。
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    1872年，实数的三大派理论：Dedekind分割、Cantor-Henie-Meray的基本序列理论、Weierstrass的有界单调序列理论诞生
+    <ul>
+     <li>
+      由“Dedekind分割”定义的实数，是完全不依赖于空间与时间直观的人类智慧的创造物。
+     </li>
+    </ul>
+   </li>
+   <li>
+    1889年，Peano最先利用公理化的方法，建立了完备的自然数理论
+    <ul>
+     <li>
+      1872-78年间，Dedekind也给出了一个整数理论
+     </li>
+     <li>
+      <span class="math inline">
+       \(\in\)
+      </span>
+      ​ 等数学符号为Peano首创
+     </li>
+     <li>
+      God made the integers, all the rest is the work of man.
+     </li>
+    </ul>
+   </li>
+   <li>
+    1900年，Poincare在巴黎第二届国际数学大会上发表了演讲。
+    <ul>
+     <li>
+      “今天在分析中，如果我们不厌其烦地严格的话，就会发现只有三段论或归结于纯数的直觉是不可能欺骗我们的。今天我们可以宣称绝对的严密已经实现了。”
+     </li>
+     <li>
+      咋感觉一股和开尔文男爵在英国皇家学会上演讲相同的味儿。
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="极限存在性">
+   极限存在性
+  </h2>
+  <h3 id="三明治定理-aka-夹逼定理">
+   三明治定理 aka 夹逼定理
+  </h3>
+  <ul>
+   <li>
+    函数
+    <span class="math inline">
+     \(f\)
+    </span>
+    被夹在函数
+    <span class="math inline">
+     \(g\)
+    </span>
+    和
+    <span class="math inline">
+     \(h\)
+    </span>
+    之间；
+   </li>
+   <li>
+    当
+    <span class="math inline">
+     \(x \rightarrow a\)
+    </span>
+    时, 这两个函数
+    <span class="math inline">
+     \(g\)
+    </span>
+    和
+    <span class="math inline">
+     \(h\)
+    </span>
+    都收敛于同一个极限
+    <span class="math inline">
+     \(L\)
+    </span>
+    ；
+   </li>
+  </ul>
+  <p>
+   那么当
+   <span class="math inline">
+    \(x \rightarrow a\)
+   </span>
+   时,
+   <span class="math inline">
+    \(f\)
+   </span>
+   也收敛于极限
+   <span class="math inline">
+    \(L\)
+   </span>
+   .
+  </p>
+  <blockquote>
+   <p>
+    证明思路：按照极限定义， $&gt;0 , _1 &gt; _2 &gt; 0 $， 分别使得
+    <span class="math inline">
+     \(g(x) , h(x)\)
+    </span>
+    在半径为
+    <span class="math inline">
+     \(\epsilon_1 ,\epsilon_2\)
+    </span>
+    的邻域内满足
+    <span class="math inline">
+     \(|L -g(x)| &lt; \delta\)
+    </span>
+    （
+    <span class="math inline">
+     \(h(x)\)
+    </span>
+    同理），那么不妨取更小的那个邻域半径
+$_2 $ ，即在此邻域内有：
+    <span class="math display">
+     \[
+L-\delta &lt; g(x) &lt; L + \delta , \quad L-\delta &lt; h(x) &lt; L +
+\delta \\
+L- \delta &lt; g(x) &lt; f(x) &lt; h(x) &lt; L+\delta
+\]
+    </span>
+    证毕
+   </p>
+  </blockquote>
+  <h3 id="单调有界准则">
+   单调有界准则
+  </h3>
+  <p>
+   对于数列
+   <span class="math inline">
+    \(a_n\)
+   </span>
+  </p>
+  <ul>
+   <li>
+    若
+    <span class="math inline">
+     \(\{a_n\}\)
+    </span>
+    <strong>
+     单调递增
+    </strong>
+    且有
+    <strong>
+     上界
+    </strong>
+    ，则极限
+    <span class="math inline">
+     \(\lim_{n\rightarrow
+\infty}\{a_n\}\)
+    </span>
+    存在；
+   </li>
+   <li>
+    若
+    <span class="math inline">
+     \(\{a_n\}\)
+    </span>
+    <strong>
+     单调递减
+    </strong>
+    且有
+    <strong>
+     下界
+    </strong>
+    ，则极限
+    <span class="math inline">
+     \(\lim_{n\rightarrow
+\infty}\{a_n\}\)
+    </span>
+    存在。
+   </li>
+  </ul>
+  <p>
+   对于函数
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   同样成立。
+  </p>
+  <blockquote>
+   <p>
+    单调有界准则是极限存在的
+    <strong>
+     充分但不必要
+    </strong>
+    条件。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    同济版教材给出的是一种几何直观的解释：
+   </p>
+   <ul>
+    <li>
+     单调性：单调性使得的数列
+     <strong>
+      要么趋向一个定值
+     </strong>
+     ，
+     <strong>
+      要么趋于无穷
+     </strong>
+    </li>
+    <li>
+     有界性：否定了趋于无穷的可能性
+    </li>
+   </ul>
+   <p>
+    于是得到了趋于定值，即极限存在的结论。
+   </p>
+   <p>
+    ……为什么单调性一定趋于定值或者无穷呢？虽然比较符合直观，也确实找不到反例，但总觉得不严谨。但好像严谨的证明要用到更底层的知识，比如有限覆盖定理之类的？智商、时间、学识都有限，就不深究了。
+   </p>
+  </blockquote>
+  <p>
+   所以证明极限存在性可以借助单调有界准则归结到证明两个性质
+  </p>
+  <ul>
+   <li>
+    单调性
+   </li>
+   <li>
+    有界性
+    <ul>
+     <li>
+      常常需要用到放缩等方法
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="柯西准则">
+   柯西准则
+  </h3>
+  <p>
+   函数极限
+   <span class="math inline">
+    \(\lim _{x\rightarrow a}
+f(x)\)
+   </span>
+   ​ 存在的充要条件为：
+  </p>
+  <p>
+   对于
+   <span class="math inline">
+    \(\forall \epsilon &gt;
+0\)
+   </span>
+   ​​，都存在
+   <span class="math inline">
+    \(a\)
+   </span>
+   ​​ 的一个邻域
+   <span class="math inline">
+    \(U\)
+   </span>
+   ，使得
+   <span class="math inline">
+    \(\forall x_1,x_2 \in U\)
+   </span>
+   ，都有
+   <span class="math inline">
+    \(|f(x_1)-f(x_2)|&lt;\epsilon\)
+   </span>
+   .
+  </p>
+  <blockquote>
+   <p>
+    证明思路：
+   </p>
+   <p>
+    必要性证明简单，略。
+   </p>
+   <p>
+    充分性证明太难，略
+   </p>
+   <p>
+    我对我的人生也是这个态度。
+   </p>
+  </blockquote>
+  <h3 id="一些其他判定方法">
+   一些其他判定方法
+  </h3>
+  <p>
+   一个函数极限存在的充要条件（左、右极限存在且相等）：
+   <span class="math display">
+    \[
+\lim _{x\to x_0} f(x) = A \iff \lim_{x\to x_0^+} f(x) = \lim _{x\to
+x_0^-}f(x) =A
+\]
+   </span>
+   相应的，数列极限存在的一个充要条件可表示如下：
+   <span class="math display">
+    \[
+\lim_ {n\to \infty} x_n = A \iff \lim_{n\to \infty} x_{2n} = \lim _{n
+\to \infty} x_{2n-1} = A
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    特别地，对于
+    <span class="math inline">
+     \(\lim _{x\to \infty}
+f(x)\)
+    </span>
+    的极限，需要分别对
+    <span class="math inline">
+     \(\lim _{x
+\to -\infty} f(x)\)
+    </span>
+    和
+    <span class="math inline">
+     \(\lim _{x \to
++\infty} f(x)\)
+    </span>
+    两种情况进行考虑，类似于需要对分段函数某一点
+    <span class="math inline">
+     \(x_0\)
+    </span>
+    两边的极限分别进行考虑。
+   </p>
+   <p>
+    与点
+    <span class="math inline">
+     \(x_0\)
+    </span>
+    左极限和右极限需要相等同理，若
+    <span class="math inline">
+     \(\lim _{x \to
+-\infty} f(x)\)
+    </span>
+    和
+    <span class="math inline">
+     \(\lim _{x \to
++\infty} f(x)\)
+    </span>
+    不相等，则极限不存在。
+   </p>
+  </blockquote>
+  <p>
+   一些用于证明极限不存在的方法：
+  </p>
+  <ul>
+   <li>
+    从极限的海涅定义出发，
+    <strong>
+     找到两个趋向于不同极限的子列
+    </strong>
+    ，通过极限的唯一性可知极限不存在
+    <ul>
+     <li>
+      如证明极限
+      <span class="math inline">
+       \(\lim _{x\to 0} \sin \frac 1
+x\)
+      </span>
+      不存在
+     </li>
+    </ul>
+   </li>
+   <li>
+    看极限的某一部分是否存在极限，若不存在，
+    <strong>
+     可能
+    </strong>
+    整体就不存在极限。如假设
+    <span class="math inline">
+     \(\lim _{x\to 0} f(x) = A\)
+    </span>
+    ，但
+    <span class="math inline">
+     \(\lim _{x \to 0}g(x)\)
+    </span>
+    极限不存在
+    <ul>
+     <li>
+      则有
+      <span class="math inline">
+       \(\lim _{x\to 0} [f(x) +
+g(x)]\)
+      </span>
+      极限不存在
+     </li>
+     <li>
+      若还有
+      <span class="math inline">
+       \(A \ne 0\)
+      </span>
+      ，则还可以进一步得到
+      <span class="math inline">
+       \(\lim [f(x) \cdot
+g(x)]\)
+      </span>
+      极限不存在
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="无穷小量和微分">
+   无穷小量和微分
+  </h2>
+  <p>
+   在微积分萌芽时是用无穷小量定义极限的，但显然那时的无穷小量的定义不不清晰，有着这样那样的问题。
+  </p>
+  <h3 id="重新定义无穷小量极限为0的变量">
+   重新定义无穷小量：极限为0的变量
+  </h3>
+  <p>
+   在重新建立数学基础的时候，数学家们发现似乎极限才是更基础的概念，即先定义极限，再用极限来定义无穷小量也许更合适。（在无穷小量的叫法所出现的时代，其意义完全不同于我们现在为它确定的意义
+   <a class="footnote-ref" href="#fn6" id="fnref6" role="doc-noteref">
+    <sup>
+     6
+    </sup>
+   </a>
+   ）
+  </p>
+  <p>
+   于是无穷小量的内涵被重新定义：无穷小量表示的不是大小，而是一种变化特征。即无穷小量是一个特殊的（极限为0）变量，而不是一个有具体大小的常量。
+  </p>
+  <p>
+   在某一极限过程中
+   <strong>
+    以零为极限的变量
+   </strong>
+   称为
+   <strong>
+    无穷小（量）
+   </strong>
+   。
+   <a class="footnote-ref" href="#fn7" id="fnref7" role="doc-noteref">
+    <sup>
+     7
+    </sup>
+   </a>
+  </p>
+  <ul>
+   <li>
+    若
+    <span class="math inline">
+     \(\lim _{n\to \infty} x_n = 0\)
+    </span>
+    ，则称数列
+    <span class="math inline">
+     \({x_n}\)
+    </span>
+    为无穷小，记为
+    <span class="math inline">
+     \(x_n = o(1) (n\to \infty)\)
+    </span>
+    ；
+   </li>
+   <li>
+    若
+    <span class="math inline">
+     \(\lim _{x\to x_0} f(x) =
+0\)
+    </span>
+    ，则称
+    <span class="math inline">
+     \(x \to x_0\)
+    </span>
+    时
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    为无穷小，记为
+    <span class="math inline">
+     \(f(x) = o(1)(x\to x_0)\)
+    </span>
+   </li>
+  </ul>
+  <h3 id="无穷小量的阶">
+   无穷小量的阶
+  </h3>
+  <p>
+   对于两个无穷小量
+   <span class="math inline">
+    \(\alpha (x),
+\beta(x)\)
+   </span>
+   的比值
+   <span class="math inline">
+    \(\lim \frac {\alpha
+(x)} {\beta(x)}\)
+   </span>
+  </p>
+  <ul>
+   <li>
+    若两个无穷小的比值极限存在且不为0，称为同阶无穷小
+    <ul>
+     <li>
+      特殊地，若两个无穷小的比值极限存在且为1，称为等价无穷小
+     </li>
+    </ul>
+   </li>
+   <li>
+    若两个无穷小的比值极限存在且不为0，则称分子是分母的高阶无穷小
+   </li>
+  </ul>
+  <p>
+   <span class="math inline">
+    \(\alpha(x)\)
+   </span>
+   和
+   <span class="math inline">
+    \(\beta(x)\)
+   </span>
+   都是同一个极限过程中的无穷小，以
+   <span class="math inline">
+    \(\alpha (x)\)
+   </span>
+   为基本无穷小，若存在正数
+   <span class="math inline">
+    \(k\)
+   </span>
+   和非零常数
+   <span class="math inline">
+    \(l\)
+   </span>
+   使得
+   <span class="math inline">
+    \(\lim
+\frac {\beta(x)} {\alpha^k(x)} = l \ne 0\)
+   </span>
+   ，则称
+   <span class="math inline">
+    \(\beta(x)\)
+   </span>
+   是
+   <span class="math inline">
+    \(\alpha (x)\)
+   </span>
+   的
+   <span class="math inline">
+    \(k\)
+   </span>
+   阶无穷小。
+  </p>
+  <p>
+   可以取
+   <span class="math inline">
+    \(\alpha(x) = (x-x_0)\)
+   </span>
+   ，设
+   <span class="math inline">
+    \(\lim _{x\to a } f(x) =
+0\)
+   </span>
+   ，常用如下方法确定
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   是关于
+   <span class="math inline">
+    \(x-a\)
+   </span>
+   的几阶无穷小：
+   <a class="footnote-ref" href="#fn8" id="fnref8" role="doc-noteref">
+    <sup>
+     8
+    </sup>
+   </a>
+  </p>
+  <ul>
+   <li>
+    利用等价无穷小
+   </li>
+   <li>
+    待定阶数法
+   </li>
+   <li>
+    泰勒公式
+   </li>
+   <li>
+    利用无穷小阶的运算性质
+   </li>
+  </ul>
+  <h4 id="幂函数和指对数的阶比较">
+   幂函数和指对数的阶比较
+  </h4>
+  <p>
+   当
+   <span class="math inline">
+    \(x\to \infty\)
+   </span>
+   时，若以
+   <span class="math inline">
+    \(\frac 1 x\)
+   </span>
+   为基本无穷小，
+  </p>
+  <ul>
+   <li>
+    <span class="math inline">
+     \(\forall \alpha &gt;0\)
+    </span>
+    ，
+    <span class="math inline">
+     \(e^{-x}\)
+    </span>
+    都是
+    <span class="math inline">
+     \(\frac 1 {x^\alpha}\)
+    </span>
+    的高阶无穷小
+   </li>
+   <li>
+    <span class="math inline">
+     \(\forall \beta &gt;0, \forall \alpha
+&gt;0\)
+    </span>
+    ，
+    <span class="math inline">
+     \(\frac 1 {x^\alpha}\)
+    </span>
+    都是 $ {^x} $ 的高阶无穷小
+   </li>
+  </ul>
+  <p>
+   （在趋于零时也有一些类似的结论）
+  </p>
+  <p>
+   直观感受只需观察比值未定式求
+   <span class="math inline">
+    \(\alpha\)
+   </span>
+   次导（洛
+   <span class="math inline">
+    \(\alpha\)
+   </span>
+   次）的结果就完事了。
+  </p>
+  <p>
+   更严谨的写法（经典借助
+   <span class="math inline">
+    \(u^v = e^{v \ln
+u}\)
+   </span>
+   ）：
+   <span class="math display">
+    \[
+\lim_{x\to + \infty} \frac {x^{\alpha}} {e^x} = \frac {e^{\alpha \ln x}}
+{e^x} = e^{\alpha \ln x - x} = 0
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    或者（以
+    <span class="math inline">
+     \(x^{-\alpha}\)
+    </span>
+    和
+    <span class="math inline">
+     \(e^{-x}\)
+    </span>
+    为例）可以通过
+    <strong>
+     对比值取一次对数
+    </strong>
+    从而构造一个新的函数（或者说新的式子、新的因变量），然后可以对该式子求得极限。
+   </p>
+   <p>
+    （幂函数和对数的比较可以进行一次
+    <span class="math inline">
+     \(t = \ln
+x\)
+    </span>
+    的代换划归为前者的比较）
+   </p>
+  </blockquote>
+  <h4 id="等价无穷小量和等量代换">
+   等价无穷小量和等量代换
+  </h4>
+  <p>
+   两个等价无穷小可以在极限计算中等量代换，如sinx和x。（需得是积、商，而不是和、差）
+  </p>
+  <p>
+   sinx和x并不是真的“等量”，只不过在趋向于0时，sinx和x之间的差值是一个比
+x 本身更高阶的无穷小量，即sinx 在0点处的泰勒展开的一次项系数是1。
+  </p>
+  <p>
+   1999年考研数学一第一题，求极限
+   <span class="math display">
+    \[
+\lim_{x\rightarrow 0} (\frac 1 {x^2} - \frac 1 {x\tan x})
+\]
+   </span>
+   不太喜欢tan，所以可以化为
+   <span class="math inline">
+    \(\frac
+{\sin x - x \cos x} {x^2\sin x}\)
+   </span>
+   ，
+  </p>
+  <p>
+   可以将分母的sinx化为x——但不能直接将分子的中sinx化为x——因为无穷小量
+   <span class="math inline">
+    \((\sin
+x-x)\)
+   </span>
+   和等式本身的值可能是同阶的。
+  </p>
+  <p>
+   常见的等价无穷小（更详细的可以参考常见的泰勒展开）：
+   <span class="math display">
+    \[
+\sin x \sim \tan x \sim \arcsin x \sim \arctan x \sim x \sim e^x -1 \sim
+\ln (1+x)\\
+1-\cos x \sim \frac 1 2 x^2 \\
+(1+\beta x)^\alpha - 1 \sim \alpha \beta x \\
+a ^x -1 \sim x\ln a (a&gt;0,a\ne 1) \\
+\log _a (1+x) \sim \frac 1 {\ln a} x (a&gt;0,a\ne 1)
+\]
+   </span>
+  </p>
+  <h3 id="微分">
+   微分
+  </h3>
+  <p>
+   详见导数部分。
+  </p>
+  <h1 id="极限的计算">
+   极限的计算
+  </h1>
+  <p>
+   简单来说三次尝试
+  </p>
+  <ol type="1">
+   <li>
+    <p>
+     尝试用基本方法，或者至少用基本方法转换为更简洁（？）的形式
+    </p>
+    <p>
+     含有变限积分之类的也要在这一步进行化简（对于变限积分即求导）
+    </p>
+   </li>
+   <li>
+    <p>
+     尝试在 1
+的基础上用泰勒方法（私以为泰勒方法是洛必达、等量代换等的超集，至少在无穷小的时候应该是）暴力计算
+    </p>
+   </li>
+   <li>
+    <p>
+     尝试在 1 和 2 的基础上补充以放缩等小技巧
+    </p>
+   </li>
+  </ol>
+  <h2 id="基本方法">
+   基本方法
+  </h2>
+  <h3 id="化简和恒等变形">
+   化简和恒等变形
+  </h3>
+  <p>
+   <strong>
+    化简和恒等变形（如换元、提取公因式、方差公式、取对数、有理函数分解以及三角函数等等。）等操作方法适用于大部分的数学计算场景，不局限于极限计算，故单拎出来写在别处，而不在此展开赘述了。
+   </strong>
+  </p>
+  <p>
+   详见[[0.1-脚手架和技巧篇]]
+  </p>
+  <h3 id="基础运算法则">
+   基础运算法则
+  </h3>
+  <ul>
+   <li>
+    四则运算法则及其推广
+   </li>
+   <li>
+    幂指数函数的极限运算法则及其推广
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    四则运算法则即
+   </p>
+   <p>
+    设
+    <span class="math inline">
+     \(\lim_{x\to a} f(x) = A, \lim_{x\to a}
+= B\)
+    </span>
+    ，则
+    <span class="math inline">
+     \(\lim_{x\to a} [f(x) \pm
+g(x)] = A+B, \lim_{x\to a} [f(x) \cdot g(x)] = A \cdot B,\lim_{x\to a}
+\frac {f(x)} {g(x)} = \frac A B\)
+    </span>
+   </p>
+   <p>
+    幂指数函数极限运算法则即
+   </p>
+   <p>
+    设
+    <span class="math inline">
+     \(\lim _{x\to a} f(x) = A&gt;0,
+\lim_{x\to a} g(x)=B\)
+    </span>
+    ，则有
+    <span class="math inline">
+     \(\lim
+_{x\to a} f(x)^{g(x)} = A^B(A&gt;0)\)
+    </span>
+   </p>
+  </blockquote>
+  <h4 id="及时提出极限不为零的因式">
+   及时提出极限不为零的因式
+  </h4>
+  <h3 id="变量替换法极限的复合法则">
+   变量替换法（极限的复合法则？）
+  </h3>
+  <p>
+   可以运用两个重要极限以及进一步拓展的如
+   <span class="math inline">
+    \(\lim _{x\to 0} \frac {x} {\sin x} =1\)
+   </span>
+   、
+   <span class="math inline">
+    \(\lim_{x\to0 } \frac {x^2} {2-2\cos x}
+=1\)
+   </span>
+   等极限（或者说等价无穷小）求解其他极限，只需用
+   <span class="math inline">
+    \(\phi(x)\)
+   </span>
+   带入该极限表达式中的
+   <span class="math inline">
+    \(x\)
+   </span>
+   即可（当然需要
+   <span class="math inline">
+    \(\phi(x)\)
+   </span>
+   和
+   <span class="math inline">
+    \(x\)
+   </span>
+   一样趋于0）
+  </p>
+  <h3 id="七种未定式">
+   七种未定式
+  </h3>
+  <p>
+   七种未定式：
+   <span class="math inline">
+    \(\frac 0 0, \frac \infty
+\infty, \infty \cdot 0, \infty - \infty , \infty^0, 0^0,
+1^{\infty}\)
+   </span>
+  </p>
+  <p>
+   其中，第一、二种是最基本的未定式，
+  </p>
+  <p>
+   第三、四中未定式通常通过通分等方式（倒代换创造分母等等）转换为前两种未定式。
+  </p>
+  <blockquote>
+   <p>
+    具体来说，对于
+    <span class="math inline">
+     \(\infty \cdot 0\)
+    </span>
+    型一般将较复杂的因子取作分子，特别地，含有对数因子时，将因子取作分子；
+   </p>
+   <p>
+    对于
+    <span class="math inline">
+     \(\infty - \infty\)
+    </span>
+    型，若是与根式函数之和、差有关的
+    <span class="math inline">
+     \(\infty -
+\infty\)
+    </span>
+    型未定式，则需要进行有理化
+   </p>
+  </blockquote>
+  <p>
+   第五、六、七种未定式常通过
+   <span class="math inline">
+    \(u^v = e ^{v
+\ln u}\)
+   </span>
+   、变量替换等方式（往往是殊途同归）转换为前两种未定式。
+  </p>
+  <blockquote>
+   <p>
+    如对于 $1^ $ 型（即
+    <span class="math inline">
+     \(\lim _{x\to x_0}
+f(x)=1, \lim_{x\to x_0} g(x) = \infty\)
+    </span>
+    ）不定式可以利用 $u^v = e
+^{v u} $ （也即
+    <span class="math inline">
+     \(u = e^{\ln
+u}\)
+    </span>
+    ）得到求解通式：
+    <span class="math display">
+     \[
+\lim _{x\to x_0} f(x)^{g(x)} = \lim _{x\to x_0} e^{g(x) \ln f(x)} = \lim
+_{x\to x_0} e^{g(x) [f(x) - 1]} = e^A
+\]
+    </span>
+    也可以利用极限
+    <span class="math inline">
+     \(\lim _{x\to 0}(1+x)
+^{\frac 1 x} = e\)
+    </span>
+    求解
+    <span class="math inline">
+     \(1^{\infty}\)
+    </span>
+    型极限的通式：
+    <span class="math display">
+     \[
+\lim _{x \to x_0} f(x) ^{g(x)} = \lim_{x\to x_0} \{[1+(f(x)-1)] ^{\frac
+1 {f(x) -1}}\} ^{g(x)[f(x)-1]} = e^{g(x)[f(x)-1]} = e^A
+\]
+    </span>
+   </p>
+  </blockquote>
+  <h2 id="泰勒展开和等量代换">
+   泰勒展开和等量代换
+  </h2>
+  <p>
+   用泰勒展开可很快得到大量实用的等价无穷小 $$ e^x = 1 + x + {2!} x^2 +
++ {n!} x^n \
+  </p>
+  <p>
+   (1+x) = x - 2 x^2 + 3 x^3 + + n x^n = ^{}_{n=1} {(-1)^{n-1}} n {x^n}
+, (0&lt;x )\
+  </p>
+  <p>
+   x = x - {3!} x^3 + {5!} x^5 - + (-1)^n {x^{2n+1}} = _0^{} (-1)^n
+{(2n+1)!} {x^{2n+1}} \
+  </p>
+  <p>
+   x = 1 - {2!} x^2 + {4!}x^4 -+ (-1)^n {2n!} x^{2n} = _0^{} (-1)^n
+{2n!} x^{2n} \
+  </p>
+  <p>
+   (1+x)^ + x + 2 x^2 + o(x^2) \
+  </p>
+  <p>
+   x = x + 3 x^3 + o(x^3) \
+  </p>
+  <p>
+   x = x - 3 x^3 + o(x^3) \
+  </p>
+  <p>
+   x = x + 6 x^3 + o(x^3) \
+  </p>
+  <p>
+   {1-x} = 1 + x + x^2 + + x^n \
+  </p>
+  <p>
+   {1+x} = 1 - x + x^2 + + (-1)^n x^n $$
+  </p>
+  <h2 id="洛必达法则">
+   洛必达法则
+  </h2>
+  <blockquote>
+   <p>
+    众所周知，洛必达法则是洛必达跟他老师伯努利买的，洛必达和伯努利生活的年代是17世纪末18世纪初——而柯西，还得近一个世纪（1789年）才出生，而泰勒也还没长大。
+   </p>
+   <p>
+    而现在一般又都用柯西中值定理证明洛必达法则，但在历史上柯西中值定理显然是在洛必达法则之后的，这时间序列应该是不太对得上的（挠头）。
+   </p>
+   <p>
+    所以，有理由推测，洛必达法则在提出之初，并没有足够严格的证明，仅仅是经验性质的（大概也是因此称之为法则而不是定理）——至少相较于今天的数学体系而言证明应该是不够严谨。
+   </p>
+   <p>
+    况且，退一万步说，洛必达法则提出的时候，严格的数学分析体系都没雏形呢，在此之前的工作（如洛必达法则）都应该是比较粗糙，或者说是在建立了分析的基础之后得到进一步完善的。但并不影响沿用“洛必达法则”的名字，纪念历史贡献。
+   </p>
+  </blockquote>
+  <p>
+   某种程度上，可以用泰勒展开的视角看洛必达法则（即将无穷小量泰勒展开再求导）：每一次求导是将无穷小量（或无穷大）降阶，直到某一边降阶为常数。
+  </p>
+  <h3 id="洛必达法则失效">
+   洛必达法则失效
+  </h3>
+  <p>
+   $$ _{x+ } x \
+  </p>
+  <p>
+   _{x+ } x \
+  </p>
+  <p>
+   _{x+ } x \ $$
+  </p>
+  <p>
+   上述极限都无法通过洛必达求出（洛出来的结果震荡不存在，而不是数值、零、无穷三种情况之一），可以通过夹逼准则求。
+  </p>
+  <p>
+   充要条件为极限存在且等于该点函数值。已知一切初等函数在其定义域区间上连续，故可知初等函数在定义域内某一点的极限就是该点函数值
+  </p>
+  <h2 id="其他技巧和注意事项">
+   其他技巧和注意事项
+  </h2>
+  <ul>
+   <li>
+    函数的连续性
+    <ul>
+     <li>
+      充要条件为极限存在且等于该点函数值。
+     </li>
+     <li>
+      已知一切初等函数在其定义域区间上连续，故可知初等函数在定义域内某一点的极限就是该点函数值
+     </li>
+    </ul>
+   </li>
+   <li>
+    利用一些重要极限
+   </li>
+  </ul>
+  <p>
+   $$ _{x} (1 + x) ^x = e\
+  </p>
+  <p>
+   <em>
+    {x } =
+   </em>
+   {x } x ^{ x} =
+   <em>
+    {x} e^{ x x} = 1 \
+   </em>
+   {x+} x^x =
+_{x +} e^ {x x } = 1 $$
+  </p>
+  <h3 id="需要左右分别求极限得到该点极限的情况">
+   需要左右分别求极限得到该点极限的情况
+  </h3>
+  <ul>
+   <li>
+    显式的分段函数
+   </li>
+   <li>
+    函数中包含不连续的部分，如 $x $ 时包含如
+    <span class="math inline">
+     \(e^{\frac 1 x}, \arctan \frac 1 x\)
+    </span>
+    等因式
+   </li>
+  </ul>
+  <h3 id="夹逼定理应用适当放缩求极限">
+   夹逼定理应用：适当放缩求极限
+  </h3>
+  <p>
+   如（下式也可以当成一般的
+   <span class="math inline">
+    \(\infty ^
+0\)
+   </span>
+   型未定式直接求，但是优雅永不过时，所以放缩也是一种方法）
+   <span class="math display">
+    \[
+\lim _{x \to \infty} \sqrt[x]{x} = 1
+\]
+   </span>
+  </p>
+  <p>
+   关于放缩的较详细内容参见
+[[0.1-脚手架和技巧篇]]，这里仅展开极限相关部分
+  </p>
+  <h4 id="利用极限的不等式性质进行放缩">
+   利用极限的不等式性质进行放缩
+  </h4>
+  <p>
+   ……然而《李正元数学复习全书》上的这部分举的例题并不觉得和极限不等式性质有什么关系
+  </p>
+  <h4 id="对积分极限可利用积分的性质进行放缩">
+   对积分极限可利用积分的性质进行放缩
+  </h4>
+  <h3 id="有理化">
+   有理化
+  </h3>
+  <p>
+   <span class="math display">
+    \[
+\sqrt a -\sqrt b = \frac {a-b}{\sqrt a + \sqrt b}
+\]
+   </span>
+  </p>
+  <h3 id="利用定积分定义求某些和式的极限">
+   利用定积分定义求某些和式的极限
+  </h3>
+  <p>
+   形式上更像数列极限的讨论范围，故放在数列部分
+  </p>
+  <h3 id="趋于无穷的极限处理">
+   趋于无穷的极限处理
+  </h3>
+  <p>
+   趋于0的极限处理手段较多，比如最常用的等量代换，可比洛必达直接多了。
+  </p>
+  <p>
+   无穷大的处理相对显得匮乏，常见的就是洛必达法则等，故考虑将趋于无穷大的情况通过一些手段转化为趋于无穷小：
+  </p>
+  <ul>
+   <li>
+    倒代换
+    <span class="math inline">
+     \(t = \frac 1 x\)
+    </span>
+   </li>
+   <li>
+    分子分母同除以
+    <span class="math inline">
+     \(x\)
+    </span>
+    （及其若干次幂） （相消法，消去极限为 0 或 无穷 的因子）
+   </li>
+  </ul>
+  <h1 id="极限的性质和应用">
+   极限的性质和应用
+  </h1>
+  <h2 id="性质">
+   性质
+  </h2>
+  <p>
+   主要是
+   <strong>
+    唯一性、保号性、不等式性质和局部有界性
+   </strong>
+   等。推导不难，重在应用。
+  </p>
+  <p>
+   <strong>
+    局部保号性
+   </strong>
+   ：设
+   <span class="math inline">
+    \(\lim _{x
+\to x_0} f(x) = A\)
+   </span>
+   .
+  </p>
+  <ul>
+   <li>
+    若
+    <span class="math inline">
+     \(A &gt; 0\)
+    </span>
+    ，则
+    <span class="math inline">
+     \(\exist \delta &gt;0\)
+    </span>
+    使得当
+    <span class="math inline">
+     \(0&lt; |{x- x_0}| &lt; \delta\)
+    </span>
+    时有
+    <span class="math inline">
+     \(f(x) &gt; 0\)
+    </span>
+    ；
+   </li>
+   <li>
+    若
+    <span class="math inline">
+     \(\exist \delta &gt; 0\)
+    </span>
+    ，使得当
+    <span class="math inline">
+     \(0&lt;|{x-x_0}| &lt; \delta\)
+    </span>
+    时有
+    <span class="math inline">
+     \(f(x) \geqslant 0\)
+    </span>
+    ，则
+    <span class="math inline">
+     \(A \geqslant 0\)
+    </span>
+    。
+   </li>
+  </ul>
+  <p>
+   <strong>
+    不等式性质
+   </strong>
+  </p>
+  <p>
+   设
+   <span class="math inline">
+    \(\lim_{x\to x_0} f(x) = A, \lim _{x\to
+x_0} g(x) =B\)
+   </span>
+   ， 若
+   <span class="math inline">
+    \(A&gt;B\)
+   </span>
+   ，则
+   <span class="math inline">
+    \(\exist \delta &gt; 0\)
+   </span>
+   使得当
+   <span class="math inline">
+    \(0 &lt; |{x-x_0}| &lt; \delta\)
+   </span>
+   时有
+   <span class="math inline">
+    \(f(x) &gt; g(x)\)
+   </span>
+   ；反之亦然。
+  </p>
+  <blockquote>
+   <p>
+    局部保号性和不等式性质可相互推导，如一种简单地从局部保号性推得不等式性质的方法：设
+    <span class="math inline">
+     \(C= \frac {A+B} 2\)
+    </span>
+    ，若
+    <span class="math inline">
+     \(A&gt;B\)
+    </span>
+    则显然在
+    <span class="math inline">
+     \(x_0\)
+    </span>
+    的某一邻域内有
+    <span class="math inline">
+     \(f(x) - C &gt; 0 &gt; g(x)-C\)
+    </span>
+    ，即
+    <span class="math inline">
+     \(f(x) &gt; g(x)\)
+    </span>
+    。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    只需取
+    <span class="math inline">
+     \(\epsilon = \frac A 2\)
+    </span>
+    即可。也被称为极限的不等式脱帽法，即由
+    <span class="math inline">
+     \(\lim_{x \to x_0} f(x) = A &gt; 0\)
+    </span>
+    可得到
+    <span class="math inline">
+     \(f(x) &gt; 0\)
+    </span>
+    。
+   </p>
+   <p>
+    相应的，还有等式脱帽法，写作
+    <span class="math inline">
+     \(\lim _{x \to
+x_0} f(x) = A \iff f(x) = A +\alpha\)
+    </span>
+    ，其中
+    <span class="math inline">
+     \(\lim_{x\to x_0} \alpha = 0\)
+    </span>
+    。
+   </p>
+   <p>
+    多元函数中极限的脱帽法用的更多。
+   </p>
+  </blockquote>
+  <p>
+   <strong>
+    局部有界性
+   </strong>
+  </p>
+  <blockquote>
+   <p>
+    局部有界性的证明思路和不等式性质基本类似。
+   </p>
+   <p>
+    <span class="math inline">
+     \(\lim _{x\to x_0} f(x) = A\)
+    </span>
+    ，取
+    <span class="math inline">
+     \(g(x) = M , |M| &gt; |A|\)
+    </span>
+    ，
+    <span class="math inline">
+     \(g(x)\)
+    </span>
+    在某一空心邻域内对 $
+f(x)$有不等式性质，继而有
+    <span class="math inline">
+     \(|f(x)|&lt;|M|\)
+    </span>
+    ，即
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    在该邻域内有界。
+   </p>
+   <p>
+    或者直接从定义出发，也很容易证明。
+    <span class="math inline">
+     \(|f(x)|
+= |f(x)-A +A) | \leqslant |f(x) - A| + |A| &lt; \epsilon + A\)
+    </span>
+    ，然后
+    <span class="math inline">
+     \(\epsilon\)
+    </span>
+    任取一个常数即可。
+   </p>
+  </blockquote>
+  <h2 id="函数的连续性">
+   函数的连续性
+  </h2>
+  <ul>
+   <li>
+    内点连续：
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    在开区间
+    <span class="math inline">
+     \((a,b)\)
+    </span>
+    内处处连续
+   </li>
+   <li>
+    端点连续：闭区间左端点的右连续和闭区间右端点的左连续
+   </li>
+  </ul>
+  <p>
+   满足上述两点称
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在
+   <strong>
+    闭
+   </strong>
+   区间
+   <span class="math inline">
+    \([a,b]\)
+   </span>
+   连续。
+  </p>
+  <p>
+   判断函数连续性的方法
+   <a class="footnote-ref" href="#fn9" id="fnref9" role="doc-noteref">
+    <sup>
+     9
+    </sup>
+   </a>
+   ：
+  </p>
+  <ul>
+   <li>
+    若是
+    <strong>
+     初等函数
+    </strong>
+    ，则在它的
+    <strong>
+     定义域区间上处处连续
+    </strong>
+   </li>
+   <li>
+    连续性运算法则
+    <ul>
+     <li>
+      四则运算法则、复合函数、反函数
+     </li>
+    </ul>
+   </li>
+   <li>
+    用定义判断
+   </li>
+   <li>
+    分别判断左右连续性
+   </li>
+  </ul>
+  <h3 id="间断点">
+   间断点
+  </h3>
+  <ul>
+   <li>
+    第一类间断点（左右极限都存在）
+    <ul>
+     <li>
+      跳跃间断点：左极限和右极限均存在但不相等
+     </li>
+     <li>
+      可去间断点：左极限和右极限均存在且相等，但不等于函数在该点的值（或该点无定义，如分母为0）
+     </li>
+    </ul>
+   </li>
+   <li>
+    第二类间断点（某个极限不存在）
+    <ul>
+     <li>
+      无穷间断点：左极限或右极限不存在且趋于无穷大
+     </li>
+     <li>
+      振荡间断点：某个极限不存在且振荡
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="连续函数的性质">
+   连续函数的性质
+  </h3>
+  <ol type="1">
+   <li>
+    局部保号性（从极限来）
+   </li>
+   <li>
+    <strong>
+     有界闭区间上连续函数的有界性
+    </strong>
+   </li>
+   <li>
+    <strong>
+     有界闭区间上连续函数存在最大、最小值
+    </strong>
+   </li>
+   <li>
+    <strong>
+     连续函数介值定理
+    </strong>
+    <ol type="1">
+     <li>
+      综合3.4.两条性质，可知连续函数的
+      <strong>
+       值域
+      </strong>
+      就是以最小值和最大值为端点的闭区间。即连续函数求值域可归结为求最值
+     </li>
+     <li>
+      由介值定理可以很容易得到连续函数零点存在性定理。
+     </li>
+    </ol>
+   </li>
+  </ol>
+  <p>
+   例题1：
+   <a class="footnote-ref" href="#fn10" id="fnref10" role="doc-noteref">
+    <sup>
+     10
+    </sup>
+   </a>
+  </p>
+  <p>
+   设
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在
+   <span class="math inline">
+    \([0,1]\)
+   </span>
+   连续，且
+   <span class="math inline">
+    \(f(0) = f(1)\)
+   </span>
+   ，证明：在
+   <span class="math inline">
+    \([0,1]\)
+   </span>
+   上至少存在一点
+   <span class="math inline">
+    \(\xi\)
+   </span>
+   ，使得
+   <span class="math inline">
+    \(f(\xi) = f(\xi + \frac 1 n)\)
+   </span>
+   .
+  </p>
+  <p>
+   提示：即构造并证明
+   <span class="math inline">
+    \(F(x) = f(x) -
+f(x+\frac 1 n)\)
+   </span>
+   在
+   <span class="math inline">
+    \([0,1 - \frac 1
+n]\)
+   </span>
+   有零点。
+  </p>
+  <p>
+   例题2
+   <a class="footnote-ref" href="#fn11" id="fnref11" role="doc-noteref">
+    <sup>
+     11
+    </sup>
+   </a>
+   ：
+  </p>
+  <p>
+   设
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在
+   <span class="math inline">
+    \((-\infty ,+ \infty)\)
+   </span>
+   连续，存在极限
+   <span class="math inline">
+    \(\lim_{x\to -\infty}f(x) = A\)
+   </span>
+   及
+   <span class="math inline">
+    \(\lim _{x\to + \infty} f(x)=B\)
+   </span>
+   。证明：
+  </p>
+  <ul>
+   <li>
+    设
+    <span class="math inline">
+     \(A&lt;B\)
+    </span>
+    ，则
+    <span class="math inline">
+     \(\forall \mu \in (A,B)\)
+    </span>
+    ，
+    <span class="math inline">
+     \(\exist \xi \in (-\infty , +\infty)\)
+    </span>
+    ，使得
+    <span class="math inline">
+     \(f(\xi) = \mu\)
+    </span>
+   </li>
+   <li>
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    在
+    <span class="math inline">
+     \((-\infty, +\infty)\)
+    </span>
+    有界
+   </li>
+  </ul>
+  <h1 id="海涅定理和数列极限">
+   海涅定理和数列极限
+  </h1>
+  <h2 id="数列极限的定义">
+   数列极限的定义
+  </h2>
+  <p>
+   <span class="math inline">
+    \(\lim_{n\to \infty} = A\)
+   </span>
+   的充要条件为：
+  </p>
+  <p>
+   <span class="math inline">
+    \(\forall \epsilon &gt; 0, \exist\)
+   </span>
+   正整数
+   <span class="math inline">
+    \(N\)
+   </span>
+   ，使得当
+   <span class="math inline">
+    \(n&gt;N\)
+   </span>
+   时均有
+   <span class="math inline">
+    \(|{x_n - A} | &lt; \epsilon\)
+   </span>
+   。
+  </p>
+  <h3 id="函数极限的海涅定义">
+   函数极限的海涅定义
+  </h3>
+  <p>
+   函数
+   <span class="math inline">
+    \(f\)
+   </span>
+   在
+   <span class="math inline">
+    \(x_0\)
+   </span>
+   处的极限存在且为
+   <span class="math inline">
+    \(A\)
+   </span>
+   的充要条件为：
+  </p>
+  <p>
+   对于
+   <strong>
+    任意
+   </strong>
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   定义域内的数列
+   <span class="math inline">
+    \({x_n}\)
+   </span>
+   ，当
+   <span class="math inline">
+    \(x_n \to x_0\)
+   </span>
+   时，都有
+   <span class="math inline">
+    \(f(x_n) \to A\)
+   </span>
+   成立。
+  </p>
+  <h2 id="函数和数列连续和离散">
+   函数和数列，连续和离散
+  </h2>
+  <p>
+   海涅定理是沟通函数极限和数列极限之间的桥梁。根据海涅定理，求函数极限则可化为求数列极限，同样求数列极限也可转化为求函数极限。因此，函数极限的所有性质都可用数列极限的有关性质来加以证明。
+  </p>
+  <h3 id="同函数极限的性质">
+   同函数极限的性质
+  </h3>
+  <ul>
+   <li>
+    唯一性
+   </li>
+   <li>
+    极限是个确定的数
+   </li>
+   <li>
+    有界性
+   </li>
+   <li>
+    保号性
+   </li>
+  </ul>
+  <h2 id="存在性和计算">
+   存在性和计算
+  </h2>
+  <h3 id="归结原则将数列极限转化为函数极限">
+   归结原则：将数列极限转化为函数极限
+  </h3>
+  <p>
+   归结原则 aka
+海涅定理，利用函数极限求数列极限，这类数列
+   <strong>
+    通常有以
+    <span class="math inline">
+     \(n\)
+    </span>
+    为自变量的明确解析式
+   </strong>
+   。
+  </p>
+  <p>
+   即令
+   <span class="math inline">
+    \(y_n = f(x_n)\)
+   </span>
+   ，且
+   <span class="math inline">
+    \(x_n \to +\infty\)
+   </span>
+   。若 $
+   <em>
+    {x } f(x) =
+A$，则 $
+   </em>
+   {n} y_n =
+   <em>
+    {n } f(x_n)
+   </em>
+   {x } f(x) = A $
+  </p>
+  <blockquote>
+   <p>
+    即将 $ _{n}y_n$ 转换为
+    <span class="math inline">
+     \(\lim_{x\to
++\infty} f(x)\)
+    </span>
+   </p>
+  </blockquote>
+  <p>
+   求数列极限转化为函数极限的主要目的是为了用洛必达法则。
+  </p>
+  <h3 id="直接对数列进行分析和计算">
+   直接对数列进行分析和计算
+  </h3>
+  <p>
+   通常需要裂项等技巧
+  </p>
+  <p>
+   常用裂项：
+   <span class="math display">
+    \[
+\frac {1} {x (x+ 1)} = \frac 1 {x} - \frac 1 {x+1} \\
+\]
+   </span>
+   有时也会灵活运用裂项（如逆用），如给出条件
+   <span class="math inline">
+    \(a_{n+1} = a_n^2 + a_n\)
+   </span>
+   的情况下用 $
+{a_n+1} = {a_n} - = {a_n} - {a_{n+1}} $
+达到裂项、相消的目的，从而求得形如
+   <span class="math inline">
+    \(\lim _{n
+\to \infty } \sum _{i=1} ^n \frac 1 {a_n + 1}\)
+   </span>
+   的极限。
+  </p>
+  <h3 id="从极限定义着手常见于递推">
+   从极限定义着手（常见于递推）
+  </h3>
+  <p>
+   构造
+   <span class="math inline">
+    \(a_n = |X_n - A|\rightarrow
+0\)
+   </span>
+   ​ ，再证明
+   <span class="math inline">
+    \(\lim_{n \to +\infty }
+a_n \ = 0\)
+   </span>
+   ，从而证明其
+   <span class="math inline">
+    \(\lim_{n\to
++\infty} X_n =A\)
+   </span>
+   。
+  </p>
+  <p>
+   <strong>
+    （因为数列往往是递推表达式，故常需要通过构造类似
+    <span class="math inline">
+     \(0\le |x_n - A | \le k|x_{n-1}- A| \le k^{n-1}|x_1-
+a|\)
+    </span>
+    的放缩来证明极限为 0）
+   </strong>
+  </p>
+  <blockquote>
+   <p>
+    设
+    <span class="math inline">
+     \(x_1=1, x_n = 1 + \frac 1
+{1+x_{n-1}}\)
+    </span>
+    ，证明
+    <span class="math inline">
+     \(\lim_{n\rightarrow \infty} x_n\)
+    </span>
+    存在并求值。
+   </p>
+   <p>
+    构造
+    <span class="math inline">
+     \(|x_n - \sqrt 2| = |1+ \frac 1
+{1+x_{n-1}}-\sqrt 2| = |\frac {(x_{n-1} - \sqrt 2 )(1-\sqrt 2)} {1 +
+x_{n-1}}|\)
+    </span>
+    ​，尝试作形如
+    <span class="math inline">
+     \(0\le |x_n -a
+| \le k|x_{n-1}-a| \le k^2|x_{n-2}-a|\)
+    </span>
+    ​ 的放缩。
+    <span class="math display">
+     \[
+| \frac {(x_{n-1} - \sqrt 2 )(1-\sqrt 2)} {1 + x_{n-1}} | =  \frac {
+|x_{n-1} - \sqrt 2 | | 1-\sqrt 2| } {1+x_{n-1}} &lt; (\sqrt 2 - 1)  |
+x_{n-1} - \sqrt 2|
+\]
+    </span>
+   </p>
+   <p>
+    （此题也可拆分为两个子列，奇数和偶数，进行分析，对两个子列分别进行单调有界证明，原因可见后续相对较为详细的不动点内容）
+   </p>
+  </blockquote>
+  <h3 id="判定准则1单调有界准则常见于递推">
+   判定准则1：单调有界准则（常见于递推）
+  </h3>
+  <h3 id="判定准则2夹逼准则">
+   判定准则2：夹逼准则
+  </h3>
+  <h3 id="详解递推数列和不动点">
+   详解：递推数列和不动点
+  </h3>
+  <p>
+   数列
+   <span class="math inline">
+    \(\{a_n\}\)
+   </span>
+   如果满足递归（或递推）方程
+   <span class="math inline">
+    \(a_{n+1} =f (a_n)
+(n=1,2,3,\cdots)\)
+   </span>
+   ，其中
+   <span class="math inline">
+    \(f\)
+   </span>
+   是已知的一元连续函数，则称
+   <span class="math inline">
+    \(\{a_n\}\)
+   </span>
+   为递归数列（或递推数列）。
+  </p>
+  <h4 id="迭代函数的不动点">
+   迭代函数的不动点
+  </h4>
+  <blockquote>
+   <p>
+    如果我们把函数看成 $R $ 到
+    <span class="math inline">
+     \(\mathbb
+R\)
+    </span>
+    的一个映射，那么不动点经过这一映射之后，还是它本身，就像固定在数轴上。
+   </p>
+   <p>
+    递推数列——不动点法 - 忘忧北萱草的文章 - 知乎
+https://zhuanlan.zhihu.com/p/116434438
+   </p>
+  </blockquote>
+  <p>
+   从函数图像来说，不动点是和函数
+   <span class="math inline">
+    \(y =
+x\)
+   </span>
+   的交点。
+  </p>
+  <h4 id="迭代函数的性质">
+   迭代函数的性质
+  </h4>
+  <h5 id="递推数列和迭代函数的单调性">
+   递推数列和迭代函数的单调性
+  </h5>
+  <p>
+   若迭代函数
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在区间
+   <span class="math inline">
+    \(I\)
+   </span>
+   上单调递增，则有
+  </p>
+  <ul>
+   <li>
+    若
+    <span class="math inline">
+     \(a_2 &gt; a _1\)
+    </span>
+    ，则数列
+    <span class="math inline">
+     \(\{a_n \}\)
+    </span>
+    单调递增
+   </li>
+   <li>
+    若
+    <span class="math inline">
+     \(a_2 &lt; a _1\)
+    </span>
+    ，则数列
+    <span class="math inline">
+     \(\{a_n \}\)
+    </span>
+    单调递减
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    用数学归纳法很好证明，$ a_k &gt; a_{k-1}$，则有
+    <span class="math inline">
+     \(f(a_k) &gt; f(a_{k-1})\)
+    </span>
+    ，即
+    <span class="math inline">
+     \(a_{k+1} &gt; a_k &gt; a_{k-1}\)
+    </span>
+    .
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    单调增且 $a_2 &gt; a_1 $
+（即数列递增）其实包含两种情况（假设在特定不动点附近）：
+   </p>
+   <ul>
+    <li>
+     <span class="math inline">
+      \(a_1\)
+     </span>
+     在不动点左侧且不动点附近的
+     <span class="math inline">
+      \(f'(x) &lt; 1\)
+     </span>
+     （即“跑”得比 y=x
+慢），这时函数会迭代（增长）到不动点（极限）。
+    </li>
+    <li>
+     <span class="math inline">
+      \(a_1\)
+     </span>
+     在不动点右侧且不动点附近的
+     <span class="math inline">
+      \(f'(x)&gt;1\)
+     </span>
+     （即“跑”得比 y=x
+快），这是函数会往右发散（如果右边没有其他交点）
+    </li>
+   </ul>
+   <p>
+    同理，
+    <span class="math inline">
+     \(f(x)\)
+    </span>
+    单调增且
+    <span class="math inline">
+     \(a_2 &lt; a_1\)
+    </span>
+    （即数列递减）也包含两种情况：
+   </p>
+   <ul>
+    <li>
+     <span class="math inline">
+      \(a_1\)
+     </span>
+     在不动点左侧且不动点附近的
+     <span class="math inline">
+      \(f'(x) &gt; 1\)
+     </span>
+     （即“跑”得比 y=x
+快），这时函数会往左发散（如果左边没有其他交点）
+    </li>
+    <li>
+     <span class="math inline">
+      \(a_1\)
+     </span>
+     在不动点右侧且不动点附近的
+     <span class="math inline">
+      \(f'(x) &lt; 1\)
+     </span>
+     （即“跑”得比 y=x
+慢），这时函数会迭代（减小）到不动点（极限）。
+    </li>
+   </ul>
+   <p>
+    换言之，函数跑得比
+    <span class="math inline">
+     \(y =x\)
+    </span>
+    慢且单调增就收敛于不动点？否则就不收敛？
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    一般来说，这类收敛的较严格证明
+    <strong>
+     对应前文的单调有界准则
+    </strong>
+    证明的方法。
+   </p>
+  </blockquote>
+  <p>
+   若迭代函数
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在区间
+   <span class="math inline">
+    \(I\)
+   </span>
+   上单调减——很遗憾，递推数列一般不具有单调性，但不一定不收敛（
+   <strong>
+    严格证明通常对应前文从极限定义着手的的方法，或者分为两个子列分别分析
+   </strong>
+   ）。如下图，从
+a1 到 a4 的过程，不单调但越来越靠近不动点。
+  </p>
+  <figure>
+   <img alt="image-20220816194545549" src="C:\Users\Five\Desktop\note\img\image-20220816194545549.png"/>
+   <figcaption aria-hidden="true">
+    image-20220816194545549
+   </figcaption>
+  </figure>
+  <h5 id="不动点附近的函数图像">
+   不动点附近的函数图像
+  </h5>
+  <p>
+   继续接着上节单调性进行讨论
+  </p>
+  <p>
+   若迭代函数
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在区间
+   <span class="math inline">
+    \(I\)
+   </span>
+   上单调递增，且
+   <span class="math inline">
+    \(a_2 &gt; a _1\)
+   </span>
+   ，则数列
+   <span class="math inline">
+    \(\{a_n \}\)
+   </span>
+   单调递增，在函数图像上表现为
+  </p>
+  <p>
+   若迭代函数
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在区间
+   <span class="math inline">
+    \(I\)
+   </span>
+   上单调递增，且
+   <span class="math inline">
+    \(a_2 &lt; a _1\)
+   </span>
+   ，则数列
+   <span class="math inline">
+    \(\{a_n \}\)
+   </span>
+   单调递减，在函数图像上表现为
+  </p>
+  <blockquote>
+   <p>
+    高中的时候，隔壁班数学老师大秀代过一次课，讲的内容正好就是数列的不动点——当时确实觉得这种数形结合可太优雅了。
+   </p>
+   <p>
+    但当时也没有深刻理解背后的原因，只是利用结论求递推式通项。
+   </p>
+  </blockquote>
+  <h4 id="结论">
+   结论
+  </h4>
+  <ul>
+   <li>
+    方法一： 证明极限存在（
+    <strong>
+     通常是单调有界
+    </strong>
+    ） 并
+利用不动点 求极限两步。
+    <ul>
+     <li>
+      显然比较适合迭代函数
+      <span class="math inline">
+       \(f(x)\)
+      </span>
+      单调增的情况
+     </li>
+    </ul>
+   </li>
+   <li>
+    方法二：先利用不动点求出极限，再证明极限的正确性（
+    <strong>
+     即从极限定义着手
+    </strong>
+    ）。
+    <ul>
+     <li>
+      显然比较适合迭代函数
+      <span class="math inline">
+       \(f(x)\)
+      </span>
+      不是单调增的情况
+     </li>
+     <li>
+      <strong>
+       或者也可以分为两个子列分别分析（证单调有界）？
+      </strong>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    例题：
+   </p>
+   <ul>
+    <li>
+     证明方程
+     <span class="math inline">
+      \(x=2\ln(x+1)\)
+     </span>
+     ​ 在
+     <span class="math inline">
+      \((0,+\infty)\)
+     </span>
+     ​ 内有唯一实根ε
+    </li>
+    <li>
+     <span class="math inline">
+      \(\forall x_1 &gt; \epsilon\)
+     </span>
+     ，定义
+     <span class="math inline">
+      \(x_{n+1} = 2
+\ln(1+x_n),n=1,2,\dots\)
+     </span>
+     ，证明
+     <span class="math inline">
+      \(\lim_{n\rightarrow \infty} x_n =
+\epsilon\)
+     </span>
+     ​
+    </li>
+   </ul>
+   <p>
+    函数图像如图所示有两个交点，但一个交点是0，在
+    <span class="math inline">
+     \((0, + \infty)\)
+    </span>
+    范围内确实只有一个交点。
+   </p>
+   <figure>
+    <img alt="image-20220816192017362" src="C:\Users\Five\Desktop\note\img\image-20220816192017362.png"/>
+    <figcaption aria-hidden="true">
+     image-20220816192017362
+    </figcaption>
+   </figure>
+   <p>
+    如果不联系函数图像，可以利用归纳法和单调有界准则，证明极限存在，然后设极限为A带入递推式（递推式就变成了第一小问的方程）发现极限就是
+ε
+   </p>
+   <p>
+    （第二小题如果区间改为
+    <span class="math inline">
+     \(\forall 0 &lt; x_1
+&lt;
+\epsilon\)
+    </span>
+    ，也是类似的情况，或者在合并一下，直接令区间为
+    <span class="math inline">
+     \((0,\infty)\)
+    </span>
+    ，第二小题依旧成立，分类讨论即可）
+   </p>
+  </blockquote>
+  <h4 id="拓展不动点和矩阵的特征向量">
+   拓展：不动点和矩阵的特征向量
+  </h4>
+  <p>
+   为何可以用不动点法求数列通项公式，可不可以解释一下？ - 甜甜甜菜的回答
+- 知乎 https://www.zhihu.com/question/389363180/answer/1182332565
+  </p>
+  <p>
+   为何可以用不动点法求数列通项公式，可不可以解释一下？ - Reuental的回答
+- 知乎 https://www.zhihu.com/question/389363180/answer/1457503844
+  </p>
+  <blockquote>
+   <p>
+    有时间再考虑填坑，考研不考这些，tnnd
+   </p>
+  </blockquote>
+  <h3 id="利用定积分定义">
+   利用定积分定义
+  </h3>
+  <p>
+   由于
+   <span class="math display">
+    \[
+\lim_{n \to \infty } \sum_{i=1} ^n f(\frac i n) \cdot \frac 1 n = \int
+_0 ^1 f(x) \mathrm d x
+\]
+   </span>
+   故形如
+   <span class="math display">
+    \[
+\lim_{n \to \infty } \sum_{i=1} ^n f(\frac i n) \cdot \frac 1 n
+\]
+   </span>
+   的极限，可用定积分定义求解。
+  </p>
+  <h1 id="题型6">
+   题型
+   <a class="footnote-ref" href="#fn12" id="fnref12" role="doc-noteref">
+    <sup>
+     12
+    </sup>
+   </a>
+  </h1>
+  <ul>
+   <li>
+    ​ 求
+    <span class="math inline">
+     \(\frac 0 0\)
+    </span>
+    型或
+    <span class="math inline">
+     \(\frac \infty \infty\)
+    </span>
+    型未定式的极限
+    <ul>
+     <li>
+      主要技巧：恒等变形，洛必达，泰勒公式，变量（包括等价无穷小）替换
+     </li>
+    </ul>
+   </li>
+   <li>
+    求
+    <span class="math inline">
+     \(0\cdot \infty\)
+    </span>
+    或
+    <span class="math inline">
+     \(\infty - \infty\)
+    </span>
+    型未定式的极限
+    <ul>
+     <li>
+      一般通过适当的变形转换为前一种未定式
+     </li>
+    </ul>
+   </li>
+   <li>
+    求
+    <span class="math inline">
+     \(1 ^{\infty}, 0^0, \infty ^0\)
+    </span>
+    型未定式的极限
+    <ul>
+     <li>
+      借助一些基本极限（如
+      <span class="math inline">
+       \(\lim _{x\to \infty}
+(1 + \frac 1 x) ^x = e , \lim _{x \to 0+} x^x = 1 ,\lim _{x \to \infty}
+\sqrt[x]{x} = 1\)
+      </span>
+      ）消除未定式
+     </li>
+     <li>
+      实际上，很显然后两个极限是第一个极限 $_{x} (1 + x) ^x = e $
+结合
+      <strong>
+       恒等变换
+       <span class="math inline">
+        \(u^v = e^{v \ln u
+}\)
+       </span>
+      </strong>
+      的推论（要不怎么是两个重要极限之一呢）
+      <ul>
+       <li>
+        所以实际上是运用一个重要极限和恒等变换消除未定式
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    含变限积分的未定式的极限
+    <ul>
+     <li>
+      一般都想办法化到
+      <span class="math inline">
+       \(\frac 0 0\)
+      </span>
+      型或
+      <span class="math inline">
+       \(\frac \infty \infty\)
+      </span>
+      型，然后洛，去掉变限积分
+     </li>
+    </ul>
+   </li>
+   <li>
+    由极限值确定函数式中的参数
+   </li>
+   <li>
+    利用适当放大缩小法求极限
+   </li>
+   <li>
+    求n项和数列的极限
+    <ul>
+     <li>
+      主要方法：恒等变形、放缩、
+      <strong>
+       化为积分和利用定积分
+      </strong>
+      、数值级数求和等
+     </li>
+     <li>
+      更多时候是同时用到其中几种技巧
+     </li>
+    </ul>
+   </li>
+   <li>
+    求n项积数列的极限
+    <ul>
+     <li>
+      常用方法：恒等变形，取对数
+     </li>
+    </ul>
+   </li>
+   <li>
+    利用函数极限求数列极限
+   </li>
+   <li>
+    无穷小的比较与无穷小的阶的确定
+   </li>
+   <li>
+    讨论函数的连续性与间断点的类型
+   </li>
+   <li>
+    有关连续函数性质的命题
+   </li>
+  </ul>
+  <p>
+   例题1：求下述极限
+   <span class="math display">
+    \[
+w = \lim _{x \to 0 ^+} (\cot x) ^{\frac 1 {\ln x}}
+\]
+   </span>
+   提示：重要极限 + 恒等变形
+  </p>
+  <p>
+   例题2：求下述极限
+   <span class="math display">
+    \[
+\lim _{n \to \infty} \sum _{i=1} ^n (\sqrt {1+ \frac i {n^2}} -1)
+\]
+   </span>
+   提示：放缩 + 夹逼
+  </p>
+  <p>
+   例题3：求下述极限
+   <span class="math display">
+    \[
+w = \lim _{n\to \infty} \sum _{i=1} ^{n} \frac {n \tan \frac i n} {n^2 +
+i}
+\]
+   </span>
+   提示：放缩 + 定积分
+  </p>
+  <p>
+   例题4：求下述极限
+   <span class="math display">
+    \[
+\lim _{n\to \infty} \frac 1 {n^4} \prod _{i=1} ^{2n} (n^2 + i^2) ^{\frac
+1 n}
+\]
+   </span>
+   提示：取对数 + 定积分
+  </p>
+  <p>
+   例题5：求下述极限
+   <span class="math display">
+    \[
+\lim _{n \to \infty} n [e(1+\frac 1 n )^{-n} - 1 ]
+\]
+   </span>
+   提示：等价无穷小因子替换 +
+   <span class="math inline">
+    \(t=\frac
+1 x\)
+   </span>
+   换元 +洛必达
+  </p>
+  <h2 id="数列">
+   数列
+  </h2>
+  <ul>
+   <li>
+    用导数综合
+   </li>
+   <li>
+    用积分综合
+   </li>
+   <li>
+    用方程（列）、区间（列）综合
+   </li>
+   <li>
+    用极限综合
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    设
+    <span class="math inline">
+     \(x_1 = \ln2, x_n = \sum_{i=1}^{n-1}
+\ln(2-x_i)\)
+    </span>
+    ​，证明
+    <span class="math inline">
+     \(\lim _{n\rightarrow
+\infty} x_n\)
+    </span>
+    存在并求其值。
+   </p>
+   <p>
+    提示：构造函数
+    <span class="math inline">
+     \(f(x) = x +
+\ln(2-x)\)
+    </span>
+    ​​，观察其极值（求导）。然后证明单调有界，再求极限。
+   </p>
+   <p>
+    将导数和数列极限看似无关的两个东西结合起来了，如果没有铺垫或者提示，确实很难想到哇。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    一些默认已知不等式：$x x, x-1 x, e^x +x
+$​（当然还要考虑定义域）​​​，还有四个平均值的不等关系（算数均值 &gt;=
+集合均值 &gt;=调和均值）
+   </p>
+   <p>
+    如$x_{n+1} = x_n
+    <span class="math inline">
+     \(​​，则可推得\)
+    </span>
+    x_{n+1} = x_n x_n$
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    设
+    <span class="math inline">
+     \(x_n = \sum _{k=1} ^{n} \tan^2\frac 1
+{\sqrt {n+k}}\)
+    </span>
+    ​，求
+    <span class="math inline">
+     \(\lim_{n\rightarrow
+\infty} x_n\)
+    </span>
+    ​
+   </p>
+   <p>
+    这题背后蕴含的其实是普适的求函数图像与x轴之间面积的方法（区间为
+    <span class="math inline">
+     \((0,1)\)
+    </span>
+    ​）（或者就是定积分定义）：将图形n等分，然后面积即为
+    <span class="math inline">
+     \(\lim _{n\rightarrow \infty} \sum _{i=1} ^n f(\frac
+i n) \frac 1 n = \int_0 ^1 f(x)dx\)
+    </span>
+    ​​
+   </p>
+  </blockquote>
+  <h2 id="方程列区间列相关问题">
+   方程列、区间列相关问题
+  </h2>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      3Blue1Brown【官方双语】巴塞尔问题：著名公式背后的惊人几何学https://www.bilibili.com/video/BV1BW411x7DY
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      据说出自林达华
+http://www.penglixun.com/study/science/mit_math_system.html
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      马同学图解数学
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn4">
+     <p>
+      马同学图解数学
+      <a class="footnote-back" href="#fnref4" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn5">
+     <p>
+      柯西对极限的定义引入 ε 精确描述，意义何在？
+为什么这种精确的数学描述很重要？ - ANARKH的回答 - 知乎
+https://www.zhihu.com/question/24829437/answer/29169439
+      <a class="footnote-back" href="#fnref5" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn6">
+     <p>
+      《数学分析八讲》 辛钦
+      <a class="footnote-back" href="#fnref6" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn7">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref7" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn8">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref8" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn9">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref9" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn10">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref10" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn11">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref11" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn12">
+     <p>
+      李正元 数学一 复习全书
+      <a class="footnote-back" href="#fnref12" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

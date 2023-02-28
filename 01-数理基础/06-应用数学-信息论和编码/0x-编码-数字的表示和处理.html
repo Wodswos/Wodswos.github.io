@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   编码-数字的表示和处理
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/01-数理基础/index.html">
+     01-数理基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       00-数学史概要.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-数理逻辑.html">
+         00-数理逻辑.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-测度理论.html">
+         00-测度理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-直觉主义和构造主义.html">
+         00-直觉主义和构造主义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-集合论-所谓的数学基础.html">
+         00-集合论-所谓的数学基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/01-实数的定义-柯西序列和戴德金分割.html">
+         01-实数的定义-柯西序列和戴德金分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/02-第三次数学危机全史--永恒的金色对角线.html">
+         02-第三次数学危机全史--永恒的金色对角线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-可判定性.html">
+         03-希尔伯特纲领的破产-可判定性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-哥德尔不完备定理.html">
+         03-希尔伯特纲领的破产-哥德尔不完备定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/04-类型论.html">
+         04-类型论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-关于数学的哲学.html">
+         0x-关于数学的哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-范畴论.html">
+         0x-范畴论.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.0-先验知识篇-函数.html">
+         0.0-先验知识篇-函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.1-脚手架和技巧篇.html">
+         0.1-脚手架和技巧篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/1.1-极限-分析之本.html">
+         1.1-极限-分析之本.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.1-从导数到微分-导数的定义、计算、性质和应用.html">
+         2.1-从导数到微分-导数的定义、计算、性质和应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.2-从导数到微分-深入理解微分.html">
+         2.2-从导数到微分-深入理解微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.3-从导数到微分-多元函数的导数和微分.html">
+         2.3-从导数到微分-多元函数的导数和微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.1-积分-积分的定义、计算和基本应用.html">
+         3.1-积分-积分的定义、计算和基本应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.2-积分-Stieltjes和Lebesgue.html">
+         3.2-积分-Stieltjes和Lebesgue.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.3-积分-多元函数和重积分.html">
+         3.3-积分-多元函数和重积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.4-积分-反常积分和级数.html">
+         3.4-积分-反常积分和级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/4.1-微分方程-从积分到微分方程.html">
+         4.1-微分方程-从积分到微分方程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/5-无穷级数.html">
+         5-无穷级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.1-傅里叶级数.html">
+         6.1-傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.2-傅里叶变换和快速傅里叶变换.html">
+         6.2-傅里叶变换和快速傅里叶变换.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-《Principles of mathematical analysis》.html">
+         supplement-《Principles of mathematical analysis》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-换个视角重新认识分析-Transformational visual.html">
+         supplement-换个视角重新认识分析-Transformational visual.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html">
+         supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-非标准分析.html">
+         supplement-非标准分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/x-错题（甚至没思路的题）本.html">
+         x-错题（甚至没思路的题）本.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-Group Theory-群论.html">
+         00-Group Theory-群论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-关系和函数.html">
+         00-关系和函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-格与布尔代数.html">
+         01-代数结构-格与布尔代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-群环域.html">
+         01-代数结构-群环域.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-序结构.html">
+         01-序结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-拓扑结构.html">
+         01-拓扑结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-初等数论.html">
+         02-初等数论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-图论.html">
+         02-图论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-形式语言.html">
+         02-形式语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/03-组合数学.html">
+         03-组合数学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-对称性.html">
+         0x-对称性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-魔群.html">
+         0x-魔群.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-代数的源头-方程求根史.html">
+         supplement-代数的源头-方程求根史.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-几何和代数.html">
+         supplement-几何和代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-复数.html">
+         supplement-复数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+         线性空间和线性代数
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/1-行列式和初等变换.html">
+           1-行列式和初等变换.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/2-线性.html">
+           2-线性.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/4-二次型.html">
+           4-二次型.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-矩阵编程.html">
+           supplement-矩阵编程.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-线性代数的应用.html">
+           supplement-线性代数的应用.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-卷积.html">
+         0x-卷积.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-组合数学-计数的学问.html">
+         0x-组合数学-计数的学问.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html">
+         1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.2-概率论-随机变量.html">
+         1.2-概率论-随机变量.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.3-概率论-随机过程.html">
+         1.3-概率论-随机过程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.4-概率论-大数定律和中心极限定理.html">
+         1.4-概率论-大数定律和中心极限定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.1-数理统计-基本概念.html">
+         2.1-数理统计-基本概念.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.2-C.R.Rao和回归.html">
+         2.2-C.R.Rao和回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.x-各种差、相关性和矩.html">
+         2.x-各种差、相关性和矩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/p值.html">
+         p值.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/supplement-概率论-贝叶斯方法.html">
+         supplement-概率论-贝叶斯方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/从麦克斯韦速度分布率到玻尔兹曼分布律.html">
+         从麦克斯韦速度分布率到玻尔兹曼分布律.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/index.html">
+         几何
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/微分流形.html">
+           微分流形.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/单陷门函数.html">
+         单陷门函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/海岸线有多长？分析是panacea吗？——分形的世界.html">
+         海岸线有多长？分析是panacea吗？——分形的世界.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/牛顿迭代法和分形.html">
+         牛顿迭代法和分形.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Hamming码.html">
+         0x-纠错码-Hamming码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Reed-Solomon码.html">
+         0x-纠错码-Reed-Solomon码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-不可能的棋盘谜题.html">
+         0x-编码-不可能的棋盘谜题.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-其他.html">
+         0x-编码-其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-字符的表示和处理.html">
+         0x-编码-字符的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-指令的表示和处理.html">
+         0x-编码-指令的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-数字的表示和处理.html">
+         0x-编码-数字的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-调制解调.html">
+         0x-编码-调制解调.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典力学.html">
+         00-经典力学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典电磁学.html">
+         00-经典电磁学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/0x-时间之箭.html">
+         0x-时间之箭.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/什么是波.html">
+         什么是波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/混沌和蝴蝶效应？.html">
+         混沌和蝴蝶效应？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/熵.html">
+         熵.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子物理基础.html">
+         量子物理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子计算.html">
+         量子计算.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       supplement-关于数学符号.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       supplement-关于追问本质和追问直观.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    编码-数字的表示和处理
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#补码和负数" id="toc-补码和负数">
+      补码和负数
+     </a>
+     <ul>
+      <li>
+       <a href="#权值角度" id="toc-权值角度">
+        权值角度
+       </a>
+      </li>
+      <li>
+       <a href="#循环角度" id="toc-循环角度">
+        循环角度
+       </a>
+      </li>
+      <li>
+       <a href="#大小端" id="toc-大小端">
+        大小端
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#浮点数" id="toc-浮点数">
+      浮点数
+     </a>
+     <ul>
+      <li>
+       <a href="#浮点数的分布" id="toc-浮点数的分布">
+        浮点数的分布
+       </a>
+      </li>
+      <li>
+       <a href="#rounding" id="toc-rounding">
+        Rounding
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#数据类型长度" id="toc-数据类型长度">
+      数据类型长度
+     </a>
+    </li>
+    <li>
+     <a href="#bcd码" id="toc-bcd码">
+      BCD码
+     </a>
+     <ul>
+      <li>
+       <a href="#有权码" id="toc-有权码">
+        有权码
+       </a>
+      </li>
+      <li>
+       <a href="#无权码" id="toc-无权码">
+        无权码
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <p>
+   计算机中主要有数字、字符、指令等类型的数据，他们最终都用01的比特流表示。
+  </p>
+  <p>
+   同样一串01比特流，可以表示一个数字，可以表示一个指令，也可以表示一个字符。计算机怎么去理解、怎么去处理这串01比特流，是需要你告诉它的。
+  </p>
+  <p>
+   你告诉它这几个字节表示的是一条指令，他就取指，译码，执行；你告诉它这几个字节表示的是一个数字，它就能对其进行算术运算；你告诉他这几个字节代表一个字符，它也能完成相应的操作。
+  </p>
+  <p>
+   对于自然数的表示很简单——一个进制转换就是了，从十进制到二进制。
+  </p>
+  <h1 id="补码和负数">
+   补码和负数
+  </h1>
+  <p>
+   但负数该如何表示，或者说如何编码呢？
+  </p>
+  <p>
+   当然我们可以说32位的INT前一半分配给正数用于编码0到
+   <span class="math inline">
+    \(2^{31}-1\)
+   </span>
+   ，后一半给负数。也可以理解为给32个bit的第一个比特用于编码正负号。
+  </p>
+  <p>
+   但这样的INT如何运算，或者说运算效率高吗？
+  </p>
+  <p>
+   当两个比较小的正数用电路里的全加器也许还能勉强得到正确的结果，那一正一负呢？两个负数呢？凭直觉也不像是能得到正确的结果。
+  </p>
+  <blockquote>
+   <p>
+    这种简单粗暴的编码方式还有更多不足的细节
+    <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+     <sup>
+      1
+     </sup>
+    </a>
+    .
+   </p>
+  </blockquote>
+  <h2 id="权值角度">
+   权值角度
+  </h2>
+  <p>
+   我们可以从权的角度去重新考虑问题、制定方案，如表所示赋予权值
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+   ：
+  </p>
+  <table>
+   <thead>
+    <tr class="header">
+     <th>
+      <span class="math inline">
+       \(-2^{n-1}\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(2^{n-2}\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(2^{n-3}\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(\dots\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(2^2\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(2^1\)
+      </span>
+     </th>
+     <th>
+      <span class="math inline">
+       \(2^0\)
+      </span>
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      1
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      <span class="math inline">
+       \(\dots\)
+      </span>
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      0
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   其按位计算权值并相加即可得到表示数，如上表中的数为
+   <span class="math inline">
+    \(-2^{n-1} + 2^{n-2}+2{n-3} + \dots
++2^1\)
+   </span>
+   ，显然这是一个负数。
+  </p>
+  <p>
+   当我们这样去编码存储计算机中的二进制数时，很容易发现正负数之间的加减法——只要不溢出，都能用电路中的全加器正常计算。
+  </p>
+  <p>
+   对于这种编码方式，正数只需转换到二进制，然后高位取0即可，也不需要啥额外的操作。
+  </p>
+  <p>
+   但负数会稍微麻烦——当然我们可以去凑权值，但我们自然希望能有一套比较方便无脑暴力的规则，所幸，的确有这样的一套规则：将负数的绝对值像正数一样操作，再按位取反，末位加1。
+  </p>
+  <p>
+   如-1的绝对值（原码）为
+   <span class="math inline">
+    \(00 \dots
+001\)
+   </span>
+   ，按位取反+1后得到补码
+   <span class="math inline">
+    \(11\dots111\)
+   </span>
+   ，
+  </p>
+  <p>
+   这也就是熟悉的补码。
+  </p>
+  <blockquote>
+   <p>
+    此时0的表示为
+    <span class="math inline">
+     \(000\dots00\)
+    </span>
+    ，而
+    <span class="math inline">
+     \(10000\dots
+000\)
+    </span>
+    表示的可不是-0，而是所能表示的最大的那个负数$ - 2^{n-1}$
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    当一正一负两个数相加，正数的绝对值比较大时，会进位，这种进位真的合理吗？抛开负数的最高位权值$
+-
+2^{n-1}$不看，后面的也是个正数吧？两个正数相加后向一个权值为负的位去进位了？
+   </p>
+   <p>
+    但这种进位的结果是喜大普奔的——最高位进到2，然后要再进一位——这时溢出了。这种溢出，是在设计之中的，或者说就是靠着这种溢出完成了负数和正数的运算。溢出之后，重新归正了。
+   </p>
+   <p>
+    如果不溢出，我们能给出更高位的权值吗——显然给正的权值不对，给负的也不对，好像也不是不能给，也许可以给个0的权值——即权值$
+= - 2
+    <sup>
+     {n-1}+2
+    </sup>
+    {n-2} + 2^{n-2} =
+0$。显然，权值位0，那溢出不要就不要了。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    还有一种溢出，两个正数或者负数相加——也就是真正的溢出，这是我们需要避免的。以INT为例，一般而言是32位（除了早期的16位机子上INT为16位）。
+   </p>
+   <p>
+    01111001010100101010010010111001 +
+01111001010100101010010010111001，这两个正数相加最高位会得到进位1，变成一个负数。
+   </p>
+   <p>
+    而10111001010100101010010010111001 + 10111001010100101010010010111001
+，这样的两个负数相加，两个最高位相加进位溢出后，会得到一个正数——显然也不正确了。
+   </p>
+  </blockquote>
+  <h2 id="循环角度">
+   循环角度
+  </h2>
+  <p>
+   所谓循环，就是n位的负数的补码看作该负数加上
+   <span class="math inline">
+    \(2^n\)
+   </span>
+   ，就像多走了一圈，如8位的有符号数中，-2（-00000010）的补码就是无符号的
+   <span class="math inline">
+    \(-2 + 2^8=254 = (11111110)_2\)
+   </span>
+   。
+  </p>
+  <blockquote>
+   <p>
+    就像一个钟表一样，从3走到2需要多久？-1个小时？但钟表不能倒着走呀，所以就是（12-1=11）个小时，这里的12就类似
+    <span class="math inline">
+     \(2^n\)
+    </span>
+    这样一个周期。
+   </p>
+  </blockquote>
+  <p>
+   这种角度在理解为什么是“按位取反末位加一”得到负数补码 和
+计算机底层补码的乘法运算（低位）的正确性 这两点上有奇效。
+  </p>
+  <blockquote>
+   <p>
+    还是以-2为例，
+    <span class="math inline">
+     \(-2+2^8 = 2^8-1 -2 + 1 =
+(11111111)_2 - (00000010)_2 + 1\)
+    </span>
+    ，而
+    <span class="math inline">
+     \((11111111)_2-(00000010)_2\)
+    </span>
+    就相当于一次
+    <strong>
+     按位取反
+    </strong>
+    ，从
+    <span class="math inline">
+     \(2^8\)
+    </span>
+    到
+    <span class="math inline">
+     \((11111111)_2\)
+    </span>
+    减了一，所以要补上，即
+    <strong>
+     末位加一
+    </strong>
+    。
+   </p>
+   <p>
+    当然
+    <span class="math inline">
+     \((11111111)_2-(00000010)_2\)
+    </span>
+    也可以理解为
+    <span class="math inline">
+     \((00000010)_2\)
+    </span>
+    和
+    <span class="math inline">
+     \((11111111)_2\)
+    </span>
+    的一次异或，和1的异或，就是取反嘛。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    对于负数x，其补码为
+    <span class="math inline">
+     \(2^n +
+x\)
+    </span>
+    ，如此一来，
+    <span class="math inline">
+     \(x_{complement}\times y
+= 2^n y + xy\)
+    </span>
+    ，因为最后结果需要模
+    <span class="math inline">
+     \(2^n\)
+    </span>
+    ，所以
+    <span class="math inline">
+     \(x
+\times y \equiv x y \mod 2^n\)
+    </span>
+   </p>
+   <p>
+    若y也为负数，则
+    <span class="math inline">
+     \(x_{complement} \times
+y_{complement} = 2^n\times y + 2^{2n} + 2^n \times x + x\times y \equiv
+xy \mod 2^n\)
+    </span>
+   </p>
+  </blockquote>
+  <h2 id="大小端">
+   大小端
+  </h2>
+  <p>
+   大端模式（Big
+Endian），是指数据的高字节保存在内存的低地址中，而数据的低字节保存在内存的高地址中，这样的存储模式有点儿类似于把数据当作字符串顺序处理：地址由小向大增加，而数据从高位往低位放；这和我们的阅读习惯一致。
+  </p>
+  <p>
+   小端模式（Little
+Endian），是指数据的高字节保存在内存的高地址中，而数据的低字节保存在内存的低地址中，这种存储模式将地址的高低和数据位权有效地结合起来，高地址部分权值高，低地址部分权值低。
+  </p>
+  <ul>
+   <li>
+    大端：符合阅读习惯
+   </li>
+   <li>
+    小端：将地址高低和数据位权有效结合
+   </li>
+  </ul>
+  <p>
+   常用的x86结构是小端模式，而KEIL
+C51则为大端模式。很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。
+  </p>
+  <table>
+   <thead>
+    <tr class="header">
+     <th>
+      大小端
+     </th>
+     <th>
+      CPU
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      Big Endian
+     </td>
+     <td>
+      PowerPC、IBM、Sun
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      Little Endian
+     </td>
+     <td>
+      x86、DEC
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   网络通讯协议都是使用Big-Endian的编码。
+   <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+    <sup>
+     3
+    </sup>
+   </a>
+  </p>
+  <h1 id="浮点数">
+   浮点数
+  </h1>
+  <blockquote>
+   <p>
+    小时候一直有疑惑为什么有限小数和无限循环小数，观感上差了不止一点点——就好像跨越了一个数域，但书上、老师从不强调有限小数和无限循环小数有啥本质差别。
+   </p>
+   <p>
+    后来学了数制——在十进制下的有限小数到了其他进制下极有可能是无限循环小数，其他进制下的有限小数到了十进制下也很有可能是无限循环小数。
+   </p>
+   <p>
+    这才算对
+    <strong>
+     有理数
+    </strong>
+    这个域有了一些整体的认识，对为什么是从
+    <strong>
+     整数
+    </strong>
+    跨到
+    <strong>
+     有理数
+    </strong>
+    ，中间没有另一个数域停留有了一些认识。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    当然直接从历史上看数域扩张会更直观。有理数的就可以视为分数（整数看作分母为1的特例）——他可不在乎你分出来之后写成小数是怎样的，就算无限循环，也不影响其理解。
+   </p>
+   <p>
+    <span class="math inline">
+     \(\frac 1
+3\)
+    </span>
+    虽然在十进制中是个无限小数，但在三进制中却可以是个有限小数
+    <span class="math inline">
+     \(0.1\)
+    </span>
+    ，但无论如何，我们依旧能为这个分数找到其现实的例子——将一个蛋糕分成三等分。这使得我们能直观理解分数的意义。
+   </p>
+   <p>
+    直到无理数的出现，才有了著名的第一次数学危机，也使得数域进一步扩张。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    进制和权
+   </p>
+   <p>
+    尤其是对于小数点后的内容，用权的角度去理解会格外方便。
+   </p>
+   <p>
+    如二进制的
+    <span class="math inline">
+     \(0.1\)
+    </span>
+    转换为十进制就是
+    <span class="math inline">
+     \(2^{-1}\times 1 =0.5\)
+    </span>
+    ，三进制的0.1就是
+    <span class="math inline">
+     \(3^{-1}= \frac 13 =0.3333\dots 3333\)
+    </span>
+    。
+   </p>
+  </blockquote>
+  <p>
+   浮点数并不等于有理数——只能说在计算机中用浮点数来尽可能地表示有理数。毕竟再小一段区间的有理数数量也是无穷的，显然不可能用有限的bit位来编码表示无限的有理数。
+  </p>
+  <p>
+   IEEE Standard 754, a carefully crafted standard for representing
+floating-point numbers and the operations performed on them.
+   <a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref">
+    <sup>
+     4
+    </sup>
+   </a>
+  </p>
+  <p>
+   这项工作开始于1976年，为Intel的8087（8086的float版）。下式展示了浮点数的表示方法：
+   <span class="math display">
+    \[
+V = (-1)^S \times M \times 2^E
+\]
+   </span>
+   <img alt="image-20210322205011520" src="C:\Users\Five\Desktop\note\img\image-20210322205011520.png"/>
+  </p>
+  <p>
+   对照上式和上图（Standard floating-point
+formats），式子是编码基础，图代表具体实现：
+  </p>
+  <ul>
+   <li>
+    S为符号位，为零时为正，为1时为负。
+    <ul>
+     <li>
+      对应图中s的一个bit位，没啥trick需要注意的
+     </li>
+    </ul>
+   </li>
+   <li>
+    E是指数
+    <ul>
+     <li>
+      其意义可以理解为左右移动调整M中的小数点的范围——也是称之为浮点的原因
+     </li>
+     <li>
+      图中exp部分表示一个二进制无符号数e
+      <ul>
+       <li>
+        E和e的转换关系为：
+        <span class="math inline">
+         \(E= e -
+Bias，Bias=2^{k-1}-1\)
+        </span>
+        ，k为exp部分的长度
+        <ul>
+         <li>
+          为什么用这样的“移码”表示阶呢，一种说法是为了方便比较两个浮点数的大小：符号位相同的情况下，只需从第二高位开始依次比较每一位的大小（比完exp部分比frac），出现不一样的即可分出大小。
+         </li>
+        </ul>
+       </li>
+       <li>
+        在单精度中用8位，即e的范围为0到
+        <span class="math inline">
+         \(2^8-1\)
+        </span>
+        ，Bias值为
+        <span class="math inline">
+         \(2^7-1\)
+        </span>
+        <ul>
+         <li>
+          故E的范围（也即float小数点左右移动范围）为
+          <span class="math inline">
+           \(-2^7 + 1\)
+          </span>
+          到
+          <span class="math inline">
+           \(2^7\)
+          </span>
+          ，即-127到128
+         </li>
+         <li>
+          但实际上实际上是-126到127，因为当exp全为0或全为1时浮点数另有含义
+         </li>
+        </ul>
+       </li>
+       <li>
+        这么来看，float能表示的最小非零正数为
+        <span class="math inline">
+         \(1.00\dots 001 \times
+2^{-126}\)
+        </span>
+        （实际上可以更小），最大正数为
+        <span class="math inline">
+         \(1.1\dots11 \times 2^{127}\)
+        </span>
+       </li>
+       <li>
+        双精度中用11位，e的范围为0到
+        <span class="math inline">
+         \(2^{11}-1\)
+        </span>
+        ，Bias值为
+        <span class="math inline">
+         \(2^{10}-1\)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    M为一个介于1和2之间的数，即初始小数点左边永远是1。
+    <ul>
+     <li>
+      比如数1.1010101，而0.10101（二进制）这种应该表示成1.0101，（即小数点右移）再对E减一
+      <ul>
+       <li>
+        <strong>
+         This representation is a trick for getting an additional bit
+of precision for free.
+        </strong>
+        <a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref">
+         <sup>
+          5
+         </sup>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      在图中对应frac部分
+      <ul>
+       <li>
+        实际上，frac只记录M小数点后的部分，小数点前的部分默认为1
+        <ul>
+         <li>
+          这就是M应该要介于1和2之间的原因，白嫖一个二进制有效数字。
+         </li>
+        </ul>
+       </li>
+       <li>
+        在单精度中用23位，双精度中用52位
+        <ul>
+         <li>
+          即有效数字分别可以达到为24位和53位（二进制），折合十进制有效数字6/7位和15/16位。
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   前面提到的Normalized
+Values，即exp部分不全为0或全为1，实际上Float还有两种特殊情况。
+  </p>
+  <ul>
+   <li>
+    Denormalized Values
+    <ul>
+     <li>
+      当exp部分全为0时，表示Denormalized Values
+     </li>
+     <li>
+      此时可以认为e=0，E=1-Bias=
+      <span class="math inline">
+       \(2-2^{k-1}\)
+      </span>
+      ，M = frac
+      <ul>
+       <li>
+        虽然这种情况下e没啥用了，E也不是e-Bias了，但CS:APP上好像是认为此时e=0
+       </li>
+       <li>
+        此时M不再默认在1到2之间了，可以是0到2之间的任意数
+       </li>
+       <li>
+        frac若为零，则表示M=0，也没有那个默认的1了，
+        <strong>
+         使得float表示0成为可能
+        </strong>
+        <ul>
+         <li>
+          事实上此时整个float也确实所有位为0，用来表示0也很合适
+         </li>
+         <li>
+          当然由于符号位，所以同时存在+0和-0
+         </li>
+        </ul>
+       </li>
+       <li>
+        显然，此时
+        <strong>
+         可以表示一个非常接近0的数
+        </strong>
+        <ul>
+         <li>
+          此时frac的编码
+          <span class="math inline">
+           \(00\dots001\)
+          </span>
+          就意味着
+          <span class="math inline">
+           \(0.0\dots001\)
+          </span>
+          而不是
+          <span class="math inline">
+           \(1.0\dots001\)
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    Special Values，特殊值
+    <ul>
+     <li>
+      当
+      <strong>
+       exp部分全为1
+      </strong>
+      时，表示Special Values
+     </li>
+     <li>
+      此时倒也没啥M和frac的映射关系了，
+      <strong>
+       frac部分为零时表示无穷
+      </strong>
+      （Infinity），
+      <strong>
+       frac不为零时表示NaN
+      </strong>
+      （Not
+a Number）
+      <ul>
+       <li>
+        当运算溢出时，可以表示为Infinity
+       </li>
+       <li>
+        当计算结果不是实数（如
+        <span class="math inline">
+         \(\sqrt
+{-1}\)
+        </span>
+        ）时，可以return一个NaN
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   以下是IEEE Std 754-2008的截图
+  </p>
+  <figure>
+   <img alt="image-20210323150729898" src="C:\Users\Five\Desktop\note\img\image-20210323150729898.png"/>
+   <figcaption aria-hidden="true">
+    image-20210323150729898
+   </figcaption>
+  </figure>
+  <h2 id="浮点数的分布">
+   浮点数的分布
+  </h2>
+  <p>
+   有得必有失，得到了更大的表示范围，自然会在精度上有所损失（尤其是大数），下图展示了浮点数编码的分布特点
+   <a class="footnote-ref" href="#fn6" id="fnref6" role="doc-noteref">
+    <sup>
+     6
+    </sup>
+   </a>
+   ：
+  </p>
+  <ul>
+   <li>
+    FLOAT的frac部分一共就23个比特，24个二进制精度，意味着大于
+    <span class="math inline">
+     \(2^{24}\)
+    </span>
+    的INT就（大部分）无法在FLOAT中找到一一对应了
+    <ul>
+     <li>
+      对于n个比特的frac，最小的不能精确表示的Integer是
+      <span class="math inline">
+       \(2^{n+1}+1\)
+      </span>
+     </li>
+     <li>
+      <span class="math inline">
+       \(2^{n+1}\)
+      </span>
+      这个数勉强算能表示，虽然实际上已经丢失了一个精度了，但丢失了是个二进制的0，然后进到了E上，姑且算没丢
+     </li>
+    </ul>
+   </li>
+   <li>
+    INT到Double倒是能一一对应，毕竟Double的frac部分比INT还长
+   </li>
+  </ul>
+  <figure>
+   <img alt="image-20210323155014551" src="C:\Users\Five\Desktop\note\img\image-20210323155014551.png"/>
+   <figcaption aria-hidden="true">
+    image-20210323155014551
+   </figcaption>
+  </figure>
+  <p>
+   下图展示了编码（Bit representation）和实际的数之间的对应关系
+   <a class="footnote-ref" href="#fn7" id="fnref7" role="doc-noteref">
+    <sup>
+     7
+    </sup>
+   </a>
+   ：
+  </p>
+  <figure>
+   <img alt="image-20210323155417734" src="C:\Users\Five\Desktop\note\img\image-20210323155417734.png"/>
+   <figcaption aria-hidden="true">
+    image-20210323155417734
+   </figcaption>
+  </figure>
+  <h2 id="rounding">
+   Rounding
+  </h2>
+  <p>
+   浮点数终究是离散的编码，妄图完美表示连续的实数是不可能的。
+  </p>
+  <p>
+   也许可以说浮点数和INT没什么不同，当我们试图用INT或浮点数去近似实数时，都需要舍去一定的精度，当然INT的表示范围要小得多，而且对小数的支持也不好，从各方面来说，FLOAT都是一种比INT好得多的实数近似法（或者说更具有普适性）。
+  </p>
+  <p>
+   既然是近似，就会需要Rounding（中文应该是舍入？）。用INT去表示一个小数，其Rounding很好理解，一般来说就是小学就教的四舍五入，当然也可以选择一律抹掉小数等方法。
+  </p>
+  <p>
+   The IEEE floating-point format defines four different rounding
+mode.
+   <a class="footnote-ref" href="#fn8" id="fnref8" role="doc-noteref">
+    <sup>
+     8
+    </sup>
+   </a>
+  </p>
+  <ul>
+   <li>
+    Round-to-even
+    <ul>
+     <li>
+      向偶数舍入，也可以理解为最近舍入
+     </li>
+     <li>
+      但当在正中间时，比如2.5和3.5舍入到INT，他会向靠近偶数（even）的一方舍入，即这两个例子分别舍入成2和4
+     </li>
+    </ul>
+   </li>
+   <li>
+    Round-toward-zero
+    <ul>
+     <li>
+      抹掉后面剩下的
+     </li>
+     <li>
+      正数的表现和Round-down一样，负数的表现和Round-up一样
+     </li>
+    </ul>
+   </li>
+   <li>
+    Round-down和Round-up
+    <ul>
+     <li>
+      向下舍入、向上舍入，顾名思义，不赘述了
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   为什么Round-to-even，而不是四舍五入？
+  </p>
+  <p>
+   CS:APP给的说法是，如果一堆统计数据中有大量x.5，都向上进，可能会造成统计偏差，Round-to-even有舍有入，一定程度上可以减轻这种偏差。
+  </p>
+  <blockquote>
+   <p>
+    关于具体的计算，就放到组成原理部分的笔记了。
+   </p>
+  </blockquote>
+  <h1 id="数据类型长度">
+   数据类型长度
+  </h1>
+  <p>
+   回想大一刚入学的时候对这些数据类型的长度还是迷迷糊糊的，也不愿意去硬记——更别提不同的资料对INT长度还有不同的说法，直接劝退当时纯萌新的我。现在稍微记录一下，压压惊。
+  </p>
+  <p>
+   据传在16位处理器的年代，INT只有2字节——即16位，对应处理器位数。
+  </p>
+  <p>
+   到了32位处理器的年代，INT变成了4字节——32位，依旧对应处理器位数。
+  </p>
+  <blockquote>
+   <p>
+    32位处理器时代对这个世界的改变和影响终究远胜过那个16位处理器时代。
+   </p>
+   <p>
+    1979年8086（16位处理器）发布并流行，到1985年80386（32位处理器）发布并流行，仅仅经过了六年，而且还比较小众，所以标准比较容易变更。
+   </p>
+   <p>
+    而到了二十一世纪，64位处理器才逐渐流行，而32位的历史地位使得64位时代的一些规范需要向他兼容。
+   </p>
+  </blockquote>
+  <p>
+   因此64位处理器的INT数据类型依旧是4字节，LONG为8字节——LONG本来应该是那个64位处理器的INT。在32位处理器上没有LONG，或者说LONG和INT一样都是4字节。
+  </p>
+  <p>
+   当然，CHAR就没那么多弯弯绕绕，从ASCII码表（当然ASCII码表只用了7bit）开始就一直老老实实的8bit，即1字节。
+  </p>
+  <p>
+   FLOAT也一直是4个字节，和INT一样。DOUBLE看名字就知道是double了。
+  </p>
+  <h1 id="bcd码">
+   BCD码
+  </h1>
+  <p>
+   BCD，Binary-Coded Decimal‎
+  </p>
+  <p>
+   编码的唯一性是最基础，在此基础上，我们还可能有一些其他的需求：
+  </p>
+  <ul>
+   <li>
+    Mechanism
+   </li>
+   <li>
+    Efficiency
+   </li>
+   <li>
+    Reliability
+   </li>
+   <li>
+    Security
+   </li>
+  </ul>
+  <p>
+   从信息论的角度来说，显然4bit能为16个事物编码，而0-9只有十种情况。但没关系，我们壕，就是要用4个bit表示一个0-9的数
+  </p>
+  <h2 id="有权码">
+   有权码
+  </h2>
+  <ul>
+   <li>
+    8421码
+    <ul>
+     <li>
+      就像正常的INT，取0000-1001这十个码位分别表示0-9。
+     </li>
+    </ul>
+   </li>
+   <li>
+    2421码
+    <ul>
+     <li>
+      从高位到低位权值分别为5、4、2、1
+     </li>
+     <li>
+      两个2421码相加，得到的数该进位进位，剩下的部分依旧落在十个编码范围内。
+      <ul>
+       <li>
+        如5+7，1011+1101进位后剩下1000，对应的就是2的编码
+       </li>
+      </ul>
+     </li>
+     <li>
+      这是8421码无法做到的，如8421码的7+5，0111+0101=1100，而1100不在8421码的编码范围内
+     </li>
+    </ul>
+   </li>
+   <li>
+    5211码
+    <ul>
+     <li>
+      从高位到地位权值分布为2、4、2、1
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="无权码">
+   无权码
+  </h2>
+  <ul>
+   <li>
+    余3码
+    <ul>
+     <li>
+      8412码+3
+     </li>
+     <li>
+      对9的自补码，即执行十位数相加时可以产生正确的进位信号
+     </li>
+     <li>
+      当不产生进位数时，相加结果应该减3，产生进位数时，相加结果的剩余部分应该加3
+     </li>
+    </ul>
+   </li>
+   <li>
+    余3循环码
+   </li>
+   <li>
+    格雷码
+    <ul>
+     <li>
+      0000、0001、0011、0010、0110、0111、0101、0100、……、1011、1001、1000
+     </li>
+     <li>
+      特点：从0到15再进位回到0，每两个相邻数之间只有一个比特位变化
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    在数字系统中，常要求代码按一定顺序变化。例如，按自然数递增计数，若采用8421码，则数0111变到1000时四位均要变化，而在实际电路中，4位的变化不可能绝对同时发生，则计数中可能出现短暂的其它代码（1100、1111等）。在特定情况下可能导致电路状态错误或输入错误。使用格雷码可以避免这种错误。
+   </p>
+  </blockquote>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      https://www.bilibili.com/video/BV16x411i7FW?p=2
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      https://www.bilibili.com/video/BV16x411i7FW?p=2
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      https://blog.csdn.net/u010983881/article/details/79098334
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn4">
+     <p>
+      《Computer System: A Programmer’s Perspective》
+      <a class="footnote-back" href="#fnref4" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn5">
+     <p>
+      《Computer System: A Programmer’s Perspective》
+      <a class="footnote-back" href="#fnref5" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn6">
+     <p>
+      《Computer System: A Programmer’s Perspective》
+      <a class="footnote-back" href="#fnref6" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn7">
+     <p>
+      《Computer System: A Programmer’s Perspective》
+      <a class="footnote-back" href="#fnref7" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn8">
+     <p>
+      《Computer System: A Programmer’s Perspective》
+      <a class="footnote-back" href="#fnref8" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

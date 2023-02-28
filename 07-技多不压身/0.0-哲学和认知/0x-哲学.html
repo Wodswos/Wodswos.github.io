@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   哲学
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/07-技多不压身/index.html">
+     07-技多不压身
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/0x-哲学.html">
+         0x-哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/More is different - Anderson.html">
+         More is different - Anderson.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/关于人的认知.html">
+         关于人的认知.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/科研.html">
+         科研.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-奖赏机制：多巴胺及其基本规律.html">
+         人类篇-奖赏机制：多巴胺及其基本规律.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-自然选择的不完美产物.html">
+         人类篇-自然选择的不完美产物.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-有性生殖的意义.html">
+         生命篇-有性生殖的意义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生命是一种催化剂，或是一种桥梁吗？.html">
+         生命篇-生命是一种催化剂，或是一种桥梁吗？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生物信息学.html">
+         生命篇-生物信息学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/社会篇-关于社交网络.html">
+         社会篇-关于社交网络.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-商业模式-被我忽视的驱动力.html">
+         0x-商业模式-被我忽视的驱动力.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-我的政治倾向.html">
+         0x-我的政治倾向.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-史纲.html">
+         考研政治-史纲.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-思修.html">
+         考研政治-思修.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-毛中特.html">
+         考研政治-毛中特.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-马原.html">
+         考研政治-马原.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词性和词汇辨析.html">
+         01-词汇-词性和词汇辨析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词缀词根词源.html">
+         01-词汇-词缀词根词源.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-语料库.html">
+         01-词汇-语料库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/02-语法.html">
+         02-语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《The craft of Research》.html">
+         03-写作-《The craft of Research》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《Writing in Enligsh at University》.html">
+         03-写作-《Writing in Enligsh at University》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《从计算理论到大数据图灵机》.html">
+         《从计算理论到大数据图灵机》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《数学简史》蔡天新.html">
+         《数学简史》蔡天新.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《理想国》.html">
+         《理想国》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《相变》.html">
+         《相变》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/0-基础理论知识：解剖学，生理学，营养学.html">
+         0-基础理论知识：解剖学，生理学，营养学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/1-训练计划.html">
+         1-训练计划.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/2-训练记录.html">
+         2-训练记录.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/量化健身-阅读笔记.html">
+         量化健身-阅读笔记.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01A-食材基础认知：理论.html">
+         01A-食材基础认知：理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01B-厨艺基本操作：食材的处理.html">
+         01B-厨艺基本操作：食材的处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-主食面点.html">
+         02-实例-主食面点.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-家常小炒.html">
+         02-实例-家常小炒.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-西式篇.html">
+         02-实例-西式篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/03-Trick.html">
+         03-Trick.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/炼丹日志.html">
+         炼丹日志.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/关于搞笑&amp;幽默.html">
+         关于搞笑&amp;幽默.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/有趣的文字.html">
+         有趣的文字.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/出行篇.html">
+         出行篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/衣物篇.html">
+         衣物篇.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/游戏篇.html">
+         游戏篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/踏出海口1.html">
+         踏出海口1.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/s-IDEA.html">
+         s-IDEA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于写作.html">
+         关于写作.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于曜的幻想.html">
+         关于曜的幻想.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/社会猜想：理智vs盲目.html">
+         社会猜想：理智vs盲目.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/负了如来也负卿.html">
+         负了如来也负卿.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    哲学
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#哲学哲学" id="toc-哲学哲学">
+      哲学哲学
+     </a>
+     <ul>
+      <li>
+       <a href="#分析哲学" id="toc-分析哲学">
+        分析哲学
+       </a>
+      </li>
+      <li>
+       <a href="#欧陆哲学" id="toc-欧陆哲学">
+        欧陆哲学
+       </a>
+       <ul>
+        <li>
+         <a href="#现象学" id="toc-现象学">
+          现象学
+         </a>
+        </li>
+        <li>
+         <a href="#马哲" id="toc-马哲">
+          马哲
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#主义主义" id="toc-主义主义">
+      主义主义
+     </a>
+     <ul>
+      <li>
+       <a href="#唯心主义" id="toc-唯心主义">
+        唯心主义
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#重估科学1" id="toc-重估科学1">
+      重估科学
+     </a>
+     <ul>
+      <li>
+       <a href="#还原论-建构论" id="toc-还原论-建构论">
+        还原论 ≠
+建构论
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#杂记" id="toc-杂记">
+      杂记
+     </a>
+     <ul>
+      <li>
+       <a href="#形而上学" id="toc-形而上学">
+        形而上学
+       </a>
+      </li>
+      <li>
+       <a href="#辩证法" id="toc-辩证法">
+        辩证法
+       </a>
+      </li>
+      <li>
+       <a href="#胡塞尔现象学运动" id="toc-胡塞尔现象学运动">
+        胡塞尔现象学运动
+       </a>
+      </li>
+      <li>
+       <a href="#笛卡尔普遍怀疑" id="toc-笛卡尔普遍怀疑">
+        笛卡尔普遍怀疑
+       </a>
+       <ul>
+        <li>
+         <a href="#我思故我在" id="toc-我思故我在">
+          我思故我在
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#不可知论和二元论" id="toc-不可知论和二元论">
+        不可知论和二元论
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    看书时要小心，不要成为最糟糕的读者。最糟糕的读者，就好像不断掠夺的士兵。他们随意翻阅着书本，用窃贼的眼光扫视书页，寻找有无对自己有益的，立刻能用的上的东西。他们将能够变成有用的个东西偷出来，据为己有。接着，他们将自己偷来的东西（他们唯一能够理解的东西），认作整体书的全部，大肆宣扬。这不仅导致书本完全变了味，还污蔑了整本书与作者。——尼采
+   </p>
+  </blockquote>
+  <h1 id="哲学哲学">
+   哲学哲学
+  </h1>
+  <blockquote>
+   <p>
+    哲学哲学，所哲学是从哪里来，又到哪里去呢？
+   </p>
+  </blockquote>
+  <p>
+   为什么在中国，（20世纪）欧陆哲学比分析哲学火很多？ - 真紅様的回答 -
+知乎 https://www.zhihu.com/question/409872753/answer/1639665090
+  </p>
+  <p>
+   为什么在中国，（20世纪）欧陆哲学比分析哲学火很多？ -
+哲学考研UP君的回答 - 知乎
+https://www.zhihu.com/question/409872753/answer/1643715333
+  </p>
+  <h2 id="分析哲学">
+   分析哲学
+  </h2>
+  <blockquote>
+   <p>
+    分析哲学的开创者是弗雷格，弗雷格是德国人，而早期分析哲学另一个代表人物是维特根斯坦，维特根斯坦是奥地利人（奥地利讲德语，虽然他后来入了英国籍）
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    分析哲学独树一帜，衍生出“数理逻辑”以后离传统哲学越来越远。
+    <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+     <sup>
+      1
+     </sup>
+    </a>
+   </p>
+   <p>
+    后来分析哲学之所以走了“野路子”，是因为他们发明出了“数理逻辑”，数理逻辑让分析哲学走上了一条高度专业化的分析概念和语言的路子，力求语言的清晰和论证的严密。
+    <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+     <sup>
+      2
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <h2 id="欧陆哲学">
+   欧陆哲学
+  </h2>
+  <h3 id="现象学">
+   现象学
+  </h3>
+  <blockquote>
+   <p>
+    2015年，弗莱堡流传了几百年的海德格尔教席被取消，而增加了分析哲学的教席，从这个事件当中可见一斑。其实现象学在欧洲大陆已经衰落了，现在去欧洲学习现象学已经很难找到合适的学校了。不过当下的现象学却在意大利和东南亚地区发展起来了。
+    <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+     <sup>
+      3
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <h3 id="马哲">
+   马哲
+  </h3>
+  <h1 id="主义主义">
+   主义主义
+  </h1>
+  <p>
+   在哲学层面 ，科学主义强调形而上学的无用性
+，而只注重对认识论和方法论的研究 ；在价值层面 ，科学主义则将科学神圣化
+，把科学看作高于人类的本体 ，作为评判事物的依据。
+  </p>
+  <p>
+   科学主义的基本特征是在尊重科学经验和事实的名义下，推行不可知论与主观经验主义。
+  </p>
+  <blockquote>
+   <p>
+    主流的声音认为科学主义不可取。但俺倒是很青睐。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    似乎科学主义，使得科学，也变成了一种信仰。
+   </p>
+   <p>
+    但这种信仰又不一样，它并不预设任何正确的东西——真理可能是真理，也可能是近似。
+   </p>
+  </blockquote>
+  <p>
+   实证主义，孔德、穆勒和斯宾塞是现代实证主义哲学的主要代表人物
+  </p>
+  <p>
+   孔德思想中的重要内容就是他的“理智发展三阶段”的理论。
+  </p>
+  <p>
+   人类理智发展的第一个阶段是神学阶段。
+  </p>
+  <p>
+   形而上学阶段是理智发展的第二个阶段，这是一个过渡阶段，是改头换面的神学阶段。
+  </p>
+  <p>
+   实证阶段是理智发展的第三阶段,也是最高阶段。
+  </p>
+  <h2 id="唯心主义">
+   唯心主义
+  </h2>
+  <blockquote>
+   <p>
+    未明子一个视频里说，如果以心理时间箭头为标准时间箭头（人的记忆里显然只有过去的记忆，所以过去是先发生的），那才是一种最大的唯心主义。
+   </p>
+   <p>
+    https://www.bilibili.com/video/BV1qa411c7EU
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    首先我们破除“存在一个空白的时间，作为一切事件发生的场域”的幻想。然后就承认，所谓的“过去”就是不再存在，而不是“存在于过去的时间（历史）之中”。接着我们要想，物理定律要持续地发生作用，它就不能“过去”，而必须是一种实时生成的引导性力量，引导物质以特定的形式“存在”。在这个意义上，我们把物理定律发挥效力的那个发力点，称为“未来”，一种从尚未存在，而将万物牵引到当下的趋向性。
+   </p>
+  </blockquote>
+  <p>
+   可是心理的时间箭头，难道不是正好的确和物理世界相同嘛……与其说是认同“心理时间箭头”，不如说是目前能观察到的所有“时间箭头”（比如熵增）其方向都一致，才认为时间的箭头真的存在吧。
+  </p>
+  <h1 id="重估科学1">
+   重估科学
+   <a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref">
+    <sup>
+     4
+    </sup>
+   </a>
+  </h1>
+  <p>
+   下述问题引自《哲学有用吗？为什么要学哲学？ - 许来西的回答 - 知乎
+https://www.zhihu.com/question/22066729/answer/109388251》，并拷问自己的答案
+  </p>
+  <ul>
+   <li>
+    科学是什么？科学能解答什么范围的问题？
+   </li>
+   <li>
+    科学和宗教的区别是什么？
+    <ul>
+     <li>
+      科学的描述具有无歧义性，可预测性
+     </li>
+    </ul>
+   </li>
+   <li>
+    科学如何解答休谟问题
+    <ul>
+     <li>
+      个人理解只能靠贝叶斯——因果应该存在，哪怕无法证明
+     </li>
+    </ul>
+   </li>
+   <li>
+    概率学是否能够解决休谟问题？如何理解概率的本质？
+   </li>
+   <li>
+    科学如何看待因果性？
+   </li>
+   <li>
+    科学一定是“机械论”的吗？科学能否解释意识
+    <ul>
+     <li>
+      这要看怎么定义“机械论”
+     </li>
+     <li>
+      当然能解释意识
+     </li>
+    </ul>
+   </li>
+   <li>
+    科学如何解释实在性
+   </li>
+   <li>
+    奥卡姆剃刀法则有没有问题？我们如何知道世界是简单的而不是复杂的？
+    <ul>
+     <li>
+      我们不知道也不需要知道世界是简单的还是复杂的
+     </li>
+     <li>
+      简单和复杂的尺度是人的感受，奥卡姆剃刀法则是为实践服务的，而不是说找到真理
+     </li>
+    </ul>
+   </li>
+   <li>
+    科学革命是什么？科学理论的选择真的如库恩所说是“群众心理学的事”？如何看待“强纲领”运动？
+   </li>
+   <li>
+    科学主义为什么不可取？
+   </li>
+   <li>
+    科学史价值无涉的吗？
+   </li>
+  </ul>
+  <h2 id="还原论-建构论">
+   还原论 ≠ 建构论
+  </h2>
+  <blockquote>
+   <blockquote>
+    <p>
+     这种思维的主要错误在于，
+     <strong>
+      还原论假设绝没有蕴含“建构论”（constructionist）假设：将万物还原为简单基本定律的能力，并不蕴含从这些定律出发重建整个宇宙的能力。
+     </strong>
+     事实上，基本粒子物理学家关于基本定律的性质告知我们的越多，
+     <strong>
+      它们对于我们理解科学其余领域中的真正问题越不相关
+     </strong>
+     ，对于解决社会问题就更不相关了。
+一旦面对尺度和复杂性的双重困难，建构论假设自然会站不住脚。大型和复杂的基本粒子集合体的行为，并不能按照少数基本粒子性质的简单外推来理解。事实上，
+     <strong>
+      在复杂性的每一个层次，都会有崭新的性质出现
+     </strong>
+     ；在我看来，为理解这些新行为所进行的研究，
+     <strong>
+      本质上是同样基础性的
+     </strong>
+     。
+……
+     <strong>
+      在每一个层级上，新的定律、概念和原理都是必不可少的
+     </strong>
+     ，其所需要的想象力与创造力丝毫不亚于前一个层级。心理学不是应用生物学，生物学也不是应用化学。
+    </p>
+    <p>
+     <strong>
+      More Is Different
+     </strong>
+     . Science 177, 393 (1972)
+    </p>
+    <p>
+     安德森（Philip W. Anderson，1923－），1977年诺贝尔物理学奖获得者
+    </p>
+   </blockquote>
+   <p>
+    物理学是不是可以解释所有化学现象？如果是，那物理如何去解释生物机制？
+- Summer Clover的回答 - 知乎
+https://www.zhihu.com/question/54380467/answer/139502355
+   </p>
+  </blockquote>
+  <h1 id="杂记">
+   杂记
+  </h1>
+  <h2 id="形而上学">
+   形而上学
+  </h2>
+  <p>
+   形而上的英文是metaphysics，直译的话应该是元物理。
+  </p>
+  <p>
+   从名字也能意识到形而上学从物质的本源出发，追求其背后的统一逻辑。
+  </p>
+  <p>
+   即研究一切存在者，一切现象（尤其指抽象概念）的原因及本源。最早由亚里士多德所构建，称其为“第一哲学”、“第一科学”。
+  </p>
+  <blockquote>
+   <p>
+    <strong>
+     形而上者谓之道，形而下者谓之器。——《周易·系辞》
+    </strong>
+   </p>
+  </blockquote>
+  <p>
+   「形而上学」到底是什么意思？ - 难得糊涂的回答 - 知乎
+https://www.zhihu.com/question/19777040/answer/2182758977
+  </p>
+  <h2 id="辩证法">
+   辩证法
+  </h2>
+  <p>
+   辩证法，dialectics
+  </p>
+  <p>
+   辩证思维最基本的特点是将对象作为一个整体，从其内在的矛盾的运动、变化及各个方面的相互联系中进行考察，以便从本质上系统地、完整地认识对象。
+  </p>
+  <h2 id="胡塞尔现象学运动">
+   胡塞尔现象学运动
+  </h2>
+  <h2 id="笛卡尔普遍怀疑">
+   笛卡尔普遍怀疑
+  </h2>
+  <p>
+   把哲学比作一颗大树，其中形而上学是树根，物理学是树干，树枝是医学、力学、伦理学等各种应用科目。
+  </p>
+  <blockquote>
+   <p>
+    第一条是：除非明确地认识到某件事情是真实的，否则绝不接受它是真的。
+   </p>
+   <p>
+    第二条是：把我所审查的每一个难题按照可能和必要的程度分成若干部分，以便一一妥为解决。
+   </p>
+   <p>
+    第三条是：按次序进行我的思考，从最简单、最容易认识的对象开始，一点一点上升到对复杂对象的认识。
+   </p>
+   <p>
+    第四条是：对一切情况都要尽量全面考察，确保不会遗漏。
+   </p>
+  </blockquote>
+  <h3 id="我思故我在">
+   我思故我在
+  </h3>
+  <p>
+   怀疑到了极致，连自己的感官也不信任。
+  </p>
+  <p>
+   如同庄周梦蝶。
+  </p>
+  <p>
+   笛卡尔的“我思故我在”这一哲学观点，并不是一个逻辑推论，而是建立在某种理智直观之上的。
+  </p>
+  <h2 id="不可知论和二元论">
+   不可知论和二元论
+  </h2>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      为什么在中国，（20世纪）欧陆哲学比分析哲学火很多？ -
+哲学考研UP君的回答 - 知乎
+https://www.zhihu.com/question/409872753/answer/1643715333
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      为什么在中国，（20世纪）欧陆哲学比分析哲学火很多？ -
+哲学考研UP君的回答 - 知乎
+https://www.zhihu.com/question/409872753/answer/1643715333
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      为什么在中国，（20世纪）欧陆哲学比分析哲学火很多？ -
+哲学考研UP君的回答 - 知乎
+https://www.zhihu.com/question/409872753/answer/1643715333
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn4">
+     <p>
+      哲学有用吗？为什么要学哲学？ - 许来西的回答 - 知乎
+https://www.zhihu.com/question/22066729/answer/109388251
+      <a class="footnote-back" href="#fnref4" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   BeautifulSoup
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+     06-工欲善其事必先利其器
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-反思.html">
+         0-反思.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-资源 &amp; 信息清单.html">
+         0-资源 &amp; 信息清单.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.1-考研规划 &amp; 作息.html">
+         1.1-考研规划 &amp; 作息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.2-复试规划 &amp; 作息.html">
+         1.2-复试规划 &amp; 作息.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Git-Action-Workflow和持续集成.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       Git-项目协同的典范.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux基础信息.html">
+         Linux基础信息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux常用命令和配置.html">
+         Linux常用命令和配置.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/BeautifulSoup.html">
+         BeautifulSoup.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/杂七杂八但有用的库.html">
+         杂七杂八但有用的库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/00-End2End初步试水.html">
+         00-End2End初步试水.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Markdown.html">
+         01-Write &amp; Edit-Markdown.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-TeX-排版无冕之王.html">
+         01-Write &amp; Edit-TeX-排版无冕之王.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Visual Studio Code.html">
+         01-Write &amp; Edit-Visual Studio Code.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html">
+         01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-编辑器和笔记软件.html">
+         01-Write &amp; Edit-编辑器和笔记软件.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-被遗忘的Word.html">
+         01-Write &amp; Edit-被遗忘的Word.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/02-Manage &amp; Explore - 文献和论文.html">
+         02-Manage &amp; Explore - 文献和论文.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 其他.html">
+         03-Export &amp; Publish - 其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - Github Pages.html">
+         03-Export &amp; Publish - 文档发布平台 - Github Pages.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html">
+         03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html">
+         03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html">
+         03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    BeautifulSoup
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#概述" id="toc-概述">
+      概述
+     </a>
+     <ul>
+      <li>
+       <a href="#解析器" id="toc-解析器">
+        解析器
+       </a>
+      </li>
+      <li>
+       <a href="#对象种类详解" id="toc-对象种类详解">
+        对象种类详解
+       </a>
+       <ul>
+        <li>
+         <a href="#tag" id="toc-tag">
+          Tag
+         </a>
+        </li>
+        <li>
+         <a href="#navigablestring" id="toc-navigablestring">
+          NavigableString
+         </a>
+        </li>
+        <li>
+         <a href="#beautifulsoup" id="toc-beautifulsoup">
+          BeautifulSoup
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#文档树操作" id="toc-文档树操作">
+        文档树操作
+       </a>
+       <ul>
+        <li>
+         <a href="#获取标签" id="toc-获取标签">
+          获取标签
+         </a>
+        </li>
+        <li>
+         <a href="#新建标签" id="toc-新建标签">
+          新建标签
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <p>
+   虽然很早就对BeautifulSoup有所耳闻，但介于个人对爬虫的兴趣……并不算高涨，甚至为了避免自己信马由缰，学得太杂，一度把爬虫拉入黑名单，所以一直没入坑。
+  </p>
+  <blockquote>
+   <p>
+    希望BeautifulSoup能达到我预期的批量修改html的效果。
+   </p>
+  </blockquote>
+  <p>
+   文档基本是以目的（批量修改我个人博客的html）为导向的，所以比较信马由缰，内容未必有太多参考价值。
+  </p>
+  <h1 id="概述">
+   概述
+  </h1>
+  <p>
+   解析得到
+   <code>
+    soup
+   </code>
+   对象
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="co"># 解析文本</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(html_text,<span class="st">'html.parser'</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="co"># 解析文件(传入文件句柄)</span></span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(<span class="bu">open</span>(<span class="st">'filename.html'</span>),<span class="st">'html.parser'</span>)</span></code></pre>
+  </div>
+  <h2 id="解析器">
+   解析器
+  </h2>
+  <table>
+   <colgroup>
+    <col style="width: 8%"/>
+    <col style="width: 33%"/>
+    <col style="width: 33%"/>
+    <col style="width: 24%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      解析器
+     </th>
+     <th>
+      使用方法
+     </th>
+     <th>
+      优势
+     </th>
+     <th>
+      劣势
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      Python标准库
+     </td>
+     <td>
+      <code>
+       BeautifulSoup(markup, "html.parser")
+      </code>
+     </td>
+     <td>
+      Python的内置标准库
+      <br/>
+      执行速度适中
+      <br/>
+      文档容错能力强
+     </td>
+     <td>
+      Python 2.7.3 or 3.2.2前的版本中文档容错能力差
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      lxml HTML 解析器
+     </td>
+     <td>
+      <code>
+       BeautifulSoup(markup, "lxml")
+      </code>
+     </td>
+     <td>
+      速度快
+      <br/>
+      文档容错能力强
+     </td>
+     <td>
+      需要安装C语言库
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      lxml XML 解析器
+     </td>
+     <td>
+      <code>
+       BeautifulSoup(markup, ["lxml-xml"])``BeautifulSoup(markup, "xml")
+      </code>
+     </td>
+     <td>
+      速度快
+      <br/>
+      唯一支持XML的解析器
+     </td>
+     <td>
+      需要安装C语言库
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      html5lib
+     </td>
+     <td>
+      <code>
+       BeautifulSoup(markup, "html5lib")
+      </code>
+     </td>
+     <td>
+      最好的容错性
+      <br/>
+      以浏览器的方式解析文档
+      <br/>
+      生成HTML5格式的文档
+     </td>
+     <td>
+      速度慢
+      <br/>
+      不依赖外部扩展
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h2 id="对象种类详解">
+   对象种类详解
+  </h2>
+  <ul>
+   <li>
+    <code>
+     Tag
+    </code>
+   </li>
+   <li>
+    <code>
+     NavigableString
+    </code>
+   </li>
+   <li>
+    <code>
+     BeautifulSoup
+    </code>
+   </li>
+   <li>
+    <code>
+     Comment
+    </code>
+   </li>
+  </ul>
+  <h3 id="tag">
+   Tag
+  </h3>
+  <ul>
+   <li>
+    多值属性
+   </li>
+  </ul>
+  <p>
+   最典型的是
+   <code>
+    class
+   </code>
+   属性，对于多值属性，BeautifulSoup返回的是一个列表。
+  </p>
+  <h3 id="navigablestring">
+   NavigableString
+  </h3>
+  <p>
+   字符串常被包含在
+   <code>
+    tag
+   </code>
+   内。Beautiful Soup用
+   <code>
+    NavigableString
+   </code>
+   类来包装
+   <code>
+    tag
+   </code>
+   中的字符串。
+  </p>
+  <div class="sourceCode" id="cb2">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>tag.string</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="co"># u'Extremely bold'</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="bu">type</span>(tag.string)</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="co"># &lt;class 'bs4.element.NavigableString'&gt;</span></span></code></pre>
+  </div>
+  <h3 id="beautifulsoup">
+   BeautifulSoup
+  </h3>
+  <p>
+   大部分情况下可以把
+   <code>
+    BeautifulSoup
+   </code>
+   对象作为一种特殊的
+   <code>
+    tag
+   </code>
+   对待。
+  </p>
+  <h2 id="文档树操作">
+   文档树操作
+  </h2>
+  <h3 id="获取标签">
+   获取标签
+  </h3>
+  <p>
+   最快捷的方法是用点标记，如获取
+   <code>
+    body
+   </code>
+   中第一个
+   <code>
+    b
+   </code>
+   标签代码如下：
+  </p>
+  <div class="sourceCode" id="cb3">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>soup.body.b</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a><span class="co"># &lt;b&gt;The Dormouse's story&lt;/b&gt;</span></span></code></pre>
+  </div>
+  <p>
+   <code>
+    find_all()
+   </code>
+   获取全部的标签
+  </p>
+  <div class="sourceCode" id="cb4">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>soup.find_all(<span class="st">'a'</span>)</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a><span class="co"># [&lt;a class="sister" href="http://example.com/elsie" id="link1"&gt;Elsie&lt;/a&gt;,</span></span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a><span class="co">#  &lt;a class="sister" href="http://example.com/lacie" id="link2"&gt;Lacie&lt;/a&gt;,</span></span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a><span class="co">#  &lt;a class="sister" href="http://example.com/tillie" id="link3"&gt;Tillie&lt;/a&gt;]</span></span></code></pre>
+  </div>
+  <h4 id="配合re模块使用">
+   配合re模块使用
+  </h4>
+  <p>
+   查找
+   <code>
+    h1-h6
+   </code>
+   的所有标题标签，就可以通过配合re模块实现
+  </p>
+  <div class="sourceCode" id="cb5">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(<span class="bu">open</span>(<span class="st">"inpage_test.html"</span>),<span class="st">'lxml'</span>)</span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a><span class="bu">print</span>(soup.find_all(re.<span class="bu">compile</span>(<span class="st">'^h\d$'</span>)))</span>
+<span id="cb5-6"><a aria-hidden="true" href="#cb5-6" tabindex="-1"></a><span class="co"># 可能会误匹配h7,h8啥的，但这样写好像比较优雅</span></span></code></pre>
+  </div>
+  <p>
+   这里soup部分没啥好说的，倒是re部分可以温习温习：
+  </p>
+  <table>
+   <colgroup>
+    <col style="width: 15%"/>
+    <col style="width: 84%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th style="text-align: left;">
+      模式
+     </th>
+     <th style="text-align: left;">
+      描述
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td style="text-align: left;">
+      ^
+     </td>
+     <td style="text-align: left;">
+      匹配字符串的开头
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      $
+     </td>
+     <td style="text-align: left;">
+      匹配字符串的末尾。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      .
+     </td>
+     <td style="text-align: left;">
+      匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      […]
+     </td>
+     <td style="text-align: left;">
+      用来表示一组字符,单独列出：[amk] 匹配
+‘a’，‘m’或’k’
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      [^...]
+     </td>
+     <td style="text-align: left;">
+      不在[]中的字符：[^abc]
+匹配除了a,b,c之外的字符。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      re*
+     </td>
+     <td style="text-align: left;">
+      匹配0个或多个的表达式。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      re+
+     </td>
+     <td style="text-align: left;">
+      匹配1个或多个的表达式。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      re?
+     </td>
+     <td style="text-align: left;">
+      匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      re{ n}
+     </td>
+     <td style="text-align: left;">
+      精确匹配 n 个前面表达式。例如，
+      <strong>
+       o{2}
+      </strong>
+      不能匹配 “Bob” 中的 “o”，但是能匹配 “food”
+中的两个 o。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      re{ n,}
+     </td>
+     <td style="text-align: left;">
+      匹配 n 个前面表达式。例如， o{2,}
+不能匹配”Bob”中的”o”，但能匹配 “foooood”中的所有 o。“o{1,}” 等价于
+“o+”。“o{0,}” 则等价于 “o*“。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      re{ n, m}
+     </td>
+     <td style="text-align: left;">
+      匹配 n 到 m
+次由前面的正则表达式定义的片段，贪婪方式
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      a| b
+     </td>
+     <td style="text-align: left;">
+      匹配a或b
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      (re)
+     </td>
+     <td style="text-align: left;">
+      对正则表达式分组并记住匹配的文本
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      (?imx)
+     </td>
+     <td style="text-align: left;">
+      正则表达式包含三种可选标志：i, m, 或 x
+。只影响括号中的区域。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      (?-imx)
+     </td>
+     <td style="text-align: left;">
+      正则表达式关闭 i, m, 或 x
+可选标志。只影响括号中的区域。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      (?: re)
+     </td>
+     <td style="text-align: left;">
+      类似 (…), 但是不表示一个组
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      (?imx: re)
+     </td>
+     <td style="text-align: left;">
+      在括号中使用i, m, 或 x 可选标志
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      (?-imx: re)
+     </td>
+     <td style="text-align: left;">
+      在括号中不使用i, m, 或 x 可选标志
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      (?#…)
+     </td>
+     <td style="text-align: left;">
+      注释.
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      (?= re)
+     </td>
+     <td style="text-align: left;">
+      前向肯定界定符。如果所含正则表达式，以 …
+表示，在当前位置成功匹配时成功，否则失败。但一旦所含表达式已经尝试，匹配引擎根本没有提高；模式的剩余部分还要尝试界定符的右边。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      (?! re)
+     </td>
+     <td style="text-align: left;">
+      前向否定界定符。与肯定界定符相反；当所含表达式不能在字符串当前位置匹配时成功
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      (?&gt; re)
+     </td>
+     <td style="text-align: left;">
+      匹配的独立模式，省去回溯。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配字母数字及下划线
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配非字母数字及下划线
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配任意空白字符，等价于
+      <strong>
+       [
+      </strong>
+      。
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配任意非空字符
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      匹配任意数字，等价于 [0-9].
+     </td>
+     <td style="text-align: left;">
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配任意非数字
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配字符串开始
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配字符串结束，如果是存在换行，只匹配到换行前的结束字符串。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配字符串结束
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      匹配最后匹配完成的位置。
+     </td>
+     <td style="text-align: left;">
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er 可以匹配”never”
+中的 ’er’，但不能匹配 “verb” 中的 ‘er’。
+     </td>
+     <td style="text-align: left;">
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+     </td>
+     <td style="text-align: left;">
+      匹配非单词边界。‘er’ 能匹配 “verb” 中的
+‘er’，但不能匹配 “never” 中的 ‘er’。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      , 等.
+     </td>
+     <td style="text-align: left;">
+      匹配一个换行符。匹配一个制表符。等
+     </td>
+    </tr>
+    <tr class="even">
+     <td style="text-align: left;">
+      \1…\9
+     </td>
+     <td style="text-align: left;">
+      匹配第n个分组的内容。
+     </td>
+    </tr>
+    <tr class="odd">
+     <td style="text-align: left;">
+      \10
+     </td>
+     <td style="text-align: left;">
+      匹配第n个分组的内容，如果它经匹配。否则指的是八进制字符码的表达式。
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h3 id="新建标签">
+   新建标签
+  </h3>
+  <p>
+   创建一个
+   <code>
+    tag
+   </code>
+   最好的方法是调用工厂方法
+   <code>
+    BeautifulSoup.new_tag()
+   </code>
+  </p>
+  <div class="sourceCode" id="cb6">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(<span class="st">"&lt;b&gt;&lt;/b&gt;"</span>)</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>original_tag <span class="op">=</span> soup.b</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>new_tag <span class="op">=</span> soup.new_tag(<span class="st">"a"</span>, href<span class="op">=</span><span class="st">"http://www.example.com"</span>)</span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a>original_tag.append(new_tag)</span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>original_tag</span>
+<span id="cb6-7"><a aria-hidden="true" href="#cb6-7" tabindex="-1"></a><span class="co"># &lt;b&gt;&lt;a href="http://www.example.com"&gt;&lt;/a&gt;&lt;/b&gt;</span></span>
+<span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a aria-hidden="true" href="#cb6-9" tabindex="-1"></a>new_tag.string <span class="op">=</span> <span class="st">"Link text."</span></span>
+<span id="cb6-10"><a aria-hidden="true" href="#cb6-10" tabindex="-1"></a>original_tag</span>
+<span id="cb6-11"><a aria-hidden="true" href="#cb6-11" tabindex="-1"></a><span class="co"># &lt;b&gt;&lt;a href="http://www.example.com"&gt;Link text.&lt;/a&gt;&lt;/b&gt;</span></span></code></pre>
+  </div>
+ </body>
+</html>

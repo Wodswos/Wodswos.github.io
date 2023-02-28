@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   RNNs-从0到LSTM
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/05-深度学习方法/index.html">
+     05-深度学习方法
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/0.1-数据集及其格式.html">
+         0.1-数据集及其格式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/0.2-模型的训练和选择.html">
+         0.2-模型的训练和选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.0-MLP，aka FCN.html">
+         1.0-MLP，aka FCN.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.0-万物起源，线性回归.html">
+         1.0-万物起源，线性回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.1-自动求导和反向传播.html">
+         1.1-自动求导和反向传播.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.1-跳出线性的局限：常用激活函数概览.html">
+         1.1-跳出线性的局限：常用激活函数概览.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.3-优化算法-SGD、Momentum、Adam.html">
+         1.3-优化算法-SGD、Momentum、Adam.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/2.0-CNNs-CV的通行证.html">
+         2.0-CNNs-CV的通行证.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/2.1-CNNs-现代卷积网络.html">
+         2.1-CNNs-现代卷积网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.1-RNNs-从0到LSTM.html">
+         3.1-RNNs-从0到LSTM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.2-RNNs-深度和双向.html">
+         3.2-RNNs-深度和双向.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.3-RNNs-Encoder-Decoder架构、Seq2Seq、束搜索.html">
+         3.3-RNNs-Encoder-Decoder架构、Seq2Seq、束搜索.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/4.1-Attention-从RNN到Attention.html">
+         4.1-Attention-从RNN到Attention.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/4.2-Attention-从Attention到Tansformer.html">
+         4.2-Attention-从Attention到Tansformer.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-GAN-对抗神经网络.html">
+         7-GAN-对抗神经网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-Hopfield神经网络.html">
+         7-Hopfield神经网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-玻尔兹曼机.html">
+         7-玻尔兹曼机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.1-Frame-Pytorch及其生态.html">
+         1.1-Frame-Pytorch及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.1-Frame-Tensorflow及其生态.html">
+         1.1-Frame-Tensorflow及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-Gluon.html">
+         1.2-Frame-Gluon.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-MXNet.html">
+         1.2-Frame-MXNet.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-PaddlePaddle及其生态.html">
+         1.2-Frame-PaddlePaddle及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.3-Frame-腾讯优图NCNN.html">
+         1.3-Frame-腾讯优图NCNN.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.3-Frame-阿里XDL.html">
+         1.3-Frame-阿里XDL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/2.1-Model&amp;TrainProcess Visualize.html">
+         2.1-Model&amp;TrainProcess Visualize.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/百度.html">
+         百度.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/1-数字图像基础.html">
+         1-数字图像基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/2.1-图像增强-灰度变换与空间滤波.html">
+         2.1-图像增强-灰度变换与空间滤波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/2.2-图像增强-频率域滤波.html">
+         2.2-图像增强-频率域滤波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/x-其他图像处理.html">
+         x-其他图像处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/x-素描基础.html">
+         x-素描基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/工具篇 - Python 常用图像处理库.html">
+         工具篇 - Python 常用图像处理库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/0.1-Classification-基础的图像分类识别.html">
+         0.1-Classification-基础的图像分类识别.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/1.1-图像预处理-超像素分割.html">
+         1.1-图像预处理-超像素分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/1.1-基础操作-图像金字塔.html">
+         1.1-基础操作-图像金字塔.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.0-Detection &amp; Segmentation 简述.html">
+         2.0-Detection &amp; Segmentation 简述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.1-Detection-YOLO.html">
+         2.1-Detection-YOLO.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.1-Detection-目标检测.html">
+         2.1-Detection-目标检测.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.2-Detection-Saliency Detection.html">
+         2.2-Detection-Saliency Detection.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.3-Detection-Edge Detection.html">
+         2.3-Detection-Edge Detection.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/3.1-Segmentation-语义分割.html">
+         3.1-Segmentation-语义分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/3.2-Segmentation-抠图 Matting.html">
+         3.2-Segmentation-抠图 Matting.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/x-图像相似度的指标.html">
+         x-图像相似度的指标.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/0-文本预处理和语言模型.html">
+         0-文本预处理和语言模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/ERNIE.html">
+         ERNIE.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/NLP基础.html">
+         NLP基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/情感分析.html">
+         情感分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/情感分析实践——一份水课大作业模板.html">
+         情感分析实践——一份水课大作业模板.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       x-脉冲神经网络.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    RNNs-从0到LSTM
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#序列模型和基本思路" id="toc-序列模型和基本思路">
+      序列模型和基本思路
+     </a>
+     <ul>
+      <li>
+       <a href="#用统计工具建模" id="toc-用统计工具建模">
+        用统计工具建模
+       </a>
+       <ul>
+        <li>
+         <a href="#马尔可夫假设" id="toc-马尔可夫假设">
+          马尔可夫假设
+         </a>
+        </li>
+        <li>
+         <a href="#因果关系" id="toc-因果关系">
+          因果关系
+         </a>
+        </li>
+        <li>
+         <a href="#训练和预测" id="toc-训练和预测">
+          训练和预测
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#循环神经网络及其简单实现" id="toc-循环神经网络及其简单实现">
+      循环神经网络及其简单实现
+     </a>
+     <ul>
+      <li>
+       <a href="#rnn发展史" id="toc-rnn发展史">
+        RNN发展史
+       </a>
+      </li>
+      <li>
+       <a href="#潜变量自回归模型aka-循环神经网络" id="toc-潜变量自回归模型aka-循环神经网络">
+        潜变量自回归模型，aka
+循环神经网络
+       </a>
+       <ul>
+        <li>
+         <a href="#rnn的图示和简化图示" id="toc-rnn的图示和简化图示">
+          RNN的图示和简化图示
+         </a>
+        </li>
+        <li>
+         <a href="#基于rnn的字符级语言模型" id="toc-基于rnn的字符级语言模型">
+          基于RNN的字符级语言模型
+         </a>
+        </li>
+        <li>
+         <a href="#损失函数和困惑度" id="toc-损失函数和困惑度">
+          损失函数和困惑度
+         </a>
+        </li>
+        <li>
+         <a href="#梯度剪裁" id="toc-梯度剪裁">
+          梯度剪裁
+         </a>
+        </li>
+        <li>
+         <a href="#rnns" id="toc-rnns">
+          RNNs
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#简单实现" id="toc-简单实现">
+        简单实现
+       </a>
+      </li>
+      <li>
+       <a href="#关于递归神经网络" id="toc-关于递归神经网络">
+        关于递归神经网络
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#门控循环单元gru" id="toc-门控循环单元gru">
+      门控循环单元GRU
+     </a>
+     <ul>
+      <li>
+       <a href="#问题和背景" id="toc-问题和背景">
+        问题和背景
+       </a>
+      </li>
+      <li>
+       <a href="#gru隐状态更新过程" id="toc-gru隐状态更新过程">
+        GRU隐状态更新过程
+       </a>
+       <ul>
+        <li>
+         <a href="#门" id="toc-门">
+          门
+         </a>
+        </li>
+        <li>
+         <a href="#候选隐状态" id="toc-候选隐状态">
+          候选隐状态
+         </a>
+        </li>
+        <li>
+         <a href="#最终隐状态更新" id="toc-最终隐状态更新">
+          最终隐状态更新
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#长短期记忆lstm" id="toc-长短期记忆lstm">
+      长短期记忆LSTM
+     </a>
+     <ul>
+      <li>
+       <a href="#奇怪的设计" id="toc-奇怪的设计">
+        奇怪的设计
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="序列模型和基本思路">
+   序列模型和基本思路
+  </h1>
+  <ul>
+   <li>
+    之前一般默认数据都来⾃于某种分布，并且所有样本都是独⽴同分布的，但实际中很多数据是有时序结构的
+    <ul>
+     <li>
+      如电影的评价随时间的变化而变化，同样一句话在不同的语境中有完全不同的意思。
+     </li>
+    </ul>
+   </li>
+   <li>
+    其次，我们不仅仅可以接收⼀个序列作为输⼊，⽽是还可能期望继续猜测这个序列的后续
+   </li>
+  </ul>
+  <p>
+   传统的前馈神经网络只能单独地处理一个个信息，即从概率上来讲，前一个输入和后一个输入是互相独立的。
+  </p>
+  <p>
+   但是在处理序列模型（如试图理解一句话的意思）时，显然不能将每一个信息孤立地看待，而应该将其视为一个完整序列的一部分去处理。
+  </p>
+  <blockquote>
+   <p>
+    简言之，如果说卷积神经⽹络可以有效地处理空间信息，那么本章的循环神经网络（recurrent
+neural network， RNN）则可以更好地处理序列信息。
+   </p>
+   <p>
+    循环神经⽹络通过引⼊状态变量存储过去的信息和当前的输⼊，从而以确定当前的输出。
+    <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+     <sup>
+      1
+     </sup>
+    </a>
+   </p>
+  </blockquote>
+  <h2 id="用统计工具建模">
+   用统计工具建模
+  </h2>
+  <p>
+   在时间
+   <span class="math inline">
+    \(t\)
+   </span>
+   内观察到
+   <span class="math inline">
+    \(x_t\)
+   </span>
+   ，那么得到
+   <span class="math inline">
+    \(T\)
+   </span>
+   个不独立的随机变量
+   <span class="math inline">
+    \((x_1,x_2,\dots,x_T) \sim p(\mathbf
+x)\)
+   </span>
+   .
+  </p>
+  <p>
+   使用条件概率（
+   <span class="math inline">
+    \(p(a,b) = p(a) p (a|b) =
+p(b) p(b|a)\)
+   </span>
+   ）展开
+   <span class="math display">
+    \[
+p(\mathbf x) = p(x_1) \cdot p(x_2 | x_1) \cdot p(x_3 |x_1,x_2) \cdots
+p(x_T|x_1,\dots,x_{T-1}) \\
+p(\mathbf x) = p(x_T) \cdot p(x_{T-1} | x_T) \cdot p(x_{T-2}
+|x_T,x_{T-1}) \cdots p(x_1|x_T,\dots,x_2)
+\]
+   </span>
+   <strong>
+    对条件概率建模：
+   </strong>
+   <span class="math display">
+    \[
+p(x_t|x_1,\dots,x_{t-1}) = p(x_t | f(x_1,\dots,x_{t-1}))
+\]
+   </span>
+   当然可以用回归模型去拟合，即对见过的数据建模，称为
+   <strong>
+    自回归模型
+   </strong>
+   （Auto
+Regression）。
+  </p>
+  <h3 id="马尔可夫假设">
+   马尔可夫假设
+  </h3>
+  <p>
+   但随着时间 t 的增长，输入变量会无限制增长，这是比较难以承受的。
+  </p>
+  <p>
+   故我们需要一个方法估算
+   <span class="math inline">
+    \(P(x_t|x_1,\cdots,x_{t-1})\)
+   </span>
+   ，使得
+   <strong>
+    计算得到足够简化
+   </strong>
+   的同时，
+   <strong>
+    估算结果也足够精确
+   </strong>
+   。
+  </p>
+  <ul>
+   <li>
+    策略1（马尔可夫假设）：假设只需要满足某个长度为
+    <span class="math inline">
+     \(\tau\)
+    </span>
+    的时间跨度，即使用观测序列
+    <span class="math inline">
+     \(x_{t-1},\dots,x_{t-\tau}\)
+    </span>
+    <ul>
+     <li>
+      基于此可以建立并训练深度网络
+     </li>
+    </ul>
+   </li>
+   <li>
+    策略2（潜变量模型）：用一个变量
+    <span class="math inline">
+     \(h_t\)
+    </span>
+    作为过去观测的总结。
+    <ul>
+     <li>
+      即
+      <span class="math inline">
+       \(h_t =
+f(x_1,\dots,x_{t-1})\)
+      </span>
+      ，于是有
+      <span class="math inline">
+       \(x_t =
+p(x_t|h_t)\)
+      </span>
+     </li>
+     <li>
+      也称为潜变量（隐变量）自回归模型，即RNN的工作原理
+      <ul>
+       <li>
+        隐（Hidden）变量一般是某个没有观察到的真实存在的量，而潜（Latent）变量的意义更广，可能是某个现实意义上不存在的量
+       </li>
+       <li>
+        潜变量模型一般也可以借鉴马尔科夫假设
+       </li>
+      </ul>
+     </li>
+     <li>
+      <figure>
+       <img alt="image-20220426163941022" src="C:\Users\Five\Desktop\note\img\image-20220426163941022.png"/>
+       <figcaption aria-hidden="true">
+        image-20220426163941022
+       </figcaption>
+      </figure>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="因果关系">
+   因果关系
+  </h3>
+  <p>
+   在通常情况下，解释
+   <span class="math inline">
+    \(p(x_t |
+x_{t-1})\)
+   </span>
+   要比解释
+   <span class="math inline">
+    \(p(x_t |
+x_{t+1})\)
+   </span>
+   容易得多，甚至后者可能在物理上就不被允许。
+  </p>
+  <h3 id="训练和预测">
+   训练和预测
+  </h3>
+  <figure>
+   <img alt="image-20220426163832276" src="C:\Users\Five\Desktop\note\img\image-20220426163832276.png"/>
+   <figcaption aria-hidden="true">
+    image-20220426163832276
+   </figcaption>
+  </figure>
+  <h1 id="循环神经网络及其简单实现">
+   循环神经网络及其简单实现
+  </h1>
+  <h2 id="rnn发展史">
+   RNN发展史
+  </h2>
+  <p>
+   1933年，西班牙神经生物学家 Rafael Lorente de No
+发现大脑皮层的解剖结构允许刺激在神经回路中循环传递，并由此提出反响回路假设。
+  </p>
+  <p>
+   1982年，美国学者John Hopfield 基于 Little
+的神经数学模型使用二元节点建立了具有结合存储能力的神经网络，即 Hopfield
+神经网络。
+  </p>
+  <p>
+   1986年，Michael I. Jordan
+（Bengio的导师）在分布式并行处理理论下提出了 Jordan网络。
+  </p>
+  <blockquote>
+   <p>
+    Jordan 网络的每个隐含层节点都与一个状态单元相连以实现延时输入，并使用
+logistic 函数作为激励函数。
+   </p>
+   <p>
+    Jordan 网络使用Back-propagation 进行学习。
+   </p>
+  </blockquote>
+  <p>
+   1990年，Jeffrey
+Elman提出了第一个全连接的RNN，即Elman网络。Jordan网络和Elman网络都
+   <strong>
+    从单层前馈网络出发
+   </strong>
+   构建递归链接，也被称为
+   <strong>
+    简单循环网络（SRN
+   </strong>
+   ）。
+  </p>
+  <blockquote>
+   <p>
+    同一时期，RNN的学习理论也得到了发展。在BP算法被提出后，学界开始尝试在BP框架下对循环神经网络进行训练。
+   </p>
+   <p>
+    1989年，Ronald Williams和David Zipser提出了RNN的实时循环学习。
+   </p>
+   <p>
+    1990年，Paul Webos在1990年提出了随时间反向传播算法（BP Through
+Time，BPTT）
+   </p>
+  </blockquote>
+  <p>
+   1991年，Sepp
+Hochreiter发现了循环神经网络的长期依赖问题：在对长序列进行学习时，循环神经网络会出现梯度消失和梯度爆炸的现象，无法掌握长时间跨度的非线性关系。
+  </p>
+  <p>
+   <strong>
+    1992和1997年，Jurgen
+Schmidhuber及其合作者提出了神经历史压缩器（Neural History
+Compresssor，NHC）和长短期记忆网络（Long Short-Term Memory
+Networks，LSTM）（截至2022有6W4的引用）。
+   </strong>
+  </p>
+  <p>
+   <strong>
+    同年（1997），M. Schuster 和 K. Paliwal
+提出了具有深度结构的双向循环神经网络，并进行了语音识别实验。
+   </strong>
+  </p>
+  <p>
+   随着深度学习理论的出现和数值计算能力的提升，拥有更高复杂度的RNN开始在自然语言处理问题中得到关注。
+  </p>
+  <p>
+   <strong>
+    2013-2015年，Y. Benjo、D.
+Bahdanau等提出了Encoder-Decoder、自注意力层等一系列RNN算法，并将其用于机器翻译问题。在随后的研究中启发了包括Transformers、XLNet、ELMo、BERT等复杂构筑。
+   </strong>
+  </p>
+  <h2 id="潜变量自回归模型aka-循环神经网络">
+   潜变量自回归模型，aka
+循环神经网络
+  </h2>
+  <p>
+   无潜变量的神经网络（多层感知机）：
+   <span class="math display">
+    \[
+H = \phi(XW_{xh} + b) \\
+O = HW_{hq} + b_q
+\]
+   </span>
+   有潜变量的神经网络（循环神经网络）：
+   <span class="math display">
+    \[
+H_t = \phi(W_{hh}H_{t-1} + W_{hx}X_{t} + b_h) \\
+O_t = H_tW_{hq} + b_q
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    隐状态中
+    <span class="math inline">
+     \(X_tW_{xh}+H_{t-1}W_{hh}\)
+    </span>
+    的计算，可以视为
+    <span class="math inline">
+     \(X_t\)
+    </span>
+    与
+    <span class="math inline">
+     \(H_{t-1}\)
+    </span>
+    的拼接和
+    <span class="math inline">
+     \(W_{xh}\)
+    </span>
+    与
+    <span class="math inline">
+     \(W_hh\)
+    </span>
+    的拼接的矩阵乘法。
+   </p>
+   <p>
+    即对于：
+   </p>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>X, W_xh <span class="op">=</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, (<span class="dv">3</span>, <span class="dv">1</span>)), torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, (<span class="dv">1</span>, <span class="dv">4</span>)) </span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>H, W_hh <span class="op">=</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, (<span class="dv">3</span>, <span class="dv">4</span>)), torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, (<span class="dv">4</span>, <span class="dv">4</span>))</span></code></pre>
+   </div>
+   <p>
+    以下两种计算是等价的：
+   </p>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>torch.matmul(X, W_xh) <span class="op">+</span> torch.matmul(H, W_hh)</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>torch.matmul(torch.cat((X, H), <span class="dv">1</span>), torch.cat((W_xh, W_hh), <span class="dv">0</span>))</span></code></pre>
+   </div>
+  </blockquote>
+  <h3 id="rnn的图示和简化图示">
+   RNN的图示和简化图示
+  </h3>
+  <p>
+   下图
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+   左侧的RNN可以简化为右侧的图示（一个网络层简化为一个点，同时时间轴从纵向变成横向）：
+  </p>
+  <figure>
+   <img alt="image-20220427111937160" src="C:\Users\Five\Desktop\note\img\image-20220427111937160.png"/>
+   <figcaption aria-hidden="true">
+    image-20220427111937160
+   </figcaption>
+  </figure>
+  <p>
+   《Dive into Deep Learning》一书和Colah的博客文章里都常用这种图示
+  </p>
+  <figure>
+   <img alt="image-20220426184121986" src="C:\Users\Five\Desktop\note\img\image-20220426184121986.png"/>
+   <figcaption aria-hidden="true">
+    image-20220426184121986
+   </figcaption>
+  </figure>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/RNN-unrolled.png"/>
+  </p>
+  <p>
+   也可以进一步简化为下图右侧的图示：
+  </p>
+  <figure>
+   <img alt="image-20220427111821280" src="C:\Users\Five\Desktop\note\img\image-20220427111821280.png"/>
+   <figcaption aria-hidden="true">
+    image-20220427111821280
+   </figcaption>
+  </figure>
+  <h3 id="基于rnn的字符级语言模型">
+   基于RNN的字符级语言模型
+  </h3>
+  <p>
+   即词元为字符，batch_size设为1的情况。取文本序列为”machine”
+  </p>
+  <figure>
+   <img alt="image-20220427161738872" src="C:\Users\Five\Desktop\note\img\image-20220427161738872.png"/>
+   <figcaption aria-hidden="true">
+    image-20220427161738872
+   </figcaption>
+  </figure>
+  <h3 id="损失函数和困惑度">
+   损失函数和困惑度
+  </h3>
+  <p>
+   因为输出一般是分类（有限个词元），故一般对输出层进行softmax操作。
+  </p>
+  <p>
+   softmax 做输出层的激活函数配交叉熵作损失函数也是经典组合了。
+   <span class="math display">
+    \[
+\pi = \frac 1 n \sum ^{n} _{t=1} -\log p(x_t|x_{t-1},\dots)
+\]
+   </span>
+   历史原因 NLP 用困惑度
+   <span class="math inline">
+    \(e^{\pi}\)
+   </span>
+   来衡量模型
+  </p>
+  <h3 id="梯度剪裁">
+   梯度剪裁
+  </h3>
+  <p>
+   迭代中计算
+   <span class="math inline">
+    \(T\)
+   </span>
+   个时间步上的梯度，在反向传播过程中产生长度为
+   <span class="math inline">
+    \(O(T)\)
+   </span>
+   的矩阵乘法链，导致数值不稳定。
+  </p>
+  <h3 id="rnns">
+   RNNs
+  </h3>
+  <figure>
+   <img alt="image-20220427170409552" src="C:\Users\Five\Desktop\note\img\image-20220427170409552.png"/>
+   <figcaption aria-hidden="true">
+    image-20220427170409552
+   </figcaption>
+  </figure>
+  <h2 id="简单实现">
+   简单实现
+  </h2>
+  <h2 id="关于递归神经网络">
+   关于递归神经网络
+  </h2>
+  <p>
+   如Hopfield神经网络，略
+  </p>
+  <h1 id="门控循环单元gru">
+   门控循环单元GRU
+  </h1>
+  <p>
+   Gated Recurrent Unit，门控循环单元。
+  </p>
+  <p>
+   <strong>
+    GRU的提出要比LSTM晚，或者说就是LSTM的一种变体，比LSTM更简单，但效果不差。
+   </strong>
+  </p>
+  <h2 id="问题和背景">
+   问题和背景
+  </h2>
+  <ul>
+   <li>
+    早期的观测值可能对预测所有未来的观测值具有非常重要的意义
+   </li>
+   <li>
+    一些词元没有相关的观测值
+    <ul>
+     <li>
+      例如，在对网页内容进行情感分析时，可能有一些辅助HTML代码与王爷传达的情绪无关。
+     </li>
+    </ul>
+   </li>
+   <li>
+    序列的各个部分之间存在逻辑中断。
+   </li>
+  </ul>
+  <h2 id="gru隐状态更新过程">
+   GRU隐状态更新过程
+  </h2>
+  <h3 id="门">
+   门
+  </h3>
+  <p>
+   <span class="math display">
+    \[
+R_t = \sigma (X_tW_{xr} + H_{t-1}W_{hr} + b_r) \\
+Z_t = \sigma (X_tW_{xz} + H_{t-1}W_{hz} + b_z)
+\]
+   </span>
+  </p>
+  <p>
+   <span class="math inline">
+    \(R_t\)
+   </span>
+   衡量要不要遗忘过去的信息，
+   <span class="math inline">
+    \(Z_t\)
+   </span>
+   衡量要不要更新指隐状态
+  </p>
+  <figure>
+   <img alt="image-20220429182136820" src="C:\Users\Five\Desktop\note\img\image-20220429182136820.png"/>
+   <figcaption aria-hidden="true">
+    image-20220429182136820
+   </figcaption>
+  </figure>
+  <h3 id="候选隐状态">
+   候选隐状态
+  </h3>
+  <p>
+   <span class="math display">
+    \[
+\tilde {H} = \tanh (X_t W_{xh} + (R_t \odot H_{t-1}) W_{hh} + b_h )
+\]
+   </span>
+  </p>
+  <p>
+   （如果不考虑上式中的
+   <span class="math inline">
+    \(R_t\)
+   </span>
+   ，则上式中的
+   <span class="math inline">
+    \(\tilde H\)
+   </span>
+   就是最基本的RNN模型的隐变量更新值）
+  </p>
+  <figure>
+   <img alt="image-20220429182159147" src="C:\Users\Five\Desktop\note\img\image-20220429182159147.png"/>
+   <figcaption aria-hidden="true">
+    image-20220429182159147
+   </figcaption>
+  </figure>
+  <h3 id="最终隐状态更新">
+   最终隐状态更新
+  </h3>
+  <p>
+   <span class="math display">
+    \[
+\tilde H _t = Z_t \odot H_{t-1} + (1-Z_t) \odot \tilde H _t
+\]
+   </span>
+  </p>
+  <p>
+   极端情况下，
+   <span class="math inline">
+    \(Z_t = 0\)
+   </span>
+   ，Reset
+Gate也没有作用的时候，就回到了最朴素的RNN的情形。
+  </p>
+  <figure>
+   <img alt="image-20220429184239744" src="C:\Users\Five\Desktop\note\img\image-20220429184239744.png"/>
+   <figcaption aria-hidden="true">
+    image-20220429184239744
+   </figcaption>
+  </figure>
+  <h1 id="长短期记忆lstm">
+   长短期记忆LSTM
+  </h1>
+  <p>
+   1997年的“老古董”了。
+  </p>
+  <blockquote>
+   <p>
+    Essential to these successes is the use of “LSTMs,” a very special
+kind of recurrent neural network which works, for many tasks, much much
+better than the standard version. Almost all exciting results based on
+recurrent neural networks are achieved with them. It’s these LSTMs that
+this essay will explore.
+   </p>
+   <p>
+    http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+   </p>
+  </blockquote>
+  <p>
+   LSTM，Long Short-Term
+Memory，一种时间循环神经网络，是为了解决一般的RNN存在的长期依赖问题而专门设计出来的。
+  </p>
+  <p>
+   由于独特的设计结构，LSTM适合于处理和预测时间序列中间隔和延迟非常长的重要事件。
+  </p>
+  <h2 id="奇怪的设计">
+   奇怪的设计
+  </h2>
+  <ul>
+   <li>
+    遗忘门：将值朝0减少
+   </li>
+   <li>
+    输入门：决定是不是忽略掉输入数据
+   </li>
+   <li>
+    输出门：决定是不是使用隐状态
+   </li>
+  </ul>
+  <p>
+   $$ I_t = (X_t W_{xi} + H_{t-1}W_{hi} + b_i) \ F_t = (X_t W_{xf} +
+H_{t-1}W_{hf} + b_f) \ O_t = (X_t W_{xo} + H_{t-1}W_{ho} + b_f) \ \
+  </p>
+  <p>
+   C = (X_tW_{xc} + H_{t-1}W_{hc} + b_c) \ C_t = F_t C_{t-1} + I_t C_t \
+\
+  </p>
+  <p>
+   H_t = O_t (C_t) $$
+  </p>
+  <figure>
+   <img alt="image-20220429194259173" src="C:\Users\Five\Desktop\note\img\image-20220429194259173.png"/>
+   <figcaption aria-hidden="true">
+    image-20220429194259173
+   </figcaption>
+  </figure>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      《动手学深度学习》Release 2.0.0-beta0, Aston Zhang,
+Zachary C. Lipton, Mu Li, and Alexander J. Smola
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      【循环神经网络】5分钟搞懂RNN，3D动画深入浅出https://www.bilibili.com/video/BV1z5411f7Bm
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

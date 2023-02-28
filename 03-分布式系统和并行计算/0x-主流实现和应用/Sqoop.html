@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   Sqoop
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/03-分布式系统和并行计算/index.html">
+     03-分布式系统和并行计算
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/00-指令粒度的并行运算.html">
+         00-指令粒度的并行运算.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/01-CAP.html">
+         01-CAP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/01-分布式和现代架构.html">
+         01-分布式和现代架构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/02-分布式存储.html">
+         02-分布式存储.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/03-分布式计算.html">
+         03-分布式计算.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/0x-RPC.html">
+         0x-RPC.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/Apache Beam.html">
+         Apache Beam.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/消息队列.html">
+         消息队列.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Flume.html">
+         Flume.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Hadoop.html">
+         Hadoop.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Kafka.html">
+         Kafka.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Sqoop.html">
+         Sqoop.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Storm.html">
+         Storm.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Storm速览.html">
+         Storm速览.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/zookeeper vs mq.html">
+         zookeeper vs mq.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/zookeeper.html">
+         zookeeper.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       0x-云计算.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       0x-算一笔帐-量化计算机资源.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       0x-边缘计算.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/index.html">
+       index.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    Sqoop
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#sqoop的架构" id="toc-sqoop的架构">
+      Sqoop的架构
+     </a>
+     <ul>
+      <li>
+       <a href="#cs架构" id="toc-cs架构">
+        C/S架构
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#基本使用" id="toc-基本使用">
+      基本使用
+     </a>
+     <ul>
+      <li>
+       <a href="#安装和部署" id="toc-安装和部署">
+        安装和部署
+       </a>
+      </li>
+      <li>
+       <a href="#命令行" id="toc-命令行">
+        命令行
+       </a>
+      </li>
+      <li>
+       <a href="#tools详解" id="toc-tools详解">
+        Tools详解
+       </a>
+       <ul>
+        <li>
+         <a href="#import" id="toc-import">
+          import
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#arguments" id="toc-arguments">
+        Arguments
+       </a>
+       <ul>
+        <li>
+         <a href="#common-arguments" id="toc-common-arguments">
+          Common
+arguments
+         </a>
+        </li>
+        <li>
+         <a href="#generic-hadoop" id="toc-generic-hadoop">
+          Generic
+Hadoop
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#其他" id="toc-其他">
+        其他
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#sqoop2" id="toc-sqoop2">
+      Sqoop2
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    讽刺的是，我的这门课考试的前一天，Sqoop退役了，Move into the
+Attic。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    确实也没啥好讲的内容，很表面、很浅显的一个工具罢了。
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    多数使用hadoop技术的处理大数据业务的企业，有大量的数据存储在关系型数据中
+   </li>
+   <li>
+    由于没有工具支持，对hadoop和关系型数据库之间数据传输是一个很困难的事。
+   </li>
+  </ul>
+  <p>
+   Apache Sqoop(TM) is a tool designed for efficiently transferring bulk
+data between
+   <a href="http://hadoop.apache.org/">
+    Apache Hadoop
+   </a>
+   and
+structured datastores such as relational databases.
+  </p>
+  <h1 id="sqoop的架构">
+   Sqoop的架构
+  </h1>
+  <p>
+   所有的导入导出，其底层都转化为了MapReduce任务
+  </p>
+  <h2 id="cs架构">
+   C/S架构
+  </h2>
+  <p>
+   还是这个说烂了的C/S架构，
+  </p>
+  <h1 id="基本使用">
+   基本使用
+  </h1>
+  <h2 id="安装和部署">
+   安装和部署
+  </h2>
+  <blockquote>
+   <p>
+    JDK和Hadoop的安装是前提。
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    编辑
+    <code>
+     sqoop-env.sh
+    </code>
+    文件
+    <ul>
+     <li>
+      <code>
+       cp sqoop-env-template.sh sqoop-env.sh
+      </code>
+     </li>
+     <li>
+      修改以下两行
+      <ul>
+       <li>
+        <code>
+         export HADOOP_COMMON_HOME=$HADOOP_HOME
+        </code>
+        和
+        <code>
+         export HADOOP_MAPRED_HOME=$HADOOP_HOME
+        </code>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    拷贝
+    <code>
+     mysql-connector-java-5.0.7-bin.jar
+    </code>
+    到
+    <code>
+     $SQOOP_HOME/lib
+    </code>
+    目录下
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    虽然实际操作中报关于HBase、Hcatalog、Zookeeper的Warning，但我直接无视。
+   </p>
+  </blockquote>
+  <h2 id="命令行">
+   命令行
+  </h2>
+  <p>
+   命令基本格式如下
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="ex">sqoop</span> tool-name <span class="pp">[</span><span class="ss">tool</span><span class="pp">-</span><span class="ss">arguments</span><span class="pp">]</span></span></code></pre>
+  </div>
+  <p>
+   其中Tool主要有
+  </p>
+  <ul>
+   <li>
+    codegen: Generate code to interact with database records
+   </li>
+   <li>
+    create-hive-table: Import a table definition into Hive
+   </li>
+   <li>
+    eval: Evaluate a SQL Statement and display the results
+   </li>
+   <li>
+    export
+   </li>
+   <li>
+    help
+   </li>
+   <li>
+    import
+   </li>
+   <li>
+    import-all-tables
+   </li>
+   <li>
+    import-mainframe
+   </li>
+   <li>
+    job
+   </li>
+   <li>
+    list-databses
+   </li>
+   <li>
+    list-tables
+   </li>
+   <li>
+    merge
+   </li>
+   <li>
+    metastore
+   </li>
+   <li>
+    version
+   </li>
+  </ul>
+  <h2 id="tools详解">
+   Tools详解
+  </h2>
+  <p>
+   所有Tool的调用既可以写成
+   <code>
+    sqool codegen
+   </code>
+   的形式，也可以直接用在bin目录下的
+   <code>
+    sqool-codegen
+   </code>
+   命令
+  </p>
+  <h3 id="import">
+   import
+  </h3>
+  <table>
+   <colgroup>
+    <col style="width: 35%"/>
+    <col style="width: 64%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      Argument
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      <code>
+       --append
+      </code>
+     </td>
+     <td>
+      Append data to an existing dataset in HDFS
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --as-avrodatafile
+      </code>
+     </td>
+     <td>
+      Imports data to Avro Data Files
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --as-sequencefile
+      </code>
+     </td>
+     <td>
+      Imports data to SequenceFiles
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --as-textfile
+      </code>
+     </td>
+     <td>
+      Imports data as plain text (default)
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --as-parquetfile
+      </code>
+     </td>
+     <td>
+      Imports data to Parquet Files
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --boundary-query &lt;statement&gt;
+      </code>
+     </td>
+     <td>
+      Boundary query to use for creating splits
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --columns &lt;col,col,col…&gt;
+      </code>
+     </td>
+     <td>
+      Columns to import from table
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --delete-target-dir
+      </code>
+     </td>
+     <td>
+      Delete the import target directory if it exists
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --direct
+      </code>
+     </td>
+     <td>
+      Use direct connector if exists for the database
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --fetch-size &lt;n&gt;
+      </code>
+     </td>
+     <td>
+      Number of entries to read from database at once.
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --inline-lob-limit &lt;n&gt;
+      </code>
+     </td>
+     <td>
+      Set the maximum size for an inline LOB
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       -m,--num-mappers &lt;n&gt;
+      </code>
+     </td>
+     <td>
+      Use
+      <em>
+       n
+      </em>
+      map tasks to import in parallel
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       -e,--query &lt;statement&gt;
+      </code>
+     </td>
+     <td>
+      Import the results of
+      <em>
+       <code>
+        statement
+       </code>
+      </em>
+      .
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --split-by &lt;column-name&gt;
+      </code>
+     </td>
+     <td>
+      Column of the table used to split work units. Cannot be used with
+      <code>
+       --autoreset-to-one-mapper
+      </code>
+      option.
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --split-limit &lt;n&gt;
+      </code>
+     </td>
+     <td>
+      Upper Limit for each split size. This only applies to Integer and
+Date columns. For date or timestamp fields it is calculated in
+seconds.
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --autoreset-to-one-mapper
+      </code>
+     </td>
+     <td>
+      Import should use one mapper if a table has no primary key and no
+split-by column is provided. Cannot be used with
+      <code>
+       --split-by &lt;col&gt;
+      </code>
+      option.
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --table &lt;table-name&gt;
+      </code>
+     </td>
+     <td>
+      Table to read
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --target-dir &lt;dir&gt;
+      </code>
+     </td>
+     <td>
+      HDFS destination dir
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --temporary-rootdir &lt;dir&gt;
+      </code>
+     </td>
+     <td>
+      HDFS directory for temporary files created during import (overrides
+default “_sqoop”)
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --warehouse-dir &lt;dir&gt;
+      </code>
+     </td>
+     <td>
+      HDFS parent for table destination
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --where &lt;where clause&gt;
+      </code>
+     </td>
+     <td>
+      WHERE clause to use during import
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       -z,--compress
+      </code>
+     </td>
+     <td>
+      Enable compression
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --compression-codec &lt;c&gt;
+      </code>
+     </td>
+     <td>
+      Use Hadoop codec (default gzip)
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --null-string &lt;null-string&gt;
+      </code>
+     </td>
+     <td>
+      The string to be written for a null value for string columns
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --null-non-string &lt;null-string&gt;
+      </code>
+     </td>
+     <td>
+      The string to be written for a null value for non-string
+columns
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h2 id="arguments">
+   Arguments
+  </h2>
+  <p>
+   Note that generic Hadoop arguments are preceeded by a single dash
+character (
+   <code>
+    -
+   </code>
+   ), whereas tool-specific arguments start with
+two dashes (
+   <code>
+    --
+   </code>
+   ), unless they are single character arguments
+such as
+   <code>
+    -P
+   </code>
+   .
+  </p>
+  <h3 id="common-arguments">
+   Common arguments
+  </h3>
+  <table>
+   <colgroup>
+    <col style="width: 37%"/>
+    <col style="width: 62%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      Argument
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      <code>
+       --connect &lt;jdbc-uri&gt;
+      </code>
+     </td>
+     <td>
+      Specify JDBC connect string
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --connection-manager &lt;class-name&gt;
+      </code>
+     </td>
+     <td>
+      Specify connection manager class to use
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --driver &lt;class-name&gt;
+      </code>
+     </td>
+     <td>
+      Manually specify JDBC driver class to use
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --hadoop-mapred-home &lt;dir&gt;
+      </code>
+     </td>
+     <td>
+      Override $HADOOP_MAPRED_HOME
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --help
+      </code>
+     </td>
+     <td>
+      Print usage instructions
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --password-file
+      </code>
+     </td>
+     <td>
+      Set path for a file containing the authentication password
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       -P
+      </code>
+     </td>
+     <td>
+      Read password from console
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --password &lt;password&gt;
+      </code>
+     </td>
+     <td>
+      Set authentication password
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --username &lt;username&gt;
+      </code>
+     </td>
+     <td>
+      Set authentication username
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --verbose
+      </code>
+     </td>
+     <td>
+      Print more information while working
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      <code>
+       --connection-param-file &lt;filename&gt;
+      </code>
+     </td>
+     <td>
+      Optional properties file that provides connection parameters
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      <code>
+       --relaxed-isolation
+      </code>
+     </td>
+     <td>
+      Set connection transaction isolation to read uncommitted for the
+mappers.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h3 id="generic-hadoop">
+   Generic Hadoop
+  </h3>
+  <pre><code>Generic Hadoop command-line arguments:
+(must preceed any tool-specific arguments)
+Generic options supported are
+-conf &lt;configuration file&gt;     specify an application configuration file
+-D &lt;property=value&gt;            use value for given property
+-fs &lt;local|namenode:port&gt;      specify a namenode
+-jt &lt;local|jobtracker:port&gt;    specify a job tracker
+-files &lt;comma separated list of files&gt;    specify comma separated files to be copied to the map reduce cluster
+-libjars &lt;comma separated list of jars&gt;    specify comma separated jar files to include in the classpath.
+-archives &lt;comma separated list of archives&gt;    specify comma separated archives to be unarchived on the compute machines.
+
+The general command line syntax is
+bin/hadoop command [genericOptions] [commandOptions]</code></pre>
+  <h2 id="其他">
+   其他
+  </h2>
+  <p>
+   也可以将配置参数写入文本文件中，如下所示，
+  </p>
+  <pre><code>import
+--connect
+jdbc:mysql://localhost/db
+--username
+foo
+# 还可以穿插注释</code></pre>
+  <p>
+   随后在命令行运行sqoop并使用该文本文件作为参数
+  </p>
+  <div class="sourceCode" id="cb4">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="ex">sqoop</span> <span class="at">--options-file</span> /users/homer/work/import.txt <span class="at">--table</span> TEST</span></code></pre>
+  </div>
+  <p>
+   其效果和
+   <code>
+    sqoop import --connect jdbc:mysql://localhost/db --username foo --table TEST
+   </code>
+   相同
+  </p>
+  <h1 id="sqoop2">
+   Sqoop2
+  </h1>
+  <ul>
+   <li>
+    <p>
+     ​ Latest cut of Sqoop2 is
+1.99.7（版本号还没正式到2也说明还在beta阶段）
+    </p>
+    <ul>
+     <li>
+      Sqoop2 is not intended for production depoloyment.
+     </li>
+    </ul>
+   </li>
+   <li>
+    <p>
+     Sqoop2和Sqoop1之间几乎没有兼容性可言。
+    </p>
+   </li>
+   <li>
+    <p>
+     它引入的sqoop
+Server，便于集中化的管理Connector或者其它的第三方插件
+    </p>
+   </li>
+   <li>
+    <p>
+     多种访问方式：CLI、Web UI、REST API
+    </p>
+   </li>
+   <li>
+    <p>
+     它引入了基于角色的安全机制，管理员可以在sqoop
+Server上配置不同的角色。
+    </p>
+   </li>
+  </ul>
+ </body>
+</html>

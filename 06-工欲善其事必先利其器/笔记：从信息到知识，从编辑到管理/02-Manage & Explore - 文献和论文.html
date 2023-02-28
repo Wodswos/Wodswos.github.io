@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   Manage &amp; Explore - 文献和论文
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+     06-工欲善其事必先利其器
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-反思.html">
+         0-反思.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-资源 &amp; 信息清单.html">
+         0-资源 &amp; 信息清单.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.1-考研规划 &amp; 作息.html">
+         1.1-考研规划 &amp; 作息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.2-复试规划 &amp; 作息.html">
+         1.2-复试规划 &amp; 作息.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Git-Action-Workflow和持续集成.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       Git-项目协同的典范.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux基础信息.html">
+         Linux基础信息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux常用命令和配置.html">
+         Linux常用命令和配置.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/BeautifulSoup.html">
+         BeautifulSoup.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/杂七杂八但有用的库.html">
+         杂七杂八但有用的库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/00-End2End初步试水.html">
+         00-End2End初步试水.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Markdown.html">
+         01-Write &amp; Edit-Markdown.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-TeX-排版无冕之王.html">
+         01-Write &amp; Edit-TeX-排版无冕之王.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Visual Studio Code.html">
+         01-Write &amp; Edit-Visual Studio Code.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html">
+         01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-编辑器和笔记软件.html">
+         01-Write &amp; Edit-编辑器和笔记软件.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-被遗忘的Word.html">
+         01-Write &amp; Edit-被遗忘的Word.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/02-Manage &amp; Explore - 文献和论文.html">
+         02-Manage &amp; Explore - 文献和论文.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 其他.html">
+         03-Export &amp; Publish - 其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - Github Pages.html">
+         03-Export &amp; Publish - 文档发布平台 - Github Pages.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html">
+         03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html">
+         03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html">
+         03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    Manage &amp; Explore - 文献和论文
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#期刊和会议" id="toc-期刊和会议">
+      期刊和会议
+     </a>
+     <ul>
+      <li>
+       <a href="#cns" id="toc-cns">
+        CNS
+       </a>
+      </li>
+      <li>
+       <a href="#sci" id="toc-sci">
+        SCI
+       </a>
+      </li>
+      <li>
+       <a href="#ai顶会" id="toc-ai顶会">
+        AI顶会
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#数据库" id="toc-数据库">
+      数据库
+     </a>
+     <ul>
+      <li>
+       <a href="#isi和web-of-science" id="toc-isi和web-of-science">
+        ISI和Web
+of Science
+       </a>
+       <ul>
+        <li>
+         <a href="#scie和core-collection" id="toc-scie和core-collection">
+          SCIE和Core Collection
+         </a>
+        </li>
+        <li>
+         <a href="#jcr分区表" id="toc-jcr分区表">
+          JCR分区表
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#sci-hub67" id="toc-sci-hub67">
+        sci-hub
+       </a>
+      </li>
+      <li>
+       <a href="#dblp" id="toc-dblp">
+        DBLP
+       </a>
+      </li>
+      <li>
+       <a href="#cnki" id="toc-cnki">
+        CNKI
+       </a>
+      </li>
+      <li>
+       <a href="#其他数据库" id="toc-其他数据库">
+        其他数据库
+       </a>
+       <ul>
+        <li>
+         <a href="#sciencedirect" id="toc-sciencedirect">
+          SCIENCEDIRECT
+         </a>
+        </li>
+        <li>
+         <a href="#iel" id="toc-iel">
+          IEL
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#论文8" id="toc-论文8">
+      论文
+     </a>
+     <ul>
+      <li>
+       <a href="#投稿" id="toc-投稿">
+        投稿
+       </a>
+      </li>
+      <li>
+       <a href="#论文格式和规范" id="toc-论文格式和规范">
+        论文格式和规范
+       </a>
+       <ul>
+        <li>
+         <a href="#参考文献" id="toc-参考文献">
+          参考文献
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#学校的大作业" id="toc-学校的大作业">
+      学校的大作业
+     </a>
+     <ul>
+      <li>
+       <a href="#latexmarkdown-vs-word" id="toc-latexmarkdown-vs-word">
+        LaTeX/Markdown vs Word
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="期刊和会议">
+   期刊和会议
+  </h1>
+  <blockquote>
+   <p>
+    ISSN，International Standard Serial Number，标准国际刊号。
+   </p>
+   <p>
+    分配ISSN的权威机构是ISSN国际中心（ISSN International
+Centre）、国家中心和地区中心。
+   </p>
+  </blockquote>
+  <h2 id="cns">
+   CNS
+  </h2>
+  <p>
+   Cell，Nature，Science，顶刊中的顶刊（当然，对于某一特定领域，也未必就比该领域的顶刊更具有参考价值）。
+  </p>
+  <h2 id="sci">
+   SCI
+  </h2>
+  <p>
+   ISI，The Institute for Scientific
+Information，科学信息研究所，由加菲尔德于1958年在美国费城创办。该研究所于1960年研究出了科学引文索引系统，为科学家、学者们提供所发表论文的影响力（即被引用情况）的信息，这套检索系统就是我们熟知的SCI（Science
+Citation Index，科学引文索引）。
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+  </p>
+  <blockquote>
+   <p>
+    ISI在早期把这些引用关系进行了排名，基于“谁被引用得多，谁的质量就高”这种想法，创立了一个概念叫“影响因子”，然后把引用量最高的期刊分不同学科做了一个排行榜，形成了“核心期刊”的概念，如“SCI核心期刊”。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    SCI、EI（The Engineering Index，工程索引）、STP（Index to Scientific
+&amp; Technical
+Proceedings，国际科技会议录索引）是世界著名的三大科技文献检索系统。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    SCI检索号，常用的用于表示SCI检索号的代号为WOS入藏号或IDS号，这两个号码是从Web
+of
+Science中搜索到具体的论文后，在该论文的详情页面最下方可以看到，通常WOS入藏号格式如：A1970H022600020，IDS号格式如：H0226
+   </p>
+  </blockquote>
+  <h2 id="ai顶会">
+   AI顶会
+  </h2>
+  <p>
+   CCF（中国计算机学会）（https://www.ccf.org.cn/Academic_Evaluation/AI/）对人工智能相关会议、期刊的大致评级如下
+  </p>
+  <p>
+   A类期刊
+  </p>
+  <table>
+   <colgroup>
+    <col style="width: 4%"/>
+    <col style="width: 49%"/>
+    <col style="width: 46%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      刊物
+     </th>
+     <th>
+      全程
+     </th>
+     <th>
+      出版社、地址
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      AI
+     </td>
+     <td>
+      Artificial Intelligence
+     </td>
+     <td>
+      Elsevier http://dblp.uni-trier.de/db/journals/ai/
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      TPAMI
+     </td>
+     <td>
+      IEEE Trans on Pattern Analysis and Machine Intelligence
+     </td>
+     <td>
+      IEEE http://dblp.uni-trier.de/db/journals/pami/
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      IJCV
+     </td>
+     <td>
+      International Journal of Computer Vision
+     </td>
+     <td>
+      Springer http://dblp.uni-trier.de/db/journals/ijcv/
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      JMLR
+     </td>
+     <td>
+      Journal of Machine Learning Research
+     </td>
+     <td>
+      MIT Press http://dblp.uni-trier.de/db/journals/jmlr/
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   A类会议
+  </p>
+  <table>
+   <colgroup>
+    <col style="width: 8%"/>
+    <col style="width: 73%"/>
+    <col style="width: 18%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      会议
+     </th>
+     <th>
+      全程
+     </th>
+     <th>
+      出版社、地址
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      AAAI
+     </td>
+     <td>
+      AAAI Conference of Artificial Intelligence
+     </td>
+     <td>
+      AAAI
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      NeurIPS
+     </td>
+     <td>
+      Annual Conference on Neural Information Processing MIT Press
+Systems
+     </td>
+     <td>
+      MIT Press
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      ACL
+     </td>
+     <td>
+      Annual Meeting of the Association for Computational Linguistics
+     </td>
+     <td>
+      ACL
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      CVPR
+     </td>
+     <td>
+      IEEE Conference on Computer Vision and Pattern Recognition
+     </td>
+     <td>
+      IEEE
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      ICCV
+     </td>
+     <td>
+      International Conference on Computer Vision
+     </td>
+     <td>
+      IEEE
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      ICML
+     </td>
+     <td>
+      International Conference on Machine Learning
+     </td>
+     <td>
+      ACM
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      IJCAI
+     </td>
+     <td>
+      International Joint Conference on Artificial Intelligence
+     </td>
+     <td>
+      Morgan Kaufmann
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   B类期刊
+  </p>
+  <p>
+   略
+  </p>
+  <p>
+   B类会议
+  </p>
+  <table>
+   <colgroup>
+    <col style="width: 7%"/>
+    <col style="width: 74%"/>
+    <col style="width: 18%"/>
+   </colgroup>
+   <thead>
+    <tr class="header">
+     <th>
+      会议
+     </th>
+     <th>
+      全程
+     </th>
+     <th>
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      COLT
+     </td>
+     <td>
+      Annual Conference on Computational Learning Theory
+     </td>
+     <td>
+      Springer
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      EMNLP
+     </td>
+     <td>
+      Conference on Empirical Methods is Natural Language Processing
+     </td>
+     <td>
+      ACL
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      ECAI
+     </td>
+     <td>
+      European Conference on Artificial Intelligence
+     </td>
+     <td>
+      IOS Press
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      ECCV
+     </td>
+     <td>
+      European Conference on Computer Vision
+     </td>
+     <td>
+      Springer
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      ICRA
+     </td>
+     <td>
+      IEEE International Conference on Robotics and Automation
+     </td>
+     <td>
+      IEEE
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      ICAPS
+     </td>
+     <td>
+      International Conference on Automated Planning and Scheduling
+     </td>
+     <td>
+      AAAI
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      ICCBR
+     </td>
+     <td>
+      International Conference on Case-Based Reasonging and
+Development
+     </td>
+     <td>
+      Springer
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      COLING
+     </td>
+     <td>
+      International Conference on Computaional Linguistics
+     </td>
+     <td>
+      ACM
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      KR
+     </td>
+     <td>
+      International Conference on Principles of Knowledge Representation
+and Reasoning
+     </td>
+     <td>
+      Morgan Kaufmann
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      UAI
+     </td>
+     <td>
+      International Conference on Uncertainty in Artificial
+Intelligence
+     </td>
+     <td>
+      AUAI
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      AAMAS
+     </td>
+     <td>
+      International Joint Conference on Autonomous Agents and Multi-agent
+Systems
+     </td>
+     <td>
+      Springer
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      PPSN
+     </td>
+     <td>
+      Parallel Problem Solving from Nature
+     </td>
+     <td>
+      Springer
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h1 id="数据库">
+   数据库
+  </h1>
+  <ul>
+   <li>
+    没有一篇文献是独立存在，都是是在“参考文献”或者说Related
+Work的基础上进一步工作的结果
+    <ul>
+     <li>
+      你引用我Cited
+     </li>
+     <li>
+      我引用你Citing
+     </li>
+     <li>
+      互不引用但内容相关Relavant
+     </li>
+    </ul>
+   </li>
+   <li>
+    对一个IDEA往往需要作三个维度的扩展研究
+    <ul>
+     <li>
+      通过Citing关系越查越深
+     </li>
+     <li>
+      通过Cited关系越查越新
+     </li>
+     <li>
+      通过Related关系越查越广
+     </li>
+    </ul>
+   </li>
+   <li>
+    由此诞生了用于搜索的数据库，如Web of Science，其中包含多个库
+    <ul>
+     <li>
+      理工科SCI(E)
+     </li>
+     <li>
+      社会科学SSCI
+     </li>
+     <li>
+      艺术人文库AHCI
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   数据库将若干期刊整合到一起，提供索引等服务。
+  </p>
+  <p>
+   还是从那家ISI公司讲起，信息技术的发展使ISI摆脱了文献收藏和检索的繁琐。他们改用CD-ROM光盘收集和检索文献，既便捷又高效，而且其改进速度也随着信息技术的迅速发展而突飞猛进。
+  </p>
+  <h2 id="isi和web-of-science">
+   ISI和Web of Science
+  </h2>
+  <p>
+   CD-ROM光盘版使用不久就改成网络电子版，ISI由此建立了自己的“科学网”，即“Web
+of science”。这个网络后来发展为“ISI知识网”，即“ISI Web of Knowledge”。
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+  </p>
+  <blockquote>
+   <p>
+    ISI Web of
+Knowledge平台由三部分组成：数据库、分析工具、其他资源网站。
+   </p>
+   <p>
+    “ISI Web of Science”现在使用的网络版本是“Web of
+Science7.0”，提供经过扩充的自然科学、社会科学和人文科学文献索引数据。
+   </p>
+  </blockquote>
+  <p>
+   ISI在1992年被加拿大汤姆森公司(The Thomson Corporation)的分公司Thomson
+Scientific &amp; Healthcare收购。
+  </p>
+  <p>
+   2007年5月15日，汤姆森公司与路透社宣布合并计划，Woodbridge（汤姆森家族企业）持有53%的新公司股份。2008年4月17日，汤姆森公司与路透社正式合并，汤森路透诞生。
+  </p>
+  <p>
+   2016年原汤森路透知识产权与科技事业部 (formerly the Intellectual
+Property and Science business of Thomson Reuters)正式独立，称为Clarivate
+Analytics（科睿唯安）。
+  </p>
+  <blockquote>
+   <p>
+    所以现在在Web of Science网站上看到的Logo是Clarivate
+Analytics（科睿唯安）。
+   </p>
+  </blockquote>
+  <p>
+   Web of
+Science是获取全球学术信息的重要数据库，它收录了全球13000多种权威的、高影响力的学术期刊，内容涵盖自然科学、工程技术、生物医学、社会科学、艺术与人文等领域。Web
+of
+Science收录了论文中所引用的参考文献，通过独特的引文索引，用户可以用一篇文章、一个专利号、一篇会议文献、一本期刊或者一本书作为检索词，检索它们的被引用情况，轻松回溯某一研究文献的起源与历史，或者追踪其最新进展；可以越查越广、越查越新、越查越深。
+  </p>
+  <figure>
+   <img alt="Web of Science 新版界面" src="C:\Users\Five\Desktop\note\img\image-20201231173140304.png"/>
+   <figcaption aria-hidden="true">
+    Web of Science 新版界面
+   </figcaption>
+  </figure>
+  <h3 id="scie和core-collection">
+   SCIE和Core Collection
+  </h3>
+  <p>
+   Core Collection，即SCIE、SSCI、AHCI、ESCI，可以在
+   <a href="https://mjl.clarivate.com/collection-list-downloads">
+    官网获取详细的索引目录
+   </a>
+   。
+  </p>
+  <p>
+   SCIE即“SCI
+Expanded”。SCIE涵盖了SCI的全部内容（3100份期刊），以及后来增加的内容。SCI有印刷版和SCI光盘版，SCIE是网络版。
+  </p>
+  <p>
+   现在常说的SCI实际上指的往往都是SCIE，只是习惯称之为SCI。
+  </p>
+  <p>
+   如下图所示，最新的SCIE共计9525条。
+   <a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref">
+    <sup>
+     3
+    </sup>
+   </a>
+  </p>
+  <figure>
+   <img alt="image-20201231175611130" src="C:\Users\Five\Desktop\note\img\image-20201231175611130.png"/>
+   <figcaption aria-hidden="true">
+    image-20201231175611130
+   </figcaption>
+  </figure>
+  <h3 id="jcr分区表">
+   JCR分区表
+  </h3>
+  <p>
+   ISI每年出版JCR（《期刊引用报告》，全称Journal Citation
+Reports）。JCR对包括SCI收录的3800种核心期刊(光盘版)在内的8000多种期刊(网络版)之间的引用和被引用数据进行统计、运算，并针对每种期刊定义了影响因子（Impact
+Factor）等指数加以报道。
+  </p>
+  <ul>
+   <li>
+    中科院期刊分区
+   </li>
+  </ul>
+  <p>
+   始于2000年之初，旨在纠正当时国内科研界对不同学科期刊影响因子数值差异的忽视。
+  </p>
+  <p>
+   中科院期刊分区依据也是基于一个期刊的IF，但是采用的是三年平均IF，优点是减少了有些期刊IF逐年波动较大带来的不稳定因素。
+  </p>
+  <h4 id="中科院jcr和汤森路透jcr的比较">
+   中科院JCR和汤森路透JCR的比较
+  </h4>
+  <ul>
+   <li>
+    学科划分不同
+   </li>
+  </ul>
+  <p>
+   汤森路透JCR的Journal
+Ranking没有设置大类学科，只分为176个具体学科，也就是中科院分区表中所指的小类学科。
+  </p>
+  <ul>
+   <li>
+    分区方法不同
+   </li>
+  </ul>
+  <p>
+   Journal
+Ranking以当年的IF为基础，每个学科分类按照期刊的当年的IF高低，平均分为Q1、Q2、Q3和Q4四个区，Q表示Quartile
+in
+Category。汤森路透分区中期刊的数量是均匀分为四个部分，而中科院分区表四个区呈金字塔型分布，缺点是一区期刊数太少。
+  </p>
+  <ul>
+   <li>
+    合并/更名期刊的处理方式不同：
+   </li>
+  </ul>
+  <p>
+   中科院分区表是基于JCR的数据，但对于JCR中期刊刊名更名/合并的情况进行数据规范处理。对于变更刊名的期刊，JCR会保留两个刊名，会计算两个IF。中科院分区表会将变更前期刊数据合并到变更后的期刊，且重新计算IF，只保留变更后刊名和ISSN。
+  </p>
+  <h2 id="sci-hub67">
+   sci-hub
+   <a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref">
+    <sup>
+     4
+    </sup>
+   </a>
+   <a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref">
+    <sup>
+     5
+    </sup>
+   </a>
+  </h2>
+  <p>
+   Sci-Hub这个张麻子。专门干劫富济贫的事。这些出版社的富佬们当然不乐意。2015年，全球最大的科学出版社商之一，荷兰的Elsevier在美国提起指控Sci-Hub侵犯学术文献著作权的诉讼。
+  </p>
+  <p>
+   之后，多家出版机构起诉Sci-Hub。结果Sci-Hub无法访问，但很快数个Sci-Hub涌现。
+  </p>
+  <h2 id="dblp">
+   DBLP
+  </h2>
+  <p>
+   Database Systems and Logic
+Programming。是计算机领域内对研究的成果以作者为核心的一个计算机类英文文献的集成数据库系统。
+  </p>
+  <p>
+   它提供计算机领域科学文献的搜索服务，但只储存这些文献的相关元数据，如标题，作者，发表日期等。截至2009年7月已经有超过1,200,000文献。和一般流行的情况不同，DBLP并没有使用数据库而是使用XML存储元数据。
+  </p>
+  <h2 id="cnki">
+   CNKI
+  </h2>
+  <p>
+   略
+  </p>
+  <h2 id="其他数据库">
+   其他数据库
+  </h2>
+  <h3 id="sciencedirect">
+   SCIENCEDIRECT
+  </h3>
+  <p>
+   SCIENCEDIRECT是爱斯维尔（Elsevier）公司的全文数据库平台。是全球最大的科学、技术与医学全文电子资源数据库，提供2500余种学术期刊以及37000余种图书的全文内容。包括全球影响力极高的CELL《细胞杂志》、THE
+LANCET《柳叶刀杂志》等。
+  </p>
+  <h3 id="iel">
+   IEL
+  </h3>
+  <p>
+   IEEE-IET ELECTRONIC LIBRARY，美国电气电子工程师学会数据库
+  </p>
+  <p>
+   IEEE旗下最完整的在线数据资源。
+  </p>
+  <blockquote>
+   <p>
+    如何获取期刊和会议报告：通过数据库搜索或期刊官网
+   </p>
+   <p>
+    如何投稿：万维书刊网，查找相应期刊或者去期刊相应官网
+   </p>
+  </blockquote>
+  <h1 id="论文8">
+   论文
+   <a class="footnote-ref" href="#fn6" id="fnref6" role="doc-noteref">
+    <sup>
+     6
+    </sup>
+   </a>
+  </h1>
+  <p>
+   主要参考了期刊Nature的官网For
+Author内容和期刊《控制与决策》的资料。两个期刊跨度很大，透过这两个样本也基本足够认识大部分期刊。
+  </p>
+  <h2 id="投稿">
+   投稿
+  </h2>
+  <p>
+   前文都是在介绍现有文献组成的数据库和索引方式，那一篇论文是如何从无到有，再到发表的呢。
+  </p>
+  <p>
+   可以在期刊的官网找到投稿相关信息。
+  </p>
+  <figure>
+   <img alt="《控制与决策》网络投稿流程" src="C:/Users/Five/Desktop/note/img/Internet-manuscript-processing.jpg"/>
+   <figcaption aria-hidden="true">
+    《控制与决策》网络投稿流程
+   </figcaption>
+  </figure>
+  <h2 id="论文格式和规范">
+   论文格式和规范
+  </h2>
+  <p>
+   找了三个PKU中文核心，其中《计算机学报》应该是官网出了点问题，模板的链接失效，《模式识别与人工智能》和《控制与决策》没找到模板下载的地方。而且《控制与决策》要求作者提供WORD2003或WORD2007版本的电子稿件……而没有LaTex的选项。
+  </p>
+  <p>
+   又找了一家，《控制理论与应用》，还好我没放弃，下载区有LaTeX模板，
+  </p>
+  <h3 id="参考文献">
+   参考文献
+  </h3>
+  <p>
+   在Google
+Scholar（或者百度学术）等数据库，都可以根据你需要的格式自动生成引用信息。
+  </p>
+  <figure>
+   <img alt="image-20201231132535381" src="C:\Users\Five\Desktop\note\img\image-20201231132535381.png"/>
+   <figcaption aria-hidden="true">
+    image-20201231132535381
+   </figcaption>
+  </figure>
+  <ul>
+   <li>
+    MLA
+   </li>
+   <li>
+    APA
+   </li>
+   <li>
+    Chicago
+   </li>
+   <li>
+    Harvard
+   </li>
+   <li>
+    Vancouver
+   </li>
+   <li>
+    GB/T 7714-2015
+   </li>
+  </ul>
+  <p>
+   还可以导出格式化的信息，如BibTex、EndNote、RefMan等。
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">meng2016mllib</span>,</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>  <span class="dt">title</span>={Mllib: Machine learning in apache spark},</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>  <span class="dt">author</span>={Meng, Xiangrui and Bradley, Joseph and Yavuz, Burak and Sparks, Evan and Venkataraman, Shivaram and Liu, Davies and Freeman, Jeremy and Tsai, DB and Amde, Manish and Owen, Sean and others},</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>  <span class="dt">journal</span>={The Journal of Machine Learning Research},</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>  <span class="dt">volume</span>={17},</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a>  <span class="dt">number</span>={1},</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a>  <span class="dt">pages</span>={1235--1241},</span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>  <span class="dt">year</span>={2016},</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>  <span class="dt">publisher</span>={JMLR. org}</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>}</span></code></pre>
+  </div>
+  <pre class="endnote"><code>%0 Journal Article
+%T Mllib: Machine learning in apache spark
+%A Meng, Xiangrui
+%A Bradley, Joseph
+%A Yavuz, Burak
+%A Sparks, Evan
+%A Venkataraman, Shivaram
+%A Liu, Davies
+%A Freeman, Jeremy
+%A Tsai, DB
+%A Amde, Manish
+%A Owen, Sean
+%J The Journal of Machine Learning Research
+%V 17
+%N 1
+%P 1235-1241
+%@ 1532-4435
+%D 2016
+%I JMLR. org</code></pre>
+  <h1 id="学校的大作业">
+   学校的大作业
+  </h1>
+  <h2 id="latexmarkdown-vs-word">
+   LaTeX/Markdown vs Word
+  </h2>
+  <p>
+   用Markdown+Typora写作是一件很舒服的事情，但作为一个苦逼的学生，肯定会有大作业的需求，作为一个渣渣学校，大作业的格式要求往往是以Word的标准
+   <a class="footnote-ref" href="#fn7" id="fnref7" role="doc-noteref">
+    <sup>
+     7
+    </sup>
+   </a>
+   给出。
+  </p>
+  <p>
+   那如何用Markdown写作业，又能使得导出的效果比较理想呢？
+  </p>
+  <blockquote>
+   <p>
+    怎么显示标题、作者等信息？
+   </p>
+  </blockquote>
+  <p>
+   通过内嵌HTML的方式，使得标题等信息居中。
+  </p>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      sci和scie有什么区别？ - 我啥都不知道的回答 - 知乎
+https://www.zhihu.com/question/359365326/answer/923228693
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      sci和scie有什么区别？ - 我啥都不知道的回答 - 知乎
+https://www.zhihu.com/question/359365326/answer/923228693
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn3">
+     <p>
+      WOS Collection-List-Downloads
+https://mjl.clarivate.com/collection-list-downloads
+      <a class="footnote-back" href="#fnref3" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn4">
+     <p>
+      Sci-Hub败诉，你支持该收版权费还是支持学术交流应无障碍？
+- 研之成理的回答 - 知乎
+https://www.zhihu.com/question/61481542/answer/207990066
+      <a class="footnote-back" href="#fnref4" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn5">
+     <p>
+      https://sci-hub.do/
+一个sci-hub的地址，也不知道会坚持多久
+      <a class="footnote-back" href="#fnref5" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn6">
+     <p>
+      Nature杂志作者指南
+https://www.nature.com/nature/for-authors
+      <a class="footnote-back" href="#fnref6" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn7">
+     <p>
+      我大一，期末要让我们写2000左右的论文，论文格式是什么样的？ -
+小曼说的回答 - 知乎
+https://www.zhihu.com/question/306010952/answer/1289261853
+      <a class="footnote-back" href="#fnref7" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
   <meta content="fivezehua@qq.com" name="author"/>
   <title>
-   tempWork
+   指令粒度的并行运算
   </title>
   <style>
    html {
@@ -161,6 +161,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
    #TOC {
     border-left: gray 2px dashed;
     padding: 5px;
@@ -280,6 +344,153 @@
   <![endif]-->
  </head>
  <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/03-分布式系统和并行计算/index.html">
+     03-分布式系统和并行计算
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/00-指令粒度的并行运算.html">
+         00-指令粒度的并行运算.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/01-CAP.html">
+         01-CAP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/01-分布式和现代架构.html">
+         01-分布式和现代架构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/02-分布式存储.html">
+         02-分布式存储.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/03-分布式计算.html">
+         03-分布式计算.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/0x-RPC.html">
+         0x-RPC.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/Apache Beam.html">
+         Apache Beam.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/消息队列.html">
+         消息队列.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Flume.html">
+         Flume.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Hadoop.html">
+         Hadoop.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Kafka.html">
+         Kafka.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Sqoop.html">
+         Sqoop.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Storm.html">
+         Storm.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/Storm速览.html">
+         Storm速览.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/zookeeper vs mq.html">
+         zookeeper vs mq.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/zookeeper.html">
+         zookeeper.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       0x-云计算.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       0x-算一笔帐-量化计算机资源.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       0x-边缘计算.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/index.html">
+       index.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
   <div id="main-navigation">
    <div id="navigation-list-wrapper">
     <a class="web-header" href="https://wodswos.github.io">
@@ -676,7 +887,7 @@
   </div>
   <header id="title-block-header">
    <h1 class="title">
-    tempWork
+    指令粒度的并行运算
    </h1>
    <p class="author">
     fivezehua@qq.com
@@ -685,36 +896,290 @@
   <nav id="TOC" role="doc-toc">
    <ul>
     <li>
-     <a href="#碎碎念" id="toc-碎碎念">
-      碎碎念
+     <a href="#x86-sseavx指令集" id="toc-x86-sseavx指令集">
+      X86
+SSE/AVX指令集
+     </a>
+     <ul>
+      <li>
+       <a href="#sse内置函数" id="toc-sse内置函数">
+        SSE内置函数
+       </a>
+      </li>
+      <li>
+       <a href="#avx内置函数" id="toc-avx内置函数">
+        AVX内置函数
+       </a>
+      </li>
+      <li>
+       <a href="#优化实例" id="toc-优化实例">
+        优化实例
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#gpu" id="toc-gpu">
+      GPU
      </a>
     </li>
    </ul>
   </nav>
+  <h1 id="x86-sseavx指令集">
+   X86 SSE/AVX指令集
+  </h1>
   <p>
-   Manuel Blum:
+   SSE（Stream SIMD Extensions）/AVX（Advanced Vector
+Extensions）是x86体系的SIMD（Single Instruction Mutiple
+Data）扩展指令集
+  </p>
+  <p>
+   SIMD，单指令多数据流，能够复制多个操作数，并把他们打包在大型寄存器的一组指令集。
+  </p>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/635010afa088183ec34140181e876ef1_1440w.png"/>
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>vectorAdd<span class="op">(</span><span class="at">const</span> <span class="dt">float</span><span class="op">*</span> a<span class="op">,</span> <span class="at">const</span> <span class="dt">float</span><span class="op">*</span> b<span class="op">,</span> <span class="at">const</span> <span class="dt">float</span><span class="op">*</span> c<span class="op">){</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span><span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>        c<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> b<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+  </div>
+  <div class="sourceCode" id="cb2">
+   <pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>__m256 vectorAdd<span class="op">(</span>__m256 a<span class="op">,</span> __m256 b<span class="op">,</span> __m256 c<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    <span class="cf">return</span> _mm256_add_ps<span class="op">(</span>a<span class="op">,</span>b<span class="op">);</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+  </div>
+  <p>
+   一方面，可以理解为SSE/AVX提供了一批正儿八经的新数据类型（直接从硬件层面支持的数据类型）：
+  </p>
+  <table>
+   <thead>
+    <tr class="header">
+     <th>
+      数据类型
+     </th>
+     <th>
+      描述
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      _m128
+     </td>
+     <td>
+      128bit能容纳4个FLOAT变量（每个FLOAT 4字节/32比特）
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      _m128d
+     </td>
+     <td>
+      128bit能容纳2个DOUBLE变量（每个DOUBLE 4字节/32比特）
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      _m128i
+     </td>
+     <td>
+      128bit能容纳4个INT变量（每个INT t4字节/32比特）
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      _m256
+     </td>
+     <td>
+      256bit能容纳8个FLOAT变量
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      _m256d
+     </td>
+     <td>
+      256bit能容纳4个DOUBLE变量
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      _m256i
+     </td>
+     <td>
+      256bit能容纳8个INT变量
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   有了数据类型，当然需要进一步有对数据类型的操作。Intel
+ICC和GCC支持的SSE/AVX指令的C接口声明在
+   <code>
+    intrinsic.h
+   </code>
+   头文件中。
+  </p>
+  <p>
+   SSE/AVX指令接口一般分为三部分：
+   <code>
+    _mm
+   </code>
+   或
+   <code>
+    _mm256
+   </code>
+   、操作函数名称、操作对象名及数据类型。即
+   <code>
+    _mm&lt;bit_width&gt;_&lt;operation&gt;_&lt;data_type&gt;
+   </code>
+  </p>
+  <p>
+   <code>
+    _mm
+   </code>
+   表示SSE指令，向量长度为64位或128位；
+   <code>
+    _m256
+   </code>
+   表示AVX指令，操作向量长度256位。
+  </p>
+  <p>
+   在
+   <code>
+    _mm
+   </code>
+   /
+   <code>
+    _mm256
+   </code>
+   后跟操作类型，如
+   <code>
+    __m128_add
+   </code>
+   ，常用的有add、load、mul等。
   </p>
   <blockquote>
    <p>
-    You are all computer scientists. You know what FINITE AUTOMATA can
-do. You know what TURING MACHINES can do. For example, Finite Automata
-can add but not multiply. Turing Machines can compute any computable
-function. Turing machines are incredibly more powerful than Finite
-Automata. Yet the only difference between a FA and a TM is that the TM,
-unlike the FA, has paper and pencil. Think about it. It tells you
-something about the power of writing. Without writing, you are reduced
-to a finite automaton. With writing you have the extraordinary power of
-a Turing machine.
+    一些函数操作会增加修饰符，如loadu表示不对其到向量长度的存储器访问。
    </p>
   </blockquote>
-  <h1 id="碎碎念">
-   碎碎念
+  <p>
+   指令第三部分为数据类型
+  </p>
+  <ul>
+   <li>
+    <p>
+     <code>
+      _ps
+     </code>
+     表示向量中为单精度（SINGLE/FLOAT）数据，按32bit为一个单位
+    </p>
+   </li>
+   <li>
+    <p>
+     <code>
+      _pd
+     </code>
+     表示为双精度，64bit一个单位
+    </p>
+   </li>
+   <li>
+    <p>
+     <code>
+      _epi8
+     </code>
+     /
+     <code>
+      epi16
+     </code>
+     /
+     <code>
+      epi32
+     </code>
+     /
+     <code>
+      epi64
+     </code>
+     ：INT类型数据，一个INT占8/16/32/64位
+    </p>
+    <ul>
+     <li>
+      e猜测是externel的意思，表示128位向量寄存器，每e表示64位向量寄存器
+     </li>
+     <li>
+      就像IA-16到IA-32通用寄存器的扩展也是加个E一样
+     </li>
+    </ul>
+   </li>
+   <li>
+    <p>
+     <code>
+      epu8
+     </code>
+     /
+     <code>
+      epu16
+     </code>
+     /
+     <code>
+      epu32
+     </code>
+     /
+     <code>
+      epu64
+     </code>
+     ：UNSIGNED，无符号整型
+    </p>
+   </li>
+   <li>
+    <p>
+     <code>
+      _ss
+     </code>
+     表示只操作向量中第一个SINGLE（单精度）类型。
+    </p>
+   </li>
+   <li>
+    <p>
+     <code>
+      si128
+     </code>
+     表示只操作第一个128位INT。
+    </p>
+   </li>
+   <li>
+    <p>
+     内存地址需要对齐到向量长度，否则会增加访问存储器的次数
+    </p>
+    <ul>
+     <li>
+      SSE4指令要求存储器地址必须16字节对齐
+     </li>
+     <li>
+      AVX支持不对齐的读写，但性能大约会下降20%
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="sse内置函数">
+   SSE内置函数
+  </h2>
+  <h2 id="avx内置函数">
+   AVX内置函数
+  </h2>
+  <h2 id="优化实例">
+   优化实例
+  </h2>
+  <h1 id="gpu">
+   GPU
   </h1>
   <p>
-   可能还是该多看多读多想少记。
-  </p>
-  <p>
-   记录有收获，但耽搁了太多时间了，也很难沉下心来。
+   [[09-其他补充-GPU基础常识]]
   </p>
  </body>
 </html>

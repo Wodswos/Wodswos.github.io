@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
   <meta content="fivezehua@qq.com" name="author"/>
   <title>
-   tempWork
+   线性代数
   </title>
   <style>
    html {
@@ -161,6 +161,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
    #TOC {
     border-left: gray 2px dashed;
     padding: 5px;
@@ -275,11 +339,272 @@
         border-bottom: #aaaaaa solid 1px;
     }
   </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
  </head>
  <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/04-人工智能之机器学习/index.html">
+     04-人工智能之机器学习
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/基于符号的机器学习.html">
+         基于符号的机器学习.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/控制论-现代控制论.html">
+         控制论-现代控制论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/控制论-经典控制论.html">
+         控制论-经典控制论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/数学篇-微积分.html">
+         数学篇-微积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/数学篇-最优化理论.html">
+         数学篇-最优化理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/数学篇-概率.html">
+         数学篇-概率.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/数学篇-线性代数.html">
+         数学篇-线性代数.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/1.1-分类模型-决策树.html">
+         1.1-分类模型-决策树.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/1.2-分类模型-SVM.html">
+         1.2-分类模型-SVM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/1.3-分类模型-朴素贝叶斯.html">
+         1.3-分类模型-朴素贝叶斯.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/1.4-分类模型-K近邻.html">
+         1.4-分类模型-K近邻.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/1.5-分类模型-感知机.html">
+         1.5-分类模型-感知机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/2.1-回归模型-逻辑斯蒂回归模型与最大熵模型.html">
+         2.1-回归模型-逻辑斯蒂回归模型与最大熵模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/3.1-集成学习-Bagging.html">
+         3.1-集成学习-Bagging.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/3.2-集成学习-Boosting.html">
+         3.2-集成学习-Boosting.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/3.3-集成学习-随机森林.html">
+         3.3-集成学习-随机森林.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/4-EM算法.html">
+         4-EM算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/5-隐马尔科夫模型.html">
+         5-隐马尔科夫模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/6-条件随机场.html">
+         6-条件随机场.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/1-聚类-概述.html">
+         1-聚类-概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/1-聚类-谱聚类.html">
+         1-聚类-谱聚类.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/2-奇异值分解.html">
+         2-奇异值分解.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/3-主成分分析.html">
+         3-主成分分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/4-概率潜在语义分析.html">
+         4-概率潜在语义分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/4-潜在语义分析.html">
+         4-潜在语义分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/5-马尔科夫链蒙特卡洛法.html">
+         5-马尔科夫链蒙特卡洛法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/6-潜在迪利克雷分配.html">
+         6-潜在迪利克雷分配.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/7-PageRank算法.html">
+         7-PageRank算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/Apriori和FP增长算法.html">
+         Apriori和FP增长算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/0-数据集的处理.html">
+         0-数据集的处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/损失函数的设计.html">
+         损失函数的设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/离散化.html">
+         离散化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/规约.html">
+         规约.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/降维和PCA主成分分析.html">
+         降维和PCA主成分分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/集成.html">
+         集成.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       x-Python的机器学习库.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
   <div id="main-navigation">
    <div id="navigation-list-wrapper">
     <a class="web-header" href="https://wodswos.github.io">
@@ -676,7 +1001,7 @@
   </div>
   <header id="title-block-header">
    <h1 class="title">
-    tempWork
+    线性代数
    </h1>
    <p class="author">
     fivezehua@qq.com
@@ -685,36 +1010,106 @@
   <nav id="TOC" role="doc-toc">
    <ul>
     <li>
-     <a href="#碎碎念" id="toc-碎碎念">
-      碎碎念
+     <a href="#关于范数" id="toc-关于范数">
+      关于范数
+     </a>
+     <ul>
+      <li>
+       <a href="#矩阵的范数" id="toc-矩阵的范数">
+        矩阵的范数
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#线性回归仿射变换" id="toc-线性回归仿射变换">
+      线性回归：仿射变换
      </a>
     </li>
    </ul>
   </nav>
   <p>
-   Manuel Blum:
+   详细内容参见数理基础部分笔记。
   </p>
-  <blockquote>
-   <p>
-    You are all computer scientists. You know what FINITE AUTOMATA can
-do. You know what TURING MACHINES can do. For example, Finite Automata
-can add but not multiply. Turing Machines can compute any computable
-function. Turing machines are incredibly more powerful than Finite
-Automata. Yet the only difference between a FA and a TM is that the TM,
-unlike the FA, has paper and pencil. Think about it. It tells you
-something about the power of writing. Without writing, you are reduced
-to a finite automaton. With writing you have the extraordinary power of
-a Turing machine.
-   </p>
-  </blockquote>
-  <h1 id="碎碎念">
-   碎碎念
+  <p>
+   [[01-数理基础/03-结构且代数88/线性空间和线性代数/README]]
+  </p>
+  <h1 id="关于范数">
+   关于范数
   </h1>
   <p>
-   可能还是该多看多读多想少记。
+   在深度学习中，问题的目标常常可以被表达为某一范数。
+   <span class="math display">
+    \[
+L_p = ||x||_p =  \sqrt [p]{ (\sum _{i=1} ^n |{x_i}|^p)}
+\]
+   </span>
+   最常见的范数是欧氏距离，即
+   <span class="math inline">
+    \(L_2\)
+   </span>
+   范数。在
+   <span class="math inline">
+    \(L_2\)
+   </span>
+   范数中也常常省略下标2.
+   <span class="math display">
+    \[
+||X||_2 = \sqrt {\sum _{i=1} ^n x_i ^2}
+\]
+   </span>
+   在深度学习中，会更经常地使用
+   <span class="math inline">
+    \(L_2\)
+   </span>
+   范数的平方。
   </p>
   <p>
-   记录有收获，但耽搁了太多时间了，也很难沉下心来。
+   当然还有
+   <span class="math inline">
+    \(L_1\)
+   </span>
+   范数，表示为向量元素的绝对值之和。与
+   <span class="math inline">
+    \(L_2\)
+   </span>
+   范数相比，
+   <span class="math inline">
+    \(L_1\)
+   </span>
+   范数受异常值的影响较小。
+  </p>
+  <h2 id="矩阵的范数">
+   矩阵的范数
+  </h2>
+  <p>
+   类似于向量的
+   <span class="math inline">
+    \(L_2\)
+   </span>
+   范数，矩阵
+   <span class="math inline">
+    \(X \in \mathbb R ^{m\times n}\)
+   </span>
+   的
+Frobenius 范数是矩阵元素平方和的平方根。
+   <span class="math display">
+    \[
+||X||_F = \sqrt {\sum _{i=1} ^m \sum _{j=1} ^n x_{ij} ^2}
+\]
+   </span>
+   Frobenius 范数满足向量范数的所有性质。
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="co"># 调用 torch.norm 计算 Frobenius 范数</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>torch.norm(torch.ones((<span class="dv">4</span>,<span class="dv">9</span>)))</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="co"># output为6</span></span></code></pre>
+  </div>
+  <h1 id="线性回归仿射变换">
+   线性回归：仿射变换
+  </h1>
+  <p>
+   [[1.0-万物起源，线性回归]]
   </p>
  </body>
 </html>

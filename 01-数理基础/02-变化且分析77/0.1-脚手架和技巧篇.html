@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   脚手架和技巧篇
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/01-数理基础/index.html">
+     01-数理基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       00-数学史概要.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-数理逻辑.html">
+         00-数理逻辑.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-测度理论.html">
+         00-测度理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-直觉主义和构造主义.html">
+         00-直觉主义和构造主义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/00-集合论-所谓的数学基础.html">
+         00-集合论-所谓的数学基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/01-实数的定义-柯西序列和戴德金分割.html">
+         01-实数的定义-柯西序列和戴德金分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/02-第三次数学危机全史--永恒的金色对角线.html">
+         02-第三次数学危机全史--永恒的金色对角线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-可判定性.html">
+         03-希尔伯特纲领的破产-可判定性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/03-希尔伯特纲领的破产-哥德尔不完备定理.html">
+         03-希尔伯特纲领的破产-哥德尔不完备定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/04-类型论.html">
+         04-类型论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-关于数学的哲学.html">
+         0x-关于数学的哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/0x-范畴论.html">
+         0x-范畴论.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.0-先验知识篇-函数.html">
+         0.0-先验知识篇-函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/0.1-脚手架和技巧篇.html">
+         0.1-脚手架和技巧篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/1.1-极限-分析之本.html">
+         1.1-极限-分析之本.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.1-从导数到微分-导数的定义、计算、性质和应用.html">
+         2.1-从导数到微分-导数的定义、计算、性质和应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.2-从导数到微分-深入理解微分.html">
+         2.2-从导数到微分-深入理解微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/2.3-从导数到微分-多元函数的导数和微分.html">
+         2.3-从导数到微分-多元函数的导数和微分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.1-积分-积分的定义、计算和基本应用.html">
+         3.1-积分-积分的定义、计算和基本应用.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.2-积分-Stieltjes和Lebesgue.html">
+         3.2-积分-Stieltjes和Lebesgue.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.3-积分-多元函数和重积分.html">
+         3.3-积分-多元函数和重积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/3.4-积分-反常积分和级数.html">
+         3.4-积分-反常积分和级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/4.1-微分方程-从积分到微分方程.html">
+         4.1-微分方程-从积分到微分方程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/5-无穷级数.html">
+         5-无穷级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.1-傅里叶级数.html">
+         6.1-傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/6.2-傅里叶变换和快速傅里叶变换.html">
+         6.2-傅里叶变换和快速傅里叶变换.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-《Principles of mathematical analysis》.html">
+         supplement-《Principles of mathematical analysis》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-换个视角重新认识分析-Transformational visual.html">
+         supplement-换个视角重新认识分析-Transformational visual.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html">
+         supplement-要素过多：虚数、复平面、上帝公式、圆周、三角函数、傅里叶级数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/supplement-非标准分析.html">
+         supplement-非标准分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/x-错题（甚至没思路的题）本.html">
+         x-错题（甚至没思路的题）本.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-Group Theory-群论.html">
+         00-Group Theory-群论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/00-关系和函数.html">
+         00-关系和函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-格与布尔代数.html">
+         01-代数结构-格与布尔代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-代数结构-群环域.html">
+         01-代数结构-群环域.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-序结构.html">
+         01-序结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/01-拓扑结构.html">
+         01-拓扑结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-初等数论.html">
+         02-初等数论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-图论.html">
+         02-图论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/02-形式语言.html">
+         02-形式语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/03-组合数学.html">
+         03-组合数学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-对称性.html">
+         0x-对称性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/0x-魔群.html">
+         0x-魔群.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-代数的源头-方程求根史.html">
+         supplement-代数的源头-方程求根史.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-几何和代数.html">
+         supplement-几何和代数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/supplement-复数.html">
+         supplement-复数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+         线性空间和线性代数
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/1-行列式和初等变换.html">
+           1-行列式和初等变换.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/2-线性.html">
+           2-线性.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/4-二次型.html">
+           4-二次型.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-矩阵编程.html">
+           supplement-矩阵编程.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/线性空间和线性代数/supplement-线性代数的应用.html">
+           supplement-线性代数的应用.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-卷积.html">
+         0x-卷积.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/0x-组合数学-计数的学问.html">
+         0x-组合数学-计数的学问.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html">
+         1.1-概率论-样本空间和概率：从古典概型到现代的概率论基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.2-概率论-随机变量.html">
+         1.2-概率论-随机变量.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.3-概率论-随机过程.html">
+         1.3-概率论-随机过程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/1.4-概率论-大数定律和中心极限定理.html">
+         1.4-概率论-大数定律和中心极限定理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.1-数理统计-基本概念.html">
+         2.1-数理统计-基本概念.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.2-C.R.Rao和回归.html">
+         2.2-C.R.Rao和回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/2.x-各种差、相关性和矩.html">
+         2.x-各种差、相关性和矩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/p值.html">
+         p值.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/supplement-概率论-贝叶斯方法.html">
+         supplement-概率论-贝叶斯方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/从麦克斯韦速度分布率到玻尔兹曼分布律.html">
+         从麦克斯韦速度分布率到玻尔兹曼分布律.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/index.html">
+         几何
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/01-数理基础/05-其他/几何/微分流形.html">
+           微分流形.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/单陷门函数.html">
+         单陷门函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/海岸线有多长？分析是panacea吗？——分形的世界.html">
+         海岸线有多长？分析是panacea吗？——分形的世界.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/05-其他/牛顿迭代法和分形.html">
+         牛顿迭代法和分形.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Hamming码.html">
+         0x-纠错码-Hamming码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-纠错码-Reed-Solomon码.html">
+         0x-纠错码-Reed-Solomon码.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-不可能的棋盘谜题.html">
+         0x-编码-不可能的棋盘谜题.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-其他.html">
+         0x-编码-其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-字符的表示和处理.html">
+         0x-编码-字符的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-指令的表示和处理.html">
+         0x-编码-指令的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-数字的表示和处理.html">
+         0x-编码-数字的表示和处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/0x-编码-调制解调.html">
+         0x-编码-调制解调.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典力学.html">
+         00-经典力学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/00-经典电磁学.html">
+         00-经典电磁学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/0x-时间之箭.html">
+         0x-时间之箭.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/什么是波.html">
+         什么是波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/混沌和蝴蝶效应？.html">
+         混沌和蝴蝶效应？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/熵.html">
+         熵.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子物理基础.html">
+         量子物理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/01-数理基础/06-物理/量子计算.html">
+         量子计算.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       supplement-关于数学符号.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       supplement-关于追问本质和追问直观.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    脚手架和技巧篇
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#化简和恒等变形" id="toc-化简和恒等变形">
+      化简和恒等变形
+     </a>
+     <ul>
+      <li>
+       <a href="#提取公因式" id="toc-提取公因式">
+        提取公因式
+       </a>
+      </li>
+      <li>
+       <a href="#n次方差公式" id="toc-n次方差公式">
+        n次方差公式
+       </a>
+      </li>
+      <li>
+       <a href="#有理函数分解" id="toc-有理函数分解">
+        有理函数分解
+       </a>
+       <ul>
+        <li>
+         <a href="#rational" id="toc-rational">
+          Rational
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#对数和指数技巧" id="toc-对数和指数技巧">
+        对数和指数技巧
+       </a>
+       <ul>
+        <li>
+         <a href="#取对数" id="toc-取对数">
+          取对数
+         </a>
+        </li>
+        <li>
+         <a href="#灵活的对数运算" id="toc-灵活的对数运算">
+          灵活的对数运算
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#三角函数" id="toc-三角函数">
+        三角函数
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#换元" id="toc-换元">
+      换元
+     </a>
+     <ul>
+      <li>
+       <a href="#换元的本质坐标系变换同构" id="toc-换元的本质坐标系变换同构">
+        换元的本质：坐标系变换？同构？
+       </a>
+       <ul>
+        <li>
+         <a href="#换元和复合运算" id="toc-换元和复合运算">
+          换元和复合运算
+         </a>
+        </li>
+        <li>
+         <a href="#复合函数相对变化率和换元" id="toc-复合函数相对变化率和换元">
+          复合函数、相对变化率和换元
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#替换定理" id="toc-替换定理">
+        替换定理
+       </a>
+      </li>
+      <li>
+       <a href="#对称性和换元" id="toc-对称性和换元">
+        对称性和换元
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#不等式和放缩" id="toc-不等式和放缩">
+      不等式和放缩
+     </a>
+     <ul>
+      <li>
+       <a href="#基础放缩手段或依据" id="toc-基础放缩手段或依据">
+        基础放缩手段或依据
+       </a>
+      </li>
+      <li>
+       <a href="#均值不等式" id="toc-均值不等式">
+        均值不等式
+       </a>
+       <ul>
+        <li>
+         <a href="#关于调和平均值" id="toc-关于调和平均值">
+          关于调和平均值
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#构造" id="toc-构造">
+      构造
+     </a>
+     <ul>
+      <li>
+       <a href="#构造辅助函数" id="toc-构造辅助函数">
+        构造辅助函数
+       </a>
+       <ul>
+        <li>
+         <a href="#求导公式逆用" id="toc-求导公式逆用">
+          求导公式逆用
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#拉格朗日乘数法" id="toc-拉格朗日乘数法">
+        拉格朗日乘数法
+       </a>
+      </li>
+      <li>
+       <a href="#先导后积公式" id="toc-先导后积公式">
+        先导后积公式
+       </a>
+      </li>
+      <li>
+       <a href="#例题" id="toc-例题">
+        例题
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#泰勒公式1" id="toc-泰勒公式1">
+      泰勒公式
+     </a>
+     <ul>
+      <li>
+       <a href="#通式和理解" id="toc-通式和理解">
+        通式和理解
+       </a>
+       <ul>
+        <li>
+         <a href="#泰勒公式和函数的线性空间" id="toc-泰勒公式和函数的线性空间">
+          泰勒公式和函数的线性空间
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#常用泰勒公式展开" id="toc-常用泰勒公式展开">
+        常用泰勒公式展开
+       </a>
+      </li>
+      <li>
+       <a href="#多元函数的泰勒展开" id="toc-多元函数的泰勒展开">
+        多元函数的泰勒展开
+       </a>
+       <ul>
+        <li>
+         <a href="#二次型" id="toc-二次型">
+          二次型
+         </a>
+        </li>
+        <li>
+         <a href="#泰勒展开" id="toc-泰勒展开">
+          泰勒展开
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#用泰勒公式看世界拿着榔头看谁都像钉子" id="toc-用泰勒公式看世界拿着榔头看谁都像钉子">
+        用泰勒公式看世界：拿着榔头看谁都像钉子
+       </a>
+       <ul>
+        <li>
+         <a href="#一阶泰勒公式" id="toc-一阶泰勒公式">
+          一阶泰勒公式
+         </a>
+        </li>
+        <li>
+         <a href="#二阶泰勒公式" id="toc-二阶泰勒公式">
+          二阶泰勒公式
+         </a>
+        </li>
+        <li>
+         <a href="#其他" id="toc-其他">
+          其他
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#一些例题" id="toc-一些例题">
+        一些例题
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#其他-1" id="toc-其他-1">
+      其他
+     </a>
+     <ul>
+      <li>
+       <a href="#极坐标系" id="toc-极坐标系">
+        极坐标系
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    当一幢建筑物完成时，应该把脚手架拆除干净。——高斯
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    高斯像一只狐狸，用尾巴扫砂子来掩盖自己的足迹。——阿贝尔
+   </p>
+  </blockquote>
+  <h1 id="化简和恒等变形">
+   化简和恒等变形
+  </h1>
+  <blockquote>
+   <p>
+    恒等变形：没有条件创造条件，将已知向未知靠拢，或将未知向已知靠拢。
+   </p>
+  </blockquote>
+  <h2 id="提取公因式">
+   提取公因式
+  </h2>
+  <h2 id="n次方差公式">
+   n次方差公式
+  </h2>
+  <p>
+   因式分解
+  </p>
+  <p>
+   <span class="math display">
+    \[
+(a^n - b^n ) = (a-b)(a^{n-1} + a^{n-2}b + \dots + ab^{n-2}+b^{n-1} )
+\]
+   </span>
+  </p>
+  <p>
+   如判敛下述级数就可用到立方差公式
+   <span class="math display">
+    \[
+\sum _{n=1} ^{\infty} (\sqrt[3]{n+1} -\sqrt[3]{n-1})
+\]
+   </span>
+  </p>
+  <h2 id="有理函数分解">
+   有理函数分解
+  </h2>
+  <p>
+   如：
+   <span class="math display">
+    \[
+\frac {1+2x} {2-x-x^2} = \frac {1+2x} {(2+x)(1-x)} = \frac {A} {1-x} +
+\frac {B} {2+x} = \frac 3 {1-x} + \frac 1 {2+x}
+\]
+   </span>
+  </p>
+  <h3 id="rational">
+   Rational
+  </h3>
+  <p>
+   “有理”的英文是Rational，有理数即 Rational Number，有理函数即 Rational
+function，所以有理函数就是两个多项式函数的比值。
+  </p>
+  <h2 id="对数和指数技巧">
+   对数和指数技巧
+  </h2>
+  <p>
+   最基本的，一个类似于“标准化”的“通分”公式：
+   <span class="math display">
+    \[
+u^v =e^{v\ln u}
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    借此公式，可以将极限中 $ 0
+    <sup>
+     0,
+    </sup>
+    0 , 0 ^ $
+三种未定式化简为更为基础的未定式。
+   </p>
+  </blockquote>
+  <h3 id="取对数">
+   取对数
+  </h3>
+  <p>
+   对于式子中涉及复杂乘除、乘方、开方的问题，可以考虑取对数再求解。
+  </p>
+  <p>
+   如对某一复杂乘除函数求最值时，因为对数函数严格单调增，所以取对数之后的最值点仍然是原函数的最值点，但表达式得到了简化。
+  </p>
+  <h3 id="灵活的对数运算">
+   灵活的对数运算
+  </h3>
+  <p>
+   举个例子：
+   <span class="math display">
+    \[
+-\frac 1 2 \int \ln {\frac {1+x} {1-x}} \mathrm d (\ln {\frac {1-x}
+{1+x}}) = \frac 1 2 \int \ln {\frac {1+x} {1-x}} \mathrm d (\ln {\frac
+{1+x} {1-x}}) = \frac 1 2 \int \ln {\frac {1-x} {1+x}} \mathrm d (\ln
+{\frac {1-x} {1+x}})
+\]
+   </span>
+  </p>
+  <p>
+   $$
+  </p>
+  <p>
+   $$
+  </p>
+  <h2 id="三角函数">
+   三角函数
+  </h2>
+  <p>
+   <span class="math display">
+    \[
+\sin ^2 x  + \cos^2 x = 1 \\
+\tan ^2 x +1 = \sec ^2 x \\
+\]
+   </span>
+  </p>
+  <p>
+   还有倍角公式，积化和差，和差化积等
+  </p>
+  <h1 id="换元">
+   换元
+  </h1>
+  <p>
+   如下题的求解需要用到倒代换，即令
+   <span class="math inline">
+    \(t=\frac
+1 x\)
+   </span>
+   ​。
+   <span class="math display">
+    \[
+\lim_{x\rightarrow \infty} ( \sqrt[6]{x^6+x^5} - \sqrt[6] {x^6 - x^5})
+\]
+   </span>
+  </p>
+  <h2 id="换元的本质坐标系变换同构">
+   换元的本质：坐标系变换？同构？
+  </h2>
+  <p>
+   也不知道追问换元的本质这个问题本身算不算是个伪命题，毕竟换元看似是一个很直接的技巧，还想怎样追问它的本质呢？
+  </p>
+  <p>
+   换元法：换元到底改变了什么？ - 宙宇001的文章 - 知乎
+https://zhuanlan.zhihu.com/p/163552620
+  </p>
+  <h3 id="换元和复合运算">
+   换元和复合运算
+  </h3>
+  <h3 id="复合函数相对变化率和换元">
+   复合函数、相对变化率和换元
+  </h3>
+  <h2 id="替换定理">
+   替换定理
+  </h2>
+  <h2 id="对称性和换元">
+   对称性和换元
+  </h2>
+  <p>
+   <span class="math display">
+    \[
+\int _0 ^{\pi} x \sin^2 x \mathrm d x = \frac \pi {2} \int _0 ^{\pi}
+\sin^2 x \mathrm d x
+\]
+   </span>
+  </p>
+  <p>
+   奇函数：u = -x
+  </p>
+  <p>
+   偶函数：u = x
+  </p>
+  <p>
+   <span class="math display">
+    \[
+\int _0 ^{\pi} x \sin^2 x \mathrm d x = \int _0 ^{\frac \pi 2} x \sin^2
+x \mathrm d x +  \int ^{\pi} _{\frac \pi 2}x \sin^2 x \mathrm d x  =
+\int _0 ^{\frac \pi 2} x \sin^2 x \mathrm d x +  \int _0 ^{\frac \pi 2}
+(\pi -x) \sin^2 (\pi -x ) \mathrm d x
+\]
+   </span>
+  </p>
+  <p>
+   $$
+   <span class="math display">
+    \[\begin{align}
+\int ^{\frac \pi 2} _{- \frac \pi 2} \frac {\sin ^2 t} {1 + e^t} \mathrm
+dt
+&amp; = \int  _{- \frac \pi 2} ^ 0  \frac {\sin ^2 t} {1 + e^t} \mathrm
+dt + \int _0 ^{\frac \pi 2}  \frac {\sin ^2 t} {1 + e^t}  \mathrm d t
+\\ &amp;
+= \int  _{- \frac \pi 2} ^ 0  \frac {\sin ^2 t} {1 + e^t} \mathrm d t +
+\int _0 ^{-\frac \pi 2}  \frac {\sin ^2 (-t)} {1 + e^{-t}} \mathrm d
+(-t)
+\\ &amp;
+= \int  _{- \frac \pi 2} ^ 0  \frac {\sin ^2 t} {1 + e^t} \mathrm d t +
+\int ^0 _{-\frac \pi 2}  \frac {\sin ^2 t} {1 + e^{-t}} \mathrm d t
+\\ &amp;
+= \int _{- \frac \pi 2} ^ 0 \sin ^2 t( \frac 1 {1 + e^t} + \frac 1
+{1+e^{-t}}) \mathrm d t
+\\ &amp;
+=\int _{- \frac \pi 2} ^ 0 {\sin ^2 t}
+
+\end{align}\]
+   </span>
+   $$
+  </p>
+  <h1 id="不等式和放缩">
+   不等式和放缩
+  </h1>
+  <h2 id="基础放缩手段或依据">
+   基础放缩手段或依据
+  </h2>
+  <ul>
+   <li>
+    n个数之和可向上放大至
+    <span class="math inline">
+     \(nM\)
+    </span>
+    （其中
+    <span class="math inline">
+     \(M\)
+    </span>
+    为
+    <span class="math inline">
+     \(n\)
+    </span>
+    个数的最大值），反之亦然；
+    <ul>
+     <li>
+      即
+      <span class="math inline">
+       \(n\)
+      </span>
+      个数之和不大于最大数乘以
+      <span class="math inline">
+       \(n\)
+      </span>
+      ，不小于最小数乘以
+      <span class="math inline">
+       \(n\)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li>
+    若干正数的乘积中，将小于1的因子略去可达到放大的效果，反之亦然；
+   </li>
+   <li>
+    分子分母同为正数，放大分母则数值缩小，反之亦然；
+   </li>
+  </ul>
+  <p>
+   特殊地，如果对象为极限，通常还可通过极限的不等式性质进行放缩；若对象为积分，也可以利用积分的性质进行放缩。
+  </p>
+  <h2 id="均值不等式">
+   均值不等式
+  </h2>
+  <p>
+   平方均值 算术平均值 几何平均值 调和平均值
+   <span class="math display">
+    \[
+\sqrt {\frac {a^2+b^2} 2} \geqslant \frac {a+b} 2 \geqslant \sqrt {ab}
+\geqslant \frac 2 {\frac 1 a +\frac 1 b}
+\]
+   </span>
+  </p>
+  <p>
+   不考虑几何平均值，其他的均值可换成如下写法：
+   <span class="math display">
+    \[
+\frac {(a^2 +b^2) ^{\frac 1 2}} n \geqslant
+\frac {(a^1 +b^1) ^1 } n \geqslant
+\frac {(a^{-1} +b^{-1}) ^{-1}} n
+\]
+   </span>
+  </p>
+  <p>
+   不等式可进一步可扩展为：
+   <span class="math display">
+    \[
+\sqrt {\frac {a_1^2+a_2^2 + \dots +a_n^2} n}
+\geqslant \frac {a_1+ a_2 + \dots +a_n} n
+\geqslant \sqrt[n]{a_1 a_2 \dots a_n}
+\geqslant \frac n {\frac 1 {a_1} +\frac 1 {a_2} + \dots + \frac 1 {a_n}
+}
+\]
+   </span>
+  </p>
+  <h3 id="关于调和平均值">
+   关于调和平均值
+  </h3>
+  <p>
+   船从A出发去往B，去程是顺风航行，速度为40km/h，回程逆风航行，速度为30km/h.
+问船的平均速度为？
+  </p>
+  <p>
+   直接带进去求调和平均值即可（都不需要先假设一个AB间距离s）。
+  </p>
+  <h1 id="构造">
+   构造
+  </h1>
+  <h2 id="构造辅助函数">
+   构造辅助函数
+  </h2>
+  <h3 id="求导公式逆用">
+   求导公式逆用
+  </h3>
+  <p>
+   如乘积求导公式逆用：
+  </p>
+  <ul>
+   <li>
+    见到类似
+    <span class="math inline">
+     \(f'(x)f(x) &gt; 0\)
+    </span>
+    的条件，联想到
+    <span class="math inline">
+     \([f^2(x)]'= 2
+f'(x)f(x)\)
+    </span>
+    ，进而想到构造
+    <span class="math inline">
+     \(F(x) =
+f^2(x)\)
+    </span>
+    ；
+   </li>
+   <li>
+    见到
+    <span class="math inline">
+     \(f''(x) \cdot f(x) +
+[f'(x)]^2\)
+    </span>
+    相关的条件，联想到这是
+    <span class="math inline">
+     \(f'(x)f(x)\)
+    </span>
+    求导的结果，进而想到构造
+    <span class="math inline">
+     \(F(x) = f'(x)f(x)\)
+    </span>
+   </li>
+   <li>
+    见到
+    <span class="math inline">
+     \(e^{\varphi(x)}[f'(x) +
+f(x)\varphi(x)]\)
+    </span>
+    相关的条件，联想到这是 $ f(x) e^{(x)} $
+求导的结果，进而想到构造
+    <span class="math inline">
+     \(F(x) = f(x)
+e^{\varphi (x)}\)
+    </span>
+    <ul>
+     <li>
+      或者见到形如
+      <span class="math inline">
+       \(f'(x) + \varphi(x)f(x)
+= 0\)
+      </span>
+      的条件，就应该联想到构造
+      <span class="math inline">
+       \(F(x) =
+f(x) e^{\varphi (x)}\)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li>
+    见到形如
+    <span class="math inline">
+     \(f''(\xi)g(\xi) +
+2f'(\xi)g'(\xi) + f(\xi)g''(\xi)\)
+    </span>
+    的，联想到
+    <span class="math inline">
+     \(f(x)g(x)\)
+    </span>
+    的二阶导，从而构造辅助函数……
+    <ul>
+     <li>
+      同理可由莱布尼兹高阶求导公式知这种
+      <span class="math inline">
+       \(f(x)g(x)\)
+      </span>
+      形式的任意高阶导的大致样子
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   同理，借助一些简单的、特殊的商的求导公式逆用，从而构造相应的辅助函数：
+   <span class="math display">
+    \[
+(\frac {f(x)}{x})' = \frac {f'(x)x-f(x)}{x^2}  \\
+[\ln f(x)]'' =  (\frac {f'(x)} {f(x)})' = \frac
+{f''(x)f(x) - [f'(x)]^2} {f^2(x)} \\
+\]
+   </span>
+  </p>
+  <p>
+   类似的，若出现形如
+   <span class="math inline">
+    \(\int ^b _a f(x)
+\mathrm d x\)
+   </span>
+   的条件，考虑通过变限积分构造辅助函数
+   <span class="math inline">
+    \(F(x) = \int _a ^x f(t)\mathrm d t\)
+   </span>
+  </p>
+  <h2 id="拉格朗日乘数法">
+   拉格朗日乘数法
+  </h2>
+  <h2 id="先导后积公式">
+   先导后积公式
+  </h2>
+  <h2 id="例题">
+   例题
+  </h2>
+  <p>
+   例题：已知
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   为二阶可导的正值函数，
+   <span class="math inline">
+    \(f(0)=f'(0) =1 ,
+f(x)f''(x) \geqslant [f'(x)]^2\)
+   </span>
+   ，求证
+   <span class="math inline">
+    \(e^2 \geqslant f(2) \geqslant
+\sqrt{f(1)f(3)}\)
+   </span>
+  </p>
+  <p>
+   思路：令
+   <span class="math inline">
+    \(g(x) = \ln f(x)\)
+   </span>
+   . 求
+   <span class="math inline">
+    \(g(x)\)
+   </span>
+   的二阶导，再配合给出的条件，巧了，二阶导为正。于是有
+   <span class="math inline">
+    \(g(1) + g(3) \geqslant 2g(2)\)
+   </span>
+   ，带回得
+   <span class="math inline">
+    \(f(1)f(3) \geqslant f^2(2)\)
+   </span>
+   .
+  </p>
+  <p>
+   再对
+   <span class="math inline">
+    \(g(x)\)
+   </span>
+   二阶泰勒展开，得 $g(x)
+= g(0) + g’(0) x + {2!}x^2 x $ ，即
+   <span class="math inline">
+    \(f(x) \ge
+e^x\)
+   </span>
+   .
+  </p>
+  <h1 id="泰勒公式1">
+   泰勒公式
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+  </h1>
+  <h2 id="通式和理解">
+   通式和理解
+  </h2>
+  <p>
+   <span class="math display">
+    \[
+f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac {f''(x_0)}
+{2!}  (x-x_0)^2 + \dots + \frac {f^{(n)} (x_0) } {n!} (x-x_0) ^ n +
+R_n(x) \\
+即 \quad f(x) = \sum _{i=1} ^n \frac {f^{(i)}(x_0)} {n!}( x-x_0)^i +
+R_n(x)
+\]
+   </span>
+  </p>
+  <blockquote>
+   <p>
+    如何通俗地解释泰勒公式？ - 知乎
+https://www.zhihu.com/question/21149770/answer/464443944
+   </p>
+   <p>
+    之所以能实现这种近似,
+背后的逻辑是:
+    <strong>
+     让近似多项式函数在x=x0处的y值, 一阶导, 二阶导
+…n阶导的值 = 原始函数在x=x0处的y值, 一阶导, 二阶导 …n阶导
+    </strong>
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    如何通俗地解释泰勒公式？ - 各向异性角点解的回答 - 知乎
+https://www.zhihu.com/question/21149770/answer/219143281
+   </p>
+   <p>
+    泰勒展开(或者说麦克劳林公式)可以不是唯一的，因为任何在对应阶求导后能够消失并只留下导数值的函数，都可以作为泰勒展开的备胎。
+   </p>
+   <p>
+    可惜的是，幂函数与阶乘的组合，是我们已知的唯一具有上述性质的函数，因此，这种
+    <strong>
+     唯一性
+    </strong>
+    决定了泰勒展开能够且仅能够由幂函数表示。
+   </p>
+   <p>
+    <strong>
+     泰勒公式的灵魂是导数值，而非幂函数。在展开的这一点，泰勒展开式与f(x)的每一阶导数值都完全相等。而这种“各阶导数值相等”，揭示了多项式函数和它想要替代的复杂函数f(x)在「每一个维度上完全相同」的奇妙的事实。
+    </strong>
+   </p>
+  </blockquote>
+  <h3 id="泰勒公式和函数的线性空间">
+   泰勒公式和函数的线性空间
+  </h3>
+  <h2 id="常用泰勒公式展开">
+   常用泰勒公式展开
+  </h2>
+  <p>
+   主要即
+   <strong>
+    幂函数、指对数、三角函数
+   </strong>
+   。
+  </p>
+  <p>
+   因为基本上都是在零点处（
+   <span class="math inline">
+    \(x_0 =
+0\)
+   </span>
+   ）展开，故（
+   <span class="math inline">
+    \(x-x_0\)
+   </span>
+   ）直接简化为
+   <span class="math inline">
+    \(x\)
+   </span>
+   ： $$ (1+x)^ + x + 2 x^2 + + {n!} x^n +
+o(x^n) \
+  </p>
+  <p>
+   e^x = 1 + x + {2!} x^2 + + {n!} x^n = _{n=0} ^{} {n!}\
+  </p>
+  <p>
+   (1+x) = x - 2 x^2 + 3 x^3 + + n x^n = ^{}_{n=1} {(-1)^{n-1}} n {x^n}
+, (0&lt;x )\
+  </p>
+  <p>
+   x = x - {3!} x^3 + {5!} x^5 - + (-1)^n {x^{2n+1}} = _{n=0}^{} (-1)^n
+{(2n+1)!} {x^{2n+1}} \
+  </p>
+  <p>
+   x = 1 - {2!} x^2 + {4!}x^4 -+ (-1)^n {2n!} x^{2n} = _{n=0} ^{} (-1)^n
+{2n!} x^{2n} \
+  </p>
+  <p>
+   x = x + 3 x^3 + o(x^3) \
+  </p>
+  <p>
+   x = x - 3 x^3 + o(x^3) \
+  </p>
+  <p>
+   x = x + 6 x^3 + o(x^3) \ $$
+  </p>
+  <p>
+   上述展开式中，
+   <span class="math inline">
+    \(\ln(1+x)\)
+   </span>
+   的展开需要满足
+   <span class="math inline">
+    \(0&lt;x\le 1\)
+   </span>
+  </p>
+  <p>
+   一些形如
+   <span class="math inline">
+    \((1-x)^a\)
+   </span>
+   或
+   <span class="math inline">
+    \((1+x)^{\alpha}\)
+   </span>
+   的
+   <strong>
+    幂函数
+   </strong>
+   在取特定值（如
+   <span class="math inline">
+    \(\alpha =
+-1\)
+   </span>
+   ）时的泰勒展开也可以有一些比较简洁的形式（即可以展开到
+   <span class="math inline">
+    \(n\to +\infty\)
+   </span>
+   且形式不过分复杂）
+  </p>
+  <p>
+   （另外还需注意此处要满足取值范围
+   <span class="math inline">
+    \(-1 &lt;
+x \le 1\)
+   </span>
+   ，当然，如果是用于等价无穷小代换，一般都有
+   <span class="math inline">
+    \(x\to 0\)
+   </span>
+   ，可以不多做考虑） $$ {1-x} =
+(1-x)^{-1} =1 + x + x^2 + + x^n = _{i=1} ^n x^n \
+  </p>
+  <p>
+   {1+x} = (1+x)^{-1} = 1 - x + x^2 + + (-1)^n x^n = _{i=1} ^n (-x)^n
+$$
+  </p>
+  <blockquote>
+   <p>
+    相应的，还有一些开方运算，做完相应的有理化之后也应该视为
+    <strong>
+     幂函数
+    </strong>
+    理解和处理。
+   </p>
+  </blockquote>
+  <h2 id="多元函数的泰勒展开">
+   多元函数的泰勒展开
+  </h2>
+  <h3 id="二次型">
+   二次型
+  </h3>
+  <h3 id="泰勒展开">
+   泰勒展开
+  </h3>
+  <p>
+   把
+   <span class="math inline">
+    \(f'(x_0) (x-x_0)\)
+   </span>
+   视为一维向量
+   <span class="math inline">
+    \(f'(x_0)\)
+   </span>
+   和一维向量
+   <span class="math inline">
+    \((x-x_0)\)
+   </span>
+   的内积。
+  </p>
+  故很容易推广到二元： $$
+  <span class="math display">
+   \[\begin{pmatrix}
+f'_x(x_0,y_0) \quad f'_y(x_0,y_0)
+\end{pmatrix}\]
+  </span>
+  <span class="math display">
+   \[\begin{pmatrix}
+x-x_0 \\
+y-y_0
+\end{pmatrix}\]
+  </span>
+  <p>
+   = f’_x(x_0,y_0) (x-x_0) +f’_y(x_0,y_0)(y-y_0) $$
+也很容易推广到n元。
+  </p>
+  <p>
+   <span class="math display">
+    \[
+f(x,y) = f(x_0, y_0) +
+\]
+   </span>
+  </p>
+  <p>
+   为了方便，将
+   <span class="math inline">
+    \(x\)
+   </span>
+   记为
+   <span class="math inline">
+    \(x_0 + \Delta x\)
+   </span>
+   的形式，导数如
+   <span class="math inline">
+    \(f'_x(x_0,y_0)\)
+   </span>
+   简记为
+   <span class="math inline">
+    \(f'_x\)
+   </span>
+   的形式。 $$ f(x_0 + x, y_0 + y)
+=
+  </p>
+  <p>
+   f(x_0,y_0) +
+  </p>
+  <span class="math display">
+   \[\begin{pmatrix}
+f'_x \quad f'_y
+\end{pmatrix}\]
+  </span>
+  <span class="math display">
+   \[\begin{pmatrix}
+\Delta x \\
+\Delta y
+\end{pmatrix}\]
+  </span>
+  <ul>
+   <li>
+    2
+    <span class="math display">
+     \[\begin{pmatrix}
+\Delta x  \quad \Delta y
+\end{pmatrix}\]
+    </span>
+   </li>
+  </ul>
+  <span class="math display">
+   \[\begin{pmatrix}
+f''_{xx} \quad f''_{xy} \\
+f''_{yx} \quad f''_{yy}
+\end{pmatrix}\]
+  </span>
+  <span class="math display">
+   \[\begin{pmatrix}
+\Delta x  \\
+\Delta y
+\end{pmatrix}\]
+  </span>
+  <ul>
+   <li>
+    R $$
+   </li>
+  </ul>
+  <h2 id="用泰勒公式看世界拿着榔头看谁都像钉子">
+   用泰勒公式看世界：拿着榔头看谁都像钉子
+  </h2>
+  <h3 id="一阶泰勒公式">
+   一阶泰勒公式
+  </h3>
+  <h4 id="切线切面切啥都行">
+   切线、切面、切啥都行
+  </h4>
+  <p>
+   观察泰勒公式
+   <span class="math display">
+    \[
+f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac {f''(x_0)}
+{2!}  (x-x_0)^2 + \dots + \frac {f^{(n)} (x_0) } {n!} (x-x_0) ^ n +
+R_n(x)
+\]
+   </span>
+   仅考虑公式前两项（一阶展开），令
+   <span class="math inline">
+    \(y
+= f(x_0) + f'(x_0)(x-x_0)\)
+   </span>
+   ，显然，这是一个直线方程，而且，是
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在点
+   <span class="math inline">
+    \(x_0\)
+   </span>
+   处的切线。
+  </p>
+  <p>
+   同理，对于二元函数的泰勒公式：
+  </p>
+  <p>
+   考虑其一阶展开，令 $z = f(x_0,y_0) + f’_x(x_0,y_0) (x-x_0)
++f’_y(x_0,y_0)(y-y_0) $ ，显然，这是一个平面方程，而且，是
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   在点
+   <span class="math inline">
+    \((x_0,y_0)\)
+   </span>
+   处的切平面。
+  </p>
+  <h4 id="全微分">
+   全微分
+  </h4>
+  <p>
+   此外，n元函数的泰勒公式的一阶展开，就是n元微分的定义。
+  </p>
+  <h3 id="二阶泰勒公式">
+   二阶泰勒公式
+  </h3>
+  <h4 id="极值点">
+   极值点
+  </h4>
+  <p>
+   带皮亚诺余项的泰勒公式：
+   <span class="math display">
+    \[
+f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac {f''(x_0)}
+{2!}  (x-x_0)^2 + \dots + \frac {f^{(n)} (x_0) } {n!} (x-x_0) ^ n +
+o((x-x_0)^n)
+\]
+   </span>
+   若
+   <span class="math inline">
+    \(f'(x_0) = 0\)
+   </span>
+   且
+   <span class="math inline">
+    \(f''(x_0) &gt; 0\)
+   </span>
+   ，则显然在
+   <span class="math inline">
+    \(x_0\)
+   </span>
+   足够小的邻域内，有
+   <span class="math inline">
+    \(0\cdot (x-x_0) +f''(x)(x-x_0)^2 + o
+((x-x_0)^2) &gt; 0\)
+   </span>
+   ，即 在足够小的邻域内
+   <span class="math inline">
+    \(f(x) &gt; f(x_0)\)
+   </span>
+   ，即
+   <span class="math inline">
+    \(x_0\)
+   </span>
+   为极小值点。
+  </p>
+  <p>
+   反之同理，为极大值点。
+  </p>
+  <blockquote>
+   <p>
+    当然不用泰勒公式也能得到这个结果，（在我理解里）泰勒公式只是脚手架，但优雅永不过时。
+   </p>
+  </blockquote>
+  <p>
+   进一步，多元函数的极值点情况也类似，则有 $$ f(x,y) - f(x_0,y_0) =
+0
+  </p>
+  <ul>
+   <li>
+    2
+    <span class="math display">
+     \[\begin{pmatrix}
+\Delta x  \quad \Delta y
+\end{pmatrix}\]
+    </span>
+   </li>
+  </ul>
+  <span class="math display">
+   \[\begin{pmatrix}
+f''_{xx} \quad f''_{xy} \\ f''_{yx} \quad
+f''_{yy}
+\end{pmatrix}\]
+  </span>
+  <span class="math display">
+   \[\begin{pmatrix}
+\Delta x  \\ \Delta y
+\end{pmatrix}\]
+  </span>
+  <ul>
+   <li>
+    R
+    <span class="math display">
+     \[
+根据二次型的正定可知，
+\]
+    </span>
+    \begin{cases} f’‘
+    <em>
+     {xx} (x_0,y_0) &gt; 0 \ f’’
+    </em>
+    {xx}
+(x_0,y_0) f’’_{yy}(x_0,y_0) - [f’’_{xy}(x_0,y_0)]^2 &gt; 0
+   </li>
+  </ul>
+  <p>
+   \end{cases} $$ 则点
+   <span class="math inline">
+    \((x_0,y_0)\)
+   </span>
+   为极小值点，同理由负定可知，上述条件中第一条改为
+   <span class="math inline">
+    \(f''_{xx} &lt; 0\)
+   </span>
+   即可得点
+   <span class="math inline">
+    \((x_0,y_0)\)
+   </span>
+   为极大值点。
+  </p>
+  <h3 id="其他">
+   其他
+  </h3>
+  <h4 id="用泰勒公式看洛必达法则">
+   用泰勒公式看洛必达法则
+  </h4>
+  <p>
+   对于 $ 0 $ 型极限未定式，将其看作 $ {f(x)} $ ，对
+   <span class="math inline">
+    \(g(x)\)
+   </span>
+   和
+   <span class="math inline">
+    \(f(x)\)
+   </span>
+   进行泰勒展开，则有
+   <span class="math display">
+    \[
+g(x) = g(x_0) + g'(x_0)(x-x_0) + \frac {g''(x_0)}
+{2!}  (x-x_0)^2 + \dots + \frac {g^{(n)} (x_0) } {n!} (x-x_0) ^ n +
+R_n(x)\\
+f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac {f''(x_0)}
+{2!}  (x-x_0)^2 + \dots + \frac {f^{(n)} (x_0) } {n!} (x-x_0) ^ n +
+R_n(x)
+\]
+   </span>
+   显然 $g(x_0) $ 和
+   <span class="math inline">
+    \(f(x_0)\)
+   </span>
+   均为 0
+（暂时不讨论无穷大的情况），则对分子分母分别求导的过程，就是将无穷小（这里是
+   <span class="math inline">
+    \(\lim _{x\to x_0} x-
+x_0\)
+   </span>
+   ）“降阶”的过程。
+  </p>
+  <blockquote>
+   <p>
+    不过，好像用泰勒公式不太能直观理解洛必达法则对 $$
+型的应用。即便如此，洛必达法则 1696 年提出，泰勒公式 1712
+年初步提出……感觉跟泰勒公式一比，洛必达法则还是逊色了些。
+   </p>
+  </blockquote>
+  <h4 id="利用展开式的唯一性求高阶导">
+   利用展开式的唯一性求高阶导
+  </h4>
+  <h2 id="一些例题">
+   一些例题
+  </h2>
+  <p>
+   <span class="math display">
+    \[
+\lim_{x\rightarrow \infty} ( \sqrt[6]{x^6+x^5} - \sqrt[6] {x^6 - x^5})
+\]
+   </span>
+  </p>
+  <p>
+   解题需要用到换元，令
+   <span class="math inline">
+    \(t=\frac 1
+x\)
+   </span>
+   ​​，再化简后用泰勒展开
+  </p>
+  <h1 id="其他-1">
+   其他
+  </h1>
+  <h2 id="极坐标系">
+   极坐标系
+  </h2>
+  <p>
+   视 ρ 和 θ 为新的轴
+  </p>
+  <p>
+   在直角坐标系中，两条轴是垂直的，且
+   <span class="math inline">
+    \(\mathrm d x \mathrm dy\)
+   </span>
+   正好能表示一个与
+   <span class="math inline">
+    \(x,y\)
+   </span>
+   具体值无关的小正方形块，即
+   <span class="math inline">
+    \(\mathrm d S = \mathrm d x \cdot \mathrm d
+y\)
+   </span>
+   。
+  </p>
+  <p>
+   在极坐标系中，两条轴依旧垂直，
+   <span class="math inline">
+    \(\mathrm d
+\theta \mathrm d \rho\)
+   </span>
+   表示的是一个弧形块（可以近似为长方形），但这是一个
+   <strong>
+    与
+    <span class="math inline">
+     \(\rho\)
+    </span>
+    值有关
+   </strong>
+   的弧形块（弧形块的长度为 $d
+$，宽度和直角坐标系类似，是与具体值无关的），即 $d S = d d = d d $
+  </p>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      张宇考研数学全程班
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

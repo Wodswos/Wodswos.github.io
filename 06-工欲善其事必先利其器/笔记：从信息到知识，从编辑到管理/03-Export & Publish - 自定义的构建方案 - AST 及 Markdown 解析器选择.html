@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+     06-工欲善其事必先利其器
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-反思.html">
+         0-反思.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-资源 &amp; 信息清单.html">
+         0-资源 &amp; 信息清单.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.1-考研规划 &amp; 作息.html">
+         1.1-考研规划 &amp; 作息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.2-复试规划 &amp; 作息.html">
+         1.2-复试规划 &amp; 作息.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Git-Action-Workflow和持续集成.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       Git-项目协同的典范.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux基础信息.html">
+         Linux基础信息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux常用命令和配置.html">
+         Linux常用命令和配置.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/BeautifulSoup.html">
+         BeautifulSoup.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/杂七杂八但有用的库.html">
+         杂七杂八但有用的库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/00-End2End初步试水.html">
+         00-End2End初步试水.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Markdown.html">
+         01-Write &amp; Edit-Markdown.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-TeX-排版无冕之王.html">
+         01-Write &amp; Edit-TeX-排版无冕之王.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Visual Studio Code.html">
+         01-Write &amp; Edit-Visual Studio Code.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html">
+         01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-编辑器和笔记软件.html">
+         01-Write &amp; Edit-编辑器和笔记软件.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-被遗忘的Word.html">
+         01-Write &amp; Edit-被遗忘的Word.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/02-Manage &amp; Explore - 文献和论文.html">
+         02-Manage &amp; Explore - 文献和论文.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 其他.html">
+         03-Export &amp; Publish - 其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - Github Pages.html">
+         03-Export &amp; Publish - 文档发布平台 - Github Pages.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html">
+         03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html">
+         03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html">
+         03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    Export &amp; Publish - 自定义的构建方案 - AST 及
+Markdown 解析器选择
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#值得一提的配角" id="toc-值得一提的配角">
+      值得一提的配角
+     </a>
+     <ul>
+      <li>
+       <a href="#kramdown" id="toc-kramdown">
+        Kramdown
+       </a>
+      </li>
+      <li>
+       <a href="#goldmark" id="toc-goldmark">
+        Goldmark
+       </a>
+      </li>
+      <li>
+       <a href="#markdown-it" id="toc-markdown-it">
+        Markdown it
+       </a>
+      </li>
+      <li>
+       <a href="#python-的-markdown-库" id="toc-python-的-markdown-库">
+        Python 的 markdown 库
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#主角-pandoc" id="toc-主角-pandoc">
+      主角 Pandoc
+     </a>
+     <ul>
+      <li>
+       <a href="#基础使用" id="toc-基础使用">
+        基础使用
+       </a>
+      </li>
+      <li>
+       <a href="#pandoc工作机制" id="toc-pandoc工作机制">
+        Pandoc工作机制
+       </a>
+       <ul>
+        <li>
+         <a href="#markdown解析器" id="toc-markdown解析器">
+          Markdown解析器
+         </a>
+        </li>
+        <li>
+         <a href="#pnadoc-filters" id="toc-pnadoc-filters">
+          Pnadoc
+Filters
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#template" id="toc-template">
+        Template
+       </a>
+       <ul>
+        <li>
+         <a href="#data-dir" id="toc-data-dir">
+          data-dir
+         </a>
+        </li>
+        <li>
+         <a href="#语法" id="toc-语法">
+          语法
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#数学公式渲染" id="toc-数学公式渲染">
+        数学公式渲染
+       </a>
+      </li>
+      <li>
+       <a href="#转latexpdf" id="toc-转latexpdf">
+        转LaTeX/PDF
+       </a>
+       <ul>
+        <li>
+         <a href="#兼容中文" id="toc-兼容中文">
+          兼容中文
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#xslt" id="toc-xslt">
+      XSLT
+     </a>
+    </li>
+    <li>
+     <a href="#ast" id="toc-ast">
+      AST
+     </a>
+    </li>
+    <li>
+     <a href="#题外话" id="toc-题外话">
+      题外话
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="值得一提的配角">
+   值得一提的配角
+  </h1>
+  <h2 id="kramdown">
+   Kramdown
+  </h2>
+  <p>
+   Jekyll 的默认 markdown 解析器是 kramdown
+  </p>
+  <p>
+   https://kramdown.gettalong.org/index.html
+  </p>
+  <h2 id="goldmark">
+   Goldmark
+  </h2>
+  <p>
+   Goldmark 是 Hugo 的默认的 markdown 解析器，当然，hugo
+可以通过配置指定 markdown 解析器。
+  </p>
+  <p>
+   goldmark 不支持复杂的 markdown （或者说
+latex）数学表达式，这是很致命的缺点，但有一些插件可以解决。
+  </p>
+  <h2 id="markdown-it">
+   Markdown it
+  </h2>
+  <h2 id="python-的-markdown-库">
+   Python 的 markdown 库
+  </h2>
+  <h1 id="主角-pandoc">
+   主角 Pandoc
+  </h1>
+  <blockquote>
+   <p>
+    本文侧重点主要在Markdown到HTML的过程，对其他格式可能会暂时提及较少。
+   </p>
+  </blockquote>
+  <p>
+   文件格式转换神器，越用越香（刚开始的不香都是因为在用我自己愚蠢、保守的思想去揣度pandoc的可扩展性）。
+  </p>
+  <div class="sourceCode" id="cb1">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">-o</span> out.html <span class="at">--template</span><span class="op">=</span>github <span class="at">--css</span><span class="op">=</span>http://47.103.199.15/css/paper.css <span class="at">--mathjax</span><span class="op">=</span>http://cdn.mathjax.org/mathjax/latest/MathJax.js<span class="pp">?</span>config=default</span></code></pre>
+  </div>
+  <h2 id="基础使用">
+   基础使用
+  </h2>
+  <div class="sourceCode" id="cb2">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">-o</span> out.html</span></code></pre>
+  </div>
+  <p>
+   <strong>
+    但这样生成的只是html
+fragment，即单纯的将markdown格式转换为了html文档格式，没有新增任何文档元信息（如head标签等内容）
+   </strong>
+  </p>
+  <div class="sourceCode" id="cb3">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">--standalone</span> <span class="at">-o</span> out.html</span></code></pre>
+  </div>
+  <p>
+   When the
+   <a href="https://pandoc.org/MANUAL.html#option--standalone">
+    <code>
+     -s/--standalone
+    </code>
+   </a>
+   option is used, pandoc uses a template to add header and footer material
+that is needed for a self-standing document.
+  </p>
+  <p>
+   继而，可以通过
+   <code>
+    -c
+   </code>
+   添加CSS（可以理解为一种文档元数据）。
+  </p>
+  <div class="sourceCode" id="cb4">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">-c</span> style.css <span class="at">-o</span> out.html</span></code></pre>
+  </div>
+  <h2 id="pandoc工作机制">
+   Pandoc工作机制
+  </h2>
+  <h3 id="markdown解析器">
+   Markdown解析器
+  </h3>
+  <blockquote>
+   <p>
+    引自typora文档
+   </p>
+   <p>
+    If you run Pandoc from command line, then you need to specify its
+markdown parser (from Pandoc Markdown,
+    <a href="http://commonmark.org/">
+     CommonMark
+    </a>
+    ,
+    <a href="https://michelf.ca/projects/php-markdown/extra/">
+     PHP Markdown
+Extra
+    </a>
+    ,
+    <a href="https://help.github.com/articles/github-flavored-markdown/">
+     GitHub-Flavored
+Markdown
+    </a>
+    ).
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    Pandoc文档
+   </p>
+   <p>
+    Pandoc has a modular design: it consists of a set of readers, which
+parse text in a given format and produce a native representation of the
+document (an
+    <em>
+     abstract syntax tree
+    </em>
+    or AST), and a set of
+writers, which convert this native representation into a target
+format.
+   </p>
+  </blockquote>
+  <p>
+   pandoc是模块化的，通过markdown解析器将文档解析成抽象语法树。
+  </p>
+  <p>
+   用Typora导出文件的时候，虽然Typora也要经pandoc转换，但Typora将自己内部根据文档生成的AST传给pandoc，从而不需要用pandoc的markdown解析器。
+  </p>
+  <p>
+   所以用Typora导出的html/PDF跟在Typora编辑器内看到的markdown一样整洁——妙啊。
+  </p>
+  <h3 id="pnadoc-filters">
+   Pnadoc Filters
+  </h3>
+  <blockquote>
+   <p>
+    Pandoc provides an interface for users to write programs (known as
+filters) which act on pandoc’s AST.
+   </p>
+   <p>
+    INPUT –reader–&gt; AST –filter–&gt; AST –writer–&gt; OUTPUT
+   </p>
+  </blockquote>
+  <p>
+   Pandoc supports two kinds of filter: Lua filters and JSON filter.
+  </p>
+  <p>
+   关于Filters的内容很多……但我不太想深入，就先搁置了。
+  </p>
+  <h2 id="template">
+   Template
+  </h2>
+  <p>
+   使用参数
+   <code>
+    -s/--standalone
+   </code>
+   可以导出完整文档，而pandoc是根据模板导出完整文档的。pandoc会有一个默认的模板，参数
+   <code>
+    --template
+   </code>
+   可以指定自定义的模板。
+  </p>
+  <p>
+   命令
+   <code>
+    pandoc -D format
+   </code>
+   可以查看特定 format
+的默认模板。如
+   <code>
+    pandoc -D html
+   </code>
+   会有如下信息：
+  </p>
+  <div class="sourceCode" id="cb5">
+   <pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a><span class="kw">&lt;html</span> <span class="er">xmlns</span><span class="ot">=</span><span class="st">"http://www.w3.org/1999/xhtml"</span> <span class="er">lang</span><span class="ot">=</span><span class="st">"$lang$"</span> <span class="er">xml:lang</span><span class="ot">=</span><span class="st">"$lang$"</span><span class="er">$if(dir)$</span> <span class="er">dir</span><span class="ot">=</span><span class="st">"$dir$"</span><span class="er">$endif$</span><span class="kw">&gt;</span></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">"utf-8"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"generator"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"pandoc"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-6"><a aria-hidden="true" href="#cb5-6" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"viewport"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"width=device-width, initial-scale=1.0, user-scalable=yes"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-7"><a aria-hidden="true" href="#cb5-7" tabindex="-1"></a>$for(author-meta)$</span>
+<span id="cb5-8"><a aria-hidden="true" href="#cb5-8" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"author"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"$author-meta$"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-9"><a aria-hidden="true" href="#cb5-9" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-10"><a aria-hidden="true" href="#cb5-10" tabindex="-1"></a>$if(date-meta)$</span>
+<span id="cb5-11"><a aria-hidden="true" href="#cb5-11" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"dcterms.date"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"$date-meta$"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-12"><a aria-hidden="true" href="#cb5-12" tabindex="-1"></a>$endif$</span>
+<span id="cb5-13"><a aria-hidden="true" href="#cb5-13" tabindex="-1"></a>$if(keywords)$</span>
+<span id="cb5-14"><a aria-hidden="true" href="#cb5-14" tabindex="-1"></a>  <span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"keywords"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"$for(keywords)$$keywords$$sep$, $endfor$"</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-15"><a aria-hidden="true" href="#cb5-15" tabindex="-1"></a>$endif$</span>
+<span id="cb5-16"><a aria-hidden="true" href="#cb5-16" tabindex="-1"></a>  <span class="kw">&lt;title&gt;</span>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb5-17"><a aria-hidden="true" href="#cb5-17" tabindex="-1"></a>  <span class="kw">&lt;style</span> <span class="er">type</span><span class="ot">=</span><span class="st">"text/css"</span><span class="kw">&gt;</span></span>
+<span id="cb5-18"><a aria-hidden="true" href="#cb5-18" tabindex="-1"></a>      code{<span class="kw">white-space</span>: <span class="dv">pre-wrap</span><span class="op">;</span>}</span>
+<span id="cb5-19"><a aria-hidden="true" href="#cb5-19" tabindex="-1"></a>      span<span class="fu">.smallcaps</span>{<span class="kw">font-variant</span>: <span class="dv">small-caps</span><span class="op">;</span>}</span>
+<span id="cb5-20"><a aria-hidden="true" href="#cb5-20" tabindex="-1"></a>      span<span class="fu">.underline</span>{<span class="kw">text-decoration</span>: <span class="dv">underline</span><span class="op">;</span>}</span>
+<span id="cb5-21"><a aria-hidden="true" href="#cb5-21" tabindex="-1"></a>      div<span class="fu">.column</span>{<span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span> <span class="kw">vertical-align</span>: <span class="dv">top</span><span class="op">;</span> <span class="kw">width</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span>}</span>
+<span id="cb5-22"><a aria-hidden="true" href="#cb5-22" tabindex="-1"></a>$if(quotes)$</span>
+<span id="cb5-23"><a aria-hidden="true" href="#cb5-23" tabindex="-1"></a>      q { <span class="kw">quotes</span>: <span class="st">"“"</span> <span class="st">"”"</span> <span class="st">"‘"</span> <span class="st">"’"</span><span class="op">;</span> }</span>
+<span id="cb5-24"><a aria-hidden="true" href="#cb5-24" tabindex="-1"></a>$endif$</span>
+<span id="cb5-25"><a aria-hidden="true" href="#cb5-25" tabindex="-1"></a>  <span class="kw">&lt;/style&gt;</span></span>
+<span id="cb5-26"><a aria-hidden="true" href="#cb5-26" tabindex="-1"></a>$if(highlighting-css)$</span>
+<span id="cb5-27"><a aria-hidden="true" href="#cb5-27" tabindex="-1"></a>  <span class="kw">&lt;style</span> <span class="er">type</span><span class="ot">=</span><span class="st">"text/css"</span><span class="kw">&gt;</span></span>
+<span id="cb5-28"><a aria-hidden="true" href="#cb5-28" tabindex="-1"></a>$highlighting-css$</span>
+<span id="cb5-29"><a aria-hidden="true" href="#cb5-29" tabindex="-1"></a>  <span class="kw">&lt;/style&gt;</span></span>
+<span id="cb5-30"><a aria-hidden="true" href="#cb5-30" tabindex="-1"></a>$endif$</span>
+<span id="cb5-31"><a aria-hidden="true" href="#cb5-31" tabindex="-1"></a>$for(css)$</span>
+<span id="cb5-32"><a aria-hidden="true" href="#cb5-32" tabindex="-1"></a>  <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"stylesheet"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"$css$"</span><span class="kw">&gt;</span></span>
+<span id="cb5-33"><a aria-hidden="true" href="#cb5-33" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-34"><a aria-hidden="true" href="#cb5-34" tabindex="-1"></a>$if(math)$</span>
+<span id="cb5-35"><a aria-hidden="true" href="#cb5-35" tabindex="-1"></a>  $math$</span>
+<span id="cb5-36"><a aria-hidden="true" href="#cb5-36" tabindex="-1"></a>$endif$</span>
+<span id="cb5-37"><a aria-hidden="true" href="#cb5-37" tabindex="-1"></a>  <span class="co">&lt;!--[if lt IE 9]&gt;</span></span>
+<span id="cb5-38"><a aria-hidden="true" href="#cb5-38" tabindex="-1"></a><span class="co">    &lt;script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"&gt;&lt;/script&gt;</span></span>
+<span id="cb5-39"><a aria-hidden="true" href="#cb5-39" tabindex="-1"></a><span class="co">  &lt;![endif]--&gt;</span></span>
+<span id="cb5-40"><a aria-hidden="true" href="#cb5-40" tabindex="-1"></a>$for(header-includes)$</span>
+<span id="cb5-41"><a aria-hidden="true" href="#cb5-41" tabindex="-1"></a>  $header-includes$</span>
+<span id="cb5-42"><a aria-hidden="true" href="#cb5-42" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-43"><a aria-hidden="true" href="#cb5-43" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb5-44"><a aria-hidden="true" href="#cb5-44" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb5-45"><a aria-hidden="true" href="#cb5-45" tabindex="-1"></a>$for(include-before)$</span>
+<span id="cb5-46"><a aria-hidden="true" href="#cb5-46" tabindex="-1"></a>$include-before$</span>
+<span id="cb5-47"><a aria-hidden="true" href="#cb5-47" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-48"><a aria-hidden="true" href="#cb5-48" tabindex="-1"></a>$if(title)$</span>
+<span id="cb5-49"><a aria-hidden="true" href="#cb5-49" tabindex="-1"></a><span class="kw">&lt;header&gt;</span></span>
+<span id="cb5-50"><a aria-hidden="true" href="#cb5-50" tabindex="-1"></a><span class="kw">&lt;h1</span> <span class="er">class</span><span class="ot">=</span><span class="st">"title"</span><span class="kw">&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb5-51"><a aria-hidden="true" href="#cb5-51" tabindex="-1"></a>$if(subtitle)$</span>
+<span id="cb5-52"><a aria-hidden="true" href="#cb5-52" tabindex="-1"></a><span class="kw">&lt;p</span> <span class="er">class</span><span class="ot">=</span><span class="st">"subtitle"</span><span class="kw">&gt;</span>$subtitle$<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb5-53"><a aria-hidden="true" href="#cb5-53" tabindex="-1"></a>$endif$</span>
+<span id="cb5-54"><a aria-hidden="true" href="#cb5-54" tabindex="-1"></a>$for(author)$</span>
+<span id="cb5-55"><a aria-hidden="true" href="#cb5-55" tabindex="-1"></a><span class="kw">&lt;p</span> <span class="er">class</span><span class="ot">=</span><span class="st">"author"</span><span class="kw">&gt;</span>$author$<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb5-56"><a aria-hidden="true" href="#cb5-56" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-57"><a aria-hidden="true" href="#cb5-57" tabindex="-1"></a>$if(date)$</span>
+<span id="cb5-58"><a aria-hidden="true" href="#cb5-58" tabindex="-1"></a><span class="kw">&lt;p</span> <span class="er">class</span><span class="ot">=</span><span class="st">"date"</span><span class="kw">&gt;</span>$date$<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb5-59"><a aria-hidden="true" href="#cb5-59" tabindex="-1"></a>$endif$</span>
+<span id="cb5-60"><a aria-hidden="true" href="#cb5-60" tabindex="-1"></a><span class="kw">&lt;/header&gt;</span></span>
+<span id="cb5-61"><a aria-hidden="true" href="#cb5-61" tabindex="-1"></a>$endif$</span>
+<span id="cb5-62"><a aria-hidden="true" href="#cb5-62" tabindex="-1"></a>$if(toc)$</span>
+<span id="cb5-63"><a aria-hidden="true" href="#cb5-63" tabindex="-1"></a><span class="kw">&lt;nav</span> <span class="er">id</span><span class="ot">=</span><span class="st">"$idprefix$TOC"</span><span class="kw">&gt;</span></span>
+<span id="cb5-64"><a aria-hidden="true" href="#cb5-64" tabindex="-1"></a>$table-of-contents$</span>
+<span id="cb5-65"><a aria-hidden="true" href="#cb5-65" tabindex="-1"></a><span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb5-66"><a aria-hidden="true" href="#cb5-66" tabindex="-1"></a>$endif$</span>
+<span id="cb5-67"><a aria-hidden="true" href="#cb5-67" tabindex="-1"></a>$body$</span>
+<span id="cb5-68"><a aria-hidden="true" href="#cb5-68" tabindex="-1"></a>$for(include-after)$</span>
+<span id="cb5-69"><a aria-hidden="true" href="#cb5-69" tabindex="-1"></a>$include-after$</span>
+<span id="cb5-70"><a aria-hidden="true" href="#cb5-70" tabindex="-1"></a>$endfor$</span>
+<span id="cb5-71"><a aria-hidden="true" href="#cb5-71" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb5-72"><a aria-hidden="true" href="#cb5-72" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre>
+  </div>
+  <h3 id="data-dir">
+   data-dir
+  </h3>
+  <p>
+   即pandoc的数据目录，直接引用一下官方原话
+  </p>
+  <blockquote>
+   <p>
+    Specify the user data directory to search for pandoc data files. If
+this option is not specified, the default user data directory will be
+used. On *nix and macOS systems this will be the
+    <code>
+     pandoc
+    </code>
+    subdirectory of the XDG data directory (by default,
+    <code>
+     $HOME/.local/share
+    </code>
+    , overridable by setting the
+    <code>
+     XDG_DATA_HOME
+    </code>
+    environment variable). If that directory does
+not exist,
+    <code>
+     $HOME/.pandoc
+    </code>
+    will be used (for backwards
+compatibility). In Windows the default user data directory is
+    <code>
+     C:\Users\USERNAME\AppData\Roaming\pandoc
+    </code>
+    . You can find the
+default user data directory on your system by looking at the output of
+    <code>
+     pandoc --version
+    </code>
+    . A
+    <code>
+     reference.odt
+    </code>
+    ,
+    <code>
+     reference.docx
+    </code>
+    ,
+    <code>
+     epub.css
+    </code>
+    ,
+    <code>
+     templates
+    </code>
+    ,
+    <code>
+     slidy
+    </code>
+    ,
+    <code>
+     slideous
+    </code>
+    , or
+    <code>
+     s5
+    </code>
+    directory placed in this directory will override
+pandoc’s normal defaults.
+   </p>
+  </blockquote>
+  <p>
+   当指定参数时，Pandoc会在该目录下搜索内容。以template为例：
+  </p>
+  <figure>
+   <img alt="image-20201207154849382" src="C:\Users\Five\Desktop\note\img\image-20201207154849382.png"/>
+   <figcaption aria-hidden="true">
+    image-20201207154849382
+   </figcaption>
+  </figure>
+  <h3 id="语法">
+   语法
+  </h3>
+  <ul>
+   <li>
+    <code>
+     $--  comments --$
+    </code>
+   </li>
+  </ul>
+  <h2 id="数学公式渲染">
+   数学公式渲染
+  </h2>
+  <p>
+   <strong>
+    指定数学公式渲染引擎
+   </strong>
+   ，很重要，加粗
+  </p>
+  <div class="sourceCode" id="cb6">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">--mathjax</span> <span class="at">-o</span> out.html</span></code></pre>
+  </div>
+  <p>
+   但这还不够，pandoc 默认的 mathjax
+引擎不一定能用，最好自己指定一个能用mathjaxJS引擎，如：
+  </p>
+  <div class="sourceCode" id="cb7">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">--mathjax</span><span class="op">=</span>http://cdn.mathjax.org/mathjax/latest/MathJax.js<span class="pp">?</span>config=default <span class="at">-o</span> out.html</span></code></pre>
+  </div>
+  <blockquote>
+   <p>
+    还是一样经过了摸爬滚打，才知道 pandoc
+是这样用的，刚开始还傻乎乎地去html里加代码：
+   </p>
+   <p>
+    <code>
+     &lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"&gt;&lt;/script&gt;
+    </code>
+   </p>
+  </blockquote>
+  <p>
+   经过以上，数学表达式就能正常显示了，效果如下图所示：
+  </p>
+  <figure>
+   <img alt="image-20201017202048327" src="C:/Users/Five/Desktop/note/img/image-20201017202048327.png"/>
+   <figcaption aria-hidden="true">
+    image-20201017202048327
+   </figcaption>
+  </figure>
+  <p>
+   虽然mathjax只是LaTeX数学符号的一个子集，但一般很够用了。
+  </p>
+  <h2 id="转latexpdf">
+   转LaTeX/PDF
+  </h2>
+  <p>
+   指定TeX引擎
+  </p>
+  <div class="sourceCode" id="cb8">
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="ex">pandoc</span> in.md <span class="at">-o</span> out.pdf <span class="at">--latex-engine</span><span class="op">=</span>xelatex</span></code></pre>
+  </div>
+  <blockquote>
+   <p>
+    <a href="https://link.zhihu.com/?target=https%3A//github.com/Wandmalfarbe/pandoc-latex-template">
+     Eisvogel
+    </a>
+    ，A
+clean pandoc LaTeX template to convert your markdown files to PDF or
+LaTeX。
+   </p>
+  </blockquote>
+  <p>
+   https://github.com/Wandmalfarbe/pandoc-latex-template
+  </p>
+  <p>
+   先搁置，还没到用markdown写论文的地步（也许毕设会用）。
+  </p>
+  <h3 id="兼容中文">
+   兼容中文
+  </h3>
+  <p>
+   latex的中文素来麻烦。
+  </p>
+  <h1 id="xslt">
+   XSLT
+  </h1>
+  <h1 id="ast">
+   AST
+  </h1>
+  <p>
+   AST，Abstract Syntax对于JavaScript而言，AST是一个很重要的概念。
+  </p>
+  <h1 id="题外话">
+   题外话
+  </h1>
+  <p>
+   学C++无意间注意到LLVM官网的CSS代码是真滴少（两个CSS文件加起来几十行），跟我的思路几乎一致。
+  </p>
+ </body>
+</html>

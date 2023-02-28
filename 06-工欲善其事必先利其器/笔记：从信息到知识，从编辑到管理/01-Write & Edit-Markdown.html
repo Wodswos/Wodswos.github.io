@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   Write &amp; Edit-Markdown
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+     06-工欲善其事必先利其器
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-反思.html">
+         0-反思.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/0-资源 &amp; 信息清单.html">
+         0-资源 &amp; 信息清单.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.1-考研规划 &amp; 作息.html">
+         1.1-考研规划 &amp; 作息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/1.2-复试规划 &amp; 作息.html">
+         1.2-复试规划 &amp; 作息.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Git-Action-Workflow和持续集成.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       Git-项目协同的典范.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux基础信息.html">
+         Linux基础信息.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/Linux常用命令和配置.html">
+         Linux常用命令和配置.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/BeautifulSoup.html">
+         BeautifulSoup.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/杂七杂八但有用的库.html">
+         杂七杂八但有用的库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/00-End2End初步试水.html">
+         00-End2End初步试水.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Markdown.html">
+         01-Write &amp; Edit-Markdown.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-TeX-排版无冕之王.html">
+         01-Write &amp; Edit-TeX-排版无冕之王.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-Visual Studio Code.html">
+         01-Write &amp; Edit-Visual Studio Code.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html">
+         01-Write &amp; Edit-数据和信息的可视化-一图胜千言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-编辑器和笔记软件.html">
+         01-Write &amp; Edit-编辑器和笔记软件.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/01-Write &amp; Edit-被遗忘的Word.html">
+         01-Write &amp; Edit-被遗忘的Word.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/02-Manage &amp; Explore - 文献和论文.html">
+         02-Manage &amp; Explore - 文献和论文.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 其他.html">
+         03-Export &amp; Publish - 其他.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 以 Hugo 为主.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html">
+         03-Export &amp; Publish - 成熟的静态网站构建方案 - 基于 Node.js 的一系列构建工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - Github Pages.html">
+         03-Export &amp; Publish - 文档发布平台 - Github Pages.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html">
+         03-Export &amp; Publish - 文档发布平台 - 网络社交媒体.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html">
+         03-Export &amp; Publish - 自定义的构建方案 - AST 及 Markdown 解析器选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html">
+         03-Export &amp; Publish - 自定义的构建方案 - HTML 及样式优化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    Write &amp; Edit-Markdown
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#about-markdown" id="toc-about-markdown">
+      About Markdown
+     </a>
+     <ul>
+      <li>
+       <a href="#john-gruber1-原生标准" id="toc-john-gruber1-原生标准">
+        John
+Gruber-原生标准
+       </a>
+       <ul>
+        <li>
+         <a href="#inline-html" id="toc-inline-html">
+          inline HTML
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#github-flavored-markdown2-主流标准" id="toc-github-flavored-markdown2-主流标准">
+        Github Flavored
+Markdown-主流标准
+       </a>
+      </li>
+      <li>
+       <a href="#更多衍生" id="toc-更多衍生">
+        更多衍生
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#绘图" id="toc-绘图">
+      绘图
+     </a>
+     <ul>
+      <li>
+       <a href="#flow和sequence" id="toc-flow和sequence">
+        Flow和Sequence
+       </a>
+      </li>
+      <li>
+       <a href="#mermaid概述" id="toc-mermaid概述">
+        Mermaid概述
+       </a>
+       <ul>
+        <li>
+         <a href="#布局关键字" id="toc-布局关键字">
+          布局关键字
+         </a>
+        </li>
+        <li>
+         <a href="#节点形状" id="toc-节点形状">
+          节点形状
+         </a>
+        </li>
+        <li>
+         <a href="#连接线形状和描述" id="toc-连接线形状和描述">
+          连接线形状和描述
+         </a>
+        </li>
+        <li>
+         <a href="#组合形式" id="toc-组合形式">
+          组合形式
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#mermaid实例" id="toc-mermaid实例">
+        Mermaid实例
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#yaml-front-matter" id="toc-yaml-front-matter">
+      YAML Front
+Matter
+     </a>
+     <ul>
+      <li>
+       <a href="#yaml" id="toc-yaml">
+        YAML
+       </a>
+       <ul>
+        <li>
+         <a href="#语法规则" id="toc-语法规则">
+          语法规则
+         </a>
+        </li>
+        <li>
+         <a href="#字典" id="toc-字典">
+          字典
+         </a>
+        </li>
+        <li>
+         <a href="#跟md不太相关的" id="toc-跟md不太相关的">
+          跟md不太相关的
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#front-matter" id="toc-front-matter">
+        Front Matter
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#其他技巧" id="toc-其他技巧">
+      其他技巧
+     </a>
+     <ul>
+      <li>
+       <a href="#md引入参考文献" id="toc-md引入参考文献">
+        md引入参考文献
+       </a>
+      </li>
+      <li>
+       <a href="#typora-themes" id="toc-typora-themes">
+        Typora
+Themes
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="about-markdown">
+   About Markdown
+  </h1>
+  <p>
+   In 2002 Aaron Swartz created atx, “the true structured text
+format”.
+  </p>
+  <p>
+   Swartz and John Gruber then worked together to create the Markdown
+language in 2004, with the goal of enabling people “to write using an
+easy-to-read and easy-to-write plain text format, optionally convert it
+to structurally valid XHTML (or HTML)”.
+  </p>
+  <blockquote>
+   <p>
+    关于Markdown的历史环境和时代性，可以参考下面的回答，个人观点与之类似：
+   </p>
+   <p>
+    为什么Markdown在2004年才出现，而推广更晚？ - 马宏菩的回答 - 知乎
+https://www.zhihu.com/question/54719422/answer/142585646
+   </p>
+   <p>
+    简言之，老大哥HTML为了适应时代，妥协了，变了，变得强大花哨，但有得必有失，HTML不再适合直接写作，需要有个小弟来填补这个空白。
+   </p>
+   <p>
+    Markdown自己就是其中很优秀的小弟，又有Github等好爹（这种行为参考余姚叫父冬瓜强），最终脱颖而出，风头一时无两。
+   </p>
+  </blockquote>
+  <p>
+   Gruber wrote a Perl script, Markdown.pl, which converts marked-up
+text input to valid, well-formed XHTML or HTML and replaces angle
+brackets
+   <code>
+    &lt;
+   </code>
+   <code>
+    &gt;
+   </code>
+   and ampersands
+   <code>
+    &amp;
+   </code>
+   with their corresponding character entity
+references.
+  </p>
+  <p>
+   It can take the role of a standalone script, a plugin for Blosxom or
+a Movable Type, or of a text filter for BBEdit.
+  </p>
+  <h2 id="john-gruber1-原生标准">
+   John Gruber
+   <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+    <sup>
+     1
+    </sup>
+   </a>
+   -原生标准
+  </h2>
+  <p>
+   作为Markdown的创始人之一，对Markdown的影响力和权威性毋庸置疑。
+  </p>
+  <p>
+   Markdown借鉴了许多在它之前的markup语言，如
+   <a href="http://docutils.sourceforge.net/mirror/setext.html">
+    Setext
+   </a>
+   ,
+   <a href="http://www.aaronsw.com/2002/atx/">
+    atx
+   </a>
+   ,
+   <a href="http://textism.com/tools/textile/">
+    Textile
+   </a>
+   ,
+   <a href="http://docutils.sourceforge.net/rst.html">
+    reStructuredText
+   </a>
+   ,
+   <a href="http://www.triptico.com/software/grutatxt.html">
+    Grutatext
+   </a>
+   , and
+   <a href="http://ettext.taint.org/doc/">
+    EtText
+   </a>
+  </p>
+  <blockquote>
+   <p>
+    black line: a line containing nothing but spaces or tabs is
+considered blank.
+   </p>
+  </blockquote>
+  <p>
+   John
+Gruber将Markdown基础标记像HTML那样标为
+   <code>
+    block elements
+   </code>
+   和
+   <code>
+    span elements
+   </code>
+   两类。
+  </p>
+  <p>
+   <code>
+    block elements
+   </code>
+   主要有：
+  </p>
+  <ul>
+   <li>
+    标题
+    <ul>
+     <li>
+      支持Setext和atx两种风格的标题
+     </li>
+     <li>
+      atx风格用
+      <code>
+       ##
+      </code>
+      ，几级标题用几个
+      <code>
+       #
+      </code>
+      <ul>
+       <li>
+        可以在标题后继续追加任意个
+        <code>
+         #
+        </code>
+        ，作为美化
+       </li>
+      </ul>
+     </li>
+     <li>
+      还可以用Setext风格的标题
+      <ul>
+       <li>
+        <code>
+         Header info
+        </code>
+        然后换行，
+        <code>
+         ========
+        </code>
+        表示一级标题，
+        <code>
+         -------
+        </code>
+        表示二级标题
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li>
+    引用
+    <ul>
+     <li>
+      Markdown用
+      <code>
+       &gt;
+      </code>
+      表示引用
+     </li>
+     <li>
+      可以只在每一段话之前加一个
+      <code>
+       &gt;
+      </code>
+      ，也可以每一行（一段话可能有多行）前都加
+      <code>
+       &gt;
+      </code>
+      。
+     </li>
+     <li>
+      引用可以嵌套，也可以包含其他Markdown元素
+     </li>
+    </ul>
+   </li>
+   <li>
+    列表
+    <ul>
+     <li>
+      用
+      <code>
+       *
+      </code>
+      、
+      <code>
+       -
+      </code>
+      、
+      <code>
+       +
+      </code>
+      都可以标记无序列表（对应html
+      <code>
+       ol
+      </code>
+      标签）
+     </li>
+     <li>
+      用形如
+      <code>
+       1.
+      </code>
+      标记有序列表（对应html
+      <code>
+       ul
+      </code>
+      标签），但“有序”列表完全可以是乱序的，即不一定按自然数序
+     </li>
+     <li>
+      列表的每一项也可以有多段内容，换行后，用四个空格或制表符标记
+     </li>
+    </ul>
+   </li>
+   <li>
+    代码块
+    <ul>
+     <li>
+      用四个空格或一个制表符标记，但……这种用法基本被抛弃了
+     </li>
+     <li>
+      GFM（Gihub Flavored Markdown）标准更香，用前后各三个反引号标记
+     </li>
+    </ul>
+   </li>
+   <li>
+    水平线
+    <ul>
+     <li>
+      就
+      <code>
+       ---------------------
+      </code>
+      或者
+      <code>
+       *******************
+      </code>
+      之类，随你开心
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   <code>
+    span elements
+   </code>
+   主要有
+  </p>
+  <ul>
+   <li>
+    超链接
+   </li>
+   <li>
+    加粗、斜体
+   </li>
+   <li>
+    代码
+   </li>
+   <li>
+    图片
+   </li>
+  </ul>
+  <p>
+   不赘述了。
+  </p>
+  <h3 id="inline-html">
+   inline HTML
+  </h3>
+  <blockquote>
+   <p>
+    John Gruber: Markdown’s syntax is intended for one purpose: to be
+used as a format for
+    <em>
+     writing
+    </em>
+    for the web.
+   </p>
+  </blockquote>
+  <p>
+   Markdown不是HTML的竞品，所以它的原则应该尽可能的简单，尽可能地Focus
+on Plain Text.
+  </p>
+  <p>
+   所以当需要更多内容地时候，直接交给HTML语法就行。
+  </p>
+  <ul>
+   <li>
+    Block-level HTML
+element需要用空行（而不仅是用空格或制表符）隔开。
+   </li>
+   <li>
+    Span-Level HTML tags可以随意插入
+   </li>
+  </ul>
+  <blockquote>
+   <p>
+    如果你喜欢，甚至可以在一份Markdown文件中不用任何Markdown语法，纯用HTML。
+   </p>
+   <p>
+    此时的Markdown文件也不需要转换，把后缀名改成html就能在浏览器打开（虽然缺少HTML、head、body之类的标签，但相信你的浏览器够聪明）。
+   </p>
+  </blockquote>
+  <p>
+   John Gruber的规范里，&amp;是个转义符，用于标记HTML
+entities，如
+   <code>
+    &amp;amp
+   </code>
+   、
+   <code>
+    &amp;lt
+   </code>
+   。
+  </p>
+  <blockquote>
+   <p>
+    Typora好像没有采用这一点规则，可以无障碍输入&amp;符号。
+   </p>
+  </blockquote>
+  <p>
+   John
+Gruber自己给出的实现（用Perl）：https://daringfireball.net/projects/downloads/Markdown_1.0.1.zip
+  </p>
+  <h2 id="github-flavored-markdown2-主流标准">
+   Github Flavored Markdown
+   <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+    <sup>
+     2
+    </sup>
+   </a>
+   -主流标准
+  </h2>
+  <p>
+   作为Markdown的好爹，Github也提出了一套关于Markdown的基础标准。
+  </p>
+  <blockquote>
+   <p>
+    在Typora-Preference-Markdown里有strict mode选项，You could enable
+    <strong>
+     strict mode
+    </strong>
+    to tell Typora to follow
+    <a href="https://github.github.com/gfm/">
+     GFM’s spec
+    </a>
+    more strictly.
+   </p>
+   <p>
+    看来Typora也是灰常青睐GFM。
+   </p>
+  </blockquote>
+  <ul>
+   <li>
+    标准MD要在一行的最后加两个空格符才表示换行，否则是不换行的。但是GFM则没有此要求。
+   </li>
+   <li>
+    标准的MD用两边加下划线表示斜体，但对于码农社区Github而言这条规则很不方便，比如很多变量命名会用下划线（虽然Markdown有代码模式，代码模式内的下划线不会被转义）
+   </li>
+   <li>
+    在GFM中，一个有效的URL会自带超链接效果。
+    <ul>
+     <li>
+      当然标准的MD方式（指定对URL的文字描述）依旧支持且普遍使用。
+     </li>
+    </ul>
+   </li>
+   <li>
+    使用前后各三个反引号标记代码段，还可以在三个反引号后指定语言，方便高亮
+    <ul>
+     <li>
+      使用单个反引号框起行内代码
+     </li>
+     <li>
+      标准的MD使用4个空格对齐，比较麻烦，扩展性略差
+     </li>
+    </ul>
+   </li>
+   <li>
+    支持带勾选框的任务列表
+   </li>
+  </ul>
+  <p>
+   更多内容有空再填坑，也可以自行参考https://docs.github.com/en/github/writing-on-github
+  </p>
+  <h2 id="更多衍生">
+   更多衍生
+  </h2>
+  <h1 id="绘图">
+   绘图
+  </h1>
+  <p>
+   以下几个实例效果图如下（可切换到源码模式查看代码）：
+  </p>
+  <blockquote>
+   <p>
+    突然想起来，放到网上的是html文件，没法下载源文件然后到typora下看源码。
+   </p>
+   <p>
+    不过其实还是可以下载到源文件的，我的个人博客很粗糙，转换为html后，markdown文件没删。
+   </p>
+   <p>
+    把当前路径的后缀.html换成.md，再用wget
+url就能获取这篇文章的源码啦。
+   </p>
+   <p>
+    或者直接在浏览器地址栏改成.md，毕竟md文件浏览器一般默认下载，而不会像json之类的文件默认打开。
+   </p>
+  </blockquote>
+  <h2 id="flow和sequence">
+   Flow和Sequence
+  </h2>
+  <p>
+   Code模式本意是为Code而生，可以选择注明语言，如Python、Java等，通过插件实现更好的排版和语法高亮等。
+  </p>
+  <p>
+   注明语言为Flow时可以像写代码一样写流程图，注明语言为Sequence时可以写UML时序图。
+  </p>
+  <p>
+   <strong>
+    标准流程图源码格式：
+   </strong>
+  </p>
+  <pre class="flow"><code>st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st-&gt;op-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre>
+  <p>
+   <strong>
+    标准流程图源码格式（横向）：
+   </strong>
+  </p>
+  <pre class="flow"><code>st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st(right)-&gt;op(right)-&gt;cond
+cond(yes)-&gt;io(bottom)-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre>
+  <p>
+   <strong>
+    UML时序图源码样例：
+   </strong>
+  </p>
+  <pre class="sequence"><code>对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象A-&gt;对象B: 你真的好吗？</code></pre>
+  <p>
+   <strong>
+    UML时序图源码复杂样例：
+   </strong>
+  </p>
+  <pre class="sequence"><code>Title: 标题：复杂使用
+对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象B-&gt;小三: 你好吗
+小三--&gt;&gt;对象A: 对象B找我了
+对象A-&gt;对象B: 你真的好吗？
+Note over 小三,对象B: 我们是朋友
+participant C
+Note right of C: 没人陪我玩</code></pre>
+  <h2 id="mermaid概述">
+   Mermaid概述
+  </h2>
+  <p>
+   使用JS开发的绘图工具
+  </p>
+  <p>
+   <strong>
+    Mermaid was nominated and won the
+    <a href="https://osawards.com/javascript/#nominees">
+     JS Open Source Awards
+(2019)
+    </a>
+    in the category “The most exciting use of
+technology”
+   </strong>
+  </p>
+  <h3 id="布局关键字">
+   布局关键字
+  </h3>
+  <p>
+   T：Top，B：Bottom，L：Left，R：Right
+  </p>
+  <p>
+   graph TB/BT/LR/RL
+  </p>
+  <h3 id="节点形状">
+   节点形状
+  </h3>
+  <p>
+   []、{}、()
+  </p>
+  <h3 id="连接线形状和描述">
+   连接线形状和描述
+  </h3>
+  <h3 id="组合形式">
+   组合形式
+  </h3>
+  <h2 id="mermaid实例">
+   Mermaid实例
+  </h2>
+  <p>
+   <strong>
+    横向流程图源码格式：
+   </strong>
+  </p>
+  <pre class="mermaid"><code>graph LR
+A[方形] --&gt;B(圆角)
+    B --&gt; C{条件a}
+    C --&gt;|a=1| D[结果1]
+    C --&gt;|a=2| E[结果2]
+    F[横向流程图]</code></pre>
+  <p>
+   <strong>
+    竖向流程图源码格式：
+   </strong>
+  </p>
+  <pre class="mermaid"><code>graph TD
+A[方形] --&gt; B(圆角)
+    B --&gt; C{条件a}
+    C --&gt; |a=1| D[结果1]
+    C --&gt; |a=2| E[结果2]
+    F[竖向流程图]</code></pre>
+  <p>
+   <strong>
+    UML标准时序图样例：
+   </strong>
+  </p>
+  <pre class="mermaid"><code>%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
+  sequenceDiagram
+    participant 张三
+    participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!</code></pre>
+  <p>
+   <strong>
+    甘特图样例：
+   </strong>
+  </p>
+  <pre class="mermaid"><code>%% 语法示例
+        gantt
+        dateFormat  YYYY-MM-DD
+        title 软件开发甘特图
+        section 设计
+        需求                      :done,    des1, 2014-01-06,2014-01-08
+        原型                      :active,  des2, 2014-01-09, 3d
+        UI设计                     :         des3, after des2, 5d
+    未来任务                     :         des4, after des3, 5d
+        section 开发
+        学习准备理解需求                      :crit, done, 2014-01-06,24h
+        设计框架                             :crit, done, after des2, 2d
+        开发                                 :crit, active, 3d
+        未来任务                              :crit, 5d
+        耍                                   :2d
+        section 测试
+        功能测试                              :active, a1, after des3, 3d
+        压力测试                               :after a1  , 20h
+        测试报告                               : 48h</code></pre>
+  <h1 id="yaml-front-matter">
+   YAML Front Matter
+  </h1>
+  <h2 id="yaml">
+   YAML
+  </h2>
+  <blockquote>
+   <p>
+    又是递归缩写，Yaml Ain’t Markup Language
+   </p>
+  </blockquote>
+  <p>
+   一个可读性高，并容易被人类阅读，容易和脚本语言交互，用来表达资料序列的标称语言。
+  </p>
+  <blockquote>
+   <p>
+    第一次看到YAML是一个数据竞赛，后来又见到Kafka也用YAML做配置文件，Kubernetes也有Yaml，但个人总感觉YAML
+还没 Json 香啊（至少在成熟的IDE里 json 使用体验是针不戳）。
+   </p>
+  </blockquote>
+  <h3 id="语法规则">
+   语法规则
+  </h3>
+  <ul>
+   <li>
+    大小写敏感
+   </li>
+   <li>
+    使用缩进表示层级关系
+    <ul>
+     <li>
+      缩进时不允许使用Tab键，只允许使用空格。
+     </li>
+     <li>
+      缩进的空格数目不重要，只要相同层级的元素左侧对齐即可
+     </li>
+    </ul>
+   </li>
+   <li>
+    支持的数据结构：字典、数组、纯量
+    <ul>
+     <li>
+      用冒号区分标识键值对，如key: value
+     </li>
+     <li>
+      一个数组的数组名和数组内容之间的关系也可以理解为一个键值对
+     </li>
+    </ul>
+   </li>
+   <li>
+    <strong>
+     value和’:’之间要有空格，很重要，故加粗
+    </strong>
+   </li>
+  </ul>
+  <h3 id="字典">
+   字典
+  </h3>
+  <p>
+   方法一：
+  </p>
+  <div class="sourceCode" id="cb9">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="fu">key</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">key1</span><span class="kw">:</span><span class="at"> value1</span><span class="kw">,</span><span class="at"> </span><span class="fu">key2</span><span class="kw">:</span><span class="at"> value2</span><span class="kw">,</span><span class="at"> ...</span><span class="kw">}</span></span></code></pre>
+  </div>
+  <p>
+   方法二：
+  </p>
+  <div class="sourceCode" id="cb10">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a><span class="fu">key</span><span class="kw">:</span></span>
+<span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a><span class="at">    </span><span class="fu">child-key</span><span class="kw">:</span><span class="at"> value</span></span>
+<span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a><span class="at">    </span><span class="fu">child-key2</span><span class="kw">:</span><span class="at"> value2</span></span></code></pre>
+  </div>
+  <p>
+   方法三：更复杂的键值对，问号加一个空格代表一个复杂的
+key，一个冒号加一个空格代表一个 value：
+  </p>
+  <div class="sourceCode" id="cb11">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="kw">?</span><span class="at">  </span></span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> complexkeyPart1</span></span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> complexkeyPart2</span></span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a><span class="kw">:</span></span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> complexvaluePart1</span></span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> complexvaluePart2</span></span></code></pre>
+  </div>
+  <p>
+   三种方法是等价的，法二和法三是为了更好的视觉效果而做出的改进
+  </p>
+  <p>
+   如下图所示yaml内容，是用法一写的
+  </p>
+  <div class="sourceCode" id="cb12">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="fu">house</span><span class="kw">:</span></span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a><span class="at">  </span><span class="fu">family</span><span class="kw">:</span></span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Doe</span></span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a><span class="at">    </span><span class="fu">parents</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">John</span><span class="kw">,</span><span class="at"> Jane</span><span class="kw">]</span></span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a><span class="at">    </span><span class="fu">children</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Paul</span><span class="kw">,</span><span class="at"> Mark</span><span class="kw">,</span><span class="at"> Simone</span><span class="kw">]</span></span>
+<span id="cb12-6"><a aria-hidden="true" href="#cb12-6" tabindex="-1"></a><span class="at">  </span><span class="fu">address</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">number</span><span class="kw">:</span><span class="at"> </span><span class="dv">34</span><span class="kw">,</span><span class="at"> </span><span class="fu">street</span><span class="kw">:</span><span class="at"> MainStreet</span><span class="kw">,</span><span class="at"> </span><span class="fu">city</span><span class="kw">:</span><span class="at"> Nowheretown</span><span class="kw">,</span><span class="at"> </span><span class="fu">zipcode</span><span class="kw">:</span><span class="at"> </span><span class="dv">12345</span><span class="at"> </span><span class="kw">}</span></span></code></pre>
+  </div>
+  <p>
+   经python代码读取再写出（中途不作改变）：
+  </p>
+  <div class="sourceCode" id="cb13">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" href="#cb13-1" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb13-2"><a aria-hidden="true" href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a aria-hidden="true" href="#cb13-3" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'test.yaml'</span>,<span class="st">'r'</span>) <span class="im">as</span> reader:</span>
+<span id="cb13-4"><a aria-hidden="true" href="#cb13-4" tabindex="-1"></a>    data <span class="op">=</span> yaml.load(reader)</span>
+<span id="cb13-5"><a aria-hidden="true" href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a aria-hidden="true" href="#cb13-6" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'write_in.yaml'</span>,<span class="st">'w+'</span>) <span class="im">as</span> writer:</span>
+<span id="cb13-7"><a aria-hidden="true" href="#cb13-7" tabindex="-1"></a>    writer.write(yaml.dump(data))</span></code></pre>
+  </div>
+  <p>
+   就会以方法二的形式导出结果：
+  </p>
+  <div class="sourceCode" id="cb14">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a><span class="fu">house</span><span class="kw">:</span></span>
+<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a><span class="at">  </span><span class="fu">address</span><span class="kw">:</span></span>
+<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a><span class="at">    </span><span class="fu">city</span><span class="kw">:</span><span class="at"> Nowheretown</span></span>
+<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a><span class="at">    </span><span class="fu">number</span><span class="kw">:</span><span class="at"> </span><span class="dv">34</span></span>
+<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a><span class="at">    </span><span class="fu">street</span><span class="kw">:</span><span class="at"> MainStreet</span></span>
+<span id="cb14-6"><a aria-hidden="true" href="#cb14-6" tabindex="-1"></a><span class="at">    </span><span class="fu">zipcode</span><span class="kw">:</span><span class="at"> </span><span class="dv">12345</span></span>
+<span id="cb14-7"><a aria-hidden="true" href="#cb14-7" tabindex="-1"></a><span class="at">  </span><span class="fu">family</span><span class="kw">:</span></span>
+<span id="cb14-8"><a aria-hidden="true" href="#cb14-8" tabindex="-1"></a><span class="at">    </span><span class="fu">children</span><span class="kw">:</span></span>
+<span id="cb14-9"><a aria-hidden="true" href="#cb14-9" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Paul</span></span>
+<span id="cb14-10"><a aria-hidden="true" href="#cb14-10" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Mark</span></span>
+<span id="cb14-11"><a aria-hidden="true" href="#cb14-11" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Simone</span></span>
+<span id="cb14-12"><a aria-hidden="true" href="#cb14-12" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Doe</span></span>
+<span id="cb14-13"><a aria-hidden="true" href="#cb14-13" tabindex="-1"></a><span class="at">    </span><span class="fu">parents</span><span class="kw">:</span></span>
+<span id="cb14-14"><a aria-hidden="true" href="#cb14-14" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> John</span></span>
+<span id="cb14-15"><a aria-hidden="true" href="#cb14-15" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Jane</span></span></code></pre>
+  </div>
+  <h3 id="跟md不太相关的">
+   跟md不太相关的
+  </h3>
+  <p>
+   Python解析YAML
+  </p>
+  <div class="sourceCode" id="cb15">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb15-2"><a aria-hidden="true" href="#cb15-2" tabindex="-1"></a><span class="co"># 载入</span></span>
+<span id="cb15-3"><a aria-hidden="true" href="#cb15-3" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'test_yml.yml'</span>,<span class="st">'r'</span>) <span class="im">as</span> reader:</span>
+<span id="cb15-4"><a aria-hidden="true" href="#cb15-4" tabindex="-1"></a>    data <span class="op">=</span> yaml.load(reader)</span>
+<span id="cb15-5"><a aria-hidden="true" href="#cb15-5" tabindex="-1"></a><span class="co"># 导出</span></span>
+<span id="cb15-6"><a aria-hidden="true" href="#cb15-6" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'test_yml.yml'</span>,<span class="st">'w'</span>) <span class="im">as</span> fb: <span class="co">#或者 f=oepn("filename",'w')</span></span>
+<span id="cb15-7"><a aria-hidden="true" href="#cb15-7" tabindex="-1"></a>    fb.write(yaml.dump(data))</span></code></pre>
+  </div>
+  <h2 id="front-matter">
+   Front Matter
+  </h2>
+  <p>
+   Front-matter 是文件最上方以 —
+分隔（三个连续短横）的区域，用于指定个别文件的变量。
+  </p>
+  <div class="sourceCode" id="cb16">
+   <pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb16-2"><a aria-hidden="true" href="#cb16-2" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Hello World</span></span>
+<span id="cb16-3"><a aria-hidden="true" href="#cb16-3" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2013/7/13 20:46:25</span></span>
+<span id="cb16-4"><a aria-hidden="true" href="#cb16-4" tabindex="-1"></a><span class="pp">---</span></span></code></pre>
+  </div>
+  <h1 id="其他技巧">
+   其他技巧
+  </h1>
+  <h2 id="md引入参考文献">
+   md引入参考文献
+  </h2>
+  <p>
+   通过后跟如下标识在文中引入参考文献，其中1为编号
+  </p>
+  <pre class="text"><code>[^1]</code></pre>
+  <p>
+   在文末用如下标记注明对应的参考文献
+  </p>
+  <pre><code>[^1]:</code></pre>
+  <p>
+   在typora中的效果图
+  </p>
+  <figure>
+   <img alt="image-20201018131147176" src="C:/Users/Five/Desktop/note/img/image-20201018131147176.png"/>
+   <figcaption aria-hidden="true">
+    image-20201018131147176
+   </figcaption>
+  </figure>
+  <h2 id="typora-themes">
+   Typora Themes
+  </h2>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      https://daringfireball.net/projects/markdown/syntax
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      https://docs.github.com/en/github/writing-on-github
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>

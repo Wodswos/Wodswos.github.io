@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
   <meta content="fivezehua@qq.com" name="author"/>
   <title>
-   tempWork
+   神经网络基础
   </title>
   <style>
    html {
@@ -280,6 +280,325 @@
   <![endif]-->
  </head>
  <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/05-深度学习方法/index.html">
+     05-深度学习方法
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/0.1-数据集及其格式.html">
+         0.1-数据集及其格式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/0.2-模型的训练和选择.html">
+         0.2-模型的训练和选择.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.0-MLP，aka FCN.html">
+         1.0-MLP，aka FCN.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.0-万物起源，线性回归.html">
+         1.0-万物起源，线性回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.1-自动求导和反向传播.html">
+         1.1-自动求导和反向传播.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.1-跳出线性的局限：常用激活函数概览.html">
+         1.1-跳出线性的局限：常用激活函数概览.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.3-优化算法-SGD、Momentum、Adam.html">
+         1.3-优化算法-SGD、Momentum、Adam.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/2.0-CNNs-CV的通行证.html">
+         2.0-CNNs-CV的通行证.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/2.1-CNNs-现代卷积网络.html">
+         2.1-CNNs-现代卷积网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.1-RNNs-从0到LSTM.html">
+         3.1-RNNs-从0到LSTM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.2-RNNs-深度和双向.html">
+         3.2-RNNs-深度和双向.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/3.3-RNNs-Encoder-Decoder架构、Seq2Seq、束搜索.html">
+         3.3-RNNs-Encoder-Decoder架构、Seq2Seq、束搜索.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/4.1-Attention-从RNN到Attention.html">
+         4.1-Attention-从RNN到Attention.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/4.2-Attention-从Attention到Tansformer.html">
+         4.2-Attention-从Attention到Tansformer.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-GAN-对抗神经网络.html">
+         7-GAN-对抗神经网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-Hopfield神经网络.html">
+         7-Hopfield神经网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/7-玻尔兹曼机.html">
+         7-玻尔兹曼机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.1-Frame-Pytorch及其生态.html">
+         1.1-Frame-Pytorch及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.1-Frame-Tensorflow及其生态.html">
+         1.1-Frame-Tensorflow及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-Gluon.html">
+         1.2-Frame-Gluon.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-MXNet.html">
+         1.2-Frame-MXNet.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.2-Frame-PaddlePaddle及其生态.html">
+         1.2-Frame-PaddlePaddle及其生态.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.3-Frame-腾讯优图NCNN.html">
+         1.3-Frame-腾讯优图NCNN.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/1.3-Frame-阿里XDL.html">
+         1.3-Frame-阿里XDL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/2.1-Model&amp;TrainProcess Visualize.html">
+         2.1-Model&amp;TrainProcess Visualize.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/百度.html">
+         百度.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/1-数字图像基础.html">
+         1-数字图像基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/2.1-图像增强-灰度变换与空间滤波.html">
+         2.1-图像增强-灰度变换与空间滤波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/2.2-图像增强-频率域滤波.html">
+         2.2-图像增强-频率域滤波.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/x-其他图像处理.html">
+         x-其他图像处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/x-素描基础.html">
+         x-素描基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/工具篇 - Python 常用图像处理库.html">
+         工具篇 - Python 常用图像处理库.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/0.1-Classification-基础的图像分类识别.html">
+         0.1-Classification-基础的图像分类识别.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/1.1-图像预处理-超像素分割.html">
+         1.1-图像预处理-超像素分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/1.1-基础操作-图像金字塔.html">
+         1.1-基础操作-图像金字塔.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.0-Detection &amp; Segmentation 简述.html">
+         2.0-Detection &amp; Segmentation 简述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.1-Detection-YOLO.html">
+         2.1-Detection-YOLO.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.1-Detection-目标检测.html">
+         2.1-Detection-目标检测.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.2-Detection-Saliency Detection.html">
+         2.2-Detection-Saliency Detection.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/2.3-Detection-Edge Detection.html">
+         2.3-Detection-Edge Detection.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/3.1-Segmentation-语义分割.html">
+         3.1-Segmentation-语义分割.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/3.2-Segmentation-抠图 Matting.html">
+         3.2-Segmentation-抠图 Matting.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/x-图像相似度的指标.html">
+         x-图像相似度的指标.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/0-文本预处理和语言模型.html">
+         0-文本预处理和语言模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/ERNIE.html">
+         ERNIE.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/NLP基础.html">
+         NLP基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/情感分析.html">
+         情感分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/情感分析实践——一份水课大作业模板.html">
+         情感分析实践——一份水课大作业模板.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       x-脉冲神经网络.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
   <div id="main-navigation">
    <div id="navigation-list-wrapper">
     <a class="web-header" href="https://wodswos.github.io">
@@ -676,7 +995,7 @@
   </div>
   <header id="title-block-header">
    <h1 class="title">
-    tempWork
+    神经网络基础
    </h1>
    <p class="author">
     fivezehua@qq.com
@@ -685,36 +1004,202 @@
   <nav id="TOC" role="doc-toc">
    <ul>
     <li>
-     <a href="#碎碎念" id="toc-碎碎念">
-      碎碎念
+     <a href="#神经网络完成了什么" id="toc-神经网络完成了什么">
+      神经网络完成了什么
      </a>
+     <ul>
+      <li>
+       <a href="#特征工程aka表示学习" id="toc-特征工程aka表示学习">
+        特征工程，aka表示学习
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#关于神经网络的研究历程" id="toc-关于神经网络的研究历程">
+      关于神经网络的研究历程
+     </a>
+     <ul>
+      <li>
+       <a href="#第一代神经网络" id="toc-第一代神经网络">
+        第一代神经网络
+       </a>
+      </li>
+      <li>
+       <a href="#第二代神经网络" id="toc-第二代神经网络">
+        第二代神经网络
+       </a>
+       <ul>
+        <li>
+         <a href="#循环网络和反馈网络" id="toc-循环网络和反馈网络">
+          循环网络和反馈网络
+         </a>
+        </li>
+        <li>
+         <a href="#前馈网络和反向传播算法" id="toc-前馈网络和反向传播算法">
+          前馈网络和反向传播算法
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#deep-learning" id="toc-deep-learning">
+        Deep
+Learning
+       </a>
+      </li>
+     </ul>
     </li>
    </ul>
   </nav>
   <p>
-   Manuel Blum:
+   <img src="C:/Users/Five/Desktop/note/img/v2-487f13a5de2ef2105a90be878e5f3ed5_720w.jpg"/>
+  </p>
+  <h1 id="神经网络完成了什么">
+   神经网络完成了什么
+  </h1>
+  <p>
+   特征工程一直是机器学习中极为重要的一部分，甚至可以说是关键，而神经网络nb就nb在它可以完成复杂特征的自动提取，即自动化特征工程，而且是自动化复杂的特征工程。
   </p>
   <blockquote>
    <p>
-    You are all computer scientists. You know what FINITE AUTOMATA can
-do. You know what TURING MACHINES can do. For example, Finite Automata
-can add but not multiply. Turing Machines can compute any computable
-function. Turing machines are incredibly more powerful than Finite
-Automata. Yet the only difference between a FA and a TM is that the TM,
-unlike the FA, has paper and pencil. Think about it. It tells you
-something about the power of writing. Without writing, you are reduced
-to a finite automaton. With writing you have the extraordinary power of
-a Turing machine.
+    相比于传统的特征工程，神经网络不仅自动化，而且还能提取更复杂的特征，几乎可以说百利无一害，自然风头一时无两。
    </p>
   </blockquote>
-  <h1 id="碎碎念">
-   碎碎念
+  <h2 id="特征工程aka表示学习">
+   特征工程，aka表示学习
+  </h2>
+  <p>
+   Representation Learning。
+  </p>
+  <blockquote>
+   <p>
+    Representation learning is a set of methods that allows a machine to
+be fed with raw data and to automatically discover the representations
+needed for detection or classification. Deep-learning methods are
+representation-learning methods with multiple levels of representation,
+obtained by composing simple but non-linear modules that each transform
+the representation at one level (starting with the raw input) into a
+representation at a higher, slightly more abstract level.
+[[来自三巨头的综述：Deep Learning.pdf]]
+   </p>
+  </blockquote>
+  <h1 id="关于神经网络的研究历程">
+   关于神经网络的研究历程
   </h1>
   <p>
-   可能还是该多看多读多想少记。
+   1943年，心理学家McCulloch 和数学家 Pitts 根据神经元提出 M-P
+模型，打下坚实基础。
   </p>
   <p>
-   记录有收获，但耽搁了太多时间了，也很难沉下心来。
+   1949年，心理学家 Hebb
+提出了人工神经网络的学习规则，称为模型的训练算法的起点。
+  </p>
+  <h2 id="第一代神经网络">
+   第一代神经网络
+  </h2>
+  <p>
+   1958年，康奈尔大学的心理学家Rosenblatt
+发明的感知机（Perceptron）可对输入的多维数据进行二分类，且能够使用梯度下降法从样本（训练集）中进行机器学习（更新权值）。
+  </p>
+  <blockquote>
+   <p>
+    纽约时报（New York Times）的评价：
+   </p>
+   <p>
+    The Navy revealed the embryo of an electronic computer today that it
+expects will be able to walk, talk, see, write, reproduce itself and be
+conscious of its existence.
+   </p>
+  </blockquote>
+  <p>
+   1962年，该方法被证明为能收敛。
+  </p>
+  <p>
+   1969年，Minsky 和 Papert
+发表论文《Perceptron》，从理论上严格证明了单层感知机无法解决异或问题，从而引申到无法解决线性不可分问题，开始陷入对ANN的反思潮。
+  </p>
+  <p>
+   Arbib 的竞争模型，Kohonen 的自组织映射、Grossberg
+的自适应共振模型（ART）、Rumellhart
+等人的并行分布处理模型（PDP）等。
+  </p>
+  <h2 id="第二代神经网络">
+   第二代神经网络
+  </h2>
+  <h3 id="循环网络和反馈网络">
+   循环网络和反馈网络
+  </h3>
+  <p>
+   1982年，Hopfield 提出循环网络，1984年提出 Hopfield
+网络，解决了TSP问题。
+  </p>
+  <blockquote>
+   <p>
+    Hopfield为反馈式神经网络，区别于现在主流的BP神经网络。
+   </p>
+  </blockquote>
+  <p>
+   1985年，美国加州大学圣地亚哥分校的 Hinton、Rumellhart 等提出了
+Boltzmann机。
+  </p>
+  <h3 id="前馈网络和反向传播算法">
+   前馈网络和反向传播算法
+  </h3>
+  <p>
+   1986年，Rumelhart和McCellland为首的科研小组在论文《Learning
+Representations by back-propagating errors》中首次提出BP算法。
+  </p>
+  <p>
+   同年，Hiton 提出 MLP
+的BP算法，并采用Sigmoid进行非线性映射（激活函数），有效解决了非线性分类和学习的问题，引发了神经网络的第二次热潮。
+  </p>
+  <p>
+   1989年， Robert Hecht-Nielsen
+证明了MLP的万能逼近定理：对于任何闭区间内的一个连续函数F，都可以用含有一个隐含层的BP网络来逼近。
+  </p>
+  <p>
+   1997年，LSTM模型提出，但并没有引起足够重视。
+  </p>
+  <blockquote>
+   <p>
+    神经网络的第二次热潮逐渐散去，统计学习方法迎来了一段属于他的时代。
+   </p>
+  </blockquote>
+  <h2 id="deep-learning">
+   Deep Learning
+  </h2>
+  <p>
+   2006年（
+   <strong>
+    深度学习元年
+   </strong>
+   ），Hiton提出了深层网络训练中梯度消失问题的解决方案：无监督训练对权值进行初始化+有监督训练微调。
+  </p>
+  <blockquote>
+   <p>
+    即 Hinton
+提出了在非监督数据上建立多层神经网络的一个有效方法，具体分为两步：首先逐层构建单层神经元，这样每次都是训练一个单层网络；当所有层训练完后，使用wake-sleep算法进行调优。
+   </p>
+   <p>
+    wake阶段：认知过程，通过外界的特征和向上的权重产生每一层的抽象表示，并且使用梯度下降修改层间的下行权重。
+   </p>
+   <p>
+    sleep阶段：生成过程，通过顶层表示和向下权重，生成底层的状态，同时修改层间向上的权重。
+   </p>
+  </blockquote>
+  <p>
+   2011年，ReLU激活函数提出，能够有效抑制梯度消失的问题。
+  </p>
+  <p>
+   同年，微软首次将深度学习应用在语音识别上。
+  </p>
+  <p>
+   2012年，Hinton 课题组携 AlexNet 参加
+ImageNet图像识别比赛，降维打击夺冠。
+  </p>
+  <p>
+   扣动了深度学习革命的扳机，神经网络的风头一时无两。
   </p>
  </body>
 </html>

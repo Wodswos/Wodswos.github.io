@@ -1,0 +1,2870 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   汇编语言基础语法
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+     02-计算机科学基础
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的机器-有限自动机.html">
+         01-最简单的机器-有限自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/01-最简单的语言-正则表达式.html">
+         01-最简单的语言-正则表达式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-从lambda演算到可定义函数.html">
+         02-更强的计算能力-从lambda演算到可定义函数.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-图灵和图灵机.html">
+         02-更强的计算能力-图灵和图灵机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/02-更强的计算能力-递归函数和可定义函数的等价性.html">
+         02-更强的计算能力-递归函数和可定义函数的等价性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-BlooP、FlooP、GlooP.html">
+         03-BlooP、FlooP、GlooP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-文法和语言.html">
+         03-文法和语言.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/03-计算与可计算性.html">
+         03-计算与可计算性.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-元胞自动机和生命游戏.html">
+         0x-元胞自动机和生命游戏.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-图灵完备.html">
+         0x-图灵完备.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-标签系统.html">
+         0x-标签系统.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算和信息的物理极限.html">
+         0x-计算和信息的物理极限.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/0x-计算图or数据流图.html">
+         0x-计算图or数据流图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/《自动机理论、语言和计算导论》.html">
+         《自动机理论、语言和计算导论》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html">
+         时间维度和空间维度的不平等：并行的一定可以串行，串行的不一定可以并行.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       0x-《Crash Course Computer Science》笔记.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       0x-从半导体萌芽到互联网时代的所有巨头.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       0x-模拟计算机会卷土重来吗？.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/00-数字电路基础.html">
+         00-数字电路基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-“开关”史诗：晶体管的前世今生.html">
+         01-“开关”史诗：晶体管的前世今生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/01-从开关到逻辑门.html">
+         01-从开关到逻辑门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-从逻辑门到ALU.html">
+         02-从逻辑门到ALU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/02-时序电路.html">
+         02-时序电路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-x86指令集和处理器.html">
+         03-x86指令集和处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/03-其他指令集及其处理器.html">
+         03-其他指令集及其处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-单周期处理器.html">
+         04-单周期处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/04-流水线处理器.html">
+         04-流水线处理器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/05-从CPU到通用计算机结构.html">
+         05-从CPU到通用计算机结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-主存储器和缓存机制.html">
+         06-层次存储-主存储器和缓存机制.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/06-层次存储-辅助存储器.html">
+         06-层次存储-辅助存储器.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/07-中断和异常.html">
+         07-中断和异常.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-DMA.html">
+         08-输入输出-DMA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-接口和总线.html">
+         08-输入输出-接口和总线.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/08-输入输出-计算机体系的其他配角.html">
+         08-输入输出-计算机体系的其他配角.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/09-其他补充-GPU基础常识.html">
+         09-其他补充-GPU基础常识.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-Verilog HDL.html">
+         0x-Verilog HDL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-一段指令的完整执行.html">
+         0x-一段指令的完整执行.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/0x-单片机概述.html">
+         0x-单片机概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言先验和工具.html">
+         01-汇编语言先验和工具.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/01-汇编语言基础语法.html">
+         01-汇编语言基础语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/02-汇编语言实战.html">
+         02-汇编语言实战.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/04-编译原理基础.html">
+         04-编译原理基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-一些犄角旮旯的事.html">
+         0x-一些犄角旮旯的事.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-不同语境下的堆栈.html">
+         0x-不同语境下的堆栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-保护模式.html">
+         0x-保护模式.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-无心插柳柳成荫-LLVM.html">
+         0x-无心插柳柳成荫-LLVM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/0x-重定位和链接.html">
+         0x-重定位和链接.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-GNU.html">
+         从汇编到C-GNU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-核心内容.html">
+         从汇编到C-核心内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/从汇编到C-概述.html">
+         从汇编到C-概述.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/01-权限管理和内核交互.html">
+         01-权限管理和内核交互.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-内存和地址.html">
+         02-存储管理-内存和地址.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-分页机制和MMU.html">
+         02-存储管理-分页机制和MMU.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/02-存储管理-文件系统和IO.html">
+         02-存储管理-文件系统和IO.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/03-算力管理-线程和进程.html">
+         03-算力管理-线程和进程.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-Harmony.html">
+         0x-Harmony.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-mycore实验笔记.html">
+         0x-mycore实验笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-POSIX.html">
+         0x-POSIX.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-兼容和虚拟机.html">
+         0x-兼容和虚拟机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-常见概念杂谈.html">
+         0x-常见概念杂谈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part1.html">
+         0x-按下开机键后电脑经历了什么-part1.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-按下开机键后电脑经历了什么-part2.html">
+         0x-按下开机键后电脑经历了什么-part2.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/0x-软件管理.html">
+         0x-软件管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第1篇-概述.html">
+         0-从C到C++第1篇-概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第2篇-基础.html">
+         0-从C到C++第2篇-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/0-从C到C++第3篇-实战笔记.html">
+         0-从C到C++第3篇-实战笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/DSL和GPL.html">
+         DSL和GPL.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Go.html">
+         Go.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Groovy.html">
+         Groovy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Haskell.html">
+         Haskell.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-基础内容.html">
+         Java-基础内容.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Java-模块化和工程实践.html">
+         Java-模块化和工程实践.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Kotlin.html">
+         Kotlin.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lisp.html">
+         Lisp.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Lua.html">
+         Lua.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Perl.html">
+         Perl.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Prolog.html">
+         Prolog.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-五花八门的库.html">
+         Python-五花八门的库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-基础.html">
+         Python-基础.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-多线程、GIL和PyPy.html">
+         Python-多线程、GIL和PyPy.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-杂记.html">
+         Python-杂记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Python-社区和项目管理.html">
+         Python-社区和项目管理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/Ruby.html">
+         Ruby.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/脚本语言.html">
+         脚本语言.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/index.html">
+         LeetCode刷题笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/LeetCode刷题笔记/1-10.html">
+           1-10.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/基本概念和方法.html">
+         基本概念和方法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
+         数据结构-哈希表.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
+         数据结构-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
+         数据结构-并查集.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-树.html">
+         数据结构-树.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-线性数据结构.html">
+         数据结构-线性数据结构.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
+         算法-AC自动机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
+         算法-排序和查找.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-一份软工狗的通信基础笔记.html">
+         01-物理层-一份软工狗的通信基础笔记.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/01-物理层-网络的诞生.html">
+         01-物理层-网络的诞生.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/02-数据链路层.html">
+         02-数据链路层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/03-网络层-关于IP地址的一切.html">
+         03-网络层-关于IP地址的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-TCP.html">
+         04-传输层-TCP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/04-传输层-UDP.html">
+         04-传输层-UDP.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-DNS.html">
+         05-应用层-DNS.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层-关于HTTP的一切.html">
+         05-应用层-关于HTTP的一切.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/05-应用层.html">
+         05-应用层.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-Tor和BitTorrent.html">
+         0x-Tor和BitTorrent.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-域名和备案.html">
+         0x-域名和备案.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-局域网和虚拟机网络.html">
+         0x-局域网和虚拟机网络.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-经典问题-输入网址按下回车后发生了些啥.html">
+         0x-经典问题-输入网址按下回车后发生了些啥.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-长城、翻墙、各式vpn.html">
+         0x-长城、翻墙、各式vpn.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/0x-非对称加密和PKI.html">
+         0x-非对称加密和PKI.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/01-软件工程理论.html">
+         01-软件工程理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-UML和C4.html">
+         0x-UML和C4.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-安卓入门.html">
+         0x-安卓入门.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-嵌入式软件设计.html">
+         0x-嵌入式软件设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x-技术栈.html">
+         0x-技术栈.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/0x1-产品设计.html">
+         0x1-产品设计.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/Axure.html">
+         Axure.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+         web-前端实践
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-CSS摸爬滚打.html">
+           0.1-web基础-CSS摸爬滚打.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-HTML DOM.html">
+           0.1-web基础-HTML DOM.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.1-web基础-JavaScript 和 ECMAScript.html">
+           0.1-web基础-JavaScript 和 ECMAScript.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-EasyUI.html">
+           0.2-web 1.0-EasyUI.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/0.2-web 1.0-JQuery.html">
+           0.2-web 1.0-JQuery.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 1.Hello Node.js.html">
+           1-Node.js - 1.Hello Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/1-Node.js - 2.进一步认识 Node.js.html">
+           1-Node.js - 2.进一步认识 Node.js.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/2.1-构建-Webpack&amp;Vite.html">
+           2.1-构建-Webpack&amp;Vite.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.0-Vue-Hello Vue.html">
+           3.0-Vue-Hello Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.1-Vue-进一步认识 Vue.html">
+           3.1-Vue-进一步认识 Vue.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React 基础知识.html">
+           3.2-React 基础知识.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.2-React- 简单实战之 Gatsby.html">
+           3.2-React- 简单实战之 Gatsby.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/3.x-Bootstrap简述.html">
+           3.x-Bootstrap简述.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.1-ES6 和 Babel.html">
+           4.1-ES6 和 Babel.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/4.2ESlint.html">
+           4.2ESlint.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端实践/x-Electron试试就逝世.html">
+           x-Electron试试就逝世.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/index.html">
+         web-前端野史-浏览器和JS Run Time
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x1-v8 JS引擎.html">
+           0x1-v8 JS引擎.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x2-Blink.html">
+           0x2-Blink.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x3-Chromium和浏览器.html">
+           0x3-Chromium和浏览器.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x4-浏览器衍生生态.html">
+           0x4-浏览器衍生生态.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/web-前端野史-浏览器和JS Run Time/0x5-互联网规范.html">
+           0x5-互联网规范.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/《设计原本》.html">
+         《设计原本》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-关于技术路径的交汇.html">
+         0x-关于技术路径的交汇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/0x-计算机标准.html">
+         0x-计算机标准.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/序列化和反序列化.html">
+         序列化和反序列化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/index.html">
+         数据库杂记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/00-关系和ER.html">
+           00-关系和ER.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/01-T-SQL.html">
+           01-T-SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/02-不止SQL.html">
+           02-不止SQL.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/03-数据库和SQL Server.html">
+           03-数据库和SQL Server.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/数据库杂记/MongoDB.html">
+           MongoDB.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/index.html">
+         文件格式
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/图片.html">
+           图片.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/多媒体格式.html">
+           多媒体格式.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/文件格式/常见标记语言和配置文件格式.html">
+           常见标记语言和配置文件格式.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/index.html">
+         读书笔记
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/Section1-A Tour of Computer System.html">
+           Section1-A Tour of Computer System.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《CS：APP》阅读笔记part2-dynamic.html">
+           《CS：APP》阅读笔记part2-dynamic.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/读书笔记/《计算机离散数学基础》.html">
+           《计算机离散数学基础》.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    汇编语言基础语法
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#基本内容" id="toc-基本内容">
+      基本内容
+     </a>
+     <ul>
+      <li>
+       <a href="#att-vs-intel" id="toc-att-vs-intel">
+        AT&amp;T vs
+Intel
+       </a>
+      </li>
+      <li>
+       <a href="#寄存器" id="toc-寄存器">
+        寄存器
+       </a>
+       <ul>
+        <li>
+         <a href="#代码段寄存器" id="toc-代码段寄存器">
+          代码段寄存器
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#指令详解" id="toc-指令详解">
+      指令详解
+     </a>
+     <ul>
+      <li>
+       <a href="#搬运指令" id="toc-搬运指令">
+        搬运指令
+       </a>
+       <ul>
+        <li>
+         <a href="#批量数据传送" id="toc-批量数据传送">
+          批量数据传送
+         </a>
+        </li>
+        <li>
+         <a href="#磁盘读写" id="toc-磁盘读写">
+          磁盘读写
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#运算指令" id="toc-运算指令">
+        运算指令
+       </a>
+      </li>
+      <li>
+       <a href="#跳转指令" id="toc-跳转指令">
+        跳转指令
+       </a>
+       <ul>
+        <li>
+         <a href="#loop" id="toc-loop">
+          loop
+         </a>
+        </li>
+        <li>
+         <a href="#条件转移指令" id="toc-条件转移指令">
+          条件转移指令
+         </a>
+        </li>
+        <li>
+         <a href="#call" id="toc-call">
+          call
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#其他" id="toc-其他">
+        其他
+       </a>
+       <ul>
+        <li>
+         <a href="#标志位操作" id="toc-标志位操作">
+          标志位操作
+         </a>
+        </li>
+        <li>
+         <a href="#其他保留字" id="toc-其他保留字">
+          其他保留字
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#指示符和伪指令" id="toc-指示符和伪指令">
+      指示符和伪指令
+     </a>
+     <ul>
+      <li>
+       <a href="#定义数据" id="toc-定义数据">
+        定义数据
+       </a>
+       <ul>
+        <li>
+         <a href="#更简便的做法" id="toc-更简便的做法">
+          更简便的做法
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#标号" id="toc-标号">
+        标号
+       </a>
+       <ul>
+        <li>
+         <a href="#常量定义" id="toc-常量定义">
+          常量定义
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#cfi-directives" id="toc-cfi-directives">
+        CFI
+Directives
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#其他-1" id="toc-其他-1">
+      其他
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <p>
+   以NASM为主。
+  </p>
+  <h1 id="基本内容">
+   基本内容
+  </h1>
+  <h2 id="att-vs-intel">
+   AT&amp;T vs Intel
+  </h2>
+  <ul>
+   <li>
+    AT&amp;T汇编中的立即操作数前面要加上
+    <code>
+     $
+    </code>
+    ，寄存器操作数名前要加上百分号
+    <code>
+     %
+    </code>
+    ，绝对跳转操作数前要加上
+    <code>
+     *
+    </code>
+    ，Intel的语法均不包含这些符号；
+   </li>
+   <li>
+    AT&amp;T语法与Intel语法中使用的源操作数和目的操作数顺序正好相反，AT&amp;T的源操作数和目的操作数是从左到右，Intel语法是从右到左，例如
+    <code>
+     add eax, 4
+    </code>
+    在AT&amp;T语法中是
+    <code>
+     addl $4, %eax
+    </code>
+    ；
+   </li>
+   <li>
+    AT&amp;T语法中内存操作数长度由操作码的最后一位字符来确定，Intel语法则通过在内存操作数前使用前缀来达到此目的。
+    <ul>
+     <li>
+      AT&amp;T操作码后缀有b/w/l（l取自long
+word单词的首字母）分别代表内存引用宽度为8位，16位和32位
+     </li>
+     <li>
+      同理Intel前缀有
+      <code>
+       byte
+      </code>
+      、
+      <code>
+       word
+      </code>
+      和
+      <code>
+       dword
+      </code>
+     </li>
+     <li>
+      例如Intel中的
+      <code>
+       mov al, byte ptr foo
+      </code>
+      对应AT&amp;T中的语句为
+      <code>
+       movb $foo, %al
+      </code>
+      ；
+     </li>
+    </ul>
+   </li>
+   <li>
+    AT&amp;T语法中立即跳转和调用为
+    <code>
+     ljmp/lcall offset
+    </code>
+    ，而Intel中的是
+    <code>
+     jmp/call far section:offset
+    </code>
+    ，AT&amp;T中的返回指令
+    <code>
+     lret $stack-adjust
+    </code>
+    对应Intel的
+    <code>
+     ret far stack-adjust
+    </code>
+    ；
+   </li>
+   <li>
+    AT&amp;T汇编器不支持多代码段程序，类UNIX系统要求所有代码在一个段中；
+   </li>
+   <li>
+    AT&amp;T寻址方式：
+    <code>
+     imm32(basepointer,indexpointer,indexscale)
+    </code>
+    ，Intel寻址方式：
+    <code>
+     [basepointer + indexpointer*indexscale + imm32)
+    </code>
+    <ul>
+     <li>
+      如AT&amp;T
+      <code>
+       movl -4(%ebp),%eax
+      </code>
+      对应Intel中的
+      <code>
+       mov eax,[ebp-4]
+      </code>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2 id="寄存器">
+   寄存器
+  </h2>
+  <figure>
+   <img alt="image-20201002144311484" src="C:/Users/Five/Desktop/note/img/1-24.png"/>
+   <figcaption aria-hidden="true">
+    image-20201002144311484
+   </figcaption>
+  </figure>
+  <ul>
+   <li>
+    在8086处理器上，只能够使用BX、SI、DI、BP寄存器提供偏移地址，不能使用其他寄存器
+    <ul>
+     <li>
+      BX最初的功能之一就是用来提供数据访问的基地址，B有Base的意思
+     </li>
+    </ul>
+   </li>
+   <li>
+    在设计之初，8086每个寄存器就有自己特殊的用途
+    <ul>
+     <li>
+      AX是累加器，即A可有Accumulator的含义
+     </li>
+     <li>
+      CX是计数器，即C可有Counter的含义
+     </li>
+     <li>
+      DX是数据寄存器，即D可有Data的含义
+     </li>
+     <li>
+      至于SI（Source Index）、DI（Destination Index）这些就更是了
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="代码段寄存器">
+   代码段寄存器
+  </h3>
+  <p>
+   CS不能由
+   <code>
+    mov
+   </code>
+   指令直接设置，只能通过改变程序执行顺序的指令（如
+   <code>
+    CALL
+   </code>
+   、
+   <code>
+    JMP
+   </code>
+   ）间接地设置。
+  </p>
+  <p>
+   ​
+  </p>
+  <h1 id="指令详解">
+   指令详解
+  </h1>
+  <figure>
+   <img alt="image-20201016103759002" src="C:/Users/Five/Desktop/note/img/image-20201016103759002.png"/>
+   <figcaption aria-hidden="true">
+    image-20201016103759002
+   </figcaption>
+  </figure>
+  <h2 id="搬运指令">
+   搬运指令
+  </h2>
+  <p>
+   不知道咋称呼，就直接称为搬运。也可以说加载指令，但似乎没有搬运的叫法来得直观、得劲。
+  </p>
+  <pre class="assembly"><code>mov byte [es:0x00],'H'
+mov byte [es:0x01],0x0F
+mov byte [es:0x02],'e'
+mov byte [es:0x03],0x0F</code></pre>
+  <ul>
+   <li>
+    若没有附加指示，默认段寄存器为DS。
+    <ul>
+     <li>
+      故此处需指明段寄存器为ES。
+     </li>
+    </ul>
+   </li>
+   <li>
+    目的操作数需要用方括号围起来，以表明他是一个地址
+    <ul>
+     <li>
+      当然，此处目的操作数也只应该是地址（内存或者寄存器等“容器”），总不会是立即数
+     </li>
+    </ul>
+   </li>
+   <li>
+    16位的处理器单次操作的数据宽度可以是8位或16位
+    <ul>
+     <li>
+      上述汇编代码中无法判断源操作数数据宽度（
+      <code>
+       0x0F
+      </code>
+      可能代表
+      <code>
+       0x0000F
+      </code>
+      ）
+     </li>
+     <li>
+      目的操作数是个内存地址也无法判断数据宽度（就像C语言中你不能根据数组名即指针判断数组长度一样）
+     </li>
+     <li>
+      故汇编器无法智能判断，需要手动指定数据宽度
+      <code>
+       byte
+      </code>
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     mov
+    </code>
+    指令目的操作数不允许为立即数，目的操作数和源操作数不允许同时为内存单元。
+    <ul>
+     <li>
+      第二点似乎比较霸道，但事实上就算处理器想支持
+      <code>
+       mov
+      </code>
+      指令两个操作数均为内存单元，其具体实现的时候也依旧会经过寄存器中转。
+     </li>
+     <li>
+      因此，不单单是
+      <code>
+       mov
+      </code>
+      指令，其他指令也都不支持两个内存单元之间直接进行操作。
+      <ul>
+       <li>
+        直接操作两个内存单元是C语言的抽象层面干的事，而不是汇编这种更底层的语言干的事。
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="批量数据传送">
+   批量数据传送
+  </h3>
+  <p>
+   8086处理器提供了
+   <code>
+    movsb
+   </code>
+   和
+   <code>
+    movsw
+   </code>
+   指令，顾名思义，单位分别为byte和word。
+  </p>
+  <p>
+   源地址通过DS:SI指定，目标地址通过ES:DI指定，单位（字或字节）数在通用寄存器CX中指定。
+  </p>
+  <p>
+   还需要制定传送是正向还是反向——即SI和DI随传送过程递增还是递减。CX内容每传送一次递减1。
+  </p>
+  <p>
+   单纯的
+   <code>
+    movsw
+   </code>
+   、
+   <code>
+    movsb
+   </code>
+   只能执行一次，如果需要处理器自动反复执行，则要加上前缀
+   <code>
+    rep
+   </code>
+   。直到CX为零停止重复。
+  </p>
+  <pre class="assembly"><code>rep movsw</code></pre>
+  <p>
+   标志位DF可指定批量数据传送的方向
+  </p>
+  <figure>
+   <img alt="image-20201002191227977" src="C:/Users/Five/Desktop/note/img/1-44.png"/>
+   <figcaption aria-hidden="true">
+    image-20201002191227977
+   </figcaption>
+  </figure>
+  <h3 id="磁盘读写">
+   磁盘读写
+  </h3>
+  <h2 id="运算指令">
+   运算指令
+  </h2>
+  <ul>
+   <li>
+    <code>
+     div
+    </code>
+   </li>
+  </ul>
+  <p>
+   被除数在AX 或者 AX和DX中（
+注意，后面是AX和DX，AX存放低16位，DX存放高16位）
+  </p>
+  <p>
+   除数为8位或者16位(即字节型或字型)，在寄存器或内存单元中
+  </p>
+  <p>
+   当除数为8位时，商存放在AL寄存器中，余数存放在AH寄存器中
+  </p>
+  <p>
+   当除数为16位时，商在AX中，余数在DX中
+  </p>
+  <h2 id="跳转指令">
+   跳转指令
+  </h2>
+  <p>
+   跳转指令，即
+   <code>
+    jmp
+   </code>
+   指令。能主动更改CS:IP寄存器的指令。
+  </p>
+  <p>
+   一般来说处理器按序实行指令，CS&lt;&lt;4+IP得到物理地址，取得指令执行，同时IP的内容加上当前指令的长度，然后下一个取指、执行、递增IP寄存器的循环，周而复始。
+  </p>
+  <p>
+   而JMP指令可以无条件转移，可以只修改IP寄存器，也可以同时修改CS和IP。
+  </p>
+  <ul>
+   <li>
+    <code>
+     jmp short label
+    </code>
+    <ul>
+     <li>
+      <code>
+       short
+      </code>
+      说明进行段内短转移，IP修改范围-128~127，
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     jmp near ptr label
+    </code>
+    <ul>
+     <li>
+      <code>
+       near
+      </code>
+      表示进行段内转移，比
+      <code>
+       short
+      </code>
+      长，即修改范围约为$^{15}
+$（-32768到+32767）。
+      <ul>
+       <li>
+        <code>
+         jmp short
+        </code>
+        指令2字节，
+        <code>
+         jmp near
+        </code>
+        指令3字节，大概这就是CISC吧，死抠每一丝的资源。
+       </li>
+      </ul>
+     </li>
+     <li>
+      <code>
+       ptr
+      </code>
+      是pointer的缩写，用来临时指定类型
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     jmp far ptr
+    </code>
+    <ul>
+     <li>
+      <code>
+       far
+      </code>
+      实现段间转移，同时修改CS和IP寄存器
+     </li>
+     <li>
+      最终的机器码形如
+      <code>
+       EA0880860B
+      </code>
+      ，其中EA是指令，前4位
+      <code>
+       0880
+      </code>
+      是IP寄存器要改的值（不再是相对偏移），后四位
+      <code>
+       860B
+      </code>
+      是CS寄存器要改的值
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     jmp ax
+    </code>
+    <ul>
+     <li>
+      将IP寄存器修改为AX寄存器的值
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h3 id="loop">
+   loop
+  </h3>
+  <pre class="assembly"><code>digit: 
+       xor dx,dx
+       div si
+       mov [bx],dl   ;保存数位
+       inc bx 
+       loop digit        
+      ;显示各个数位
+       mov bx,number 
+       mov si,4  
+       loop digit</code></pre>
+  <p>
+   每次loop会将CX寄存器内容减一。
+  </p>
+  <p>
+   查看lst文件可知，loop的操作码为E2，一个字节的操作数F7（盲猜相当于一个
+   <code>
+    jmp short
+   </code>
+   ？）
+  </p>
+  <figure>
+   <img alt="image-20210320212351106" src="C:\Users\Five\Desktop\note\img\image-20210320212351106.png"/>
+   <figcaption aria-hidden="true">
+    image-20210320212351106
+   </figcaption>
+  </figure>
+  <h3 id="条件转移指令">
+   条件转移指令
+  </h3>
+  <p>
+   条件转移指令一般根据标志位进行判断，而不是计算结果。
+  </p>
+  <p>
+   为了方便，还有一个
+   <code>
+    cmp
+   </code>
+   指令，其效果与
+   <code>
+    sub
+   </code>
+   指令相同，但不会保留计算结果，仅仅根据计算的结果设置相应的标志位，从而方便了后续执行条件转移指令。
+  </p>
+  <p>
+   <code>
+    cmp
+   </code>
+   指令会影响到的标志位有CF、OF、SF、ZF、AF、PF（也就是状态标志位，不影响控制标志位）
+  </p>
+  <table>
+   <thead>
+    <tr class="header">
+     <th>
+      比较结果
+     </th>
+     <th>
+      指令
+     </th>
+     <th>
+      备注
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td>
+      等于，Equal
+     </td>
+     <td>
+      je
+     </td>
+     <td>
+      相减结果为0，即ZF=1
+     </td>
+    </tr>
+    <tr class="even">
+     <td>
+      不等于，Not Equal
+     </td>
+     <td>
+      jne
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr class="odd">
+     <td>
+      大于，Greater
+     </td>
+     <td>
+      jg
+     </td>
+     <td>
+      大于等于jge，小于jl，小于等于jle
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h3 id="call">
+   call
+  </h3>
+  <p>
+   call ≈ push + jmp + ret
+  </p>
+  <p>
+   8086处理器支持四种调用方式。
+  </p>
+  <ul>
+   <li>
+    相对近调用
+    <ul>
+     <li>
+      被调用的目标过程位于当前代码段内，只需得到偏移地址即可
+     </li>
+     <li>
+      三字节指令，操作码
+      <code>
+       0xE8
+      </code>
+      ，后跟16位的操作数
+      <ul>
+       <li>
+        范围-32768~32767字节
+       </li>
+      </ul>
+     </li>
+     <li>
+      如果
+      <code>
+       call
+      </code>
+      没有提供任何关键字，默认该指令是近调用
+      <ul>
+       <li>
+        即
+        <code>
+         call
+        </code>
+        =
+        <code>
+         call near
+        </code>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <code>
+       ret
+      </code>
+      是近返回指令，处理器从栈中弹出一个字到指令指针寄存器IP中。
+     </li>
+    </ul>
+   </li>
+   <li>
+    间接绝对近调用
+   </li>
+   <li>
+    直接绝对远调用
+    <ul>
+     <li>
+      <code>
+       retf
+      </code>
+      是远返回指令，处理器分别从栈中弹出两个字到指令指针寄存器IP和代码段寄存器CS中
+     </li>
+    </ul>
+   </li>
+   <li>
+    16位间接绝对远调用
+   </li>
+  </ul>
+  <p>
+   主程序和子程序之间参数传递的方法也主要有四种
+  </p>
+  <ul>
+   <li>
+    寄存器传参
+   </li>
+   <li>
+    变量传参
+   </li>
+   <li>
+    堆栈传参
+   </li>
+   <li>
+    利用call后续区
+   </li>
+  </ul>
+  <p>
+   C语言编译后好像是第一个参数给EDI寄存器，第二个参数给ESI，第三个参数给EDX，然后是ECX、R8D、R9D。再多就是用
+   <code>
+    pushq
+   </code>
+   压栈了。
+  </p>
+  <p>
+   C语言中传参数（3、4、5）给一个函数，其生成的汇编代码如下图所示
+  </p>
+  <figure>
+   <img alt="image-20210414154815982" src="C:\Users\Five\Desktop\note\img\image-20210414154815982.png"/>
+   <figcaption aria-hidden="true">
+    image-20210414154815982
+   </figcaption>
+  </figure>
+  <p>
+   同理，传参数（3、4、5、6、7、8）生成的汇编代码如图所示：
+  </p>
+  <figure>
+   <img alt="image-20210414155259731" src="C:\Users\Five\Desktop\note\img\image-20210414155259731.png"/>
+   <figcaption aria-hidden="true">
+    image-20210414155259731
+   </figcaption>
+  </figure>
+  <h2 id="其他">
+   其他
+  </h2>
+  <h3 id="标志位操作">
+   标志位操作
+  </h3>
+  <ul>
+   <li>
+    <code>
+     CLD
+    </code>
+    ，Clear Direction Flag，将方向标志位DF清零
+    <ul>
+     <li>
+      DF可指定批量数据传送的方向
+     </li>
+     <li>
+      相反指令是
+      <code>
+       std
+      </code>
+      ，将DF置为1。
+     </li>
+    </ul>
+   </li>
+   <li>
+    ZF，Zero Flag
+    <ul>
+     <li>
+      若计算结果为0，则这一位被置为0（用或非门），否则清除此位
+     </li>
+     <li>
+      同理
+      <code>
+       CLZ
+      </code>
+      和
+      <code>
+       STZ
+      </code>
+     </li>
+    </ul>
+   </li>
+   <li>
+    其他标志位同理
+   </li>
+  </ul>
+  <h3 id="其他保留字">
+   其他保留字
+  </h3>
+  <p>
+   <code>
+    ptr
+   </code>
+   是pointer缩写，用于临时指定类型。
+  </p>
+  <p>
+   当操作数存在寄存器时，一般默认根据寄存器的宽度作为操作数的宽度。
+  </p>
+  <blockquote>
+   <p>
+    还有如
+    <code>
+     push 1000H
+    </code>
+    不需要指明操作数宽度，因为push只进行字操作。
+   </p>
+  </blockquote>
+  <p>
+   当操作数为立即数和内存地址时，往往就需要用到
+   <code>
+    ptr
+   </code>
+   显式声明操作数宽度。
+  </p>
+  <p>
+   放在ptr前面的类型有byte（字节）、word（字）、dword（双字）、qword（四字）、tbyte（十字节）、far（远类型）和near（近类型）
+  </p>
+  <h1 id="指示符和伪指令">
+   指示符和伪指令
+  </h1>
+  <p>
+   指示符（Directive）和伪指令（Pseudo
+Insturction），好像——是一个意思？
+  </p>
+  <p>
+   用于对汇编过程进行控制的指令，该类指令并不是可执行指令，没有机器代码，只用于汇编过程中为汇编程序提供汇编信息。
+  </p>
+  <ul>
+   <li>
+    <code>
+     EQU
+    </code>
+    ，Equate
+    <ul>
+     <li>
+      <code>
+       label equ immediate_number
+      </code>
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     ORG
+    </code>
+    <ul>
+     <li>
+      决定此语句后第一条指令（或数据）的地址，即用于指定该段程序的起始地址
+     </li>
+     <li>
+      直到下一条ORG指令为止
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     END
+    </code>
+    <ul>
+     <li>
+      用于指示汇编语言程序段结束，若END放在程序中间，则END后面的语句将不再被汇编。
+     </li>
+    </ul>
+   </li>
+   <li>
+    <code>
+     PUBLIC
+    </code>
+    和
+    <code>
+     EXTRN
+    </code>
+    <ul>
+     <li>
+      汇编语言中通过伪指令PUBLIC及EXTRN来解决模块之间的联系。
+     </li>
+     <li>
+      PUBLIC用来说明当前模块中可被其他模块所引用的公共标识符。
+     </li>
+     <li>
+      在AT&amp;T中相应的directive好像是
+      <code>
+       global function_name
+      </code>
+      <ul>
+       <li>
+        对于GNU的汇编器AS而言，Both spellings (
+        <code>
+         .globl
+        </code>
+        and
+        <code>
+         .global
+        </code>
+        ) are accepted, for compatibility with other
+assemblers.
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   GNU的AS（AT&amp;T）支持的Directives有
+   <code>
+    .abort
+   </code>
+   、
+   <code>
+    .algin
+   </code>
+   、
+   <code>
+    .ascii
+   </code>
+   、
+   <code>
+    .byte
+   </code>
+   、
+   <code>
+    .comm
+   </code>
+   、
+   <code>
+    .data
+   </code>
+   、
+   <code>
+    .def
+   </code>
+   、
+   <code>
+    .double
+   </code>
+   、
+   <code>
+    .eject
+   </code>
+   、
+   <code>
+    .else
+   </code>
+   、
+   <code>
+    .end
+   </code>
+   、
+   <code>
+    .elseif
+   </code>
+   、
+   <code>
+    .endef
+   </code>
+   、
+   <code>
+    .endfunc
+   </code>
+   、
+   <code>
+    .endif
+   </code>
+   、
+   <code>
+    .endm
+   </code>
+   、
+   <code>
+    .endr
+   </code>
+   、
+   <code>
+    .equ
+   </code>
+   、
+   <code>
+    .equiv
+   </code>
+   、
+   <code>
+    .err
+   </code>
+   、
+   <code>
+    .exitm
+   </code>
+   、
+   <code>
+    .extern
+   </code>
+   、
+   <code>
+    .fail
+   </code>
+   、
+   <code>
+    .file
+   </code>
+   、
+   <code>
+    .fill
+   </code>
+   、
+   <code>
+    .float
+   </code>
+   、
+   <code>
+    .func
+   </code>
+   、
+   <code>
+    .global
+   </code>
+   、
+   <code>
+    .if
+   </code>
+   、
+   <code>
+    .include
+   </code>
+   、
+   <code>
+    .incbin
+   </code>
+   、
+   <code>
+    .int
+   </code>
+   、
+   <code>
+    .irp
+   </code>
+   、
+   <code>
+    .macro
+   </code>
+   、
+   <code>
+    .org
+   </code>
+   、
+   <code>
+    .rept
+   </code>
+   、
+   <code>
+    .section
+   </code>
+   、
+   <code>
+    .short
+   </code>
+   、
+   <code>
+    .string
+   </code>
+   、
+   <code>
+    .text
+   </code>
+   、
+   <code>
+    .title
+   </code>
+   、
+   <code>
+    .type
+   </code>
+   等等等等一大堆
+  </p>
+  <p>
+   可参考官方文档
+  </p>
+  <p>
+   http://tigcc.ticalc.org/doc/gnuasm.html
+  </p>
+  <p>
+   https://sourceware.org/binutils/docs-2.31/as/index.html
+  </p>
+  <h2 id="定义数据">
+   定义数据
+  </h2>
+  <p>
+   <code>
+    db
+   </code>
+   、
+   <code>
+    dw
+   </code>
+   、
+   <code>
+    dd
+   </code>
+   分别用于定义1
+byte、1 word、1 double word的数据。
+  </p>
+  <p>
+   如下述代码使得编译后的代码内容符合主引导扇区的规范：以
+   <code>
+    0x55,0xaa
+   </code>
+   结尾。
+  </p>
+  <pre class="assembly"><code>times 510-($-$$) db 0
+db 0x55,0xaa</code></pre>
+  <h3 id="更简便的做法">
+   更简便的做法
+  </h3>
+  <pre class="assembly"><code>message db 'some sentence you want to print'</code></pre>
+  <p>
+   NASM支持这样的做法，由编译器负责把它们拆开，形成一个个单独的字节。定义数据
+  </p>
+  <p>
+   <code>
+    db
+   </code>
+   、
+   <code>
+    dw
+   </code>
+   、
+   <code>
+    dd
+   </code>
+   分别用于定义1
+byte、1 word、1 double word的数据。
+  </p>
+  <p>
+   如下述代码使得编译后的代码内容符合主引导扇区的规范：以
+   <code>
+    0x55,0xaa
+   </code>
+   结尾。
+  </p>
+  <pre class="assembly"><code>times 510-($-$$) db 0
+db 0x55,0xaa</code></pre>
+  <h2 id="标号">
+   标号
+  </h2>
+  <p>
+   在汇编阶段使用，汇编器根据相关信息计算出相应的绝对地址或相对地址。
+  </p>
+  <h3 id="常量定义">
+   常量定义
+  </h3>
+  <pre class="assembly"><code>constant_name equ 100</code></pre>
+  <p>
+   通过伪指令
+   <code>
+    equ
+   </code>
+   使得
+   <code>
+    constan_name
+   </code>
+   的值为100，通过这种方法起到避免魔法数字、方便统一修改等作用。
+  </p>
+  <p>
+   <code>
+    equ
+   </code>
+   是伪指令，实际上不占任何汇编地址，也不在运行时占用任何内存位置。仅仅为了方便汇编而存在，事了拂衣去，深藏功与名。
+  </p>
+  <h2 id="cfi-directives">
+   CFI Directives
+  </h2>
+  <p>
+   CFI，Call Frame Information，是DWARF 2.0（Debugging With Attributed
+Record Formats）定义的函数栈信息。
+  </p>
+  <p>
+   <code>
+    .cfi_
+   </code>
+   开头的汇编指示符用来告诉汇编器生成相应的 DWARF
+调试信息，主要是和函数有关。
+   <code>
+    .cfi_startproc
+   </code>
+   定义函数开始，
+   <code>
+    .cfi_endproc
+   </code>
+   定义函数结束。
+  </p>
+  <p>
+   https://sourceware.org/binutils/docs-2.31/as/CFI-directives.html#CFI-directives
+  </p>
+  <h1 id="其他-1">
+   其他
+  </h1>
+  <p>
+   NASM提供标记
+   <code>
+    $
+   </code>
+   ，等同于标号，可以看成一个隐藏在当前行行首的标号。
+  </p>
+ </body>
+</html>

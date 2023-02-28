@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   厨艺基本操作：食材的处理
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: gray;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/07-技多不压身/index.html">
+     07-技多不压身
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/0x-哲学.html">
+         0x-哲学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/More is different - Anderson.html">
+         More is different - Anderson.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/关于人的认知.html">
+         关于人的认知.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/科研.html">
+         科研.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-奖赏机制：多巴胺及其基本规律.html">
+         人类篇-奖赏机制：多巴胺及其基本规律.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/人类篇-自然选择的不完美产物.html">
+         人类篇-自然选择的不完美产物.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-有性生殖的意义.html">
+         生命篇-有性生殖的意义.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生命是一种催化剂，或是一种桥梁吗？.html">
+         生命篇-生命是一种催化剂，或是一种桥梁吗？.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/生命篇-生物信息学.html">
+         生命篇-生物信息学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/社会篇-关于社交网络.html">
+         社会篇-关于社交网络.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-商业模式-被我忽视的驱动力.html">
+         0x-商业模式-被我忽视的驱动力.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/0x-我的政治倾向.html">
+         0x-我的政治倾向.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-史纲.html">
+         考研政治-史纲.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-思修.html">
+         考研政治-思修.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-毛中特.html">
+         考研政治-毛中特.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/考研政治-马原.html">
+         考研政治-马原.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词性和词汇辨析.html">
+         01-词汇-词性和词汇辨析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-词缀词根词源.html">
+         01-词汇-词缀词根词源.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/01-词汇-语料库.html">
+         01-词汇-语料库.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/02-语法.html">
+         02-语法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《The craft of Research》.html">
+         03-写作-《The craft of Research》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/03-写作-《Writing in Enligsh at University》.html">
+         03-写作-《Writing in Enligsh at University》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《从计算理论到大数据图灵机》.html">
+         《从计算理论到大数据图灵机》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《数学简史》蔡天新.html">
+         《数学简史》蔡天新.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《理想国》.html">
+         《理想国》.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/《相变》.html">
+         《相变》.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/0-基础理论知识：解剖学，生理学，营养学.html">
+         0-基础理论知识：解剖学，生理学，营养学.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/1-训练计划.html">
+         1-训练计划.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/2-训练记录.html">
+         2-训练记录.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/量化健身-阅读笔记.html">
+         量化健身-阅读笔记.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01A-食材基础认知：理论.html">
+         01A-食材基础认知：理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/01B-厨艺基本操作：食材的处理.html">
+         01B-厨艺基本操作：食材的处理.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-主食面点.html">
+         02-实例-主食面点.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-家常小炒.html">
+         02-实例-家常小炒.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/02-实例-西式篇.html">
+         02-实例-西式篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/03-Trick.html">
+         03-Trick.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/炼丹日志.html">
+         炼丹日志.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/关于搞笑&amp;幽默.html">
+         关于搞笑&amp;幽默.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/有趣的文字.html">
+         有趣的文字.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/出行篇.html">
+         出行篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/衣物篇.html">
+         衣物篇.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/游戏篇.html">
+         游戏篇.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/踏出海口1.html">
+         踏出海口1.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/s-IDEA.html">
+         s-IDEA.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于写作.html">
+         关于写作.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/关于曜的幻想.html">
+         关于曜的幻想.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/社会猜想：理智vs盲目.html">
+         社会猜想：理智vs盲目.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/07-技多不压身/s-fiction/负了如来也负卿.html">
+         负了如来也负卿.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-面向硬件编程-从汇编到C/index.html">
+       2-面向硬件编程-从汇编到C
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-高级计算机语言/index.html">
+       4-面向编译器和解释器编程-高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习index.html">
+       人工智能之机器学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.1-监督学习/index.html">
+       1.1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/1.2-无监督学习/index.html">
+       1.2-无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-关联分析-不知道是什么东西/index.html">
+       2-关联分析-不知道是什么东西
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/2-实践篇-数据预处理/index.html">
+       2-实践篇-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-人工智能之机器学习/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理和计算机视觉：数字图像处理/index.html">
+       2.1-应用-数字图像处理和计算机视觉：数字图像处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理和计算机视觉：计算机视觉/index.html">
+       2.2-应用-数字图像处理和计算机视觉：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    厨艺基本操作：食材的处理
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#预处理" id="toc-预处理">
+      预处理
+     </a>
+     <ul>
+      <li>
+       <a href="#切菜刀工" id="toc-切菜刀工">
+        切菜/刀工
+       </a>
+      </li>
+      <li>
+       <a href="#肉类去腥" id="toc-肉类去腥">
+        肉类去腥
+       </a>
+       <ul>
+        <li>
+         <a href="#焯水" id="toc-焯水">
+          焯水
+         </a>
+        </li>
+        <li>
+         <a href="#香料" id="toc-香料">
+          香料
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#腌制上浆等" id="toc-腌制上浆等">
+        腌制（上浆等）
+       </a>
+      </li>
+      <li>
+       <a href="#特殊食材" id="toc-特殊食材">
+        特殊食材
+       </a>
+       <ul>
+        <li>
+         <a href="#腐竹的泡发" id="toc-腐竹的泡发">
+          腐竹的泡发
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#烹饪" id="toc-烹饪">
+      烹饪
+     </a>
+     <ul>
+      <li>
+       <a href="#调料处理" id="toc-调料处理">
+        调料处理
+       </a>
+       <ul>
+        <li>
+         <a href="#油盐酱醋" id="toc-油盐酱醋">
+          油盐酱醋
+         </a>
+        </li>
+        <li>
+         <a href="#糖" id="toc-糖">
+          糖
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#烹饪方式" id="toc-烹饪方式">
+        烹饪方式
+       </a>
+       <ul>
+        <li>
+         <a href="#爆炒" id="toc-爆炒">
+          爆炒
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#后处理" id="toc-后处理">
+      后处理
+     </a>
+     <ul>
+      <li>
+       <a href="#收汁" id="toc-收汁">
+        收汁
+       </a>
+      </li>
+      <li>
+       <a href="#勾芡" id="toc-勾芡">
+        勾芡
+       </a>
+      </li>
+      <li>
+       <a href="#摆盘" id="toc-摆盘">
+        摆盘
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#常用处理" id="toc-常用处理">
+      常用处理
+     </a>
+     <ul>
+      <li>
+       <a href="#肉类" id="toc-肉类">
+        肉类
+       </a>
+       <ul>
+        <li>
+         <a href="#猪肉" id="toc-猪肉">
+          猪肉
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <blockquote>
+   <p>
+    本文基本照搬自文末引文。
+   </p>
+  </blockquote>
+  <h1 id="预处理">
+   预处理
+  </h1>
+  <h2 id="切菜刀工">
+   切菜/刀工
+  </h2>
+  <p>
+   丝、柳、条、丁、块
+  </p>
+  <p>
+   丁有指甲大小丁和小拇指大小菱形丁，块有三角块和滚刀块。
+  </p>
+  <blockquote>
+   <p>
+    滚刀块就是滚着切。
+   </p>
+   <p>
+    如：先斜切一刀，把笋向自己「滚」45度，再切一刀。长条形的茄子和笋都可以这么切。
+   </p>
+  </blockquote>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/c2d1ac97e5b40874afa3e6aa503ac41d_1440w.jpg"/>
+  </p>
+  <p>
+   柳和条的区别在于厚度。条明显更厚。
+  </p>
+  <blockquote>
+   <p>
+    顺纹理切肉和逆纹理切肉：刀刃和纤维平行，就是顺纹理，垂直的就是逆纹理
+   </p>
+   <ul>
+    <li>
+     猪肉、鸡肉要顺纹理切，否则肉丝容易断。
+    </li>
+    <li>
+     牛肉要逆纹理切。
+    </li>
+   </ul>
+   <p>
+    当然也有横牛竖猪斜切鸡的说法。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    关于用刀
+   </p>
+   <p>
+    姿势：
+   </p>
+   <ul>
+    <li>
+     身体与台面呈15°角，而不是正对台面
+    </li>
+    <li>
+     左手平行于砧板，身体与手臂之间的角度约为15°。
+    </li>
+   </ul>
+   <p>
+    对刀：
+   </p>
+   <ul>
+    <li>
+     右手握紧刀把，大拇指和食指从两侧扣紧菜刀，下刀时确保刀面垂直于砧板。
+    </li>
+    <li>
+     不用时将菜刀放在砧板上，而不是台面上，刀背朝自己，刀刃朝内。
+    </li>
+   </ul>
+   <p>
+    基本原则：
+   </p>
+   <ul>
+    <li>
+     不论切什么，都先找平
+    </li>
+   </ul>
+  </blockquote>
+  <h2 id="肉类去腥">
+   肉类去腥
+  </h2>
+  <blockquote>
+   <p>
+    猪肉的腥味主要来源是血腥和淋巴残留。
+   </p>
+  </blockquote>
+  <blockquote>
+   <p>
+    海洋生物需要抵抗海水高盐度造成的渗透压，为了不让体内的水分流失变成咸鱼（咸虾、咸贝同理），海洋生物们一般选择用氨基酸和胺来填充细胞，以保持渗透压平衡，而海水鱼们往往依赖的就是三甲胺氧化物。
+    <a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref">
+     <sup>
+      1
+     </sup>
+    </a>
+   </p>
+   <p>
+    但是当海鱼死后，它们体内原本无色无味的氧化三甲胺会逐渐被细菌和生物酶还原成另一种物质，三甲胺。低浓度的三甲胺具有强烈的鱼腥臭味，高浓度的三甲胺则类似于氨的气味，也就是所谓的臭鸡蛋味。
+   </p>
+   <p>
+    淡水鱼的行为来源主要是土臭素。在河流、池塘等水域环境中，放线菌、蓝绿藻等会代谢出一种带有土腥味的褐色物质——土臭素（又称土腥味素、土臭味素、土味素），使得淡水鱼带上难闻的土腥味。
+   </p>
+   <p>
+    人工养殖的淡水鱼腥味会更为明显，以下条件会使得人工鱼塘的鱼腥味有所缓解
+    <a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref">
+     <sup>
+      2
+     </sup>
+    </a>
+    ：
+   </p>
+   <ul>
+    <li>
+     老水塘，减少来自于干燥土壤的放线菌的产物。
+    </li>
+    <li>
+     提高水质，杜绝污水，减少水中营养成分，水中的蓝绿藻也不容易家大业大
+    </li>
+   </ul>
+   <p>
+    酸性条件（如醋）可以有效去除这种土腥味。
+   </p>
+  </blockquote>
+  <h3 id="焯水">
+   焯水
+  </h3>
+  <p>
+   主要就是是为了去除猪肉的腥味。
+  </p>
+  <ol type="1">
+   <li>
+    （用冷水浸泡4小时，似乎可有可无）
+   </li>
+   <li>
+    往锅内倒入冷水、放入猪肉，开火到最小
+   </li>
+   <li>
+    水不能冒泡冒蒸气，肉不能熟
+   </li>
+   <li>
+    半小时后取出肉，并用温水冲洗
+   </li>
+  </ol>
+  <p>
+   也有的用如下方法（可能是低配版、暴力版、简化版？）：
+  </p>
+  <ul>
+   <li>
+    把肉放进冷水锅，煮滚后再滚5分钟，直到血沫完全焯出，把肉捞出后冷水冲洗干净。
+   </li>
+  </ul>
+  <p>
+   给蔬菜焯水，一般为了去掉青草气
+  </p>
+  <p>
+   水里放3调料勺盐，水滚后放入蔬菜，默数8秒即可。焯过水的蔬菜更容易熟，炒菜时也不吸油。
+  </p>
+  <h3 id="香料">
+   香料
+  </h3>
+  <blockquote>
+   <p>
+    用香料去腥的过程不是真的去腥，而是用新的味道去压制腥味，即压腥。有一些不利的方面：
+   </p>
+   <ul>
+    <li>
+     香料会压盖食物本身的味道
+    </li>
+    <li>
+     如果香料量不够，还会使得既压不住腥味，又破坏了食物的味道，最终效果1+1&lt;0。
+    </li>
+   </ul>
+  </blockquote>
+  <h2 id="腌制上浆等">
+   腌制（上浆等）
+  </h2>
+  <p>
+   <strong>
+    上浆
+   </strong>
+  </p>
+  <p>
+   目的：使肉吸收足够的水分，被淀粉浆包裹住，使肉类在入锅烹饪的过程中不易流失水分和营养成分，从而保持肉质的鲜嫩。
+  </p>
+  <p>
+   不同的菜，上浆方法自然也不同。
+  </p>
+  <p>
+   比较完整、经典的过程如下：
+  </p>
+  <ol type="1">
+   <li>
+    加入盐、糖、嫩肉粉。这些可以增加原材料的吃水量。
+   </li>
+   <li>
+    然后加水，每次少加一点，然后抓。吸收差不多了，再加再抓。搅拌
+   </li>
+   <li>
+    加入黑胡椒粉、蚝油、老抽等调味料。黑胡椒去腥，老抽上色，蚝油增鲜。搅拌
+   </li>
+   <li>
+    加入全蛋液。增加牛肉的粘性。
+   </li>
+   <li>
+    加入干淀粉。目的是形成肉表的保护层。
+   </li>
+   <li>
+    清油封面。目的是让原料不吐水。
+   </li>
+   <li>
+    封口，冰箱冷藏。4h。
+   </li>
+  </ol>
+  <h2 id="特殊食材">
+   特殊食材
+  </h2>
+  <h3 id="腐竹的泡发">
+   腐竹的泡发
+  </h3>
+  <ul>
+   <li>
+    温水正常泡发，约50分钟，最好换一次水
+   </li>
+   <li>
+    油炸法，更快
+   </li>
+   <li>
+    微波炉法
+   </li>
+   <li>
+    盐水泡法
+   </li>
+  </ul>
+  <h1 id="烹饪">
+   烹饪
+  </h1>
+  <h2 id="调料处理">
+   调料处理
+  </h2>
+  <h3 id="油盐酱醋">
+   油盐酱醋
+  </h3>
+  <blockquote>
+   <p>
+    热锅冷油：
+   </p>
+   <p>
+    锅子烧到很热，后倒入大量油（油量一般是锅子容量的1/4-1/3。炸东西，油量用到锅子容量的1/2）。
+   </p>
+   <p>
+    马上放入相应的食材。
+   </p>
+  </blockquote>
+  <p>
+   <strong>
+    油温
+   </strong>
+  </p>
+  <p>
+   一成就是热锅冷油。
+  </p>
+  <p>
+   看如下图葱管边的气泡，油温分别为二成、四成和五成。
+  </p>
+  <p>
+   七八成的油会开始冒青烟，再高的油温一般用不到，葱一放下去就焦了。
+  </p>
+  <p>
+   <img src="C:/Users/Five/Desktop/note/img/245d0e46f9686ee0dfe3f77a72abc42b_1440w.jpg"/>
+  </p>
+  <ul>
+   <li>
+    二成热：调成小火来炒酱料。
+   </li>
+   <li>
+    五成热：滑炒肉片。
+   </li>
+   <li>
+    七成热：爆香调料（也就是传说中的「炝锅」），爆炒蔬菜也是这个油温。
+   </li>
+   <li>
+    八成热：油炸或煎，鱼和肉外皮变得酥脆。
+   </li>
+  </ul>
+  <p>
+   <strong>
+    爆香
+   </strong>
+  </p>
+  <p>
+   就是七成热油温把葱姜蒜炒出香味。
+  </p>
+  <p>
+   讲究点的，爆香后会把料都捞出，只留香喷喷的油。
+  </p>
+  <blockquote>
+   <p>
+    溅油，至少我刚开始——或者说现在还是很怕的东西。有一些小细节可以缓解（锅铲先加热弄干这种就不用强调了叭）：
+   </p>
+   <ul>
+    <li>
+     控制食材的水，贴着锅边放进去
+    </li>
+    <li>
+     油热之后放点盐（听说有用，个人还没实践，也不清楚原理）
+    </li>
+    <li>
+     不仅贴着锅边，还贴着锅底（即够低），并放在靠近自己的一侧
+    </li>
+   </ul>
+   <p>
+    还有些比较……麻烦、猥琐的歪门邪道
+   </p>
+   <ul>
+    <li>
+     手上——乃至手臂抹层水
+     <ul>
+      <li>
+       个人觉得略夸张，Duck不必
+      </li>
+     </ul>
+    </li>
+    <li>
+     用锅盖挡——很low，但有效
+    </li>
+    <li>
+     各种防溅油神器——如防油溅网，详见淘宝
+    </li>
+   </ul>
+   <p>
+    最后，油溅比较难以避免，只能习惯。
+   </p>
+  </blockquote>
+  <h3 id="糖">
+   糖
+  </h3>
+  <p>
+   <strong>
+    炒糖色
+   </strong>
+  </p>
+  <h2 id="烹饪方式">
+   烹饪方式
+  </h2>
+  <h3 id="爆炒">
+   爆炒
+  </h3>
+  <h1 id="后处理">
+   后处理
+  </h1>
+  <h2 id="收汁">
+   收汁
+  </h2>
+  <h2 id="勾芡">
+   勾芡
+  </h2>
+  <h2 id="摆盘">
+   摆盘
+  </h2>
+  <h1 id="常用处理">
+   常用处理
+  </h1>
+  <h2 id="肉类">
+   肉类
+  </h2>
+  <h3 id="猪肉">
+   猪肉
+  </h3>
+  <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+   <hr/>
+   <ol>
+    <li id="fn1">
+     <p>
+      为什么鱼会有腥味？ - Dr.大白兔斯基的回答 - 知乎
+https://www.zhihu.com/question/327324615/answer/871298319
+      <a class="footnote-back" href="#fnref1" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+    <li id="fn2">
+     <p>
+      为什么鱼会有腥味？ - 猫脱酒馆营业中的回答 - 知乎
+https://www.zhihu.com/question/327324615/answer/1016271242
+      <a class="footnote-back" href="#fnref2" role="doc-backlink">
+       ↩︎
+      </a>
+     </p>
+    </li>
+   </ol>
+  </section>
+ </body>
+</html>
