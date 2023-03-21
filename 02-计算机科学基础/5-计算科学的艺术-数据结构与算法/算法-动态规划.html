@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
   <meta content="fivezehua@qq.com" name="author"/>
   <title>
-   哈希表
+   动态规划
   </title>
   <style>
    html {
@@ -795,18 +795,8 @@
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
-         数据结构-哈希表.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
-         数据结构-图.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
-         数据结构-并查集.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-其他数据结构.html">
+         数据结构-其他数据结构.html
         </a>
        </li>
        <li>
@@ -820,18 +810,48 @@
         </a>
        </li>
        <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-0-基础思路.html">
+         算法-0-基础思路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-1-线性结构的排序和查找.html">
+         算法-1-线性结构的排序和查找.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-树形结构的遍历和搜索、回溯和剪枝.html">
+         算法-2-树形结构的遍历和搜索、回溯和剪枝.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-递归算法和非递归算法.html">
+         算法-2-递归算法和非递归算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-3-图.html">
+         算法-3-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-4-字符串：从匹配到模式匹配.html">
+         算法-4-字符串：从匹配到模式匹配.html
+        </a>
+       </li>
+       <li>
         <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
          算法-AC自动机.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
-         算法-变长编码和无损压缩.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-动态规划.html">
+         算法-动态规划.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
-         算法-排序和查找.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
         </a>
        </li>
       </ul>
@@ -1606,11 +1626,53 @@
   </div>
   <header id="title-block-header">
    <h1 class="title">
-    哈希表
+    动态规划
    </h1>
    <p class="author">
     fivezehua@qq.com
    </p>
   </header>
+  <p>
+   什么是动态规划（Dynamic Programming）？动态规划的意义是什么？ -
+阮行止的回答 - 知乎
+https://www.zhihu.com/question/23995189/answer/613096905
+  </p>
+  <ul>
+   <li>
+    无后效性：：如果给定某一阶段的状态，则在这一阶段以后过程的发展不受这阶段以前各段状态的影响。
+   </li>
+   <li>
+    最优子结构：大问题的
+    <strong>
+     最优解
+    </strong>
+    可以由小问题的
+    <strong>
+     最优解
+    </strong>
+    推出
+   </li>
+  </ul>
+  <p>
+   无论是DP还是暴力，我们的算法都是在
+   <strong>
+    可能解空间
+   </strong>
+   内，寻找
+   <strong>
+    最优解
+   </strong>
+   。
+  </p>
+  <p>
+   暴力做法是枚举所有的可能解，这是最大的可能解空间。DP是枚举
+   <strong>
+    有希望成为答案的解
+   </strong>
+   。这个空间比暴力的小得多。
+  </p>
+  <p>
+   也就是说，DP自带剪枝。
+  </p>
  </body>
 </html>

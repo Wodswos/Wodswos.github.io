@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
   <meta content="fivezehua@qq.com" name="author"/>
   <title>
-   图
+   2-递归算法和非递归算法
   </title>
   <style>
    html {
@@ -276,8 +276,6 @@
         border-bottom: #aaaaaa solid 1px;
     }
   </style>
-  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
-  </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -797,18 +795,8 @@
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
-         数据结构-哈希表.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
-         数据结构-图.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
-         数据结构-并查集.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-其他数据结构.html">
+         数据结构-其他数据结构.html
         </a>
        </li>
        <li>
@@ -822,18 +810,48 @@
         </a>
        </li>
        <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-0-基础思路.html">
+         算法-0-基础思路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-1-线性结构的排序和查找.html">
+         算法-1-线性结构的排序和查找.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-树形结构的遍历和搜索、回溯和剪枝.html">
+         算法-2-树形结构的遍历和搜索、回溯和剪枝.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-递归算法和非递归算法.html">
+         算法-2-递归算法和非递归算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-3-图.html">
+         算法-3-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-4-字符串：从匹配到模式匹配.html">
+         算法-4-字符串：从匹配到模式匹配.html
+        </a>
+       </li>
+       <li>
         <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
          算法-AC自动机.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
-         算法-变长编码和无损压缩.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-动态规划.html">
+         算法-动态规划.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
-         算法-排序和查找.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
         </a>
        </li>
       </ul>
@@ -1608,58 +1626,51 @@
   </div>
   <header id="title-block-header">
    <h1 class="title">
-    图
+    2-递归算法和非递归算法
    </h1>
    <p class="author">
     fivezehua@qq.com
    </p>
   </header>
-  <nav id="TOC" role="doc-toc">
-   <ul>
-    <li>
-     <a href="#图的存储" id="toc-图的存储">
-      图的存储
-     </a>
-     <ul>
-      <li>
-       <a href="#邻接矩阵" id="toc-邻接矩阵">
-        邻接矩阵
-       </a>
-      </li>
-      <li>
-       <a href="#邻接表" id="toc-邻接表">
-        邻接表
-       </a>
-      </li>
-     </ul>
-    </li>
-   </ul>
-  </nav>
-  <h1 id="图的存储">
-   图的存储
-  </h1>
   <p>
-   一般来说图有带权的和不带权，但在存储上大同小异。
+   所有递归都可以改写成循环吗？ - 码农的荒岛求生的回答 - 知乎
+https://www.zhihu.com/question/20418254/answer/2416342130
   </p>
-  <h2 id="邻接矩阵">
-   邻接矩阵
-  </h2>
-  <p>
-   用一个
-   <span class="math inline">
-    \(N \times N\)
-   </span>
-   的矩阵记录一个包含N个顶点的图，称为邻接矩阵。
-  </p>
-  <p>
-   在实际存储中，很自然地可以联想到用二维数组存储矩阵，（当然也可以用一维数组，关于矩阵存储的更多细节可自行百度或参考《算法笔记》刁瑞
-谢妍 著）
-  </p>
-  <h2 id="邻接表">
-   邻接表
-  </h2>
-  <p>
-   即用链表（指针）的方法记录图的相关信息。
-  </p>
+  <blockquote>
+   <p>
+    之所以所有的递归都能转为迭代算法是因为递归借助函数调用，函数调用本身就是基于调用栈这种结构实现的，只不过这一切都是自动完成的，我们当然也可以用代码手动模拟出来。
+   </p>
+   <p>
+    我们知道将
+    <a href="https://www.zhihu.com/search?q=递归调用&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2416342130%7D">
+     递归调用
+    </a>
+    全部展开后其实会形成一棵树，把递归转为
+    <a href="https://www.zhihu.com/search?q=非递归&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2416342130%7D">
+     非递归
+    </a>
+    无非就是在遍历这棵树，那么
+    <a href="https://www.zhihu.com/search?q=遍历树&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2416342130%7D">
+     遍历树
+    </a>
+    就有很多技术了，基于栈的
+    <a href="https://www.zhihu.com/search?q=深度优先遍历&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2416342130%7D">
+     深度优先遍历
+    </a>
+    Depth-first
+traversal，或者基于队列的
+    <a href="https://www.zhihu.com/search?q=广度优先遍历&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2416342130%7D">
+     广度优先遍历
+    </a>
+    breadth-first
+traversal都是可以的：
+   </p>
+   <p>
+    <img src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/v2-9107624dcf4785c3c028144d45944b84_720w.jpg"/>
+   </p>
+   <p>
+    说会递归转为非递归这个话题，更理论一些的解释是这样的，不管是递归还是非递归，这两者都是图灵完备的，既然是图灵完备，那么它们在表达能力上就是等价的，不存在谁不能转为谁的问题。
+   </p>
+  </blockquote>
  </body>
 </html>

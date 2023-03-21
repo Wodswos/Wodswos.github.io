@@ -859,18 +859,8 @@
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-哈希表.html">
-         数据结构-哈希表.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-图.html">
-         数据结构-图.html
-        </a>
-       </li>
-       <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-并查集.html">
-         数据结构-并查集.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/数据结构-其他数据结构.html">
+         数据结构-其他数据结构.html
         </a>
        </li>
        <li>
@@ -884,18 +874,48 @@
         </a>
        </li>
        <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-0-基础思路.html">
+         算法-0-基础思路.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-1-线性结构的排序和查找.html">
+         算法-1-线性结构的排序和查找.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-树形结构的遍历和搜索、回溯和剪枝.html">
+         算法-2-树形结构的遍历和搜索、回溯和剪枝.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-2-递归算法和非递归算法.html">
+         算法-2-递归算法和非递归算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-3-图.html">
+         算法-3-图.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-4-字符串：从匹配到模式匹配.html">
+         算法-4-字符串：从匹配到模式匹配.html
+        </a>
+       </li>
+       <li>
         <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-AC自动机.html">
          算法-AC自动机.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
-         算法-变长编码和无损压缩.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-动态规划.html">
+         算法-动态规划.html
         </a>
        </li>
        <li>
-        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-排序和查找.html">
-         算法-排序和查找.html
+        <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/算法-变长编码和无损压缩.html">
+         算法-变长编码和无损压缩.html
         </a>
        </li>
       </ul>
@@ -1695,6 +1715,19 @@
         </li>
        </ul>
       </li>
+      <li>
+       <a href="#面向对象和-class" id="toc-面向对象和-class">
+        面向对象和
+Class
+       </a>
+       <ul>
+        <li>
+         <a href="#初始化" id="toc-初始化">
+          初始化
+         </a>
+        </li>
+       </ul>
+      </li>
      </ul>
     </li>
     <li>
@@ -1767,6 +1800,41 @@
   <p>
    示将光标回退到开始位置。
   </p>
+  <h2 id="面向对象和-class">
+   面向对象和 Class
+  </h2>
+  <h3 id="初始化">
+   初始化
+  </h3>
+  <p>
+   https://blog.csdn.net/mddh_123/article/details/104784831
+  </p>
+  <div class="sourceCode" id="cb2">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    num1 <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>    list1 <span class="op">=</span> []</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a>    <span class="kw">def</span> read(<span class="va">self</span>):</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'num1='</span>, <span class="va">self</span>.num1)</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'list1='</span>, <span class="va">self</span>.list1)</span></code></pre>
+  </div>
+  <p>
+   需要注意，上述代码中，num1 和 list1 都是静态的（就像默认加了 Java
+里的 static 关键字），即不同的实例公用同一个变量。
+  </p>
+  <p>
+   如果需要给每个实例单独初始化变量，应该如下：
+  </p>
+  <div class="sourceCode" id="cb3">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">class</span> B:</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>        <span class="va">self</span>.num1 <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a>        <span class="va">self</span>.list1 <span class="op">=</span> []</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a>    <span class="kw">def</span> read(<span class="va">self</span>):</span>
+<span id="cb3-7"><a aria-hidden="true" href="#cb3-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'num1='</span>, <span class="va">self</span>.num1)</span>
+<span id="cb3-8"><a aria-hidden="true" href="#cb3-8" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'list1='</span>, <span class="va">self</span>.list1)</span></code></pre>
+  </div>
   <h1 id="内置函数和库">
    内置函数和库
   </h1>
@@ -1779,16 +1847,16 @@
    </code>
    函数用于将一个可遍历的数据对象（如列表、字符串）组合为一个索引序列
   </p>
-  <div class="sourceCode" id="cb2">
-   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>seasons <span class="op">=</span> [<span class="st">'Spring'</span>, <span class="st">'Summer'</span>, <span class="st">'Fall'</span>, <span class="st">'Winter'</span>]</span>
-<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">enumerate</span>(seasons))</span>
-<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="co"># output: [(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]</span></span>
-<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="co"># 每一个数据对象如 'Sprint' 被赋予了一个标号 (0) 并组合成一个元组。</span></span>
-<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a><span class="cf">for</span> index, season <span class="kw">in</span> <span class="bu">enumerate</span>(seasons)</span>
-<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>    <span class="bu">print</span>(index, season)</span>
-<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a><span class="co"># 或者</span></span>
-<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">enumerate</span>(seasons)</span>
-<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a>    <span class="bu">print</span>(item[<span class="dv">0</span>], item[<span class="dv">1</span>])</span></code></pre>
+  <div class="sourceCode" id="cb4">
+   <pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>seasons <span class="op">=</span> [<span class="st">'Spring'</span>, <span class="st">'Summer'</span>, <span class="st">'Fall'</span>, <span class="st">'Winter'</span>]</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">enumerate</span>(seasons))</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a><span class="co"># output: [(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]</span></span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a><span class="co"># 每一个数据对象如 'Sprint' 被赋予了一个标号 (0) 并组合成一个元组。</span></span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a><span class="cf">for</span> index, season <span class="kw">in</span> <span class="bu">enumerate</span>(seasons)</span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>    <span class="bu">print</span>(index, season)</span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a><span class="co"># 或者</span></span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">enumerate</span>(seasons)</span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>    <span class="bu">print</span>(item[<span class="dv">0</span>], item[<span class="dv">1</span>])</span></code></pre>
   </div>
   <h1 id="解释器1">
    解释器
