@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="pandoc" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+  <meta content="fivezehua@qq.com" name="author"/>
+  <title>
+   分类模型-决策树
+  </title>
+  <style>
+   html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+   #TOC {
+    border-left: gray 2px dashed;
+    padding: 5px;
+    margin: 2%;
+
+    right: 0;
+    position: fixed;
+    top: 5%;
+    max-height: 90%;
+
+    overflow: scroll;
+  }
+  #TOC::-webkit-scrollbar{
+    width: 0!important;
+  }
+  #TOC a {
+    color: #222222;
+    font-size: 14px;
+  }
+  
+
+    #main-navigation{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        z-index: 999;
+    }
+
+    #navigation-list-wrapper{
+        display: flex;
+        background-color: #ffffff;
+        height: 35px;
+
+        font-family: 'Times New Roman';
+        font-size: 15px;
+    }
+    .main-topic-div{
+        height: 40px;
+        font-size: 20px;
+    }
+
+        .web-header{
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .hutao-img{
+            /* margin-right: 2%; */
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+    .navigation-topic{
+        /* display: inline; */
+        background-color: #fdfdfd;
+        border: #fdfdfd;
+        font-size: 10px;
+        overflow: hidden;
+        margin-left: 2%;
+
+        flex: 1;
+    }
+    .navigation-topic:hover{
+        overflow: visible;
+    }
+
+    .drop-item, .main-topic-div{
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .drop-item a, .main-topic-div a{
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+    .drop-item a:hover, .main-topic-div a:hover{
+        background-color: #e6e6e6;
+    }
+
+
+    #sub-navigation{
+        border-right: #e6e6e6 solid 1px;
+        position: fixed;
+        left: 0;
+        max-height: 90%;
+        max-width: 20%;
+
+        overflow: scroll;
+    }
+    #sub-navigation::-webkit-scrollbar{
+        width: 0!important;
+      }
+    #sub-navigation li{
+        list-style: none;
+    }
+    #sub-navigation a{
+        color: #222222;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    #sub-navigation a:hover{
+        color: #606060;
+        text-decoration: underline;
+    }
+    #current-path{
+        background-color: #e6e6e6;
+        border-top: #aaaaaa solid 1px;
+        border-bottom: #aaaaaa solid 1px;
+    }
+  </style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <tag id="sub-navigation">
+   <li>
+    <a href="https://wodswos.github.io/04-统计学习方法/index.html">
+     04-统计学习方法
+    </a>
+    <ul>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/index.html">
+         index.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/基于符号的机器学习.html">
+         基于符号的机器学习.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/控制论-现代控制论.html">
+         控制论-现代控制论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/控制论-经典控制论.html">
+         控制论-经典控制论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/数学篇-微积分.html">
+         数学篇-微积分.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/数学篇-最优化理论.html">
+         数学篇-最优化理论.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/数学篇-概率.html">
+         数学篇-概率.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/数学篇-线性代数.html">
+         数学篇-线性代数.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/index.html">
+       1-监督学习
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/0-模型的选择和优化.html">
+         0-模型的选择和优化.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/1.1-分类模型-决策树.html">
+         1.1-分类模型-决策树.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/1.2-分类模型-SVM.html">
+         1.2-分类模型-SVM.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/1.2-分类模型-感知机.html">
+         1.2-分类模型-感知机.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/1.3-分类模型-朴素贝叶斯.html">
+         1.3-分类模型-朴素贝叶斯.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/1.4-分类模型-K近邻.html">
+         1.4-分类模型-K近邻.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/2.1-回归模型-从线性回归到逻辑斯蒂回归模型与最大熵模型.html">
+         2.1-回归模型-从线性回归到逻辑斯蒂回归模型与最大熵模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/3.1-集成学习-Bagging.html">
+         3.1-集成学习-Bagging.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/3.2-集成学习-Boosting.html">
+         3.2-集成学习-Boosting.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/3.3-集成学习-随机森林.html">
+         3.3-集成学习-随机森林.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/4-EM算法.html">
+         4-EM算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/5-隐马尔科夫模型.html">
+         5-隐马尔科夫模型.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/6-条件随机场.html">
+         6-条件随机场.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/index.html">
+       2-半监督学习和无监督学习
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/index.html">
+         0-数据预处理
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/0-数据集的处理.html">
+           0-数据集的处理.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/index.html">
+           index.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/损失函数的设计.html">
+           损失函数的设计.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/离散化.html">
+           离散化.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/规约.html">
+           规约.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/降维和PCA主成分分析.html">
+           降维和PCA主成分分析.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/0-数据预处理/集成.html">
+           集成.html
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/1-聚类-概述.html">
+         1-聚类-概述.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/1-聚类-谱聚类.html">
+         1-聚类-谱聚类.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/2-奇异值分解.html">
+         2-奇异值分解.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/3-主成分分析.html">
+         3-主成分分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/4-概率潜在语义分析.html">
+         4-概率潜在语义分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/4-潜在语义分析.html">
+         4-潜在语义分析.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/5-马尔科夫链蒙特卡洛法.html">
+         5-马尔科夫链蒙特卡洛法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/6-潜在迪利克雷分配.html">
+         6-潜在迪利克雷分配.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/7-PageRank算法.html">
+         7-PageRank算法.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/index.html">
+         index.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/4-实践案例/index.html">
+       4-实践案例
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/4-实践案例/李宏毅机器学习-hw1.html">
+         李宏毅机器学习-hw1.html
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/index.html">
+       index.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/x-Python的机器学习库.html">
+       x-Python的机器学习库.html
+      </a>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/其他/index.html">
+       其他
+      </a>
+      <ul>
+       <li>
+        <a href="https://wodswos.github.io/04-统计学习方法/其他/关联分析/index.html">
+         关联分析
+        </a>
+        <ul>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/其他/关联分析/Apriori和FP增长算法.html">
+           Apriori和FP增长算法.html
+          </a>
+         </li>
+         <li>
+          <a href="https://wodswos.github.io/04-统计学习方法/其他/关联分析/index.html">
+           index.html
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <a href="https://wodswos.github.io/04-统计学习方法/损失函数的设计.html">
+       损失函数的设计.html
+      </a>
+     </li>
+    </ul>
+   </li>
+  </tag>
+  <div id="main-navigation">
+   <div id="navigation-list-wrapper">
+    <a class="web-header" href="https://wodswos.github.io">
+     <img alt="hutao-img" class="hutao-img" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/logo.jpg"/>
+     zehua's website
+    </a>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/01-数理基础/index.html">
+       数理基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/00-数学史概要.html">
+       数学史概要
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/01-数理且哲学66/index.html">
+       01-数理且哲学66
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/02-变化且分析77/index.html">
+       02-变化且分析77
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/03-结构且代数88/index.html">
+       03-结构且代数88
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/04-随机且统计99/index.html">
+       04-随机且统计99
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/05-其他/index.html">
+       05-其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-应用数学-信息论和编码/index.html">
+       06-应用数学-信息论和编码
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/06-物理/index.html">
+       06-物理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于数学符号.html">
+       关于数学符号
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/01-数理基础/supplement-关于追问本质和追问直观.html">
+       关于追问本质和追问直观
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/02-计算机科学基础/index.html">
+       计算机科学基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0-天才们的构思-计算机的理论大厦/index.html">
+       0-天才们的构思-计算机的理论大厦
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-《Crash Course Computer Science》笔记.html">
+       《Crash Course Computer Science》笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-从半导体萌芽到互联网时代的所有巨头.html">
+       从半导体萌芽到互联网时代的所有巨头
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/0x-模拟计算机会卷土重来吗？.html">
+       模拟计算机会卷土重来吗？
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-硬件族谱-计算机组成原理/index.html">
+       1-硬件族谱-计算机组成原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/1-面向硬件编程-汇编/index.html">
+       1-面向硬件编程-汇编
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/2-编译器和编译原理/index.html">
+       2-编译器和编译原理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/3-硬件资源的统一管理-操作系统/index.html">
+       3-硬件资源的统一管理-操作系统
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-C++特别篇/index.html">
+       4-面向编译器和解释器编程-C++特别篇
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/4-面向编译器和解释器编程-其他高级计算机语言/index.html">
+       4-面向编译器和解释器编程-其他高级计算机语言
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/5-计算科学的艺术-数据结构与算法/index.html">
+       5-计算科学的艺术-数据结构与算法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/6-信息革命-计算机网络/index.html">
+       6-信息革命-计算机网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/7-设计和架构-软件工程瞎扯淡/index.html">
+       7-设计和架构-软件工程瞎扯淡
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/8-拾遗和杂谈/index.html">
+       8-拾遗和杂谈
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/02-计算机科学基础/计算机编年史.html">
+       计算机编年史
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/index.html">
+       分布式系统和并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/00-并行计算/index.html">
+       00-并行计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/01-分布式和一致性/index.html">
+       01-分布式和一致性
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/02-分布式通信和协同/index.html">
+       02-分布式通信和协同
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-主流实现和应用/index.html">
+       0x-主流实现和应用
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-云计算.html">
+       云计算
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-算一笔帐-量化计算机资源.html">
+       算一笔帐-量化计算机资源
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/03-分布式系统和并行计算/0x-边缘计算.html">
+       边缘计算
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/04-统计学习方法/index.html">
+       统计学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/0-人工智能先验知识和早期实践/index.html">
+       0-人工智能先验知识和早期实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/index.html">
+       1-监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/index.html">
+       2-半监督学习和无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/4-实践案例/index.html">
+       4-实践案例
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/x-Python的机器学习库.html">
+       Python的机器学习库
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/其他/index.html">
+       其他
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/损失函数的设计.html">
+       损失函数的设计
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/05-深度学习方法/index.html">
+       深度学习方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/index.html">
+       0-神经网络基础
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络框架和工具实践/index.html">
+       0-神经网络框架和工具实践
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.1-应用-数字图像处理：基础方法/index.html">
+       2.1-应用-数字图像处理：基础方法
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.2-应用-数字图像处理：计算机视觉/index.html">
+       2.2-应用-数字图像处理：计算机视觉
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/2.3-应用-自然语言处理/index.html">
+       2.3-应用-自然语言处理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/x-脉冲神经网络.html">
+       脉冲神经网络
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/05-深度学习方法/生活里的“智能”和“迷惑行为”.html">
+       生活里的“智能”和“迷惑行为”
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/index.html">
+       工欲善其事必先利其器
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/0.0-Plan/index.html">
+       0.0-Plan
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-Action-Workflow和持续集成.html">
+       Action-Workflow和持续集成
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Git-项目协同的典范.html">
+       项目协同的典范
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Linux/index.html">
+       Linux
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Python-胶水和自动化/index.html">
+       Python-胶水和自动化
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/Visio.html">
+       Visio
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/代码复用和包管理工具.html">
+       代码复用和包管理工具
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/收纳和整理.html">
+       收纳和整理
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/06-工欲善其事必先利其器/笔记：从信息到知识，从编辑到管理/index.html">
+       笔记：从信息到知识，从编辑到管理
+      </a>
+     </div>
+    </div>
+    <div class="navigation-topic">
+     <div class="main-topic-div">
+      <a href="https://wodswos.github.io/07-技多不压身/index.html">
+       技多不压身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.0-哲学和认知/index.html">
+       0.0-哲学和认知
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.1-生命、人类、社会/index.html">
+       0.1-生命、人类、社会
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.2-社会分配：政治、经济/index.html">
+       0.2-社会分配：政治、经济
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/0.3-系统科学/index.html">
+       0.3-系统科学
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.1-英语/index.html">
+       1.1-英语
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.2-读书笔记/index.html">
+       1.2-读书笔记
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/1.3-养生式健身/index.html">
+       1.3-养生式健身
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.1-干饭人干饭魂/index.html">
+       2.1-干饭人干饭魂
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-关于文字/index.html">
+       2.2-关于文字
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/2.2-独立生活/index.html">
+       2.2-独立生活
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/3.1-吃喝玩乐/index.html">
+       3.1-吃喝玩乐
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/s-fiction/index.html">
+       s-fiction
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/打工人的事情：劳务和社保.html">
+       打工人的事情：劳务和社保
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/07-技多不压身/护肤基础常识.html">
+       护肤基础常识
+      </a>
+     </div>
+    </div>
+   </div>
+   <div id="current-path">
+   </div>
+  </div>
+  <header id="title-block-header">
+   <h1 class="title">
+    分类模型-决策树
+   </h1>
+   <p class="author">
+    fivezehua@qq.com
+   </p>
+  </header>
+  <nav id="TOC" role="doc-toc">
+   <ul>
+    <li>
+     <a href="#基本信息" id="toc-基本信息">
+      基本信息
+     </a>
+     <ul>
+      <li>
+       <a href="#决策树与-if-then-规则" id="toc-决策树与-if-then-规则">
+        决策树与 if-then 规则
+       </a>
+      </li>
+      <li>
+       <a href="#决策树与条件概率分布" id="toc-决策树与条件概率分布">
+        决策树与条件概率分布
+       </a>
+      </li>
+      <li>
+       <a href="#决策树的构建过程" id="toc-决策树的构建过程">
+        决策树的构建过程
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#信息的度量和算法实现" id="toc-信息的度量和算法实现">
+      信息的度量和算法实现
+     </a>
+     <ul>
+      <li>
+       <a href="#信息熵和-id3" id="toc-信息熵和-id3">
+        信息熵和 ID3
+       </a>
+       <ul>
+        <li>
+         <a href="#推导-详解" id="toc-推导-详解">
+          推导 &amp; 详解
+         </a>
+        </li>
+        <li>
+         <a href="#实例" id="toc-实例">
+          实例
+         </a>
+        </li>
+        <li>
+         <a href="#存在的问题" id="toc-存在的问题">
+          存在的问题
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#gain-rate-和-c4.5" id="toc-gain-rate-和-c4.5">
+        Gain Rate 和
+C4.5
+       </a>
+       <ul>
+        <li>
+         <a href="#存在的问题-1" id="toc-存在的问题-1">
+          存在的问题
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#gini不纯度和-cart" id="toc-gini不纯度和-cart">
+        Gini不纯度和
+CART
+       </a>
+      </li>
+      <li>
+       <a href="#方差和回归树" id="toc-方差和回归树">
+        方差和回归树
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <a href="#剪枝" id="toc-剪枝">
+      剪枝
+     </a>
+    </li>
+    <li>
+     <a href="#代码实现" id="toc-代码实现">
+      代码实现
+     </a>
+     <ul>
+      <li>
+       <a href="#手撕" id="toc-手撕">
+        手撕
+       </a>
+      </li>
+      <li>
+       <a href="#sklearn" id="toc-sklearn">
+        sklearn
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <h1 id="基本信息">
+   基本信息
+  </h1>
+  <h2 id="决策树与-if-then-规则">
+   决策树与 if-then 规则
+  </h2>
+  <h2 id="决策树与条件概率分布">
+   决策树与条件概率分布
+  </h2>
+  <h2 id="决策树的构建过程">
+   决策树的构建过程
+  </h2>
+  <p>
+   决策树不断根据各种条件判断减小信息熵，直到信息熵为零或小于某一阈值
+  </p>
+  <p>
+   <img src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/DecisionTreeStep.png"/>
+  </p>
+  <h1 id="信息的度量和算法实现">
+   信息的度量和算法实现
+  </h1>
+  <p>
+   案例数据
+  </p>
+  <figure>
+   <img alt="data_cases1" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/data_cases1.png"/>
+   <figcaption aria-hidden="true">
+    data_cases1
+   </figcaption>
+  </figure>
+  <h2 id="信息熵和-id3">
+   信息熵和 ID3
+  </h2>
+  <p>
+   信息熵：确定答案或做出判断所面临的不确定性（需要的信息量）
+   <span class="math display">
+    \[
+H(X) = - \sum _{i=1}^n  p_i \log_2p_i
+\]
+   </span>
+   故判断某个条件 A 的信息量只需用「原本所需的信息量
+」减去「在条件 A 的情况下判断事件还需要的信息量」即可
+   <span class="math display">
+    \[
+H (A) = H (X|A) - H (P)
+\]
+   </span>
+  </p>
+  <p>
+   n = 3 时（x = p(a), y = p(b), p(c) =
+1-x-y），信息熵随概率分布的变化示意图
+  </p>
+  <figure>
+   <img alt="image-20221108092836635" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20221108092836635.png"/>
+   <figcaption aria-hidden="true">
+    image-20221108092836635
+   </figcaption>
+  </figure>
+  <h3 id="推导-详解">
+   推导 &amp; 详解
+  </h3>
+  <p>
+   见信息论相应目录。
+  </p>
+  <h3 id="实例">
+   实例
+  </h3>
+  <p>
+   如案例中 buy_computer 的信息熵
+   <span class="math display">
+    \[
+H \mathrm{(buy\_computer)} = - \sum _{i=1} ^n p_i \log_2 p_i = - \frac 5
+{14} \log _2 \frac 5 {14} - \frac 9 {14} \log _2 \frac 9 {14}
+\approx  0.940285 \mathrm{ bit }
+\]
+   </span>
+   已知 age 的情况下 buy_computer 的信息熵
+   <span class="math display">
+    \[
+\begin{align}
+H \mathrm {(buy\_computer | age)} &amp; = - \sum_{i=1} p_i \log_2 p_i \\
+&amp; =\frac 5{14} \times ( -\frac 2 5 \log_2 \frac 2 5 - \frac 3 5
+\log_2 \frac 3 5) + \dots + \frac 5 \times (-\frac 3 5 \log_2 \frac 3 5
+- \frac 2 5 \log_2 \frac 2 5) \\
+&amp; \approx 0.694 \mathrm {bit}
+\end{align}
+\]
+   </span>
+  </p>
+  <p>
+   信息量即为 0.246 bit
+  </p>
+  <h3 id="存在的问题">
+   存在的问题
+  </h3>
+  <ul>
+   <li>
+    <p>
+     没有考虑连续特征（长度、密度）
+    </p>
+    <ul>
+     <li>
+      <p>
+       取值比较多的特征比取值少的特征信息增益大(哪怕两个特征可能都没有提供信息)
+      </p>
+     </li>
+     <li>
+      <p>
+       但在sklearn提供的工具里又默认二叉树，算不算某种程度避免这一缺陷？
+      </p>
+     </li>
+    </ul>
+   </li>
+   <li>
+    <p>
+     对于缺失值没有考虑
+    </p>
+   </li>
+   <li>
+    <p>
+     没有考虑过拟合
+    </p>
+   </li>
+   <li>
+    <p>
+     算法复杂度较高，可规模性一般
+    </p>
+   </li>
+  </ul>
+  <h2 id="gain-rate-和-c4.5">
+   Gain Rate 和 C4.5
+  </h2>
+  <p>
+   单个离散型数据转化成多个变量，每个变量只有0/1赋值（sklearn默认二叉树）
+  </p>
+  <figure>
+   <img alt="image" src="https://cdn.nlark.com/yuque/0/2021/png/21594955/1621319223196-cabc841b-3384-4615-a365-3d59a7b80f00.png"/>
+   <figcaption aria-hidden="true">
+    image
+   </figcaption>
+  </figure>
+  <p>
+   C4.5（ID3的改进），通过函数将连续变量映射到离散值解决了不能处理连续特征的问题，
+  </p>
+  <ol type="1">
+   <li>
+    取m-1个划分点(每两个相邻值的均值)
+   </li>
+   <li>
+    分别计算以该点作为二元分类点时的信息增益
+   </li>
+   <li>
+    选择信息增益最大的点作为该连续特征的二元离散分类点
+   </li>
+  </ol>
+  <p>
+   通过采用信息增益率（信息增益/特征熵）作为标准，改善信息增益作节点选择标准容易偏爱取值较多的特征的情况
+   <span class="math display">
+    \[
+H_A (D) = - \sum_{i = 1} ^n \frac {|D_i|} {|D|} \log _2 \frac {|D_i|}
+{|D|}
+\]
+   </span>
+   特征数越多，特征熵越大，作分母用于校正
+  </p>
+  <p>
+   过拟合问题：引入正则化系数进行初步的剪枝，在cart中进一步优化
+  </p>
+  <h3 id="存在的问题-1">
+   存在的问题
+  </h3>
+  <ul>
+   <li>
+    C4.5生成多叉树，在计算机模型中二叉树的效率往往会优于多叉树
+   </li>
+   <li>
+    只能用于分类不能回归
+   </li>
+   <li>
+    使用熵模型，对数计算耗时
+   </li>
+  </ul>
+  <h2 id="gini不纯度和-cart">
+   Gini不纯度和 CART
+  </h2>
+  <p>
+   基尼不纯度
+  </p>
+  <p>
+   <span class="math display">
+    \[
+\sum _{i = 1} ^m f_i(1-f_i) = 1- \sum _{i=1} ^m f^2 _i
+\]
+   </span>
+  </p>
+  <p>
+   （对于数学好的，看基尼系数的极值不过是个简单的不等式问题，但对我这种不好的，可视化一下也未尝不可）
+  </p>
+  <p>
+   n = 3 时的基尼不纯度值随 a , b , c 概率分布的变化图象（由概率论可知 z
+= 1- a -b）
+  </p>
+  <p>
+   （其中两个平面为
+   <span class="math inline">
+    \(a = \frac 1 3, b = \frac
+1
+3\)
+   </span>
+   ，显然在平面的交点处取极值，即基尼不纯度确实能起到判别数据集“纯度”的效果）
+  </p>
+  <figure>
+   <img alt="image-20221108091452336" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20221108091452336.png"/>
+   <figcaption aria-hidden="true">
+    image-20221108091452336
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="image-20221108091328706" src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/image-20221108091328706.png"/>
+   <figcaption aria-hidden="true">
+    image-20221108091328706
+   </figcaption>
+  </figure>
+  <p>
+   二分类问题的基尼不纯度更为简洁（也是CART只用二叉树的原因之一）
+   <span class="math display">
+    \[
+\mathrm {Gini}(p)  = 2p(1-p)
+\]
+   </span>
+  </p>
+  <p>
+   优化计算难度带来的误差
+  </p>
+  <figure>
+   <img alt="image" src="https://cdn.nlark.com/yuque/0/2021/jpg/21594955/1621319223500-ff5291d7-afa5-4030-90da-afee0776a4d3.jpg"/>
+   <figcaption aria-hidden="true">
+    image
+   </figcaption>
+  </figure>
+  <p>
+   处理连续型特征的方法与C4.5类似，不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程（对半再对半）（不同于C4.5可以多叉）
+  </p>
+  <h2 id="方差和回归树">
+   方差和回归树
+  </h2>
+  <ul>
+   <li>
+    与分类树不同的地方
+   </li>
+   <li>
+    连续值处理方法不同
+   </li>
+  </ul>
+  <p>
+   不再用基尼不纯度，而是采用和方差的度量方式
+  </p>
+  <p>
+   对于任意的划分特征A，比较分类后的两个集合的均方差之和，找到划分后均方差之和最小的特征
+  </p>
+  <p>
+   <span class="math display">
+    \[
+\min [\sum _{x_i \in D_1} (y_i - c_1) ^2 + \sum_{x_i \in D_2} (y_i -
+c_2)^2]
+\]
+   </span>
+  </p>
+  <p>
+   其中c1,c2分别为两个划分集的均值，对于连续值，找到合适的划分点（参见C4.5连续值处理）使得均方差之和最小
+  </p>
+  <p>
+   进而比较各个划分特征各自的结果，取均方差最小的特征为下一个划分标准。
+  </p>
+  <ul>
+   <li>
+    <p>
+     决策树建立后的预测方法不同
+    </p>
+    <p>
+     CART分类树采用叶子节点里概率最大的类别作为当前节点的预测类别。而回归树输出不是类别，它采用的是用最终叶子（叶子数据集）的均值或者中位数来预测输出结果
+    </p>
+   </li>
+   <li>
+    <p>
+     剪枝
+    </p>
+   </li>
+  </ul>
+  <p>
+   CART回归树和CART分类树的剪枝策略除了在度量损失的时候一个使用均方差，一个使用基尼系数，算法基本完全一样
+  </p>
+  <p>
+   对CART树进行剪枝，类似于线性回归的正则化
+  </p>
+  <ul>
+   <li>
+    <p>
+     从原始决策树生成各种剪枝后的决策树
+    </p>
+   </li>
+   <li>
+    <p>
+     剪枝的损失函数度量
+    </p>
+   </li>
+  </ul>
+  <p>
+   <span class="math display">
+    \[
+C_\alpha(T_t) = C(T_t) + \alpha |T_t|
+\]
+   </span>
+   α为正则化参数，C(T)为训练误差，由基尼系数或均方差度量
+  </p>
+  <ul>
+   <li>
+    正则化参数越大，剪枝程度越大
+   </li>
+   <li>
+    参数为零即不剪枝
+    <ul>
+     <li>
+      参数无穷大只剩根节点
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   <span class="math display">
+    \[
+\alpha = \frac {C(T) - C(T_t)}{ |T_t|  - 1}
+\]
+   </span>
+  </p>
+  <ul>
+   <li>
+    交叉验证泛化能力
+   </li>
+  </ul>
+  <figure>
+   <img alt="image" src="https://cdn.nlark.com/yuque/0/2021/png/21594955/1621319223872-67823572-d697-4db7-b1b5-952d419e4b58.png"/>
+   <figcaption aria-hidden="true">
+    image
+   </figcaption>
+  </figure>
+  <p>
+   to be continue…
+  </p>
+  <p>
+   多变量决策树OC1
+  </p>
+  <p>
+   集成学习-随机森林：改善决策树因样本微小变动而剧烈改变
+  </p>
+  <h1 id="剪枝">
+   剪枝
+  </h1>
+  <h1 id="代码实现">
+   代码实现
+  </h1>
+  <h2 id="手撕">
+   手撕
+  </h2>
+  <h2 id="sklearn">
+   sklearn
+  </h2>
+ </body>
+</html>
