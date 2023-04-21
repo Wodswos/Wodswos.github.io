@@ -276,8 +276,6 @@
         border-bottom: #aaaaaa solid 1px;
     }
   </style>
-  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" type="text/javascript">
-  </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -312,6 +310,11 @@
        <li>
         <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.0-万物起源，线性回归.html">
          1.0-万物起源，线性回归.html
+        </a>
+       </li>
+       <li>
+        <a href="https://wodswos.github.io/05-深度学习方法/0-神经网络基础/1.1-各种常见网络层.html">
+         1.1-各种常见网络层.html
         </a>
        </li>
        <li>
@@ -801,6 +804,11 @@
       </a>
      </div>
      <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/0-数据预处理/index.html">
+       0-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
       <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/index.html">
        1-监督学习
       </a>
@@ -808,6 +816,11 @@
      <div class="drop-item">
       <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/index.html">
        2-半监督学习和无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/3-强化学习/index.html">
+       3-强化学习
       </a>
      </div>
      <div class="drop-item">
@@ -1017,41 +1030,9 @@
   <nav id="TOC" role="doc-toc">
    <ul>
     <li>
-     <a href="#典中典波士顿房价预测" id="toc-典中典波士顿房价预测">
-      典中典：波士顿房价预测
+     <a href="#线性回归" id="toc-线性回归">
+      线性回归
      </a>
-     <ul>
-      <li>
-       <a href="#关于回归和回归分析" id="toc-关于回归和回归分析">
-        关于“回归”和“回归分析”
-       </a>
-      </li>
-      <li>
-       <a href="#线性回归和损失函数" id="toc-线性回归和损失函数">
-        线性回归和损失函数
-       </a>
-      </li>
-      <li>
-       <a href="#训练数据集的平均损失" id="toc-训练数据集的平均损失">
-        （训练）数据集的平均损失
-       </a>
-      </li>
-      <li>
-       <a href="#梯度下降法" id="toc-梯度下降法">
-        梯度下降法
-       </a>
-      </li>
-      <li>
-       <a href="#批量化" id="toc-批量化">
-        批量化
-       </a>
-      </li>
-      <li>
-       <a href="#代码实现" id="toc-代码实现">
-        代码实现
-       </a>
-      </li>
-     </ul>
     </li>
     <li>
      <a href="#激活函数" id="toc-激活函数">
@@ -1107,225 +1088,12 @@
   <p>
    <img src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/letmeseesee.jpg"/>
   </p>
-  <h1 id="典中典波士顿房价预测">
-   典中典：波士顿房价预测
+  <h1 id="线性回归">
+   线性回归
   </h1>
-  <h2 id="关于回归和回归分析">
-   关于“回归”和“回归分析”
-  </h2>
   <p>
-   回归分析中的“回归”是什么意思？ - 颢卿的回答 - 知乎
-https://www.zhihu.com/question/30123729/answer/554278766
+   [[2.1-回归模型-从线性回归到逻辑斯蒂回归模型与最大熵模型]]
   </p>
-  <p>
-   跟很多舶来词一样，“回归”是“Regression”的直译，粗浅地来说，re表示back，gress等于go，所以“回归”可以某种程度上粗浅地理解为“go
-back to mean value”
-  </p>
-  <blockquote>
-   <p>
-    想象这样一个场景，一堆看似无规律的数据在你的图像上肆无忌惮的乱走，我们要做的是找出其中的规律模型，把他们行走的趋势和轨迹“重新组合起来”。
-   </p>
-   <p>
-    回归分析中的“回归”是什么意思？ - 又又里的回答 - 知乎
-https://www.zhihu.com/question/30123729/answer/46958971
-   </p>
-  </blockquote>
-  <p>
-   Regression一词起源于生物学，后来被广泛用于
-   <strong>
-    非确定性相互依赖关系–统计相关关系
-   </strong>
-   。
-  </p>
-  <blockquote>
-   <p>
-    《Linear Models and Generalizations: Least Squares and
-Alternatives》
-   </p>
-   <p>
-    The literature meaning of REGRESSION is ” to move in the backward
-direction”
-   </p>
-   <p>
-    model exists in nature but is unknown to the experimenter.
-   </p>
-   <p>
-    <strong>
-     “回归”的意思就是我们通过收集X与Y来确定实际上存在的关系模型
-    </strong>
-   </p>
-   <p>
-    回归分析中的“回归”是什么意思？ - Keven Howe的回答 - 知乎
-https://www.zhihu.com/question/30123729/answer/47111877
-   </p>
-  </blockquote>
-  <h2 id="线性回归和损失函数">
-   线性回归和损失函数
-  </h2>
-  <p>
-   假设影响房价的因素为居住面积、卧室个数、客厅个数、卫生间个数等，分别记为
-   <span class="math inline">
-    \(x_1,x_2,x_3,x_4\)
-   </span>
-   .
-  </p>
-  <p>
-   假设不同因素之间彼此独立，成交价是不同因素的加权和，即有
-   <span class="math display">
-    \[
-y = w_1 x_1 + w_2 x_2 + w_3 x_3 + w_4 x_4 +b
-\]
-   </span>
-   也可以进一步表示成向量形式：
-   <span class="math display">
-    \[
-\mathbf x = [x_1,x_2,\dots ,x_n] ^ {\mathrm T},\mathbf w
-=[w_1,w_2,\dots,w_n] ^{\mathrm T} \\
-y = \mathbf w^{\mathrm T} \mathbf x + b
-\]
-   </span>
-  </p>
-  <blockquote>
-   <p>
-    可以通过如下操作将偏差引入权重，使之成为权重的一部分，式子会更整齐
-    <span class="math display">
-     \[
-\mathbf x' =[\mathbf x , 1] = [x_1,x_2,x_3,x_4,1] \\
-\mathbf w'= [\mathbf w , b] = [w_1,w_2,w_3,w_4,b]
-\]
-    </span>
-   </p>
-  </blockquote>
-  <p>
-   再定义损失函数为平方损失：
-   <span class="math display">
-    \[
-l(y,\hat y )= \frac 1 2 (y-\hat y) ^2
-\]
-   </span>
-   （有个
-   <span class="math inline">
-    \(\frac 1 2\)
-   </span>
-   的系数是为了后续求导方便消去）
-  </p>
-  <h2 id="训练数据集的平均损失">
-   （训练）数据集的平均损失
-  </h2>
-  <p>
-   输入显然不会只有一个样本，故假设有
-   <span class="math inline">
-    \(n\)
-   </span>
-   个样本，记
-   <span class="math display">
-    \[
-\mathbf X = [\mathbf x_1, \mathbf x_2,\dots,\mathbf x_n] ^{\mathrm T}
-\qquad
-\mathbf y = [\mathbf y_1,\mathbf y_2, \dots ,\mathbf y_n] ^{\mathrm T}
-\]
-   </span>
-   则训练损失为
-   <span class="math display">
-    \[
-l (\mathbf X,\mathbf y ,\mathbf w, b) = \frac 1 {2n} \sum _{i=1} ^n (y_i
-- \mathbf x_i ^{\mathrm T} \mathbf w - b)^2
-\]
-   </span>
-   最小化损失
-   <span class="math inline">
-    \(l\)
-   </span>
-   来学习参数
-   <span class="math inline">
-    \(\mathbf w\)
-   </span>
-   和
-   <span class="math inline">
-    \(b\)
-   </span>
-   .
-   <span class="math display">
-    \[
-\mathbf w ^* ,b* = \arg \min _{\mathbf w,b} l (\mathbf X, \mathbf
-y,\mathbf w, b)
-\]
-   </span>
-  </p>
-  <h2 id="梯度下降法">
-   梯度下降法
-  </h2>
-  <blockquote>
-   <p>
-    线性回归较为简单，故其可以有显式解。
-   </p>
-   <p>
-    但考虑到后续更复杂模型的求解，梯度下降是更为一般的求解方法。
-   </p>
-  </blockquote>
-  <p>
-   理论就不在此赘述了，直接暴力地举个例子。
-  </p>
-  <p>
-   假设共有如下5个样本
-   <span class="math display">
-    \[
-x_1 = 135,x_2 = 2, x_3 = 2, x_4 = 2 , y = 580000 \\
-x_1 = 245,x_2 = 4, x_3 = 3, x_4 = 3 , y = 1200000 \\
-x_1 = 90,x_2 = 2, x_3 = 2, x_4 = 1 , y = 200000 \\
-x_1 = 110,x_2 = 3, x_3 = 2, x_4 = 2 , y = 250000 \\
-x_1 = 132,x_2 = 3, x_3 = 2, x_4 = 2 , y = 320000
-\]
-   </span>
-   <span class="math inline">
-    \(\mathbf w\)
-   </span>
-   初始化为零向量。
-  </p>
-  <p>
-   则有
-   <span class="math display">
-    \[
-\frac {\partial l} {\partial y} = y - \hat y \\
-\frac {\partial y} {\partial {\mathbf w} } =
-\]
-   </span>
-  </p>
-  <p>
-   <span class="math display">
-    \[
-\mathbf w_t = w_{t-1} - \eta \frac {\partial l} {\partial w_{t-1}}
-\]
-   </span>
-  </p>
-  <h2 id="批量化">
-   批量化
-  </h2>
-  <p>
-   用
-   <strong>
-    采样后的样本的平均误差
-   </strong>
-   作为
-   <strong>
-    全样本的平均误差
-   </strong>
-   的近似。
-  </p>
-  <p>
-   不能太小：每次计算量太小，不适合并行来最大化利用资源
-  </p>
-  <p>
-   不能太大：内存消耗增加，浪费计算（如样本都相同的极端情况）
-  </p>
-  <blockquote>
-   <p>
-    小批量梯度下降是深度学习默认的求解算法。
-   </p>
-  </blockquote>
-  <h2 id="代码实现">
-   代码实现
-  </h2>
   <h1 id="激活函数">
    激活函数
   </h1>

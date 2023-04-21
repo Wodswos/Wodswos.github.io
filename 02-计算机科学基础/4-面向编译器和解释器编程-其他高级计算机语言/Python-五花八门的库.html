@@ -1512,6 +1512,11 @@
       </a>
      </div>
      <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/0-数据预处理/index.html">
+       0-数据预处理
+      </a>
+     </div>
+     <div class="drop-item">
       <a href="https://wodswos.github.io/04-统计学习方法/1-监督学习/index.html">
        1-监督学习
       </a>
@@ -1519,6 +1524,11 @@
      <div class="drop-item">
       <a href="https://wodswos.github.io/04-统计学习方法/2-半监督学习和无监督学习/index.html">
        2-半监督学习和无监督学习
+      </a>
+     </div>
+     <div class="drop-item">
+      <a href="https://wodswos.github.io/04-统计学习方法/3-强化学习/index.html">
+       3-强化学习
       </a>
      </div>
      <div class="drop-item">
@@ -1790,6 +1800,18 @@
        <a href="#pandas" id="toc-pandas">
         Pandas
        </a>
+       <ul>
+        <li>
+         <a href="#series" id="toc-series">
+          Series
+         </a>
+        </li>
+        <li>
+         <a href="#dataframe" id="toc-dataframe">
+          DataFrame
+         </a>
+        </li>
+       </ul>
       </li>
       <li>
        <a href="#sphinx" id="toc-sphinx">
@@ -1956,7 +1978,110 @@ https://pandas.pydata.org/docs/user_guide/10min.html
 https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook
   </p>
   <p>
+   一篇很适合当手册查询基础用法的博文：
+https://blog.csdn.net/qq_45011164/article/details/127134131
+  </p>
+  <p>
    <img src="https://zehua-markdown.oss-cn-shanghai.aliyuncs.com/img/fd1d6789d47c279547870b0b5f294eaa.png"/>
+  </p>
+  <h3 id="series">
+   Series
+  </h3>
+  <p>
+   略
+  </p>
+  <h3 id="dataframe">
+   DataFrame
+  </h3>
+  <h4 id="创建">
+   创建
+  </h4>
+  <h4 id="属性">
+   属性
+  </h4>
+  <ul>
+   <li>
+    shape：返回series的形状
+   </li>
+   <li>
+    size：返回元素个数
+   </li>
+   <li>
+    index：返回行索引
+   </li>
+   <li>
+    columns：返回列索引
+   </li>
+   <li>
+    values：返回值
+   </li>
+   <li>
+    dtype：返回元素类型（只能
+    <strong>
+     单独
+    </strong>
+    看一行或一列）
+   </li>
+  </ul>
+  <h4 id="切片和索引">
+   切片和索引
+  </h4>
+  <ul>
+   <li>
+    取列：直接用列名索引
+    <code>
+     df[col_name]
+    </code>
+    ，或可以传列表作为索引取多列
+    <code>
+     df[[col_name1, col_name2, colname3]]
+    </code>
+   </li>
+   <li>
+    取行：
+    <code>
+     df.loc[index]
+    </code>
+    ，同样可以通过传列表作为参数取多行
+    <code>
+     df.iloc[[index1, index2]]
+    </code>
+    <ul>
+     <li>
+      iloc 的 i 是 integer 的意思，只接受整型变量作为参数
+     </li>
+     <li>
+      loc 是 label-based selection，
+     </li>
+    </ul>
+   </li>
+   <li>
+    取元素：同时给定行和列索引
+    <code>
+     df.loc[index, colomn_name]
+    </code>
+    ，同样可以传二元组信息的列表取多个元素
+    <ul>
+     <li>
+      行数在前，列名在后
+     </li>
+     <li>
+      用
+      <code>
+       df.iloc
+      </code>
+      取元素时第二个参数就不该是列名，而是表示第几列的整型变量
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   切片的用法就是在上述基础上用
+   <code>
+    :
+   </code>
+   表示，跟 python
+内置列表切片差别不大。
   </p>
   <h2 id="sphinx">
    Sphinx
